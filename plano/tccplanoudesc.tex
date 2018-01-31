@@ -8,8 +8,8 @@
 \usepackage[portuges]{babel}
 %\usepackage{fontspec}
 \usepackage[T1]{fontenc}
-\usepackage[latin1]{inputenc}
-%\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 
 \usepackage{microtype}
 
@@ -67,8 +67,8 @@
 \chead{
   \scriptsize{
     UNIVERSIDADE DO ESTADO DE SANTA CATARINA -- UDESC\\
-    CENTRO DE CIÊNCIAS TECNOLÓGICAS -- CCT\\
-    DEPARTAMENTO DE CIÊNCIA DA COMPUTAÇÃO -- DCC
+    CENTRO DE CIáº¼NCIAS TECNOLÃ“GICAS -- CCT\\
+    DEPARTAMENTO DE CIáº¼NCIA DA COMPUTAÃ‡ÃƒO -- DCC
   }
 }
 %\rhead{\includegraphics[width=0.3\columnwidth]{figuras/logo_udescjlle.png}}
@@ -77,16 +77,16 @@
 }
 
 \title{
-Plano de Trabalho de Conclusão de Curso\\
-Proposta de um algoritmo hibrido para solução do Problema de Escalonamento de Tripulação (CSP)
+Plano de Trabalho de ConclusÃ£o de Curso\\
+Proposta de uma arquitetura para servidores de jogos massivos
 }
 
 \author{
-Renan Samuel da Silva -- \texttt{renan.samuel.da.silva@gmail.com}\\
+Marlon Henry Schweigert -- \texttt{marlon.henryt@magrethealabs.com}\\
 Omir Alves -- \texttt{omir.alves@udesc.br} {\it (orientador)}\\
 %$<$Nome do Coorientador -- \texttt{email@coorientador} {\it (coorientador)}$>$ (se for o caso)\\
 ~\\
-Turma 2016/2 -- Joinville/SC
+Turma 2018/1 -- Joinville/SC
 }
 
 \date{02 de Julho de 2016}
@@ -94,275 +94,33 @@ Turma 2016/2 -- Joinville/SC
 \maketitle
 
 
-%\singlespacing  %espaçamento simples
-\onehalfspacing  %espaçamento de 1,5
-%\doublespacing  %espaçamento duplo
+%\singlespacing  %espaÃ§amento simples
+\onehalfspacing  %espaÃ§amento de 1,5
+%\doublespacing  %espaÃ§amento duplo
 
 
 \begin{abstract}
-    Grande parte dos problemas encontrados na prática são difíceis de serem
-    resolvidos e possuem um grande número de variáveis (na ordem dos milhares
-    ou milhões), fazendo com que seja impossível resolver otimamente em uma
-    escala de tempo plausível. Sendo assim, torna-se necessário o emprego de
-    algoritmos cada vez mais complexos e que unem soluções exatas e heurísticas.
-    O objetivo desde trabalho é pesquisar, identificar e especificar um método
-    para resolver o problema de agendamento de tripulação (\textit{crew scheduling}).\\
-\textbf{Palavras-chave:} \textit{Programação linear inteira, otimização combinatória, cobertura de conjunto, agendamento de tripulação, Geração de Colunas}
+
+\textbf{Palavras-chave:} \textit{arquitetura, redes, jogos, desenvolvimento Ã¡gil}
 \end{abstract}
 
 %------------------------------------------------
-\section{Introdução e Justificativa}
+\section{IntroduÃ§Ã£o e Justificativa}
 \label{sec:int}
 
-Cada vez mais as empresas buscam otimizar suas atividades, de modo a reduzir o custo e maximizar o lucro final.
-As empresas do segmento de transporte urbano de ônibus deparam-se com o desafio que precisam ser abordados
-a fim de viabilizar o negócio, dentre as quais pode-se citar: renovação da frota de veículos;
-realização da manutenção preventiva da frota; disponibilização de quais horários do serviço de ônibus;
-identificação as rotas de serviço de transporte; alocação de funcionários; tratamento de imprevistos
-temporais e climáticos, dentre outras. Estes questionamentos podem ser resolvidos e otimizadas através da utilização de recursos
-de pesquisa operacional.
 
-Especificamente, o problema de alocação de funcionários ou tripulação, em inglês \textit{crew scheduling problem} (CSP),
-consiste em escolher quais funcionários devem realizar quais funções durante um dado período de tempo \cite{Bergh}. O processo
-de escolha está sujeito à diversas restrições. Existem restrições devido à regras definidas pela empresa, leis trabalhistas, sindicais
-ou preferências dos motoristas de ônibus. Dado o conjunto de restrições, deve-se encontrar as designações que reduzem
-ao máximo o custo da operação. O CSP assume que já tenha sido determinado as rotas ondem a tripulação irá trabalhar, assim como quais veículos
-serão utilizados, quais os horários de partida e chegada e os pontos de troca.
-
-A definição termos relacionados à problemática do CSP faz-se necessária e são apresentadas a segui: uma \textbf{viagem} consiste
-no deslocamento entre dois pontos pré-determinados com horários de partida e chega já determinados. Uma \textbf{jornada}
-consiste na sequencia de viagens realizadas por uma dada tripulação durante o seu turno de trabalho. Conhecendo-se todas as possíveis
-jornadas válidas sobre o conjunto de regras pré-estabelecidos, a solução do CSP consiste em escolher quais jornadas cobrem todas
-as viagens que devem ser realizadas~\cite{Bergh}. Ou seja, dado o conjunto de jornadas válidas, escolhe-se um subconjunto que cubra todas
-as viagens pelo menos uma vez, minimizando assim o custo final.
-
-O problema do CSP é referenciado na literatura como sendo o problema de \textbf{cobertura de conjuntos}, ou \textit{set covering problem} (SCP)~\cite{nemhauser1988integer}.
-Onde dado um conjunto de linhas a serem cobertas, e um conjunto de colunas com custos
-associados que cobrem as linhas, escolhe-se o subconjunto de colunas que cubra todas as linhas minimizando o custo final. Como o SCP
-define que cada linha deve ser coberta pelo menos uma vez, isso implica que se o CSP for modelado como uma instância de SCP, pode ocorrer
-de mais de um tripulante ser designado para a mesma viagem. Isso na prática consiste no fato de um motorista ir de carona até o início de outra viagem,
-por exemplo.
-
-Outra forma de modelar-se o CSP consiste em determinar qual tripulação deve ser associado a uma viagem. Esta restrição
-transforma o problema de SCP em um problema de \textbf{particionamento de conjuntos}, \textit{set partitioning problem} (SPP)~\cite{garfinkel1969set}.
-A principal diferença entre o SCP e o SPP consiste a impossibilidade de te-ser uma mesma linha coberta por mais de uma coluna.
-No contexto do CSP, isto implica em não ter uma tarefa sendo coberta por mais de uma jornada. Devido a restrição de não
-sobreposição, um CSP modelado como um SPP pode ser significativamente mais complexo de resolver, porém, mais interessante do
-ponto de vista prático, já que diminui a ociosidade dos tripulantes. Sabe-se que tanto o SPP quanto o SCP são problemas
-NP-Hard~\cite{karp1972}.
-
-Um dos primeiros algoritmos propostos para o SCP consiste em uma heurística gulosa proposta por~\cite{chvatal1979greedy}.
-A cada passo o algoritmo escolhe a coluna que cobre o maior número possível de linhas. O algoritmo
-é na prática rápido, porém tende a não gerar soluções tão boas quanto outros algoritmos modernos.~\cite{balas1980set} propôs
-um algoritmo baseado em \textit{branch and bound} e que utiliza heurísticas duais. Este algoritmo (com o poder computacional
-disponível na data da publicação do artigo) foi capaz de resolver instâncias de dimensões até 200 $\times$ 2000.~\cite{beasley1987algorithm}
-melhorou o algoritmo proposto por Balas e Ho, utilizando relaxações lagrangianas e remoção de linhas e colunas. Este algoritmo, segundo
-o autor, chegou a marca de problemas de dimensões $400 \times 4000$.~\cite{fisher1990optimal} utilizou \textit{branch and bound} com
-diversas heurísticas duais, para assim encontrar o limite superior de otimalidade do problema. Trabalhos como~\cite{de2011algoritmo}
-e~\cite{dos2008metodo} utilizam soluções híbridas para a solução do problema.~\cite{ceria1997},~\cite{caprara2000algorithms},
-~\cite{ernst2004staff} e~\cite{van2013personnel} apresentam um estudo mais detalhado sobre os algoritmos utilizados para resolver o SCP, SPP e CSP.
-
-Conhecendo-se todas as possíveis jornadas de uma instância de CSP, pode-se modela-lo utilizando programação linear inteira (PLI). A modelagem utilizando-se
-o SPP e o SCP é apresentada em~\eqref{spp} e~\eqref{scp}, respectivamente. O conjunto de todas as jornadas possíveis está codificado
-na matriz $A$. O vetor $J$ corresponde a todas as jornadas, e o vetor $T$ a todas as tarefas. A variável $a_{tj}$ é $1$ se a tarefa
-$t$ é coberta pela jornada $j$ e $0$ caso contrário. A restrição~\eqref{spp2} garante que cada tarefa $t \in T$ é coberta exatamente
-uma única vez pelas jornadas selecionadas.
-
-A restrição~\eqref{scp2} funciona de modo análogo, porém, a restrição deixa de ser uma igualdade
-e passa a ser uma desigualdade, fazendo com que cada tarefa seja coberta pelo menos uma vez. O vetor $X$ determina que jornadas
-serão utilizadas. Se $x_j = 1$, então a $j-$ésima é utilizada, caso contrário $x_j = 0$. As restrições~\eqref{spp3} e~\eqref{scp3}
-garantem que a varável de decisão $x$ possuirá um valor válido.
-
-Dado o problema em questão, o tamanho da matriz é tipicamente grande, e para casos práticos
-é muitas vezes inviável de tratá-la. O número de jornadas possíveis cresce exponencialmente, de modo que a enumeração de todas as
-jornadas possíveis não é viável.
-\cite{vance1993crew} reportou que para uma instância de CSP com 253 tarefas, mais de 5 milhões de jornadas
-são possíveis. De todas as jornadas possíveis, apenas algumas são de fato utilizadas na solução final, as demais não são interessantes.
-Portanto, é interessante que apenas jornadas que podem vir a ser úteis sejam utilizadas de fato. A programação linear inteira dispõe-se um recurso
-capaz de sequencialmente reduzir o número de colunas a serem utilizados, denominado de \textbf{geração de colunas}~\cite{desaulniers2006column}.
-
-\begin{align}
-    \label{spp} \text{min} \: \sum_{j \in J} c_j x_j \\
-    \label{spp2} \sum_{j \in J} a_{tj} x_j = 1, \forall t \in T \\
-    \label{spp3} x_j \in \{0, 1\}, \forall j \in J
-\end{align}
-
-\begin{align}
-    \label{scp} \text{min} \: \sum_{j \in J} c_j x_j \\
-    \label{scp2} \sum_{j \in J} a_{tj} x_j \ge 1, \forall t \in T \\
-    \label{scp3} x_j \in \{0, 1\}, \forall j \in J
-\end{align}
-
-O método de geração de colunas consiste em um processo onde o problema com um grande número de variáveis é decomposto em
-dois problemas. O problema mestre, que é igual ao original, porém, com um conjunto reduzido de variáveis, e o sub-problema,
-que é utilizado para identificar quais variáveis são necessárias para obter-se a solução ótima do problema original. O processo
-de solução com geração de colunas consiste em criar-se um problema mestre, otimizar a sua relaxação linear, e utilizar
-as varáveis duais do problema mestre juntamente com o sub-problema,  para identificar se o problema mestre necessita da geração
-de novas colunas ou se ele corresponde ao ótimo do problema original.
-
-Dado um conjunto $J$ de todas as jornadas (que na prática está codificado na matriz $A$), na geração de colunas,
-utiliza-se um conjunto reduzido $\tilde{J} \subseteq J$. O problema mestre é dado por~\eqref{sppm1},~\eqref{sppm2} e~\eqref{sppm3}.
-Após a solução da relaxação linear do problema mestre, utiliza-se as variáveis duais, obtidas a partir da relaxação linear
-do problema mestre, no subproblema, para determinar se alguma jornada pode melhorar o resultado atual obtido. Este processo é
-denominado de \textit{pricing}~\cite{barnhart1998branch}. O \textit{pricing} consiste na solução do problema da separação~\cite{nemhauser1988integer}
-para o problema dual do problema mestre~\cite{lubbecke2005selected}. No caso do CSP, pode-se apresentar o conjunto de tarefas como
-vértices de um grafo e ligá-los com arestas direcionadas para indicar a ordem que as tarefas podem ser executadas. Cada tarefa tem
-um tempo fixo de início e fim, e se uma tarefa inicia após o termino de outra, então ela pode ser realizada em sequencia. Toda jornada é
-então um caminho neste grafo. A tabela~\ref{tab_csp} contém uma instância de CSP e a figura~\ref{fig_csp} apresenta o grafo
-associado ao problema.
-
-\begin{align}
-    \label{sppm1} \text{min} \: \sum_{j \in \tilde{J}} c_j x_j \\
-    \label{sppm2} \sum_{j \in \tilde{J}} a_{tj} x_j = 1, \forall t \in T \\
-    \label{sppm3} x_j \in \{0, 1\}, \forall j \in \tilde{J}
-\end{align}
-
-\begin{figure}[!htb]
-    \centering
-    \begin{minipage}{.5\textwidth}
-        \centering
-        \begin{tabular}{|c|c|c|} \hline
-            tarefa   & Início & Fim \\ \hline
-            tarefa 1 & 1      & 10 \\ \hline
-            tarefa 2 & 1      & 4  \\ \hline
-            tarefa 3 & 11     & 14 \\ \hline
-            tarefa 4 & 6      & 10 \\ \hline
-            tarefa 5 & 11     & 15 \\ \hline
-        \end{tabular}
-        \captionof{table}{Instância do CSP}
-        \label{tab_csp}
-    \end{minipage}%
-    \begin{minipage}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.8\linewidth]{graph.pdf}
-        \caption{Jornadas modeladas como grafo}
-        \label{fig_csp}
-    \end{minipage}
-\end{figure}
-
-A interpretação do grafo da figura~\ref{fig_csp} ocorre da seguinte forma, após realizar a tarefa 2, pode-se realizar a tarefa 4 com um custo
-4 ou a tarefa 3 com custo 3, e assim por diante. Conforme a tabela~\ref{tab_csp}, a tarefa 5 começa após a 4, portanto existe uma aresta que leva
-do vértice 4 ao 5. Já a tarefa 4 começa antes do fim da tarefa 1, logo não há uma aresta ligando-as. Os pesos associados as arestas
-indicam o custo ao mudar de tarefa. Na prática, este custo pode corresponder ao tempo gasto para realizar o preparo para a tarefa ou algum
-outro custo que deseja-se minimizar.
-
-O subproblema para o CSP consiste em determinar um caminho entre os nós de origem e destino. Os nós de origem quando aplicados ao
-transporte via ônibus, podem ser considerado como garagens, assim como os nós finais.  Considerando que as jornadas são executadas
-por tripulações, é desejável que elas não ultrapassem uma determinada carga horária. Por outro lado, caminhos de custo mínimo
-oferecem uma minimização no custo final. Portanto, o subproblema deve ser capaz de encontrar o caminho de menor custo dentro de
-um limite arbitrário de tempo, e que possa oferecer melhoras na solução do problema mestre.
-
-A modelagem do subproblema dá-se segundo a função objetivo~\eqref{sp1} e as restrições~\eqref{sp2},~\eqref{sp3},~\eqref{sp4} e~\eqref{sp5}.
-Utiliza-se dois vetores de variáveis de decisão. O vetor $v$ corresponde aos vértices e o vetor $y$ as arestas que vão fazer parte do caminho.
-A seleção da coluna que será inserida no problema mestre dá-se através do uso das variáveis do problema mestre, que são representadas no vetor $\pi$.
-Obtém-se assim uma solução que possui o custo mínimo e oferece melhoras no problema mestre. O vetor $d$ presente na restrição~\eqref{sp4} faz com que
-o custo do caminho seja limitado a um valor arbitrário $MaxW$, sendo que $d_t$ é a duração da jornada $t$. Ignorando-se a restrição~\eqref{sp4} tem-se
-o problema do custo mínimo. No entanto, com o uso desta restrição o subproblema passar a ser um problema de caminho mínimo com restrição de
-recursos~\cite{desaulniers2006column}, que é NP-\textit{Hard}~\cite{garey1979computers}. \cite{hassin1992approximation} apresentou um
-algoritmo de aproximação de complexidade $\mathcal{O}((n^3/\epsilon) * (log n/\epsilon))$. Existem ainda bordagens baseadas em \textit{labeling}
-\cite{dumitrescu2003improved}, limites duais~\cite{handler1980dual} e relaxação lagrangiana~\cite{beasley1989algorithm}.
-
-\begin{align}
-    \label{sp1} \text{min} \: \sum_{a \in A} c_a y_a + \sum_{t \in T} \pi_t v_t \\
-    \label{sp2} \sum_{a \in \delta^{+}(v_0)} y_a = \sum_{a \in \delta^{+}(v_f)} y_a = 1 \\
-    \label{sp3} \sum_{a \in \delta^{+}(v_t)} y_a = \sum_{a \in \delta^{-}(v_f)} y_a = v_t, \: \forall t \in T\\
-    \label{sp4} \sum_{a \in A} d_a y_a \leq MaxW \\
-    \label{sp5} v_t, y_a \in \{0, 1\}, \forall v_t \in V, \forall a \in A
-\end{align}
-
-Além do método de geração de colunas, outros métodos também são utilizados na literatura, tais como: algoritmos genéticos~\cite{doalgoritmos},
-\textit{simulated annealing}~\cite{hanafi2014hybrid},
-\textit{particle swarm optimization}~\cite{limlawan2014hybrid}
-\textit{multi-start randomized heuristic}~\cite{de2016multi},
-e \textit{ant colony optimization}~\cite{deng2011ant}.
-
-Na literatura pesquisada até o momento, identificou-se que vários autores a fim de resolver o CSP de forma eficiente
-(que apresentam um melhor desempenho computacional), utilizaram o método de geração de colunas ou um conjunto de outros métodos,
-podendo ser heurísticos ou híbridos.
-
-Porém, dada a pesquisa que realizou-se, não foi possível concluir que identificou-se um método (híbrido ou heurístico)
-que apresenta o melhor desempenho computacional dentre todos os métodos que foram propostos. Especialmente considerando
-que o CSP apresenta diversas modelagens que variam entre si, de modo que o bom desempenho para um conjunto de modelos
-não transfere-se para outro.
-
-Dado o exposto acima, este trabalho tem o objetivo de especificar e propor um método para a solução do CSP que, a princípio seja capaz de prover
-soluções de modo exato e seja competitivo, e preferencialmente mais eficiente, com outros algoritmos pesquisados na literatura.
-
-%------------------------------------------------
 \section{Objetivos}
 \label{obj}
-Objetivo Geral: Este trabalho tem como objetivo analisar os métodos disponíveis na literatura para solução do CSP com
-a finalidade de propor um novo algoritmo ou melhorar um já existente.
-\\
-Objetivos Específicos:
-\begin{itemize}
-    \item Pesquisar e identificar os principais algoritmos presentes na literatura que resolvam o CSP.
-    \item Coletar instâncias de \textit{benchmark} utilizadas na literatura.
-    \item Selecionar alguns dos algoritmos pesquisados.
-    \item Especificar o método proposto.
-    \item Realizar testes para avaliação do método proposto.
-\end{itemize}
-
 
 %------------------------------------------------
 \section{Metodologia}
 \label{met}
-Inicialmente estudar-se-á em detalhe o problema proposto e será realizado uma revisão bibliográfica do assunto,
-incluindo as diversas modelagens para o problema. Em seguida será considerado algoritmos que foram utilizados
-na literatura para resolver o problema e será analisado suas características funcionais e desempenho.
-Após está etapa será procurado problemas de CSP utilizados na literatura, com o objetivo
-de realizar um estudo da eficiência dos modelos estudados. Por fim será realizado uma comparação dos resultados
-obtidos para averiguar a relevância dos algoritmos estudados e suas implementações, para então propor um novo
-algoritmo.
 
 %------------------------------------------------
 \section{Cronograma proposto}
 \label{cro}
-Etapas:
-\begin{enumerate}
-        \item Revisão bibliográfica e análise da problemática.
-        \item Escolha dos métodos de modelagem.
-        \item Estudo de algoritmos exatos aplicáveis para a solução da problemática.
-        \item Estudo de algoritmos heurísticos aplicáveis para a solução da problemática.
-        \item Eleição de algoritmos para estudo.
-        \item Desenvolvimento de protótipos para testes.
-        \item Experimentação com os algoritmos escolhidos.
-        \item Coleta e análise dos experimentos.
-        \item Escrita do trabalho de conclusão de curso.
-\end{enumerate}
 
-\vspace{0.5cm}
-{\tiny
-\noindent \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|c|c||c|c|c|c|c|c|c|c|c|c|c|c|}
-  \hline
-  \multirow{2}{*}{\textbf{\small{Etapas}}} & \multicolumn{12}{|c||}{\textbf{\small{2016}}} & \multicolumn{12}{|c|}{\textbf{\small{2017}}} \\
-  \cline{2-25}
-   & \textbf{J} & \textbf{F} & \textbf{M} & \textbf{A} & \textbf{M} & \textbf{J} & \textbf{J} & \textbf{A} & \textbf{S} & \textbf{O} & \textbf{N} & \textbf{D} & \textbf{J} & \textbf{F} & \textbf{M} & \textbf{A} & \textbf{M} & \textbf{J} & \textbf{J} & \textbf{A} & \textbf{S} & \textbf{O} & \textbf{N} & \textbf{D} \\
-  \hline \hline
-  %\textbf{\small{1}} & & & & & & & &X&X&X& & & & & & & & & & & & & & \\ \hline
-  %\textbf{\small{2}} & & & & & & & & &X&X&X& & & & & & & & & & & & & \\ \hline
-  %\textbf{\small{3}} & & & & & & & & &X&X&X&X& & & & & & & & & & & & \\ \hline
-  %\textbf{\small{4}} & & & & & & & & &X&X&X&X& & & & & & & & & & & & \\ \hline
-  %\textbf{\small{5}} & & & & & & & & & &X&X&X& & & & & & & & & & & & \\ \hline
-  %\textbf{\small{6}} & & & & & & & & & & & & &X&X&X&X& & & & & & & & \\ \hline
-  %\textbf{\small{7}} & & & & & & & & & & & & & &X&X&X&X&X& & & & & & \\ \hline
-  %\textbf{\small{8}} & & & & & & & & & & & & & & &X&X&X&X& & & & & & \\ \hline
-  %\textbf{\small{9}} & & & & & & & & & & &X&X&X&X&X&X&X&X& & & & & & \\ \hline
-  \textbf{\small{1}} &  &  &  &  &  &  &  & \checkmark & \checkmark & \checkmark &            &            &            &            &            &            &            &            &  &  &  &  &  & \\ \hline
-  \textbf{\small{2}} &  &  &  &  &  &  &  &            & \checkmark & \checkmark & \checkmark &            &            &            &            &            &            &            &  &  &  &  &  & \\ \hline
-  \textbf{\small{3}} &  &  &  &  &  &  &  &            & \checkmark & \checkmark & \checkmark & \checkmark &            &            &            &            &            &            &  &  &  &  &  & \\ \hline
-  \textbf{\small{4}} &  &  &  &  &  &  &  &            & \checkmark & \checkmark & \checkmark & \checkmark &            &            &            &            &            &            &  &  &  &  &  & \\ \hline
-  \textbf{\small{5}} &  &  &  &  &  &  &  &            &            & \checkmark & \checkmark & \checkmark &            &            &            &            &            &            &  &  &  &  &  & \\ \hline
-  \textbf{\small{6}} &  &  &  &  &  &  &  &            &            &            &            &            & \checkmark & \checkmark & \checkmark & \checkmark &            &            &  &  &  &  &  & \\ \hline
-  \textbf{\small{7}} &  &  &  &  &  &  &  &            &            &            &            &            &            & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  &  &  &  &  & \\ \hline
-  \textbf{\small{8}} &  &  &  &  &  &  &  &            &            &            &            &            &            &            & \checkmark & \checkmark & \checkmark & \checkmark &  &  &  &  &  & \\ \hline
-  \textbf{\small{9}} &  &  &  &  &  &  &  &            &            &            & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  &  &  &  &  & \\ \hline
-\end{tabular}
-}
-
-\section{Forma de Acompanhamento/Orientação}
-O acompanhamento será realizado principalmente através de reuniões semanais. O controle das tarefas a fazer
-serão feitas baseadas em uma ata gerada a cada reunião.
+\section{Forma de Acompanhamento/OrientaÃ§Ã£o}
 
 \bibliographystyle{abnt-alf}
 \bibliography{tccplanoudesc}
@@ -373,13 +131,13 @@ serão feitas baseadas em uma ata gerada a cada reunião.
   \centering
   \rule{7.2cm}{0.1mm}
 
-  \textbf{\textit{Omir Alves}}
+  \textbf{\textit{Charles Christian Miers}}
 \end{minipage}
 \begin{minipage} {0.49\linewidth}
   \centering
   \rule{7.2cm}{0.1mm}
 
-  \textbf{\textit{Renan Samuel da Silva}}
+  \textbf{\textit{Marlon Henry Schweigert}}
 \end{minipage}
 
 \end{document}

@@ -1,6 +1,5 @@
-*.aux
-*.log
-*.swp
 *.bbl
 *.blg
+*.aux
+*.log
 *.out
