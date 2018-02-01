@@ -18,3 +18,18 @@ Se faz de extrema importância a pesquisa sobre este gênero para melhorar a qua
 A Figura ~\ref{fig:conection_peer_hour} mostra um serviço de MMORPG utilizando 4 servidores distintos separados por um multiplexador. Pode-se perceber que existem picos próximos a 2250 conexões.
 
 A análise realizada por \cite{system_performance} mostra um jogo de pequeno porte. Jogos de porte maior podem conter milhares de jogadores online simultaneamente. Um exemplo é o jogo RuneScape, a qual possui 90 mil jogadores online simultaneamente \cite{runescape_online_users}.
+
+Em geral, serviços para essa categoria de jogo tendem a transitar e manipular uma quantia grande de dados, e por esse motivo torna-se alvo de diversas pesquisas nacs áreas de sistemas distribuidos e redes de computadores.
+
+Nos ultimos anos houve um elevado investimento na pesquisa nas áreas de BigData e Sistemas Distribuídos para suprir a demanda do mercado. Essas pesquisas revelaram novos métodos viáveis de replicação de dados, chamadas remota de procedimentos e sincronização de alto desempenho com o objetivo de tornar viável escrever aplicações de grande porte com menor custo computacional. Essas pesquisas trouxeram vários avanços tecnológicos a qual atualmente já encontram-se desenvolvidos e aplicados em diversas tecnologias disponíveis de forma OpenSource. Grandes exemplos são novos bancos de dados que desprezam o principio ACID e tomam o BASE como novo princípio, linguagens de programação a qual foram pensadas para serem facilmente escaláveis e modularizadas e a utilização de protocolos de alto desempenho tentando otimizar o máximo possível que pode-se ter sobre o protocolo TCP.
+
+Essa pesquisa trará resposta a perguntas como:
+
+\begin{itemize}
+  \item Tais tecnologias desenvolvidas para suprir a alta demanda de aplicações que não são sensíveis a latência são eficientes para serviços de jogos massivos?
+  \item Qual o grau de escalabilidade que um serviço usando essas técnicas pode obter?
+  \item Esses serviços são viáveis para projetos reais?
+  \item Quais os pontos fracos que obtemos com a utilização desses serviços?
+  \item É possível obter métricas para comparar com experimentos anteriores e futuros do mesmo segmento?
+  \item Ouve comprometimento da qualidade de serviço ao usuário final? E ouve algum ganho aos desenvolvedores?
+\end{itemize}
