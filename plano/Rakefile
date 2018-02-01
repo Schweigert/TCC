@@ -1,0 +1,6 @@
+task :default do
+  loop do
+    sh 'make'
+    sleep 100
+  end
+end
