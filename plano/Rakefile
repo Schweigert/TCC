@@ -4,3 +4,7 @@ task :default do
     sleep 100
   end
 end
+
+task :clear do
+  sh 'rm *.bbl *.blg *.aux *.log *.out'
+end

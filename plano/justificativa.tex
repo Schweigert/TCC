@@ -3,36 +3,20 @@
 
 Os avanços na tecnologia estão permitindo que as pessoas utilizem de serviços com um grande volume de dados. Essa onda, atualmente conhecida como BigData, tem atraído pesquisadores para testar e validar novas abordagens devido ao grande desenvolvimento de aplicações distribuídas \cite{mmo_analytic}.
 
-Um uso atual estudado por empresas para melhorar a qualidade de serviço são os jogos de interpretação multijogador massivos. Estes que surgiram de uma categoria de jogos de mesa baseados em representação de personagens nomeado como \textit{Role-Playing Game} (RPG), sendo um grande exemplo o jogo \textit{Dungeon and Dragons} \cite{tsr1980dungeons}. A principal característica desse estilo de jogo é a comunicação e representação virtual de um mundo onde cada jogador pode interagir com objetos virtuais compartilhados no mundo ou outros milhares de jogadores, tendo como maior objetivo do jogo a resolução de problemas e desenvolvimento do personagem \cite{video_game_technologies}.
+Um dos temas abordados são os serviços de jogos de interpretação multijogador massivos (popularmente conhecidos por MMORPG, ou \textit{Massively Multiplayer Online}), estes que surgiram de uma categoria de jogos de mesa baseados em representação de personagens nomeado como \textit{Role-Playing Game} (RPG) tal como o jogo \textit{Dungeon and Dragons} \cite{tsr1980dungeons}. A principal característica desse estilo de jogo é a comunicação e representação virtual de um mundo onde cada jogador pode interagir com objetos virtuais compartilhados ou tomar ações sobre outros milhares de jogadores, tendo como maior objetivo do jogo a resolução de problemas, desenvolvimento do personagem e interação entre os jogadores \cite{video_game_technologies}.
 
 O mercado de jogos massivos vem crescendo desde 2012 \cite{new_york_times}, sendo 2016 um dos mais lucrativos até então segundo o site Statista \cite{statista_2016}. A sua projeção para 2018 é que sejam arrecadados mais de 30 bilhões de dólares americanos com esta categoria de jogos \cite{statista_2018}, um aumento de 20\% a mais sobre o ano de 2016.
 
+Um estudo realizado \cite{system_performance} mostra um serviço de MMORPG utilizando 4 servidores distintos separados por um multiplexador. Pode-se perceber que existem picos próximos a 2250 conexões simultâneas ~\ref{fig:conection_peer_hour}, mesmo o jogo analisado sendo considerado um jogo de pequeno porte. Jogos de porte maior podem conter milhares de jogadores online simultaneamente. Um exemplo é o jogo entitulado RuneScape, a qual possui 90 mil jogadores online simultaneamente \cite{runescape_online_users}, mostrando assim a carga que a carga que serviços como esses devem suportar.
+
 \begin{figure}[h]
-\caption{Plot gráfico comparando o número de conexões ao decorrer de 11 dias
-\cite{system_performance}.}
-\centering
-\includegraphics[width=1\textwidth]{img/connection_peer_hour.png}
-\label{fig:conection_peer_hour}
+  \caption{Plot gráfico comparando o número de conexões ao decorrer de 11 dias
+  \cite{system_performance}.}
+  \centering
+  \includegraphics[width=1\textwidth]{img/connection_peer_hour.png}
+  \label{fig:conection_peer_hour}
 \end{figure}
 
-Um estudo realizado \cite{system_performance} mostra um serviço de MMORPG utilizando 4 servidores distintos separados por um multiplexador. Pode-se perceber que existem picos próximos a 2250 conexões simultâneas. A análise realizada ~\ref{fig:conection_peer_hour} mostra um jogo de pequeno porte. Jogos de porte maior podem conter milhares de jogadores online simultaneamente. Um exemplo é o jogo RuneScape, a qual possui 90 mil jogadores online simultaneamente \cite{runescape_online_users}.
+Em geral, serviços para essa categoria de jogo tendem a tranportar e manipular uma grande quantia de dados, e por esse motivo torna-se alvo de diversas pesquisas nas áreas de sistemas distribuidos e redes de computadores com o objetivo de minimizar o impácto da latência nesses serviços\cite{stephenclarkewillson2017} e por sua vez aumentar a qualidade de serviço. Vários estudos focaram em distribuição de carga \cite{load_balance} \cite{kd_tree}, e arquiteturas \textit{peer-to-peer}.
 
-Em geral, serviços para essa categoria de jogo tendem a tranportar e manipular uma grande quantia de dados, e por esse motivo torna-se alvo de diversas pesquisas nas áreas de sistemas distribuidos e redes de computadores para maximizar o impácto da latência nesses sistemas. Nos últimos anos a pesquisa dessa área estava focada em tentar resolver problemas de escalabilidade e distribuição de carga \cite{load_balance} \cite{kd_tree}, trazendo como resposta positiva novos métodos para escalar os serviços de jogos de forma satisfatória.
-
-Nos ultimos anos houve um elevado investimento na pesquisa nas áreas de BigData e Sistemas Distribuídos para suprir a demanda do mercado. Essas pesquisas revelaram novos métodos viáveis de replicação de dados, chamadas remota de procedimentos e sincronização de alto desempenho com o objetivo de tornar viável escrever aplicações de grande porte com menor custo computacional. Essas pesquisas trouxeram vários avanços tecnológicos a qual atualmente já encontram-se desenvolvidos e aplicados em diversas tecnologias disponíveis de forma OpenSource. Grandes exemplos são os bancos de dados NoSQL que desprezam o principio ACID e tomam o princípio BASE como o novo padrão para ganhar desempenho, linguagens de programação a qual foram pensadas para serem facilmente escaláveis e modularizadas e desenvolvimento de protocolos que tentam obter o máximo desempenho acima do protocolo TCP.
-
-Essa pesquisa trará resposta a perguntas como:
-
-\begin{itemize}
-  \item Tais tecnologias desenvolvidas para suprir a alta demanda de aplicações que não são sensíveis a latência são eficientes para serviços de jogos massivos?
-  \item Qual o grau de escalabilidade que um serviço usando essas técnicas pode obter?
-  \item Esses serviços são viáveis para projetos reais?
-  \item Quais os pontos fracos que obtemos com a utilização desses serviços?
-  \item Ouve comprometimento da qualidade de serviço ao usuário final? E ouve algum ganho aos desenvolvedores?
-  \item É possível obter métricas para comparar com experimentos anteriores e futuros do mesmo segmento?
-  \item É possível ter métricas de comparação com um serviço cliente servidor convencional?
-  \item É possível publicar os resultados de forma OpenSource para comunidade utilizar?
-  \item Essa arquitetura proverá um método fácil de acoplar a motores gráficos já existentes no mercado?
-\end{itemize}
-
-Se faz de extrema importância a pesquisa sobre este gênero para melhorar a qualidade de serviço e otimizar o transporte de dados entre o cliente e o serviço online. Um dos grandes problemas atuais é a escalabilidade e qualidade desses serviços, visto que temos que entregar um serviço escalável conforme a demanda de usuários sem perder tempo de resposta, tornando um serviço crítico e sensível a pequenas alterações e detalhes de sua implementação \cite{cloud_fog}.
+Os serviços atuais escritos para suportar milhares de jogadores atualmente estão trabalhando como microserviços\cite{stephenclarkewillson2017}\cite{albion_online_unite}. Estes microserviços são pequenos softwares que realizam uma determinada ação de forma exemplar, uma evolução do conceito de utilidades Unix "\textit{doing one thing well}". Esses serviços pertencem a uma coleção de serviços denominada macroserviço, a qual corresponde ao serviço completo de backend da aplicação.
