@@ -11,14 +11,6 @@ Em geral, esses serviços tendem a ser sensíveis a latência e necessitam de um
 
 Um estudo realizado \cite{system_performance} mostra um serviço clássico de MMORPG utilizando 4 servidores distintos separados por um multiplexador. Trata-se de uma arquitetura cliente-servidor a qual aguenta picos próximos a 2250 conexões simultâneas ~\ref{fig:conection_peer_hour}. Jogos de porte maior podem conter milhares de jogadores online simultaneamente. Um outro exemplo é o jogo entitulado RuneScape, a qual possui 90 mil jogadores online simultaneamente \cite{runescape_online_users}.
 
-\begin{figure}[h]
-  \caption{Plot gráfico comparando o número de conexões ao decorrer de 11 dias
-  \cite{system_performance}.}
-  \centering
-  \includegraphics[width=1\textwidth]{img/connection_peer_hour.png}
-  \label{fig:conection_peer_hour}
-\end{figure}
-
 Os serviços escritos atualmente, a qual podem suportar suportar milhares de jogadores, estão trabalhando como microserviços\cite{stephenclarkewillson2017}\cite{albion_online_unite}. Estes microserviços são pequenos softwares que realizam uma determinada ação de forma exemplar, uma evolução do conceito de utilidades Unix "\textit{doing one thing well}". Esses serviços pertencem a uma coleção de serviços denominada macroserviço, a qual corresponde ao serviço completo de backend da aplicação.
 
 Os microserviços para estado de jogo são separados conforme a posição virtual do personagem do jogador. Dessa forma, regiões mais visitadas por jogadores terão maior tráfego de rede e consumo de recursos comparados a regiões pouco exploradas. Esta é uma perca grande de recurso atualmente existente nessa arquitetura \cite{cloud_fog}.
