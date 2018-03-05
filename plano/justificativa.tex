@@ -1,32 +1,32 @@
 \section{Introdução e Justificativa}
 \label{sec:int}
 
-Os avanços tecnológicos de sistemas distribuídos estão permitindo que pessoas utilizem de serviços com um grande volume de dados para aplicações sensíveis a latência. Essa situação é bem favorável a área de jogos massivos, tendo atraído pesquisadores para testar e validar novas abordagens em serviços com objetivando reduzir a carga desses serviços e reduzir o impacto a latência para o usuário final, resultando em uma melhor experiência aos jogadores da categoria de jogo tratado no presente trabalho\cite{mmo_analytic}.
+Os avanços tecnológicos de sistemas distribuídos estão permitindo que pessoas utilizem de serviços com volumes massivos de dados para aplicações sensíveis a latência. Essa situação é bem favorável a área de jogos massivos, tendo atraído pesquisadores para testar e validar novas abordagens em serviços com o objetivo de reduzir a carga desses serviços e reduzir o impacto a latência para o usuário final, resultando em uma melhor experiência aos jogadores da categoria de jogo tratado no presente trabalho\cite{mmo_analytic}.
 
-O mercado de jogos massivos multijogadores de interpretação (\textit{MMORPG}) vem crescendo desde 2012 \cite{new_york_times}, sendo 2016 um dos mais lucrativos até então, segundo o site Statista \cite{statista_2016}. A sua projeção para 2018 é que sejam arrecadados mais de 30 bilhões de dólares americanos com esta categoria de jogos \cite{statista_2018}, um aumento de 20\% a mais sobre o ano de 2016.
+O mercado de jogos massivos multijogadores de interpretação (\textit{MMORPG}) vem crescendo desde 2012 \cite{new_york_times}, sendo no ano de 2016 um dos mais lucrativos\cite{statista_2016}. A sua projeção para 2018 é que sejam arrecadados mais de 30 bilhões de dólares americanos com esta categoria de jogos \cite{statista_2018}, um aumento de 20\% a mais sobre o ano de 2016.
 
-\textit{Massively Multiplayer Online} ou \textit{MMO} (como são popularmente conhecidos) são os jogos de interpretação multijogador massivos. A principal característica desse estilo de jogo é a comunicação e representação virtual de um mundo fantasia onde cada jogador pode interagir com objetos virtuais compartilhados ou tomar ações sobre outros de jogadores em tempo real, tendo como principais objetivos a resolução de problemas conforme a sua regra de design, o desenvolvimento do personagem e a interação entre os jogadores \cite{video_game_technologies}.
+\textit{Massively Multiplayer Online} ou \textit{MMO} (como são popularmente conhecidos) são os jogos de interpretação multijogador massivos. A principal característica desse estilo de jogo é a comunicação e representação virtual de um mundo fantasia onde cada jogador pode interagir com objetos virtuais compartilhados ou tomar ações sobre outros de jogadores em tempo real, tendo como principais objetivos a resolução de problemas conforme a sua regra de design, o desenvolvimento do personagem e a interação entre os jogadores\cite{video_game_technologies}.
 
-Serviços MMO são utilizados como negócio viável e lucrativo, a qual a experiência de uso do usuário final é um fator crítico para o sucesso. A maioria dos jogos massivos no mercado atual dispoem de uma arquitetura com diversos servidores, onde a performance destes servidores influenciam na experiência do usuário final. Modelar um sistema performático em torna-se um trabalho essencial para a satisfação do usuário final\cite{1417630}.
+Serviços MMO são utilizados como negócio viável e lucrativo, a qual a experiência de uso do usuário final é um fator crítico para o sucesso. A maioria dos jogos massivos disponíveis no mercado estão implementados sobre uma arquitetura com diversos servidores, onde o desempenho destes servidores influenciam na experiência do usuário final. Modelar um sistema de alto desempenho em torna-se um trabalho essencial para a satisfação do usuário final\cite{1417630}.
 
-Uma métrica popular para mensurar a performance do jogo é o número de conexões. Em geral, se o servidor caos ultrapasse esses limites, diversas ocorrências de experiência com o usuário poderam ocorrer\cite{1417630}. As ocorrências mais comuns são:
+Uma métrica popular para mensurar o desempenho do jogo é o número de conexões. Em geral, se o servidor caso ultrapasse esses limites, diversas ocorrências de experiência com o usuário poderão ocorrer\cite{1417630}. As ocorrências mais comuns são:
 
 \begin{itemize}
-  \item \textbf{Longo tempo de resposta aos clientes}: esta ocorrência trás uma péssima qualidade ao usuário ou até mesmo impossibilitando o uso do serviço.
-  \item \textbf{Dessincronização com os clientes}: esta ocorrência promove rollback na aplicação, proporcionando desconforto ou má fluidez do jogo.
+  \item \textbf{Longo tempo de resposta aos clientes}: esta ocorrência trás uma qualidade insatisfatória ao usuário ou até mesmo impossibilitando o uso do serviço.
+  \item \textbf{Dessincronização com os clientes}: esta ocorrência promove reversão na aplicação, proporcionando desconforto e baixa fluidez do jogo.
   \item \textbf{Problemas internos ao servidor}: esta ocorrência pode estar ligada a diversos outros erros como sobrecarga no banco de dados, gerenciamento lento do espaço ou inconsistências dentro do jogo perante a regra de negócios.
-  \item \textbf{Queda da conexão com os clientes}.
+  \item \textbf{Falha de conexão entre o cliente e os microserviços}: Promove a inacessibilidade do serviço ao usuário final.
 \end{itemize}
 
 Existem algumas causas comuns para essas falhas:
 
 \begin{itemize}
   \item \textbf{Baixo poder computacional do servidor}: poder computacional baixo para a qualidade de experiência do usuário final desejada.
-  \item \textbf{Grande complexidade computacional}: o serviço usa algoritmos ruins ou até mesmo a regra de negócios demanda de algoritmos complexos.
+  \item \textbf{Grande complexidade computacional}: o serviço usa algoritmos de alta complexidade ou até mesmo a regra de negócios que demandem de algoritmos complexos.
   \item \textbf{Limitado pela própria arquitetura}: está limitado aos microserviços que servem o macroserviço.
   \item \textbf{Uma arquitetura que não foi planejada para receber determinado número de conexões}.
 \end{itemize}
 
-A literatura atual propoe algumas alternativas de arquiteturas para serviços de jogos MMORPG de microserviços, \cite{stephenclarkewillson2017} \cite{albion_online_unite}. Existem algumas variações híbridas \textit{peer-to-peer}, a qual não é aceita até então por jogos comerciais por ser demasiadamente complexo a manutenção de estado de jogo.
+A literatura atual propõe algumas alternativas de arquiteturas para serviços de jogos MMORPG de microserviços, \cite{stephenclarkewillson2017} \cite{albion_online_unite}. Existem algumas variações híbridas \textit{peer-to-peer}, a qual não é aceita até então por jogos comerciais por ser demasiadamente complexo a manutenção de estado de jogo.
 
-A proposta de otimização das análises realizadas sobre as arquiteturas de microserviços para jogos massivos focada ao gerenciamento de mundos virtuais proposta pela literatura trás impacto direto a melhoria da qualidade de experiência ao usuário final, por sua vez, proporcionando soluções com melhor garantia de sucesso sobre outras arquiteturas problemáticas.
+A proposta de otimização das análises realizadas sobre as arquiteturas de microserviços para jogos massivos focada ao gerenciamento de mundos virtuais proposta pela literatura traz impacto direto a melhoria da qualidade de experiência ao usuário final, por sua vez, proporcionando soluções com melhor garantia de sucesso sobre outras arquiteturas problemáticas.
