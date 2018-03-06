@@ -11,16 +11,16 @@ Serviços MMO são utilizados como negócio viável e lucrativo, a qual a experi
 
 \subsection{Ocorrências em serviços massivos}
 
-Uma métrica popular para mensurar o desempenho do jogo é o número de conexões. Em geral, se o servidor caso ultrapasse esses limites, diversas ocorrências de experiência com o usuário poderão ocorrer. As ocorrências comuns são\cite{1417630}:
+Uma métrica popular para mensurar o desempenho do jogo é o número de conexões. Em geral, se o servidor caso ultrapasse o limite para qual ele é projetado, diversas ocorrências de experiência com o usuário podem ocorrer. As ocorrências comuns são\cite{1417630}:
 
 \begin{itemize}
   \item \textbf{Longo tempo de resposta aos clientes}: esta ocorrência trás uma qualidade insatisfatória ao usuário ou até mesmo impossibilitando o uso do serviço.
   \item \textbf{Dessincronização com os clientes}: esta ocorrência promove reversão na aplicação, proporcionando desconforto e baixa fluidez do jogo.
   \item \textbf{Problemas internos ao servidor}: esta ocorrência pode estar ligada a diversos outros erros como sobrecarga no banco de dados, gerenciamento lento do espaço ou inconsistências dentro do jogo perante a regra de negócios.
-  \item \textbf{Falha de conexão entre o cliente e os microserviços}: Promove a inacessibilidade do serviço ao usuário final.
+  \item \textbf{Falha de conexão entre o cliente e os microserviços}: promove a inacessibilidade do serviço ao usuário final.
 \end{itemize}
 
-Existem algumas causas comuns para essas falhas, sendo alguns dos problemas conhecidos que podem causar tais ocorrências\cite{1417630}:
+Existem algumas causas comuns para essas falhas, sendo alguns dos possíveis problemas conhecidos que podem gerar tais ocorrências\cite{1417630}:
 
 \begin{itemize}
   \item \textbf{Baixo poder computacional do servidor}: poder computacional baixo para a qualidade de experiência do usuário final desejada.
@@ -31,9 +31,9 @@ Existem algumas causas comuns para essas falhas, sendo alguns dos problemas conh
 
 \subsection{Arquiteturas de microserviços}
 
-As ocorrências descritas são resolvidas no segmento de desenvolvimento web utilizando uma arquitetura de microserviços. Entende-se por microserviço as aplicações que executam operações menores de um macroserviço\cite{stephenclarkewillson2017}. Essas arquiteturas iniciam uma nova linha de desenvolvimento de aplicações preparadas para executar sobre nuvens computacionais, promovendo maior flexibilidade, escalabilidade, gerenciamento e desempenho, sendo a principal escolha de arquitetura de grandes empresas como Amazon, Netflix e LinkedIn\cite{7830692}\cite{7515686}.
+As ocorrências descritas são resolvidas no segmento de desenvolvimento web utilizando uma arquitetura de microserviços. Entende-se por microserviço as aplicações que executam operações menores, da melhor forma possível, de um macroserviço\cite{stephenclarkewillson2017}. Essas arquiteturas iniciam uma nova linha de desenvolvimento de aplicações preparadas para executar sobre nuvens computacionais, promovendo maior flexibilidade, escalabilidade, gerenciamento e desempenho, sendo a principal escolha de arquitetura de grandes empresas como Amazon, Netflix e LinkedIn\cite{7830692}\cite{7515686}.
 
-A arquitetura ingênua, ou monolítica, é dada por uma única instância agregada com um único banco de dados (relação 1-1). Essa implementação foca somente em criar uma interface global do jogo através desse servidor, recebendo as ações do jogador e retornando o estado de jogo para o cliente.
+A arquitetura ingênua, ou monolítica, é dada por uma única instância agregada com um único banco de dados (relação 1-1). Essa implementação foca somente em criar uma interface global do jogo através desse servidor, recebendo as ações do jogador e retornando o estado de jogo para o cliente. Essa arquitetura é facilmente encontrada em jogos massivos clássicos.
 
 \begin{figure}[H]
   \includegraphics[width=5cm]{arquiteturas/monolitica.png}
@@ -54,7 +54,7 @@ A arquitetura baseada em regiões\cite{albion_online_unite} basea-se na distribu
   \centering
 \end{figure}
 
-A arquitetura baseada em serviços\cite{stephenclarkewillson2017} aborda o jogo como um único servidor monolítico, separando as suas funcionalidades em microserviços. Esta arquitetura arrisca tempo de resposta para obter o máximo de conexões no macroserviço. Também utiliza a abordagem de separação das regiões, porém utiliza divisão dinâmica do mundo.
+A arquitetura baseada em serviços\cite{stephenclarkewillson2017} aborda o jogo como um único servidor monolítico, separando as suas funcionalidades em microserviços. Esta arquitetura arrisca tempo de resposta para obter o máximo de conexões no macroserviço. Também utiliza a abordagem de separação das regiões focando na distribuição uniforme dos jogadores no mundo virtual. Os bancos de dados foram retirados para facilitar a visualização.
 
 \begin{figure}[H]
   \includegraphics[width=8cm]{arquiteturas/servicos.png}
@@ -63,4 +63,4 @@ A arquitetura baseada em serviços\cite{stephenclarkewillson2017} aborda o jogo 
 
 \subsection{Justificativa}
 
-A proposta de otimização das análises realizadas sobre as arquiteturas de microserviços para jogos massivos focada ao gerenciamento de mundos virtuais proposta pela literatura traz impacto direto a melhoria da qualidade de experiência ao usuário final, por sua vez, proporcionando soluções com melhor garantia de sucesso sobre outras arquiteturas problemáticas.
+A proposta de otimização das análises realizadas sobre as arquiteturas de microserviços para jogos massivos focada ao gerenciamento de mundos virtuais proposta pela literatura traz impacto direto a melhoria da qualidade de experiência ao usuário final e maior margem de lucro\cite{1417630}, por sua vez, proporcionando soluções com melhor garantia de sucesso sobre outras arquiteturas problemáticas.
