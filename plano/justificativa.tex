@@ -68,20 +68,36 @@ Da mesma forma, faz sentido modularizar um serviço \ac{MMORPG} em microserviço
 
 \subsection{Arquiteturas de microserviços}
 
-Entende-se por microserviço as aplicações que executam operações menores, da melhor forma possível, de um macroserviço\cite{stephenclarkewillson2017}.
+Entende-se por microserviço as aplicações que executam operações menores de um macroserviço, da melhor forma possível\cite{stephenclarkewillson2017}.
+%
+Microserviços devem funcionar separadamente e de forma autônomas. Seus desenhos devem seguir de alinhamentos de alta coesão e baixo acoplamento\cite{8169955}.
 %
 Essas arquiteturas iniciam uma nova linha de desenvolvimento de aplicações preparadas para executar sobre nuvens computacionais, promovendo maior flexibilidade, escalabilidade, gerenciamento e desempenho, sendo a principal escolha de arquitetura de grandes empresas como Amazon, Netflix e LinkedIn\cite{7830692}\cite{7515686}.
 
+Um microserviço é definido pelas seguintes características\cite{8169955}:
 
-A arquitetura Rudy~\cite{stephenclarkewillson2017}~\cite{matthiasrudy2011} (Figura~\ref{fig:rudy})
-%ccm <-23
+\begin{itemize}
+  \item Deve posibilitar a implementação como uma peça individual do macroserviço.
+  \item Deve funcionar individualmente.
+  \item Deve estar disponível na rede.
+  \item Cada serviço deve ter uma interface. Essa interface deve ser o suficiente para utilizar o serviço.
+  \item O serviço pode ser utilizado por várias linguagens de programação e plataformas.
+  \item Para facilitar o uso, o microserviço deve estar disponível em um diretório. Dessa forma as aplicações podem busca-lo nesse diretório.
+  \item O serviço deve executar com as dependências mínimas. Ao agregar vários microserviços, o macroserviço resultante poderá prover funcionalidades complexas.
+\end{itemize}
+
+A arquitetura Rudy(Figura~\ref{fig:rudy}) é formada por um sistema cliente-servidor monolítico, na qual cada
+serviço individual gerencia um mundo mútuo dos demais gerenciadores de mundo~\cite{matthiasrudy2011}.
+%
+Essa arquitetura dificulta a escalabilidade, modificações e manutenção\cite{8169955}, além de segregar a comunidade de jogadores em servidores menores\cite{matthiasrudy2011}.
+
 \begin{figure}[htb!]
-  \caption{Arquitetura utilizada no jogo Tibia.}
+  \caption{Arquitetura utilizada no jogo Tibia~\cite{matthiasrudy2011}.}
   \label{fig:rudy}
-  \includegraphics[width=5cm]{arquiteturas/monolitica.png}
+  \includegraphics[width=8cm]{arquiteturas/rudy.png}
   \centering
 
-  Adaptado de:~\cite{stephenclarkewillson2017}
+  Adaptado de:~\cite{matthiasrudy2011}
 \end{figure}
 %ccm <-24
 
