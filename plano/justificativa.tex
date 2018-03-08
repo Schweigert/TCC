@@ -10,8 +10,9 @@ O principal objetivo das pesquisas é reduzir a carga e o impacto a latência pa
 Reduzir a carga e impacto da latência em serviços para jogos massivos resultam em uma melhor experiência de jogabilidade aos usuários finais\cite{1417630}.
 
 
-
-O mercado de jogos massivos multijogadores de interpretação (\textit{MMORPG}) vem crescendo desde 2012 \cite{new_york_times}, sendo no ano de 2016 um dos mais lucrativos\cite{statista_2016}. % ccm usar classe de acrônimos
+Jogos \ac{MMORPG} são utilizados como negócio viável e lucrativo, a qual a experiência de uso do usuário final é um fator crítico para o sucesso.
+%
+O mercado de jogos massivos multijogadores de interpretação (\textit{MMORPG}) vem crescendo desde 2012 \cite{new_york_times}, sendo no ano de 2016 um dos mais lucrativos\cite{statista_2016}.
 %
 A sua projeção para 2018 é que sejam arrecadados mais de 30 bilhões de dólares americanos com esta categoria de jogos \cite{statista_2018}, um aumento de 20\% a mais sobre o ano de 2016.
 
@@ -21,7 +22,6 @@ A sua projeção para 2018 é que sejam arrecadados mais de 30 bilhões de dóla
 %
 A principal característica desse estilo de jogo é a comunicação e representação virtual de um mundo fantasia na qual cada jogador pode interagir com objetos virtuais compartilhados ou tomar ações sobre outros de jogadores em tempo real, tendo como principais objetivos a resolução de problemas conforme a sua regra de \textit{design}, o desenvolvimento do personagem e a interação entre os jogadores\cite{video_game_technologies}.
 %
-Jogos \ac{MMORPG} são utilizados como negócio viável e lucrativo, a qual a experiência de uso do usuário final é um fator crítico para o sucesso.
 
 Um jogo \ac{MMORPG} é arquitetado em 2 partes~\cite{mmo_analytic}:
 \begin{itemize}
@@ -30,7 +30,7 @@ Um jogo \ac{MMORPG} é arquitetado em 2 partes~\cite{mmo_analytic}:
   \item \textbf{Cliente}: Cliente é a aplicação que realizará requisições com a interface do macroserviço, exibindo o estado de jogo de forma imersiva.
 \end{itemize}
 
-A maioria dos jogos \ac{MMORPG} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção desses serviços.
+A maioria dos jogos \ac{MMORPG} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços.
 %
 Modelar um sistema de alto desempenho torna-se um trabalho essencial para a satisfação do usuário final\cite{1417630}.
 %
@@ -49,13 +49,11 @@ As ocorrências mais comuns são\cite{1417630}:
 \begin{itemize}
   \item \textbf{Longo tempo de resposta aos clientes}: implica em uma qualidade insatisfatória de jogabilidade ao usuário ou até mesmo impossibilitando o uso do serviço.
   \item \textbf{Dessincronização com os clientes}: realiza reversão na aplicação. Reversão é definida pela situação onde uma requisição é solicitada ao servidor, um pré-processamento aparente é executado e essa requisição é negada, sendo necessário desfazer o pré-processamento aparente realizado ao cliente.
-  \item \textbf{Problemas internos ao serviço}:  pode estar relacionada a diversos outros erros internos a implementação ou recursos internos do serviço (\textit{e.g.,} sobrecarga no banco de dados, gerenciamento lento do espaço ou inconsistências dentro do jogo perante a regra de negócios).
-  \item \textbf{Falha de conexão entre o cliente e os microserviços}: causar a inacessibilidade do serviço ao usuário final.
+  \item \textbf{Problemas internos ao serviço}:  pode estar relacionada a diversos outros erros internos de implementação ou capacidade de recurso computacional (\textit{e.g.,} sobrecarga no banco de dados, gerenciamento lento do espaço ou inconsistências dentro do jogo perante a regra de negócios).
+  \item \textbf{Falha de conexão entre o cliente e os microserviços}: causa a negação de serviço ao usuário final.
 \end{itemize}
 
-Existem algumas causas comuns para essas as ocorrências descritas.
-%
-Alguns problemas comuns para essas ocorrências são\cite{1417630}:
+Existem algumas causas comuns para essas as ocorrências descritas\cite{1417630}, na qual são apresentadas a seguir:
 
 \begin{itemize}
   \item \textbf{Baixo poder computacional do servidor}: poder computacional baixo para a qualidade de experiência de jogabilidade do usuário final desejada.
@@ -63,7 +61,7 @@ Alguns problemas comuns para essas ocorrências são\cite{1417630}:
   \item \textbf{Limitado pela própria arquitetura}: está limitado diretamente pelo número de conexões, não suportando a carga recebida.
 \end{itemize}
 
-A área de desenvolvimento web compartilha várias ocorrências comums geradas por sobrecarga do serviço\cite{7830692}.
+A área de desenvolvimento web compartilha várias ocorrências comuns geradas por sobrecarga do serviço\cite{7830692}.
 %
 Em desenvolvimento web é comum utilizar a abordagem de microserviços para resolver o problema de sobrecarga, modularizando seu funcionamento em pedaços menores.
 %
@@ -73,9 +71,9 @@ Da mesma forma, faz sentido modularizar um serviço \ac{MMORPG} em microserviço
 
 Entende-se por microserviço as aplicações que executam operações menores de um macroserviço, da melhor forma possível\cite{stephenclarkewillson2017}.
 %
-Microserviços devem funcionar separadamente e de forma autônomas.
+Microserviços devem funcionar separadamente e de forma autônoma.
 %
-Seus seu funcionamento deve ser desenhado para permitir alinhamentos de alta coesão e baixo acoplamento entre os demais microserviços existentes em um macroserviço\cite{8169955}.
+Seu funcionamento deve ser desenhado para permitir alinhamentos de alta coesão e baixo acoplamento entre os demais microserviços existentes em um macroserviço\cite{8169955}.
 
 
 
@@ -121,8 +119,8 @@ O principal objetivo dessa arquitetura é modularizar o serviço visando melhora
 A arquitetura é planejada para funcionar conforme a seguinte especificação\cite{albion_online_unite}:
 
 \begin{itemize}
-  \item O mundo é distribuido sobre os vários servidores de mapas. Cada servidor gerencia de $1km^{2}$, nomeado pedaço.
-  \item Jogadores mudam a conexão com os microserviços quando estão posicionados na borda de um mapa.
+  \item O mundo é distribuído sobre os vários servidores de mapas. Cada microserviço gerencia uma região do mundo, denominado \textit{chunk}.
+  \item Jogadores mudam a conexão com os microserviços quando estão posicionados na borda de um \textit{chunk}.
   \item A autorização de acesso aos microserviços é obtido pelo banco de dados.
   \item O coordenador do mundo é responsável por tudo que seja de escopo global (\textit{e. g.,} Grupos, chat global, guildas, \textit{etc.}).
 \end{itemize}
@@ -155,14 +153,19 @@ Ele é popularmente conhecido por ter seus serviços sempre ativos, visto que a 
   Adaptado de:~\cite{stephenclarkewillson2017}
 \end{figure}
 
-Conforme as arquiteturas de microserviços dos jogos \ac{MMORPG} aumentam para atender novas demandas do mercado, o seu custo computacional e complexidade da rede aumentam.
+Conforme as arquiteturas de microserviços dos jogos \ac{MMORPG} aumentam para atender novas demandas do mercado, o seu custo computacional e complexidade de nós na nuvem computacional aumentam.
 %
 Por esse motivo a análise e otimização dessas arquiteturas é importante para impactar em um melhor desempenho tanto ao usuário final, quanto a otimização de lucros das empresas que disponibilizam esses serviços.
 
 \subsection{Justificativa}
 
-A proposta de otimização das análises realizadas sobre as arquiteturas de microserviços para jogos massivos focada ao gerenciamento de mundos virtuais proposta pela literatura traz impacto direto a melhoria da qualidade de experiência ao usuário final e maior margem de lucro\cite{1417630}.
-%
-Por sua vez, proporcionando soluções com melhor garantia de sucesso sobre outras arquiteturas problemáticas.
+A proposta de otimização das análises realizadas sobre as arquiteturas de microserviços para jogos massivos focada ao gerenciamento de mundos virtuais, proposta pela literatura, traz impacto direto ao usuário final e a empresa que mantem esse sistema\cite{1417630}.
 
-%ccm justificar mais  def orma mais didática.
+A proposta contida no atual trabalho é otimizar tais arquiteturas visando melhorar algumas características específicas:
+
+\begin{itemize}
+  \item Recursos utilizados
+  \item Escalabilidade
+  \item Disponibilidade
+  \item Flexibilidade
+\end{itemize}
