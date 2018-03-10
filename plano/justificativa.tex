@@ -36,7 +36,7 @@ Modelar um sistema de alto desempenho torna-se um trabalho essencial para a sati
 %
 As ocorrências geradas por um sistema de baixo desempenho podem acarretar em frustração do usuário com o serviço e/ou aumento dos gastos com recurso computacional para manter o serviço.
 %
-%ccm Fazer um breve definição do entedimento de ocorrência
+Uma ocorrência é qualquer tipo de mal funcionamento em uma aplicação, não necessáriamente aparente ao usuário final~\cite{1417630}.
 
 \subsection{Ocorrências em serviços massivos}
 \label{sec:ocorrencias}
@@ -54,14 +54,15 @@ Neste contexto, as ocorrências mais comuns são~\cite{1417630}:
   \item \textbf{Falha de conexão entre o cliente e os microserviços}: causa a negação de serviço ao usuário final.
 \end{itemize}
 
-Existem algumas causas comuns para essas as ocorrências descritas~\cite{1417630}: %, na qual são apresentadas a seguir:
+Existem algumas causas comuns para essas as ocorrências descritas~\cite{1417630}:
 
 \begin{itemize}
   \item \textbf{Baixo poder computacional do servidor}: poder computacional baixo para a qualidade de experiência de jogabilidade do usuário final desejada.
   \item \textbf{Complexidade de algoritmos}: o serviço usa algoritmos de alta complexidade ou regras de negócios que demandam por um algoritmo complexo.
   \item \textbf{Limitado pela própria arquitetura}: está limitado diretamente pelo número de conexões, não suportando a carga recebida.
 \end{itemize}
-%ccm <-13
+
+Tais ocorrências estão diretamente correlacionadas a carga a qual tais serviços estão submetidos e podem ser amenizadas utilizando técnicas de provisionamento de recursos e balanceamento de carga~\cite{1417630}, mas não suficiente para eliminar tais ocorrências.
 
 A área de desenvolvimento web compartilha várias ocorrências comuns geradas por sobrecarga do serviço~\cite{7830692}.
 %
@@ -95,29 +96,49 @@ Um microserviço é definido pelas seguintes características~\cite{8169955}:
 
 Alguns exemplos de arquitetura de microserviços para jogos \ac{MMORPG} são as arquiteturas apresentadas por Rudy (Figura~\ref{fig:rudy}), Salz (Figura~\ref{fig:salz}) e a arquitetura escrita por Knowles (Figura~\ref{fig:knowles}).
 
+\begin{figure}[htb!]
+  \begin{minipage}{.5\textwidth}
+    \caption{Arquitetura Rudy, utilizada no jogo Tibia ~\cite{matthiasrudy2011}.}
+    \label{fig:rudy}
+    \includegraphics[height=3.5cm]{arquiteturas/rudy.png}
+    \centering
+
+    Adaptado de:~\cite{matthiasrudy2011}
+  \end{minipage}
+  \begin{minipage}{.5\textwidth}
+    \caption{Arquitetura Salz, utilizada no jogo Albion~\cite{albion_online_unite}.}
+    \label{fig:salz}
+    \includegraphics[height=3.5cm]{arquiteturas/salz.png}
+    \centering
+
+    Adaptado de:~\cite{albion_online_unite}
+  \end{minipage}%
+\end{figure}
+
+\begin{figure}[htb!]
+  \caption{Arquitetura Knowles, utilizada no jogo Guild Wars 2~\cite{stephenclarkewillson2017}.}
+  \label{fig:knowles}
+  \includegraphics[height=5.5cm]{arquiteturas/knowles.png}
+  \centering
+
+  Adaptado de:~\cite{stephenclarkewillson2017}
+\end{figure}
+
 A arquitetura Rudy (Figura~\ref{fig:rudy}) é formada por um sistema cliente-servidor monolítico, na qual cada microserviço individual gerencia um mundo mútuo dos demais gerenciadores de mundo~\cite{matthiasrudy2011}.
 %
 Essa arquitetura dificulta a escalabilidade, modificações e manutenção\cite{8169955}, além de segregar a comunidade de jogadores em servidores menores\cite{matthiasrudy2011}.
 %
 Inicialmente essa arquitetura foi pensada para ser um sistema Cliente-Servidor monolítico.
 %
-A arquitetura Rudy é uma arquitetura de microserviços adaptada de um serviço cliente-servidor\cite{matthiasrudy2011}.
+A arquitetura Rudy é uma arquitetura de microserviços adaptada de um serviço cliente-servidor~\cite{matthiasrudy2011}.
 %
-O jogo Tibia, operante sobre essa arquitetura, possui 68 mundos oficiais (Sendo 2 servidores de teste)~\cite{matthiasrudy2011}, com capacidade para 2.000 jogadores em cada servidor.
-
-\begin{figure}[htb!]
-  \caption{Arquitetura Ruy, utilizada no jogo Tibia~\cite{matthiasrudy2011}.}
-  \label{fig:rudy}
-  \includegraphics[width=8cm]{arquiteturas/rudy.png}
-  \centering
-
-  Adaptado de:~\cite{matthiasrudy2011}
-\end{figure}
-%ccm fazer minipage, duas figuras na parte de cima e uma abaixo.
+O jogo Tibia\footnote[1]{Tibia: \url{https://www.tibia.com}}, operante sobre essa arquitetura, possui 68 mundos oficiais (Sendo 2 servidores de teste)~\cite{matthiasrudy2011}, com capacidade para 2.000 jogadores em cada servidor.
 
 A arquitetura Salz (Figura~\ref{fig:salz}) é formada por diversos microserviços~\cite{albion_online_unite}.
 %
 O principal objetivo dessa arquitetura é modularizar o serviço visando melhorar a escalabilidade.
+%
+Ela é atualmente utilizada no jogo Albion Online\footnote[2]{Albion Online: \url{https://albiononline.com}}.
 %
 A arquitetura é planejada para funcionar conforme a seguinte especificação\cite{albion_online_unite}:
 
@@ -128,33 +149,15 @@ A arquitetura é planejada para funcionar conforme a seguinte especificação\ci
   \item O coordenador do mundo é responsável por tudo que seja de escopo global (\textit{e. g.,} Grupos, chat global, guildas, \textit{etc.}).
 \end{itemize}
 
-\begin{figure}[htb!]
-  \caption{Arquitetura Salz, utilizada no jogo Albion~\cite{albion_online_unite}.}
-  \label{fig:salz}
-  \includegraphics[width=8cm]{arquiteturas/salz.png}
-  \centering
-
-  Adaptado de:~\cite{albion_online_unite}
-\end{figure}
-
 A arquitetura Knowles (Figura~\ref{fig:knowles}) é distribuída em diversos microserviços, assim como a arquitetura Salz (Figura~\ref{fig:salz}).
 %
 A diferença em comparação a arquitetura Salz (Figura~\ref{fig:salz}) está na decomposição da arquitetura para outros microserviços e a conexão direta entre esses microserviços e o cliente.
 %
 O principal objetivo dessa arquitetura é facilitar a manutenção e desempenho de reinicialização do macroserviço~\cite{stephenclarkewillson2017}.
 %
-Guild Wars 2 é um jogo que executa sobre a arquitetura Knowles. %ccm footnote para URL de Guilt wars
+Guild Wars 2\footnote[3]{Guild Wars 2: \url{https://www.guildwars2.com}} é um jogo que executa sobre a arquitetura Knowles. %ccm footnote para URL de Guilt wars
 %
 Ele é popularmente conhecido por ter seus serviços sempre ativos, visto que a arquitetura possibilita desativar pequenos pedaços do serviço para manutenções básicas e a sua reinicialização é rápida para manutenções críticas.
-
-\begin{figure}[htb!]
-  \caption{Arquitetura Knowles, utilizada no jogo Guild Wars 2~\cite{stephenclarkewillson2017}.}
-  \label{fig:knowles}
-  \includegraphics[width=8cm]{arquiteturas/knowles.png}
-  \centering
-
-  Adaptado de:~\cite{stephenclarkewillson2017}
-\end{figure}
 
 Conforme as arquiteturas de microserviços dos jogos \ac{MMORPG} aumentam para atender novas demandas do mercado, o seu custo computacional e complexidade de nós na nuvem computacional aumentam.
 %
