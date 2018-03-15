@@ -10,7 +10,7 @@ O principal objetivo destas pesquisas é reduzir a carga e o impacto a latência
 Reduzir a carga e impacto da latência em serviços para jogos massivos resulta em uma melhor experiência de jogabilidade aos usuários finais~\cite{1417630}.
 
 
-Jogos \ac{MMORPG} são utilizados como negócio viável e lucrativo, sendo que a experiência de uso do usuário final é um fator crítico para o sucesso.
+Jogos \ac{MMORPG} são utilizados como negócio viável e lucrativo, sendo a experiência de jogabilidade na qual o usuário final será submitido é um fator crítico para o sucesso.
 %
 O mercado de jogos massivos multijogadores de interpretação (\ac{MMORPG}) vem crescendo desde 2012 \cite{new_york_times}, sendo no ano de 2016 um dos mais lucrativos\cite{statista_2016}.
 %
@@ -27,7 +27,7 @@ Um jogo \ac{MMORPG} é arquitetado em duas partes~\cite{mmo_analytic}:
 \begin{itemize}
   \item \textbf{Serviço}: É o macrosserviço que implementa as regras de negócio e requisitos do jogo.
   O serviço disponibiliza uma interface com ações possíveis ao cliente sobre algum protocolo de rede.
-  \item \textbf{Cliente}: Cliente é a aplicação que realizará as requisições com a interface do macrosserviço, exibindo o estado de jogo de forma imersiva.
+  \item \textbf{Cliente}: Cliente é a aplicação que realizará as requisições com a interface do macrosserviço, exibindo o estado de jogo de forma imersiva ao jogador.
 \end{itemize}
 
 A maioria dos jogos \ac{MMORPG} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}.
@@ -38,7 +38,7 @@ As ocorrências geradas por um sistema de baixo desempenho podem acarretar em fr
 %
 Uma ocorrência é qualquer tipo de mal funcionamento em uma aplicação, não necessariamente aparente ao usuário final~\cite{1417630}.
 %
-Evitar e/ou elimitar as ocorrências durante o projeto e desenvolvimento das arquiteturas do serviço é um processo crítico para o bom funcionamento desses jogos.
+Evitar e/ou eliminar as ocorrências durante o projeto e desenvolvimento das arquiteturas do serviço é um processo crítico para o bom funcionamento desses jogos.
 
 \subsection{Ocorrências em serviços massivos}
 \label{sec:ocorrencias}
@@ -134,7 +134,7 @@ Inicialmente essa arquitetura foi pensada para ser um sistema Cliente-Servidor m
 %
 A arquitetura Rudy é uma arquitetura de microsserviços adaptada de um serviço cliente-servidor~\cite{matthiasrudy2011}.
 %
-O jogo Tibia\footnote[1]{Tibia: \url{https://www.tibia.com}}, operante sobre essa arquitetura, possui 68 mundos oficiais (Sendo 2 servidores de teste)~\cite{matthiasrudy2011}, com capacidade para 1.050 jogadores em cada servidor, na qual encontra-se restringido pelo gerenciador de mundo.
+O jogo Tibia\footnote[1]{Tibia: \url{http://www.tibia.com}}, operante sobre essa arquitetura, possui 68 mundos oficiais (Sendo 2 servidores de teste)~\cite{matthiasrudy2011}, com capacidade para 1.050 clientes em cada servidor, na qual encontra-se restringido pelo gerenciador de mundo.
 
 
 
