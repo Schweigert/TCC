@@ -1,0 +1,125 @@
+\chapter{Considerações \& Próximos passos}
+\label{cap:conclusao}
+Este TCC tem como objetivo levantar questões relacionadas ao desempenho no tráfego da rede de controle em nuvens OpenStack.
+%
+Softwares distribuídos como o OpenStack podem apresentar comportamento complexos em função da grande quantidade de componentes e suas respectivas interações.
+%
+Sendo assim, para entender melhor o que ocorre na rede de controle, este trabalho propõe a realização de uma análise e caracterização do tráfego dela, que conta com um sistema de monitoramento para levantar as informações.
+
+O levantamento bibliográfico é um dos passos iniciais para alcançar este objetivo.
+%
+Nesta etapa apresentou-se sobre conceitos de computação em nuvem, os atores envolvidos em uma nuvem computacional e como tecnologias de virtualização afetam o funcionamento de recursos computacionais e de rede.
+%
+Assim como, foi realizada uma introdução ao OpenStack, em que abordou-se sua arquitetura de rede e expôs sobre o Domínio de Controle, explicando sua importância neste trabalho.
+%
+Também foi apresentado o conceito de caracterização de tráfego, definindo-se uma maneira para realizá-la.
+%
+Sobre estes conceitos então foi feita uma descrição do problema abordado neste TCC, na qual aplicaram-se alguns dos conceitos descritos anteriormente.
+
+Após, foram identificados e analisados trabalhos com escopos similares, cujos objetivos são relacionados com caracterização de tráfego em nuvens computacionais ou o monitoramento das mesmas.
+%
+Com base nesta análise foram identificadas algumas ferramentas e abordagens disponíveis para a proposta deste TCC, tal como o trabalho de \cite{sharma:2015:hansel}, que criou um sistema de detecção de falhas em nuvens OpenStack.
+%
+A proposta deste trabalho iniciou com um detalhamento da arquitetura de alguns serviços do OpenStack, especificando os componentes destes serviços e como são distribuídos em uma instalação.
+%
+Consequentemente, foi realizado um detalhamento dos serviços analisados, buscando características que contribuíssem na construção do sistema de monitoramento, que é a primeira parte da proposta.
+%
+O sistema de monitoramento foi definido primeiramente em função dos seus requisitos, que foram definidos em função dos dados necessários para a caracterização e do ambiente em que o sistema executará.
+%
+Assim, o sistema de monitoramento seguiu os requisitos e aplicou as características levantadas a partir do detalhamento dos serviços, que usou para definir como realizar o monitoramento, e qual o tráfego de interesse à monitorar.
+%
+Além destas informações apresenta-se também como ocorre a coleta e análise do tráfego pelo sistema.
+
+Na segunda parte da proposta apresentou-se como serão analisadas as informações obtidas do sistema de monitoramento, e quais serão os ângulos de análise adotados.
+%
+Por fim, definiu-se como os experimentos que aplicam esta proposta ocorrerão, exibindo os cenários que serão utilizados nos experimentos e também detalhando como os experimentos ocorrerão.
+%
+Esta caracterização de tráfego terá o escopo limitado ao conjunto de serviços presente na instalação mais popular, segundo \citeonline{openstack:about}: Cinder, Neutron, Nova, Swift, Keystone e Glance.
+%
+Na parte de análise, esta caracterização está definida para três dos múltiplos ângulos de caracterização possíveis.
+%
+Sendo assim, é possível que novos ângulos de caracterização surjam no decorrer do TCC-II ao analisar as informações coletadas.
+
+Para o TCC-II, será implementado o sistema de monitoramento. 
+%
+Após implementado, este será instalado e executará numa nuvem OpenStack conforme o plano de testes.
+%
+Por fim, os dados coletados pelo sistema de monitoramento durante os testes serão analisados, a fim de gerar uma caracterização da rede de controle que levantará questões de desempenho presentes nela.
+
+\section{Cronograma}
+Até o presente momento, o cronograma proposto no Plano do TCC foi seguido conforme o previsto, na ordem e nos prazos estipulados. A etapas presentes nesta seção foram definidas no Plano de TCC para atingir os objetivos propostos.
+
+\section{Etapas realizadas}
+
+As etapas que já foram executadas:
+
+\begin{enumerate}
+	\item \textbf{Formulação do plano de TCC};
+	\item \textbf{Levantamento e fichamento das referências} -- Pesquisa de fontes para o embasamento teórico do trabalho, com base nos objetivos específicos;
+	\item \textbf{Consolidação das referências} -- Fundamentação necessária para compreender o objeto de trabalho e atingir o objetivo do TCC-I;
+	\item \textbf{Identificação e análise de métodos para caracterização de tráfego} -- Identificar e analisar um método de caracterização de tráfego aplicável em nuvens computacionais;
+	\item \textbf{Identificação e análise de abordagens para sistemas de monitoramento de tráfego} -- Levantamento de abordagens para sistemas de monitoramento de tráfego, analisando sua aplicabilidade no contexto de nuvens computacionais baseadas em OpenStack;
+	\item \textbf{Especificação de uma ferramenta para monitoramento do tráfego} -- Especificar um sistema de monitoramento para rede de controle em nuvens computacionais OpenStack, que auxiliará na caracterização da rede de controle. 
+	%
+	Serão consideradas características específicas do OpenStack nesta etapa, como protocolos, arquitetura de implementação e funcionalidades deste sistema.
+	%
+	Especificação do plano de testes.
+	\item \textbf{Escrita do TCC-I}.
+    
+    \section{Etapas a realizar}
+    
+As seguintes etapas serão realizadas no TCC-II, sendo voltadas para a implementação do sistema de monitoramento, sua aplicação na nuvem escolhida e a análise dos dados obtidos.
+    
+	\item \textbf{Implementar o sistema de monitoramento} -- Implementar, segundo a \textbf{Especificação do sistema para monitoramento de tráfego}, o software que realizará o monitoramento da rede de controle da nuvem computacional;
+	\item \textbf{Experimentação e coleta de dados} -- Será colocado em operação o sistema de monitoramento implementado, para testá-lo e coletar tráfego a fim de caracterizar a rede em questão;
+	\item \textbf{Caracterização e análise da rede monitorada} -- Caracterizar e analisar o comportamento e funcionalidades presentes no tráfego da rede coletado através do sistema de monitoramento. 
+	%
+	Verificando então, a relevância e impacto do tráfego e funcionalidades do sistema no desempenho da rede.
+	\item \textbf{Escrita do TCC-II}.
+\end{enumerate}
+
+\section{Execução do cronograma}
+
+	A Tabela~\ref{tab:cronograma} apresenta o cronograma definido no início do TCC-I. As etapas já concluídas são marcadas com X. As etapas em preto sem nenhuma marcação são as etapas a serem executadas.
+
+\begin{table}[H]
+	\caption{Cronograma das atividades para TCC-I e TCC-II}
+	\label{tab:cronograma}
+	\begin{center}
+      {\tiny
+      \noindent \begin{tabular}{|c||c|c|c|c|c||c|c|c|c|c|c|c|}
+        \hline
+        \multirow{2}{*}{\textbf{\small{Etapas}}} & \multicolumn{5}{|c||}{\textbf{\small{2017}}} & \multicolumn{7}{|c|}{\textbf{\small{2018}}} \\
+        \cline{2-13}
+         & \textbf{A} & \textbf{S} & \textbf{O} & \textbf{N} & \textbf{D} & \textbf{J} & \textbf{F} & \textbf{M} & \textbf{A} & \textbf{M} & \textbf{J} & \textbf{J} \\
+        \hline \hline
+        \textbf{\small{1}} & \cellcolor{black}{\color[HTML]{FFFFFF} \textbf{X}} & & & & & & & & & & &\\
+        \hline
+        \textbf{\small{2}} & \cellcolor{black}{\color[HTML]{FFFFFF} \textbf{X}} & \cellcolor{black}{\color[HTML]{FFFFFF} \textbf{X}} & & & & & & & & & &\\
+        \hline
+        \textbf{\small{3}} & \cellcolor{black}{\color[HTML]{FFFFFF} \textbf{X}} & \cellcolor{black}{\color[HTML]{FFFFFF} \textbf{X}} & & & & & & & & & &\\
+        \hline
+        \textbf{\small{4}} & & \cellcolor{black}{\color[HTML]{FFFFFF} \textbf{X}} & \cellcolor{black}{\color[HTML]{FFFFFF} \textbf{X}} & & & & & & & & &\\
+        \hline
+        \textbf{\small{5}} & & & \cellcolor{black}{\color[HTML]{FFFFFF} \textbf{X}} & \cellcolor{black}{\color[HTML]{FFFFFF} \textbf{X}} & & & & & & & &\\
+        \hline
+        \textbf{\small{6}} & & & & \cellcolor{black}{\color[HTML]{FFFFFF} \textbf{X}} & & & & & & & &\\
+        \hline
+        \textbf{\small{7}} & & \cellcolor{black}{\color[HTML]{FFFFFF} \textbf{X}} & \cellcolor{black}{\color[HTML]{FFFFFF} \textbf{X}} & \cellcolor{black}{\color[HTML]{FFFFFF} \textbf{X}} & & & & & & & &\\
+        \hline
+        \textbf{\small{8}} & & & & & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & & & &\\
+        \hline
+        \textbf{\small{9}} & & & & & & & \cellcolor{black} & \cellcolor{black} & & & &\\
+        \hline
+        \textbf{\small{10}} & & & & & & & & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & &\\
+        \hline
+        \textbf{\small{11}} & & & & & & & & & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} &\\
+        \hline
+      \end{tabular}
+      }
+    \end{center}
+	Fonte: O próprio autor.
+\end{table}
+
+
+ 

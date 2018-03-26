@@ -1,0 +1,19 @@
+Os softwares para gerenciamento de nuvens computacionais apresentam uma ampla adoção e possuem arquiteturas voltadas para escalabilidade e segurança dos dados. 
+%
+Dentre as opções de solução para nuvens computacionais privadas, o OpenStack é destacadamente a solução mais usual.
+%
+Contudo, como qualquer solução de nuvem computacional, um dos aspectos considerados cruciais em qualquer nuvem é seu desempenho.
+%
+Neste contexto, a maioria das pesquisas concentra-se na parte das nuvens visíveis aos usuários, relegando a um plano secundário as operações internas do provedor.
+%
+O OpenStack utiliza um agrupamento de redes exclusivamente para tráfego de controle, que contém todas as tarefas administrativas e operacionais, denominado Domínio de Controle. 
+%
+Entretanto, pouco se conhece sobre a influência no comportamento do Domínio de Controle do OpenStack originária de eventos gerados pelo usuário (\textit{i.e.,} alocação de \acp{vm}) e de eventos periódicos (\textit{i.e.,} atualização da lista de \acp{vm} ativas). 
+%
+Este trabalho tem como objetivo caracterizar o tráfego de controle em uma nuvem OpenStack com o auxílio de um sistema de monitoramento, objetivando identificar e compreender o comportamento da rede de controle, que está contida neste domínio.
+%
+Para alcançar este objetivo, será realizada uma análise de métodos para medição e análise de tráfego, assim como uma análise sobre funcionamento do OpenStack voltada à sua arquitetura de funcionamento. 
+%
+Após, pretende-se projetar e implementar um sistema de monitoramento, que levantará informações sobre o tráfego na rede de controle periodicamente. 
+%
+A partir dos dados coletados será feita uma análise do tráfego, que será voltada para alguns serviços presentes no tráfego da rede de controle do OpenStack.
