@@ -12,7 +12,7 @@ Reduzir a carga e impacto da latência em serviços para jogos massivos resulta 
 
 Jogos \ac{MMORPG} são utilizados como negócio viável e lucrativo, sendo a experiência de jogabilidade na qual o usuário final será submitido é um fator crítico para o sucesso.
 %
-O mercado de jogos massivos multijogadores de interpretação (\ac{MMORPG}) vem crescendo desde 2012 \cite{new_york_times}, sendo no ano de 2016 um dos mais lucrativos\cite{statista_2016}.
+O mercado de jogos \ac{MMORPG} vem crescendo desde 2012~\cite{new_york_times}, sendo no ano de 2016 um dos mais lucrativos~\cite{statista_2016}.
 %
 A sua projeção para 2018 é que sejam arrecadados mais de 30 bilhões de dólares americanos com esta categoria de jogos~\cite{statista_2018}, um aumento de 20\% a mais sobre o ano de 2016.
 
@@ -30,7 +30,7 @@ Um jogo \ac{MMORPG} é arquitetado em duas partes~\cite{mmo_analytic}:
   \item \textbf{Cliente}: Cliente é a aplicação que realizará as requisições com a interface do macrosserviço, exibindo o estado de jogo de forma imersiva ao jogador.
 \end{itemize}
 
-A maioria dos jogos \ac{MMORPG} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}.
+A maioria dos jogos \ac{MMORPG} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores\cite{stephenclarkewillson2017}, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}.
 %
 Modelar um sistema de alto desempenho torna-se um trabalho essencial para a satisfação do usuário final~\cite{1417630}.
 %
@@ -38,16 +38,16 @@ As ocorrências geradas por um sistema de baixo desempenho podem acarretar em fr
 %
 Uma ocorrência é qualquer tipo de mal funcionamento em uma aplicação, não necessariamente aparente ao usuário final~\cite{1417630}.
 %
-Evitar e/ou eliminar as ocorrências durante o projeto e desenvolvimento das arquiteturas do serviço é um processo crítico para o bom funcionamento desses jogos.
+Evitar ou eliminar as ocorrências durante o projeto e desenvolvimento das arquiteturas do serviço é um processo crítico para o bom funcionamento desses jogos.
 
-\subsection{Ocorrências em serviços massivos}
+\subsection{Ocorrências de serviços massivos}
 \label{sec:ocorrencias}
 
 Uma métrica popular para mensurar o desempenho de um serviço \ac{MMORPG} é o número de conexões~\cite{1417630} simultâneas suportadas.
 %
 Em geral, caso o serviço ultrapasse o limite para o qual este foi projetado, diversas falhas de conexão, problemas de lentidão ou dessincronização com o cliente podem ocorrer.
 %
-Neste contexto, as ocorrências mais comuns são~\cite{1417630}:
+Neste contexto, as ocorrências comuns são~\cite{1417630}:
 
 \begin{itemize}
   \item \textbf{Longo tempo de resposta aos clientes}: implica em uma qualidade insatisfatória de jogabilidade ao usuário ou até mesmo impossibilitando o uso do serviço.
@@ -82,15 +82,15 @@ Seu funcionamento deve ser desenhado para permitir alinhamentos de alta coesão 
 
 
 
-Essas arquiteturas iniciam uma nova linha de desenvolvimento de aplicações preparadas para executar sobre nuvens computacionais, promovendo maior flexibilidade, escalabilidade, gerenciamento e desempenho, sendo a principal escolha de arquitetura de grandes empresas como Amazon, Netflix e LinkedIn~\cite{7830692,7515686}.
-
+Arquiteturas de microsserviços iniciam uma nova linha de desenvolvimento de aplicações preparadas para executar sobre nuvens computacionais, promovendo maior flexibilidade, escalabilidade, gerenciamento e desempenho, sendo a principal escolha de arquitetura de grandes empresas como Amazon, Netflix e LinkedIn~\cite{7830692,7515686}.
+%
 Um microsserviço é definido pelas seguintes características~\cite{8169955}:
 
 \begin{itemize}
   \item Deve posibilitar a implementação como uma peça individual do macrosserviço.
   \item Deve funcionar individualmente.
-  \item Deve estar disponível na rede.
   \item Cada serviço deve ter uma interface. Essa interface deve ser o suficiente para utilizar o microsserviço.
+  \item A interface deve estar disponível na rede para chamada de processamento remoto.
   \item O serviço pode ser utilizado por qualquer linguagem de programação e/ou plataforma.
   \item O serviço deve executar com as dependências mínimas.
   \item Ao agregar vários microsserviços, o macrosserviço resultante poderá prover funcionalidades complexas.
@@ -128,7 +128,7 @@ Alguns exemplos de arquitetura de microsserviços para jogos \ac{MMORPG} são as
 
 A arquitetura Rudy (Figura~\ref{fig:rudy}) é formada por um sistema cliente-servidor monolítico, na qual cada microsserviço individual gerencia um mundo mútuo dos demais gerenciadores de mundo~\cite{matthiasrudy2011}.
 %
-Essa arquitetura dificulta a escalabilidade, modificações e manutenção\cite{8169955}, além de segregar a comunidade de jogadores em servidores menores\cite{matthiasrudy2011}.
+Essa arquitetura dificulta a escalabilidade, modificações e manutenção~\cite{8169955}, além de segregar a comunidade de jogadores em servidores menores~\cite{matthiasrudy2011}.
 %
 Inicialmente essa arquitetura foi pensada para ser um sistema Cliente-Servidor monolítico.
 %
