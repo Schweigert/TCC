@@ -10,3 +10,6 @@ watch:
 install:
 	sudo apt-get install texlive-full
 	apm install pdf-view
+
+clean:
+	rm tccudesc.bbl

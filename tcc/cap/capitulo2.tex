@@ -1,4 +1,70 @@
 \chapter{Fundamentação Teórica}
 \label{cap2}
 
-CAP 2
+O conceito de arquitetura de microsserviços para jogos \ac{MMORPG} (Seção \ref{sec:arquitetura_de_microsserviços}), embora com a popularidade dos títulos da categoria de jogo abordado pelo presente documento, normalmente possui as suas especificações desconhecidas para grande público.
+%
+Tais arquiteturas tem uma evolução tecnológica significativa compando jogos de 1990 e jogos de 2010.
+%
+Nesse sentido, torna-se necessário entender as arquiteturas utilizadas e propostas por engenheiros de software de tais jogos ou pela literatura atual visando conhecer tais conceitos e funcionamento básico, do ponto de vista de sistemas distribuídos.
+
+
+
+Jogos \ac{MMORPG} criados durante 2010 e 2018 utilizam arquiteturas de microsserviços (Seção \ref{sec:microsserviços_de_mmorpg}) para abstrair regras de negócio em uma aplicação distribuída.
+%
+Dessa forma, tendem a suportar um número maior de conexões simultâneas comparado a arquiteturas cliente-servidor com uma boa qualidade de jogabilidade aos usuários finais, caso sejam bem projetados.
+%
+O processo de análise e detalhamento destas arquiteturas (Seção \ref{sec:arquiteturas}) é imporante para compreender o comportamento do serviço sobre uma determinada carga de conexões.
+
+
+
+Após realizar o detalhamento de tais arquiteturas, torna-se necessário apresentar trabalhos com objetivos similares (Seção \ref{sec:similares}),
+%
+exibindo exemplos de métodos, métricas e ferramentas utilizadas.
+
+
+
+\section{Contextualização de microsserviços}
+\label{sec:arquitetura_de_microsserviços}
+
+
+
+A partir de 2013 houve um aumento na procura por arquiteturas de microsserviços~\cite{google_trends:2018}.
+%
+Esse aumento na busca é dado pelo interesse de desenvolver serviços que suportem um grande número de conexões, facilite o seu desenvolvimento e a sua manutenção.
+%
+O aumento na procura deste novo paradigma pode ser visualizado na figura \ref{fig:trends} pelo número de pequisas pelo termo \textit{microservices} no buscador Google\footnote{Google: \url{https://www.google.com}.}.
+
+
+
+\begin{figure}[htb!]
+  \caption{Gráfico de tendências de pesquisa do Google pelo termo \textit{microservices}}
+  \label{fig:trends}
+  \includegraphics[height=3cm]{img/microsserviços_trends.png}
+  \centering
+
+  Fonte:~\cite{google_trends:2018}
+\end{figure}
+
+
+Dentre este tópico de busca, está relacionado alguns tópicos como Programação de Interfaces de Aplicação, Virtualização (Docker), Computação em Nuvem e Arquiteturas Orientadas a Serviço~\ref{fig:trends}.
+%
+Esses também estrão presentes no presente trabalho, visto que existe uma correlação desses tópicos e a literatura.
+
+\subsection{Arquiteturas de Microsserviços}
+% conceito
+
+\subsection{MMORPG}
+% conceito
+% classificação
+
+\section{Microsserviços em MMORPG}
+\label{sec:microsserviços_de_mmorpg}
+
+\section{Arquiteturas}
+\label{sec:arquiteturas}
+
+% Classificação
+% Protocolos, otimizações
+
+\section{Trabalhos Relacionados}
+\label{sec:similares}
