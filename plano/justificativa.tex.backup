@@ -10,7 +10,7 @@ O principal objetivo destas pesquisas é reduzir a carga e o impacto a latência
 Reduzir a carga e impacto da latência em serviços para jogos massivos resultam em uma melhor experiência de jogabilidade aos usuários finais\cite{1417630}.
 
 
-Jogos \ac{MMORPG} são utilizados como negócio viável e lucrativo, a qual a experiência de uso do usuário final é um fator crítico para o sucesso.
+Jogos \ac{mmorpg} são utilizados como negócio viável e lucrativo, a qual a experiência de uso do usuário final é um fator crítico para o sucesso.
 %
 O mercado de jogos massivos multijogadores de interpretação (\textit{MMORPG}) vem crescendo desde 2012 \cite{new_york_times}, sendo no ano de 2016 um dos mais lucrativos\cite{statista_2016}.
 %
@@ -18,19 +18,19 @@ A sua projeção para 2018 é que sejam arrecadados mais de 30 bilhões de dóla
 
 
 
-\ac{MMORPG} são jogos de interpretação de papéis massivos.
+\ac{mmorpg} são jogos de interpretação de papéis massivos.
 %
 A principal característica desse estilo de jogo é a comunicação e representação virtual de um mundo fantasia na qual cada jogador pode interagir com objetos virtuais compartilhados ou tomar ações sobre outros de jogadores em tempo real, tendo como principais objetivos a resolução de problemas conforme a sua regra de \textit{design}, o desenvolvimento do personagem e a interação entre os jogadores\cite{video_game_technologies}.
 %
 
-Um jogo \ac{MMORPG} é arquitetado em 2 partes~\cite{mmo_analytic}:
+Um jogo \ac{mmorpg} é arquitetado em 2 partes~\cite{mmo_analytic}:
 \begin{itemize}
   \item \textbf{Serviço}: É o macrosserviço que implementa as regras de negócio e requisitos do jogo.
   O serviço disponibiliza uma interface com ações possíveis ao cliente sobre algum protocolo de rede.
   \item \textbf{Cliente}: Cliente é a aplicação que realizará requisições com a interface do macrosserviço, exibindo o estado de jogo de forma imersiva.
 \end{itemize}
 
-A maioria dos jogos \ac{MMORPG} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços.
+A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços.
 %
 Modelar um sistema de alto desempenho torna-se um trabalho essencial para a satisfação do usuário final\cite{1417630}.
 %
@@ -40,7 +40,7 @@ As ocorrências geradas por um sistema de baixo desempenho podem acarretar em fr
 \subsection{Ocorrências em serviços massivos}
 \label{sec:ocorrencias}
 
-Uma métrica popular para mensurar o desempenho de um serviço \ac{MMORPG} é o número de conexões\cite{1417630}.
+Uma métrica popular para mensurar o desempenho de um serviço \ac{mmorpg} é o número de conexões\cite{1417630}.
 %
 Em geral, caso o serviço ultrapasse o limite para o qual este foi projetado, diversas falhas de conexão, problemas de lentidão ou dessincronização com o cliente podem ocorrer.
 %
@@ -65,7 +65,7 @@ A área de desenvolvimento web compartilha várias ocorrências comuns geradas p
 %
 Em desenvolvimento web é comum utilizar a abordagem de microsserviços para resolver o problema de sobrecarga, modularizando seu funcionamento em pedaços menores.
 %
-Da mesma forma, faz sentido modularizar um serviço \ac{MMORPG} em microsserviços para suportar cargas maiores e diminuir o custo de manutenção~\cite{7515686}.
+Da mesma forma, faz sentido modularizar um serviço \ac{mmorpg} em microsserviços para suportar cargas maiores e diminuir o custo de manutenção~\cite{7515686}.
 
 \subsection{Arquiteturas de microsserviços}
 
@@ -91,7 +91,7 @@ Um microsserviço é definido pelas seguintes características\cite{8169955}:
   \item Ao agregar vários microsserviços, o macrosserviço resultante poderá prover funcionalidades complexas.
 \end{itemize}
 
-Alguns exemplos de arquitetura de microsserviços para jogos \ac{MMORPG} são as arquiteturas apresentadas por Rudy (Figura~\ref{fig:rudy}), Salz (Figura~\ref{fig:salz}) e a arquitetura escrita por Knowles (Figura~\ref{fig:knowles}).
+Alguns exemplos de arquitetura de microsserviços para jogos \ac{mmorpg} são as arquiteturas apresentadas por Rudy (Figura~\ref{fig:rudy}), Salz (Figura~\ref{fig:salz}) e a arquitetura escrita por Knowles (Figura~\ref{fig:knowles}).
 
 A arquitetura Rudy (Figura~\ref{fig:rudy}) é formada por um sistema cliente-servidor monolítico, na qual cada microsserviço individual gerencia um mundo mútuo dos demais gerenciadores de mundo~\cite{matthiasrudy2011}.
 %
@@ -153,7 +153,7 @@ Ele é popularmente conhecido por ter seus serviços sempre ativos, visto que a 
   Adaptado de:~\cite{stephenclarkewillson2017}
 \end{figure}
 
-Conforme as arquiteturas de microsserviços dos jogos \ac{MMORPG} aumentam para atender novas demandas do mercado, o seu custo computacional e complexidade de nós na nuvem computacional aumentam.
+Conforme as arquiteturas de microsserviços dos jogos \ac{mmorpg} aumentam para atender novas demandas do mercado, o seu custo computacional e complexidade de nós na nuvem computacional aumentam.
 %
 Por esse motivo a análise e otimização dessas arquiteturas é importante para impactar em um melhor desempenho tanto ao usuário final, quanto a otimização de lucros das empresas que disponibilizam esses serviços.
 
