@@ -74,16 +74,37 @@ A árvore pode ser visualizada pelo diagrama na figura \ref{fig:generos}.
 
 
 \begin{itemize}
-  \item Estratégia
-  \item Jogos Massivos
-  \item Aventura
-  \item Simulação
+  \item Estratégia: Jogos de estratégia são focados em uma jogabilidade que exija cuidado e planejamento. Neste gênero, o jogador tem uma boa visualização do mundo, controlando indiretamente as suas tropas disponíveis~\cite{rollings2003andrew}.
+    \begin{itemize}
+      \item \ac{rts}: Esse subgênero indica que as jogadas dos jogadores não são atômicas. É comum encontrar modos de jogo ora contra uma inteligência artificial ora contra jogadores em modo online. Esse gênero tornou-se popular com grantes torneios do jogo StarCraft II\footnote{StarCraft II: \url{https://starcraft2.com/}}
+    \end{itemize}
+  \item Jogos Massivos: Esse gênero categoria de jogos preza pela interação com outros jogadores em um mundo compartilhado. SecondLife\footnote{SecondLife: \url{https://www.secondlife.com/}} é um jogo focado na interação social, focado no comércio e social de um mundo fictício criado pela comunidade~\cite{tecmundo_secondlife}.
+    \begin{itemize}
+      \item \ac{moba}: Esse subgênero é popular por grandes títulos como Dota 2\footnote{Dota 2: \url{http://br.dota2.com/}} e League of Legends\footnote{League of Legends: \url{https://br.leagueoflegends.com/pt/}}. O jogo League of Legends obteve 100 milhões de usuários ativos em 2016~\cite{lol_statista}, além de ter um torneio nacional e mundial~\cite{lol_sportv}. Este jogo coloca um número fixo de jogadores separados em dois times, no qual o time com maior estratégia de posicionamento e gerenciamento de recursos em equipe ganha a partida.
+      \item \ac{mmorpg}: Esse gênero herda características dos jogos \ac{rpg} diretamente, porém com interações em um mundo onde outros jogadores também estão jogando. Um título popular para esse gênero é o jogo Word of WarCraft\footnote{Word of WarCraft: \url{https://worldofwarcraft.com/pt-br/}}. Esse gênero será melhor abordado na seção \ref{sec:mmorpg}.
+    \end{itemize}
+  \item Aventura: Este jogo é caracterizado por desafios envolvendo ações com diversos \ac{npcs} ou com o ambiente. É comum nesses jogos a única interação ser somente por terminal (os primeiros jogos do gênero nos anos 80) ou atualmente somente com mouse e cenários estáticos.
+    \begin{itemize}
+      \item Ação e Aventura: Esse gênero herda características da categoria de Ação e Aventura. O jogador é imerso em um mundo para iteragir com o ambiente e com \ac{npcs}, além de se preocupar com a movimentação no cenário. Um grande título desse gênero é a série de jogos nomeada The Legend of Zelda\footnote{The Legend of Zelda: \url{https://www.zelda.com/}}.
+    \end{itemize}
+  \item Simulação: Essa categoria de jogos são desenhados sobre aspéctos reais ou fictícios da realidade. Temas comums nessa super categoria são jogos de construção e gerenciamento, animais de estimação ou vida social e simulação de veículos. Nesses jogos se faz comum partidas geradas proceduralmente contra o computador ou em um conjunto de regras fixo, sem a necessidade da conexão com a Internet.
+    \begin{itemize}
+      \item Esportes: Essa subcategoria da simulação trata somente da simulação de esportes, onde o(s) time(s) podem ser controlados tanto por uma inteligência artificial quanto por jogadores online. O jogo FIFA\footnote{FIFA: \url{https://www.easports.com/br/fifa}} é um título popular nesse segmento.
+    \end{itemize}
   \item Ação
-  \item Jogos sérios
+    \begin{itemize}
+      \item Jogos de Tiro: Em jogos de tiro, o jogador usa um número finito de armas para executar ações a distância. Essa categoria de jogos contém conteúdo de violência, geralmente caracterizado por jogos de 16 anos na classificação indicativa do Brasil~\cite{trindade2018Apr}.
+        \begin{itemize}
+          \item \ac{fps}: Nessa subcategoria, o jogo utiliza o método de gravação conhecido como \ac{pov}. Nesse método, o modo de exibição do mundo é dado como a visão de um personagem do jogo, onde o personagem não tem visão de sí próprio se não por reflexos~\cite{video_game_technologies}.
+          \item \ac{tps}: Diferente dos jogos \ac{fps}, os jogos \ac{tps} utilizam cameras soltas no cenário onde o jogador é visível na cena.
+        \end{itemize}
+    \end{itemize}
+  \item Jogos sérios: Esse gênero de jogo tem como objetivo transmitir um conteúdo educacional. O jogo Sherlock Dengue 8~\cite{sherlock_dengue} é um título desenvolvido com o objetivo de conscientizar os problemas e a prevenção da Dengue no Brasil.
 \end{itemize}
 
 
 \section{Jogos Massivos}
+\label{sec:mmorpg}
 
 
 
@@ -119,5 +140,26 @@ A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sob
 %
 Em especial, o presente trabalho tratará com maiores detalhes as arquiteturas utilizadas no serviço dessa categoria de jogos.
 
+
+\section{Arquitetura de Serviços MMORPG}
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+\section{Arquitetura de Microsserviços}
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
+\section{Arquitetura de Microsserviços para jogos MMORPG}
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+\subsection{Protocolos Utilizados}
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
 \section{Trabalhos Relacionados}
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
 \label{sec:similares}
