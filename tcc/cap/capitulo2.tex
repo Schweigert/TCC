@@ -23,11 +23,11 @@ O sistema operacional, hardware ou base de execução da aplicação gráfica de
 
 Inicialmente os jogos eram implementados de forma simples por conta da limitação das plataformas dos anos 80.
 %
-As implementações de jogos para videogames eram desenhadas diretamente para algum hardware proprietário, sem sistema operacional, por muitas vezes sem utilizar comunicação por rede ou memória de disco~\cite{adams_1208533}.
+As implementações de jogos para videogames eram desenhadas diretamente para algum hardware proprietário, sem sistema operacional, por muitas vezes sem utilizar comunicação por rede ou memória de disco~\cite{rollings2003andrew}.
 %
 Já os jogos de computadores utilizando algum serviço online eram inviabilizados pelo custo de manutenção de tais serviços e pela baixa demanda de jogadores~\cite{adams_1208533}.
 %
-Na década de 80, o videogame Atari foi uma plataforma popular, vendendo 30.000 unidades em seu lançamento contra apenas 2.000 unidades do seu concorrente Intellivision~\cite{atari_age}. A sua especificação era:
+Na década de 80, o videogame Atari foi uma plataforma popular, vendendo 30.000 unidades em seu lançamento contra apenas 2.000 unidades do seu concorrente Intellivision~\cite{atari_age}.
 
 
 
@@ -35,14 +35,14 @@ O crescente recurso computacional disponível em computadores pessoais e videoga
 %
 Dentre esses hardwares, iniciou-se o uso da rede de computadores para prover a interação entre jogadores de máquinas distintas~\cite{statisita_consumo_rede}.
 %
-Jogos como EA Habitat\footnote{EA Habitat: \url{http://www.mobygames.com/game/c64/habitat/credits}}, CipSoft Tibia\footnote{Tibia: \url{http://www.tibia.com/}} e Jajex Runescape\footnote{Jajex Runescape: \url{https://www.runescape.com}} começam a utilizar, como requisito obrigatório do jogo, a conexão com a Internet.
+Jogos como EA Habitat\footnote{EA Habitat: \url{http://www.mobygames.com/game/c64/habitat/credits}}, CipSoft Tibia\footnote{Tibia: \url{http://www.tibia.com/}} e Jajex Runescape\footnote{Jajex Runescape: \url{https://www.runescape.com}} começam a utilizar, como requisito obrigatório do jogo, a conexão com a Internet para interagir em um mundo compartilhado com outos jogadores.
 %
-Tais jogos popularizaram trazendo uma inovação em seu quesito de jogabilidade e desafio proposto, criando uma nova subcategoria.
+Tais jogos popularizaram um novo gênero, trazendo inovação em sua de jogabilidade e desafio proposto ao jogar com milhares de jogadores~\cite{guinness_runescape, 1417630}, criando o gênero de jogos \ac{mmo} na árvore de gêneros (Seção \ref{sec:arvore_generos}).
 
 
 
 \subsection{Árvore de gêneros de jogos eletrônicos}
-
+\label{sec:arvore_generos}
 
 
 A classificação por gênero é uma ferramenta tradicional para auxiliar a fácil identificação de características de alguma literatura, arte e outras mídias.
@@ -96,7 +96,7 @@ O contexto breve de cada gênero é:
 
 
 \begin{figure}[htb!]
-\caption{Árvore de gêneros simplificada.}
+\caption{Árvore de gêneros de jogos eletrônicos simplificada.}
 \label{fig:generos}
 \includegraphics[height=9cm]{img/cap2/generos.png}
 \centering
@@ -106,7 +106,9 @@ Adaptado de:~\cite{adams_1208533}
 
 
 
-O gênero abordado no atual documento refere-se à \ac{mmorpg}. O desenvolvimento desse gênero segue determinados padrões, tais como a necessidade de um serviço e um cliente (definidos na Seção \ref{sec:mmorpg}), problemas comuns com a indisponibilidade ou baixo desempenho do serviço e o custo de manutenção de tais serviços.
+O gênero abordado no atual documento refere-se à \ac{mmorpg}.
+%
+O desenvolvimento desse gênero segue determinados padrões de jogabilidade, tais como a interação com o mundo e demais jogadores (definidos na Seção \ref{sec:mmorpg}).
 
 
 
@@ -130,22 +132,104 @@ A principal característica desse estilo de jogo é a comunicação e representa
 
 Um jogo \ac{mmorpg} é arquitetado em duas partes~\cite{mmo_analytic}:
 \begin{itemize}
+  \item \textbf{Cliente}: É a aplicação que realizará as requisições com a interface do macrosserviço, exibindo o estado de jogo de forma imersiva ao jogador.
   \item \textbf{Serviço}: É o macrosserviço que implementa as regras de negócio e requisitos do jogo.
   O serviço disponibiliza uma interface com ações possíveis ao cliente sobre algum protocolo de rede.
-  \item \textbf{Cliente}: É a aplicação que realizará as requisições com a interface do macrosserviço, exibindo o estado de jogo de forma imersiva ao jogador.
 \end{itemize}
 
 
 
 A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores\cite{stephenclarkewillson2017}, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}.
 %
-Em especial, o presente trabalho tratará com maiores detalhes as arquiteturas utilizadas no serviço dessa categoria de jogos.
+Por sua vez, o Cliente é implementado em algum ambiente convencional a jogos, como motores gráficos, bibliotecas gráficas ou sobre alguma outra plataforma, como web.
+%
+Porém, para esse gênero de jogo se faz necessário que o serviço execute independente das características do cliente, sendo necessário uma suíte de testes para garantir a integração entre cliente e serviço~\cite{albion_online_unite}.
+%
+Em especial, o presente trabalho tratará com maiores detalhes as arquiteturas utilizadas no serviço dessa categoria de jogos (Seção \ref{sec:arquiteturas}), porém ainda se faz necessário conhecer os requisitos da aplicação cliente em questão (Seção \ref{sec:cliente}).
 
+
+
+\section{Arquitetura de Clientes MMORPG}
+\label{sec:cliente}
+
+
+
+Do ponto de vista da rede de computadores, a arquitetura de um cliente de jogo \ac{mmorpg} deve suportar consultas e chamadas de métodos entre o serviço e o cliente~\cite{albion_online_unite}.
+%
+Um cliente para um jogo \ac{mmorpg} segue o estilo de arquitetura \ac{rest}, porém não sobre o protocolo \ac{http}, mas sim sobre um protocolo otimizado conveniente a aplicação, que será desenvolvido sobre outros protocolos (\textit{e.g.,}, \ac{tcp}, \ac{udp}, etc)~\cite{albion_online_unite, stephenclarkewillson2017}.
+
+O módulo de \textit{Gateway}, implementado dentro de um cliente de jogo \ac{mmorpg}, é responsável por realizar as requisições ao servidor e aplicar as chamadas de métodos internas ao cliente para exibir o estado de jogo ao jogador~\cite{albion_online_unite}.
+%
+Ele pode ser encontrado na Figura \ref{fig:gateway}.
+
+
+\begin{figure}[htb!]
+\caption{Requisição de uma chamada de método pela visão do cliente.}
+\label{fig:gateway}
+\includegraphics[height=3.8cm]{img/cap2/gateway.png}
+\centering
+
+Adaptado de:~\cite{albion_online_unite}
+\end{figure}
+
+
+
+A Figura \ref{fig:gateway} refere-se a uma visão macro de uma requisão realizada pelo jogador.
+%
+Nessa requisição, o jogador realiza o pedido para o seu personagem caminhar até um determinado ponto.
+%
+Essa requisição será processada pelo servidor, que atualizará sua posição e retornará ao Gateway a nova posição do personagem, exibindo o personagem em uma nova posição.
+
+
+
+Para facilitar o desenvolvimento, a aplicação de cliente é dividida em diversos módulos, sendo os dois principais~\cite{albion_online_unite}:
+
+
+
+\begin{itemize}
+  \item \textbf{Renderização:} É o processo que transformará a estrutura de dados obtida do serviço de forma gráfica ao jogador utilizando um motor gráfico (\textit{e.g.,} Unity3D\footnote{Unity3D: \url{https://www.unity3d.com}}, GodotEngine\footnote{GodotEngine: \url{https://www.godotengine.org}}, etc).
+  \item \textbf{Gateway:} É o módulo responsável pela comunicação entre o serviço e o cliente, a fim de requisitar chamadas de métodos ou obter informações do servidor.
+\end{itemize}
+
+
+
+Também exisite um componente denominado \textit{ObjectManager} que gerenciará a criação e deleção de objetos do mundo.
+%
+Os objetos em cena e o ObjectManager podem ser utilizados ora pelo jogador ora pelo servidor.
+%
+Entretando, existe um filtro de requisições maliciosas a fim de garantir a consistência do jogo~\cite{albion_online_unite}.
+%
+Esse filtro pode ser implementado tanto no Gateway e/ou no serviço (Seção \ref{sec:arquiteturas}).
+
+\begin{figure}[htb!]
+\caption{Área de interesse com base na proximidade de um jogador}
+\label{fig:proximidade}
+\includegraphics[height=3.8cm]{img/cap2/proximidade.png}
+\centering
+
+Fonte:~\cite{albion_online_unite}
+\end{figure}
+
+
+
+Uma característica importante do ObjectManager é a requisição e exibição de objetos com base na área de interesse do jogador.
+%
+Essa característica reduz problemas de trapaça por meio de clientes adulterados e reduz o tráfego de dados na rede para o cliente e para o serviço~\cite{albion_online_unite, stephenclarkewillson2017}.
+
+
+
+A abordagem de engenharia por utilizar um Gateway permite que o serviço mude de arquitetura sem a necessidade de uma refatoração completa ao módulo de renderização~\cite{albion_online_unite, stephenclarkewillson2017}.
+%
+Essa mesma abordagem também facilita o desenvolvimento de uma suíte de testes do módulo de renderização independente do serviço~\cite{Freeman2009Oct}, podendo realizar testes utilizando o padrão de objetos Mock~\cite{Beck2004Nov} para simular as requisições.
+%
+Dessa forma, é possivel garantir a integração entre o serviço e o cliente utilizando baixo acoplamento entre o cliente e o serviço (Seção \ref{sec:arquiteturas}).
 
 \section{Arquitetura de Serviços MMORPG}
+\label{sec:arquiteturas}
 
 
-A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores\cite{stephenclarkewillson2017}, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}.
+
+A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sobre uma arquitetura de serviço que executa sobre diversos servidores\cite{stephenclarkewillson2017}, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}.
 %
 Modelar um sistema de alto desempenho torna-se um trabalho essencial para a satisfação do usuário final~\cite{1417630}.
 %
@@ -197,7 +281,7 @@ Para isso, essas arquiteturas serão melhores abordadas na Seção \ref{sec:micr
 \label{sec:microsservicos}
 
 
-\section{Arquitetura de Microsserviços para jogos MMORPG}
+\section{Arquitetura de Microsserviços para MMORPGs}
 
 \subsection{Protocolos Utilizados}
 
