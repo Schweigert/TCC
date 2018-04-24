@@ -229,6 +229,9 @@ Dessa forma, é possivel garantir um padrão de integração desejado entre o se
 Entretanto, se faz necessário que o gateway siga o mesmo padrão de integração requirida pela arquitetura na qual o jogo estará sendo executado.
 %
 A Seção \ref{sec:arquiteturas} tratará de explicar o funcionamento de uma arquitetura para serviços \ac{mmorpg}.
+
+
+
 \section{Arquitetura de Serviços MMORPG}
 \label{sec:arquiteturas}
 
@@ -279,7 +282,7 @@ Tais ocorrências estão diretamente correlacionadas a carga a qual tais serviç
 
 A área de desenvolvimento web compartilha várias ocorrências comuns geradas por sobrecarga do serviço~\cite{7830692}.
 %
-Em desenvolvimento web é comum utilizar a abordagem de microsserviços (Seção \ref{sec:microsservicos}) para resolver o problema de sobrecarga, modularizando o  funcionamento em módulos menores.
+Em desenvolvimento web é comum utilizar a abordagem de microsserviços para resolver o problema de sobrecarga, modularizando o  funcionamento em módulos menores.
 %
 Da mesma forma, faz sentido modularizar um serviço \ac{mmorpg} em microsserviços para suportar cargas maiores e diminuir o custo de manutenção~\cite{7515686}.
 
@@ -368,15 +371,11 @@ Por esse motivo se faz necessário ver as diferenças entre uma arquitetura de m
 
 
 
-\section{Arquitetura de Microsserviços para \ac{mmorpg}}
+\subsection{Protocolos para microsserviços \ac{mmorpg}}
 
 
 
-\subsection{Protocolos Utilizados}
-
-
-
-Um serviço \ac{mmorpg} não utilizará protocolos com base no protocolo \ac{http}, mas ainda assim implementará um protocolo \ac{rest} a fim de realizar requisições a um serviço utilizando uma arquitetura de software \ac{mvc}~\cite{Chadwick2012Oct, LeckyThompson2008Nov}.
+Um serviço \ac{mmorpg} não utilizará protocolos com base no protocolo \ac{http}, mas ainda assim implementará um protocolo \ac{rest} sobre o protocolo \ac{tcp} a fim de realizar requisições a um serviço utilizando uma arquitetura de software \ac{mvc}~\cite{Chadwick2012Oct, LeckyThompson2008Nov}.
 %
 O protocolo \ac{rest} permitirá ele, similar a técnica de armazenamento persistente \ac{crud}, executar 4 métodos aos controladores de cada microsserviço~\cite{6267019}:
 
@@ -388,6 +387,61 @@ O protocolo \ac{rest} permitirá ele, similar a técnica de armazenamento persis
   \item Atualizar: Permite atualizar um dado no serviço (\textit{e.g.,} efetuar a compra de um item de \ac{npcs}, andar para um ponto do mapa, etc).
   \item Deletar: Permite deletar um dado no serviço (\textit{e.g.,} usar um item do inventário, deletar uma mensagem lida de um amigo, etc).
 \end{enumerate}
+
+
+
+Porém, além de realizar as operações \ac{crud}, se faz necessário a chamada de métodos específicos a um objeto.
+%
+Pode-se associar a técnica de \ac{rpc}~\cite{LeckyThompson2008Nov}. Pode-se analisar um exemplo da interface disponível na Figura \ref{fig:crud_rpc} e o diagrama de requisições na Figura \ref{fig:network_crud_rpc}.
+
+
+
+\begin{figure}[htb!]
+\caption{Cliente pode realizar requisições \ac{crud} ou \ac{rpc}}
+\label{fig:crud_rpc}
+\includegraphics[height=4.5cm]{img/cap2/crud_rpc.png}
+\centering
+
+Fonte: Elaborado pelo autor
+\end{figure}
+
+
+
+\begin{figure}[htb!]
+\caption{Diagrama de requisições entre serviço e cliente com operações \ac{crud} e \ac{rpc} em uma arquitetura monolítico}
+\label{fig:network_crud_rpc}
+\includegraphics[height=6.5cm]{img/cap2/network_rpc_crud.png}
+\centering
+
+Fonte: Adaptado de~\cite{LeckyThompson2008Nov}
+\end{figure}
+
+
+
+Uma técnica comum em jogos é a compressão de pacotes utilizando mapeamento hash de bytes~\cite{LeckyThompson2008Nov}.
+%
+Tanto o cliente quanto o serviço precisam ter a mesma estrutura de dados.
+%
+Dessa forma, é possivel trocar o nome das funções requiridas em \ac{rpc} por poucos bytes para transitar na rede.
+%
+Já para operações \ac{crud}, pode-se utilizar tanto requisições sobre o protocolo \ac{http} ou sobre um protocolo otimizado sobre \ac{tcp} dependendo da necessidade de desempenho~\cite{LeckyThompson2008Nov}.
+
+Como relatado na Seção \ref{sec:microsservicos}, uma arquitetura de microsserviços permite multiplas tecnologias, pois a comunicação entre todos os elementos de um microsserviço será pela rede.
+%
+Por esse motivo, é possível utilizar um serviço web para realizar operações \ac{crud} e um serviço dedicado para realizar operações \ac{rpc}.
+%
+Essa arquitetura pode ser melhor compreendida pela Figura \ref{fig:network_crud_rpc_micro}.
+
+
+\begin{figure}[htb!]
+\caption{Diagrama de requisições entre serviço e cliente com operações \ac{crud} e \ac{rpc} em uma arquitetura de microsserviços}
+\label{fig:network_crud_rpc_micro}
+\includegraphics[height=6.5cm]{img/cap2/network_rpc_crud_micro.png}
+\centering
+
+Fonte: Elaborado pelo Autor
+\end{figure}
+
 
 
 \section{Trabalhos Relacionados}
