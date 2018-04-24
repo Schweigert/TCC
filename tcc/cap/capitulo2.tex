@@ -295,10 +295,9 @@ Para isso, essas arquiteturas serão melhores abordadas na Seção \ref{sec:micr
 
 
 
-
-Entende-se por microsserviço aplicações que executam operações menores de um macrosserviço, da melhor forma possível~\cite{stephenclarkewillson2017}.
+Entende-se por microsserviço aplicações que executam operações menores de um macrosserviço, da melhor forma possível~\cite{stephenclarkewillson2017, Newman2015Feb}.
 %
-O objetivo de uma arquitetura de microsserviços é funcionar separadamente de forma autônoma, contendo baixo acoplamento~\cite{newman2015}.
+O objetivo de uma arquitetura de microsserviços é funcionar separadamente de forma autônoma, contendo baixo acoplamento~\cite{Newman2015Feb}.
 %
 Seu funcionamento deve ser desenhado para permitir alinhamentos de alta coesão e baixo acoplamento entre os demais microsserviços existentes em um macrosserviço~\cite{8169955}.
 
@@ -314,17 +313,80 @@ Um microsserviço é definido pelas seguintes características~\cite{8169955}:
   \item Deve posibilitar a implementação como uma peça individual do macrosserviço.
   \item Deve funcionar individualmente.
   \item Cada serviço deve ter uma interface. Essa interface deve ser o suficiente para utilizar o microsserviço.
-  \item A interface deve estar disponível na rede para chamada de processamento remoto.
+  \item A interface deve estar disponível na rede para chamada de processamento remoto ou consulta de dados.
   \item O serviço pode ser utilizado por qualquer linguagem de programação e/ou plataforma.
   \item O serviço deve executar com as dependências mínimas.
   \item Ao agregar vários microsserviços, o macrosserviço resultante poderá prover funcionalidades complexas.
 \end{itemize}
 
+\begin{figure}[htb!]
+\caption{Microsserviços podem ter diferentes tecnologias}
+\label{fig:microsservicos_tecnologias}
+\includegraphics[height=4cm]{img/cap2/microsservicos_tecnologias.png}
+\centering
+
+Adaptado de:~\cite{Newman2015Feb}
+\end{figure}
+
+O microsserviço deverá ser uma entidade separada. Ela deve ser implantada como um sistema independente em um \ac{paas}.
+%
+Toda a comunicação entre os microsserviços de um macrosserviço será executada sobre a rede, a fim de reforçar a separação entre cada serviço.
+%
+As chamadas pela rede com o cliente ou entre os microsserviços será executada através de uma \ac{api}, permitindo a liberdade de tecnologia em que cada um será implementado~\cite{Newman2015Feb}.
 
 
-\section{Arquitetura de Microsserviços para MMORPGs}
+
+\begin{figure}[htb!]
+\caption{Microsserviços são escaláveis}
+\label{fig:microsservicos_escalabilidade}
+\includegraphics[height=5cm]{img/cap2/microsservicos_escalabilidade.png}
+\centering
+
+Adaptado de:~\cite{Newman2015Feb}
+\end{figure}
+
+
+
+Uma arquitetura de microsserviços é escalável, como visível na Figura \ref{fig:microsservicos_escalabilidade}.
+%
+Ela permite o aumento do número de microsserviços sob demanda para suprir a necessidade de escalabilidade.
+%
+Este modelo computacional obtem maior desempenho, principalmente se executar sobre plataformas de computação elástica, na qual o orquestrador do macrosserviço pode aumentar o número de instâncias conforme a necessidade de requisições~\cite{Nadareishvili2016Aug}.
+
+
+
+Microsserviços desenvolvidos para web utilizam arquitetura \ac{rest} baseado sobre o protocolo \ac{http}.
+%
+É uma boa prática utilizar o corpo com conteúdo da requisição e resposta no formato \ac{json} nas chamadas a uma \ac{api} de microsserviço web~\cite{Nadareishvili2016Aug}.
+
+
+
+Entretanto não é uma prática comum para um serviço \ac{mmorpg} utilizar o protocolo \ac{http} pela sua elevada carga desnecessária na requisição~\cite{1417630}.
+%
+Por esse motivo se faz necessário ver as diferenças entre uma arquitetura de microsserviços para \ac{mmorpg} comparados a microsserviços web.
+
+
+
+\section{Arquitetura de Microsserviços para \ac{mmorpg}}
+
+
 
 \subsection{Protocolos Utilizados}
+
+
+
+Um serviço \ac{mmorpg} não utilizará protocolos com base no protocolo \ac{http}, mas ainda assim implementará um protocolo \ac{rest} a fim de realizar requisições a um serviço utilizando uma arquitetura de software \ac{mvc}~\cite{Chadwick2012Oct, LeckyThompson2008Nov}.
+%
+O protocolo \ac{rest} permitirá ele, similar a técnica de armazenamento persistente \ac{crud}, executar 4 métodos aos controladores de cada microsserviço~\cite{6267019}:
+
+
+
+\begin{enumerate}
+  \item Criar: Permite criar um dado no serviço (\textit{e.g.,} criar um personagem em sua conta, criar um pedido de amizade, etc).
+  \item Ler: Permite consultar um dado no serviço (\textit{e.g.,} ler os personagens que estão em sua região, ler os itens, etc).
+  \item Atualizar: Permite atualizar um dado no serviço (\textit{e.g.,} efetuar a compra de um item de \ac{npcs}, andar para um ponto do mapa, etc).
+  \item Deletar: Permite deletar um dado no serviço (\textit{e.g.,} usar um item do inventário, deletar uma mensagem lida de um amigo, etc).
+\end{enumerate}
 
 
 \section{Trabalhos Relacionados}
