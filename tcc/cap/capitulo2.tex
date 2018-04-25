@@ -154,7 +154,7 @@ Para esse gênero de jogo se faz necessário que o serviço execute independente
 
 Do ponto de vista da rede de computadores, a arquitetura de um cliente de jogo \ac{mmorpg} deve suportar consultas e chamadas de métodos remotos em um serviço~\cite{albion_online_unite}.
 %
-Um cliente para um jogo \ac{mmorpg} segue o estilo de arquitetura \ac{rest}, porém não sobre o protocolo \ac{http}, mas sim sobre um protocolo otimizado conveniente a aplicação, que será desenvolvido sobre outros protocolos (\textit{e.g.,}, \ac{tcp}, \ac{udp}, etc)~\cite{albion_online_unite, stephenclarkewillson2017}.
+Um cliente para um jogo \ac{mmorpg} segue o estilo de arquitetura \ac{rest}, porém não obrigatoriamente sobre o protocolo \ac{http}. A fim de reduzir o custo operacional das requisições, as consultas podem ser escritas sobre um protocolo otimizado conveniente a aplicação na camada de transporte (\textit{e.g.,}, \ac{tcp}, \ac{udp}, etc)~\cite{albion_online_unite, stephenclarkewillson2017}.
 
 O módulo de \textit{Gateway}, implementado dentro de um cliente de jogo \ac{mmorpg}, é responsável por realizar as requisições ao servidor e aplicar as chamadas de métodos internas ao cliente para exibir o estado de jogo ao jogador~\cite{albion_online_unite}.
 %
@@ -433,6 +433,7 @@ Por esse motivo, é possível utilizar um serviço web para realizar operações
 Essa arquitetura pode ser melhor compreendida pela Figura \ref{fig:network_crud_rpc_micro}.
 
 
+
 \begin{figure}[htb!]
 \caption{Diagrama de requisições entre serviço e cliente com operações \ac{crud} e \ac{rpc} em uma arquitetura de microsserviços}
 \label{fig:network_crud_rpc_micro}
@@ -444,5 +445,16 @@ Fonte: Elaborado pelo Autor
 
 
 
+Utilizando esse embasamento teórico sobre microsserviços e arquiteturas de jogos \ac{mmorpg}, pode-se analisar os trabalhos (Seção \ref{sec:similares}) relacionados com o tema proposto no atual documento.
+
 \section{Trabalhos Relacionados}
 \label{sec:similares}
+
+\subsection{Correlação de desempenho e número de conexões}
+~\cite{1417630}
+
+\subsection{Comparação de custo entre arquiteturas de microsserviços e monolíticas}
+~\cite{7515686}
+
+\subsection{Interpretação da complexidade de interações em jogos massivos para prever consumo de recursos da rede}
+~\cite{6374456}
