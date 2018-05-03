@@ -111,7 +111,7 @@ O contexto breve de cada gênero é:
 
 
 
-Dentre vários gêneros, alguns gêneros utilizam popularmente algumas tecnologias de rede.
+Dentre vários gêneros, alguns utilizam popularmente algumas tecnologias de rede.
 %
 A Tabela \ref{tab:comunicacao_genero} indica a correlação de tecnologias de rede comuns nos gêneros, além de trazer a correlação de número de jogadores por gênero de jogo.
 %
@@ -156,7 +156,7 @@ Por esse motivo, a escolha por abordar o gênero \ac{mmorpg} se torna interessan
 
 
 
-Jogos \ac{mmorpg} são utilizados como negócio viável e lucrativo, sendo que experiência de jogabilidade na qual o usuário final será submitido é um fator crítico para o sucesso.
+Jogos \ac{mmorpg} são utilizados como negócio viável e lucrativo, sendo que a experiência de jogabilidade na qual o usuário final será submitido é um fator crítico para o sucesso.
 %
 O mercado de jogos \ac{mmorpg} vem crescendo desde 2012~\cite{new_york_times}, sendo no ano de 2017 um dos mais lucrativos~\cite{statista_2018_mmo}.
 %
@@ -173,7 +173,7 @@ A principal característica desse estilo de jogo é a comunicação e representa
 Um jogo \ac{mmorpg} é arquitetado em duas partes~\cite{mmo_analytic}:
 \begin{itemize}
   \item \textbf{Cliente}: Aplicação que realizará as requisições com a interface do serviço, exibindo o estado de jogo de forma imersiva ao jogador. Este tema será melhor abordado na Seção \ref{sec:cliente}.
-  \item \textbf{Serviço}: Implementa as regras de negócio e requisitos do jogo. O serviço disponibiliza uma interface com ações possíveis ao cliente sobre algum protocolo de rede. Este tema será melhor abordado na Seção \ref{sec:arquiteturas}.
+  \item \textbf{Serviço}: Implementa as regras de negócio e requisitos do jogo. O serviço disponibiliza uma interface com ações possíveis ao cliente sobre algum protocolo de rede. Este tema será melhor abordado na Seção \ref{sec:microsservicos}.
 \end{itemize}
 
 
@@ -184,7 +184,7 @@ Por sua vez, o Cliente é implementado em algum ambiente convencional a jogos, c
 
 
 
-Nesse sentido é necessário descrever as características de jogabilidade de jogos \ac{mmorpg} a fim de melhor compreender o funcionamento da arquitetura de um cliente e de um serviço para jogos \ac{mmorpg}.
+Nesse sentido é necessário descrever as características de jogabilidade de jogos \ac{mmorpg} a fim de melhor compreender o funcionamento da arquitetura de um cliente e de um serviço para jogos \ac{mmorpg} nas seções seguintes.
 
 
 
@@ -242,7 +242,11 @@ Nos jogos \ac{mmorpg} é comum a restrição da visão do personagem, ora pelas 
 %
 Como o jogador não precisa obter dados de regiões que não estão em sua visão, não há necessidade de obter informações desses objetos~\cite{albion_online_unite}.
 %
-Esse caso pode ser visualizado na Figura \ref{fig:proximidade}.
+Esse caso pode ser visualizado na Figura \ref{fig:proximidade}, onde o personagem selecionado (destacado em vermelho) tem uma área de interesse de baixa distância e uma área de interesse de longa distância~\cite{albion_online_unite}.
+%
+Entretanto, o jogador não tem informações de demais objtos e jogadores fora do seu contexto de posicionamento.
+%
+Esta característica impede trapaças (visto que o cliente não tem informações que só estão contidas no serviço) e reduz a frequência de atualiação a cada cliente~\cite{albion_online_unite}.
 
 
 
@@ -266,11 +270,12 @@ Somente outros personagens dentro de uma distância podem receber alguma mensage
 
 
 Essa distância pode ser calculada utilizando Distância Euclidiana~\cite{Deza2009Aug}, onde a distância entre dois personagens podem ser calculadas pela equação $d(p, q) = \sqrt{\sum_{i=1}^{n}(q_i - p_i)^2}$.
-
+%
+Para diminuir a complexidade das comparações a fim de decidir quais personagens $P_n$ devem receber a mensagem, é comum utilizar técnicas de divisão de área utilizando algoritmos como \textit{Quadtree} ou \textit{Octree}~\cite{Lengyel2011Jun}, subdividindo os quadrantes de uma região do ambiente do jogo a fim de facilitar a consulta de quais personagens estão em determinada área deste ambiente.
 
 
 \begin{figure}[htb!]
-\caption{Chat baseado em contexto}
+\caption{Chat baseado em contexto de posicionamento, utilizando Distância Euclidiana}
 \label{fig:chat}
 \includegraphics[height=8cm]{img/cap2/chat.png}
 \centering
@@ -281,6 +286,23 @@ Fonte: Adaptado de ~\cite{albion_online_unite}
 
 
 Nesse sentido, a Figura \ref{fig:chat} mostra a interseção entre o raio de 4 personagens. Nesse exemplo, Mostra-se visível que a as mensagens de $P_1$ devem ser visíveis a $P_2$ e $P_3$, mas não a $P_4$, caso seja utilizado a Distância Euclidiana como regra de distância.
+
+
+
+O sistema de movimento de personagens possibilita que cada jogador movimente o seu personagem no ambiente para explora-lo.
+%
+Dessa maneira, este é um sistema crítico para um jogo \ac{mmorpg}.
+
+
+\begin{figure}[htb!]
+\caption{Personagens e os seus pontos de destino}
+\label{fig:walk}
+\includegraphics[height=4cm]{img/cap2/walk.png}
+\centering
+
+Fonte: Elaborado pelo Autor
+\end{figure}
+
 
 
 Entretanto, essas operações precisam de desempenho para não causar em frustração ao jogador final~\cite{7008965}.
