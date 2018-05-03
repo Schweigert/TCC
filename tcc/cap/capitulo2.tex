@@ -241,14 +241,15 @@ Fonte:~\cite{albion_online_unite}
 Nos jogos \ac{mmorpg} é comum a restrição da visão do personagem, ora pelas características de jogabilidade do gênero \ac{mmorpg} ora por motivos de desempenho e otimização.
 %
 Como o jogador não precisa obter dados de regiões que não estão em sua visão, não há necessidade de obter informações desses objetos~\cite{albion_online_unite}.
+%
+Esse caso pode ser visualizado na Figura \ref{fig:proximidade}.
 
 
 
 Algumas ações comuns dentro do ambiente de um jogo \ac{mmorpg}~\cite{mmorpg_culture}:
 
 \begin{itemize}
-  \item Enviar mensagem no chat regional;
-  \item Receber mensagem do chat dos demais jogadores na região;
+  \item Enviar e receber mensagem no chat regional;
   \item Andar pelo ambiente;
   \item Atacar inimigos no ambiente;
   \item Obter itens do ambiente deixados pelos inimigos;
@@ -256,6 +257,67 @@ Algumas ações comuns dentro do ambiente de um jogo \ac{mmorpg}~\cite{mmorpg_cu
   \item Interagir com \ac{npcs} próximos;
 \end{itemize}
 
+
+
+O envio e recepção de mensagens do chat é dado com o contexto do posicionamento do personagem~\cite{albion_online_unite}, visível na Figura \ref{fig:chat}.
+%
+Somente outros personagens dentro de uma distância podem receber alguma mensagem emitida pelo jogador $P_n$.
+
+
+
+Essa distância pode ser calculada utilizando Distância Euclidiana~\cite{Deza2009Aug}, onde a distância entre dois personagens podem ser calculadas pela equação $d(p, q) = \sqrt{\sum_{i=1}^{n}(q_i - p_i)^2}$.
+
+
+
+\begin{figure}[htb!]
+\caption{Chat baseado em contexto}
+\label{fig:chat}
+\includegraphics[height=8cm]{img/cap2/chat.png}
+\centering
+
+Fonte: Adaptado de ~\cite{albion_online_unite}
+\end{figure}
+
+
+
+Nesse sentido, a Figura \ref{fig:chat} mostra a interseção entre o raio de 4 personagens. Nesse exemplo, Mostra-se visível que a as mensagens de $P_1$ devem ser visíveis a $P_2$ e $P_3$, mas não a $P_4$, caso seja utilizado a Distância Euclidiana como regra de distância.
+
+
+Entretanto, essas operações precisam de desempenho para não causar em frustração ao jogador final~\cite{7008965}.
+%
+Nesse sentido, torna-se necessário conhecer os problemas computacionais conhecidos com relação aos serviços de jogos \ac{mmorpg}.
+
+\section{Problemas em jogos MMORPG}
+\label{sec:problemas}
+
+Uma métrica popular para mensurar o desempenho de um serviço \ac{mmorpg} é o número de conexões~\cite{1417630} simultâneas suportadas.
+%
+Em geral, caso o serviço ultrapasse o limite para o qual este foi projetado, diversas falhas de conexão, problemas de lentidão ou dessincronização com o cliente podem ocorrer.
+%
+Neste contexto, as ocorrências comuns são~\cite{1417630}:
+
+\begin{itemize}
+  \item \textbf{Longo tempo de resposta aos clientes}: implica em uma qualidade insatisfatória de jogabilidade ao usuário ou até mesmo impossibilitando o uso do serviço.
+  \item \textbf{Dessincronização com os clientes}: realiza reversão na aplicação. Reversão é definida pela situação na qual uma requisição é solicitada ao servidor, um pré-processamento aparente é executado e essa requisição é negada, sendo necessário desfazer o pré-processamento aparente realizado ao cliente.
+  \item \textbf{Problemas internos ao serviço}:  podem estar relacionados a diversos outros erros internos de implementação ou a capacidade de recurso computacional (\textit{e.g.,} sobrecarga no banco de dados, gerenciamento lento do espaço ou inconsistências dentro do jogo perante a regra de negócios).
+  \item \textbf{Falha de conexão entre o cliente e os microsserviços}: causa a negação de serviço ao usuário final.
+\end{itemize}
+
+Existem algumas causas comuns para essas as ocorrências descritas~\cite{1417630}:
+
+\begin{itemize}
+  \item \textbf{Baixo poder computacional do servidor}: poder computacional baixo para a qualidade de experiência de jogabilidade do usuário final desejada.
+  \item \textbf{Complexidade de algoritmos}: o serviço usa algoritmos de alta complexidade ou regras de negócios que demandam por um algoritmo complexo.
+  \item \textbf{Limitado pela própria arquitetura}: está limitado diretamente pelo número de conexões, não suportando a carga recebida.
+\end{itemize}
+
+Tais ocorrências estão diretamente correlacionadas a carga a qual tais serviços estão submetidos e podem ser amenizadas utilizando técnicas de provisionamento de recursos e balanceamento de carga~\cite{1417630}, mas não suficiente para eliminar tais ocorrências.
+
+A área de desenvolvimento web compartilha várias ocorrências comuns geradas por sobrecarga do serviço~\cite{7830692}.
+%
+Em desenvolvimento web é comum utilizar a abordagem de microsserviços para resolver o problema de sobrecarga, modularizando o  funcionamento em módulos menores.
+%
+Da mesma forma, faz sentido modularizar um serviço \ac{mmorpg} em microsserviços para suportar cargas maiores e diminuir o custo de manutenção~\cite{7515686}.
 
 
 Do ponto de vista da arquitetura de computadores, as operações existentes em um jogo \ac{mmorpg} seguem um padrão de interação com o mundo, criar, deletar ou manipular objetos deste mundo.
@@ -328,75 +390,6 @@ A abordagem de engenharia por utilizar um Gateway permite que o serviço mude de
 Essa mesma abordagem também facilita o desenvolvimento de uma suíte de testes do módulo de renderização independente do serviço~\cite{Freeman2009Oct}, podendo realizar testes utilizando o padrão de objetos Mock~\cite{Beck2004Nov} para simular as requisições.
 %
 Dessa forma, é possivel garantir um padrão de integração desejado entre o serviço e o cliente utilizando baixo acoplamento, com ganho de desempenho na suíte de testes do cliente, sem a necessidade real de um serviço para testar o cliente.
-
-
-
-Entretanto, se faz necessário que o gateway siga o mesmo padrão de integração requirida pela arquitetura na qual o jogo estará sendo executado.
-%
-A Seção \ref{sec:arquiteturas} tratará de explicar o funcionamento de uma arquitetura para serviços \ac{mmorpg}.
-
-
-
-\section{Arquitetura de Serviços MMORPG}
-\label{sec:arquiteturas}
-
-
-
-A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sobre uma arquitetura de serviço que executa sobre diversos servidores\cite{stephenclarkewillson2017}, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}.
-%
-Modelar um sistema de alto desempenho torna-se um trabalho essencial para a satisfação do usuário final~\cite{1417630}.
-%
-As ocorrências geradas por um sistema de baixo desempenho podem acarretar em frustração do usuário com o serviço e/ou aumento dos gastos com recurso computacional para manter o serviço.
-%
-Uma ocorrência é qualquer tipo de mal funcionamento em uma aplicação, não necessariamente aparente ao usuário final~\cite{1417630}.
-%
-Evitar ou eliminar as ocorrências durante o projeto e desenvolvimento das arquiteturas do serviço é um processo crítico para o bom funcionamento desses jogos.
-
-
-
-Uma métrica popular para mensurar o desempenho de um serviço \ac{mmorpg} é o número de conexões~\cite{1417630} simultâneas suportadas.
-%
-Em geral, caso o serviço ultrapasse o limite para o qual este foi projetado, diversas falhas de conexão, problemas de lentidão ou dessincronização com o cliente podem ocorrer.
-%
-Neste contexto, as ocorrências comuns são~\cite{1417630}:
-
-
-
-
-\begin{itemize}
-  \item \textbf{Longo tempo de resposta aos clientes}: implica em uma qualidade insatisfatória de jogabilidade ao usuário ou até mesmo impossibilitando o uso do serviço.
-  \item \textbf{Dessincronização com os clientes}: realiza reversão na aplicação. Reversão é definida pela situação na qual uma requisição é solicitada ao servidor, um pré-processamento aparente é executado e essa requisição é negada, sendo necessário desfazer o pré-processamento aparente realizado ao cliente.
-  \item \textbf{Problemas internos ao serviço}:  podem estar relacionados a diversos outros erros internos de implementação ou a capacidade de recurso computacional (\textit{e.g.,} sobrecarga no banco de dados, gerenciamento lento do espaço ou inconsistências dentro do jogo perante a regra de negócios).
-  \item \textbf{Falha de conexão entre o cliente e os microsserviços}: causa a negação de serviço ao usuário final.
-\end{itemize}
-
-
-
-Existem algumas causas comuns para essas as ocorrências descritas~\cite{1417630}:
-
-
-
-\begin{itemize}
-  \item \textbf{Baixo poder computacional do servidor}: poder computacional baixo para a qualidade de experiência de jogabilidade do usuário final desejada.
-  \item \textbf{Complexidade de algoritmos}: o serviço usa algoritmos de alta complexidade ou regras de negócios que demandam por um algoritmo complexo.
-  \item \textbf{Limitado pela própria arquitetura}: está limitado diretamente pelo número de conexões, não suportando a carga recebida.
-\end{itemize}
-
-
-
-Tais ocorrências estão diretamente correlacionadas a carga a qual tais serviços estão submetidos e podem ser amenizadas utilizando técnicas de provisionamento de recursos e balanceamento de carga~\cite{1417630}, mas não suficiente para eliminar tais ocorrências.
-
-A área de desenvolvimento web compartilha várias ocorrências comuns geradas por sobrecarga do serviço~\cite{7830692}.
-%
-Em desenvolvimento web é comum utilizar a abordagem de microsserviços para resolver o problema de sobrecarga, modularizando o  funcionamento em módulos menores.
-%
-Da mesma forma, faz sentido modularizar um serviço \ac{mmorpg} em microsserviços para suportar cargas maiores e diminuir o custo de manutenção~\cite{7515686}.
-
-
-
-Entretanto, se faz necessário compreender o funcionamento e padronização de desenvolvimento de microsserviços atuais.
-%
-Para isso, o padrão de arquiteturas de microsserviços será abordado na Seção \ref{sec:microsservicos}.
 
 
 
