@@ -289,9 +289,9 @@ Nesse sentido, a Figura \ref{fig:chat} mostra a interseção entre o raio de 4 p
 
 
 
-O sistema de movimento de personagens possibilita que cada jogador movimente o seu personagem no ambiente para explora-lo.
+O sistema de movimento pelo ambiente do jogo possibilita que cada jogador movimente o seu personagem a fim de explora-lo.
 %
-Dessa maneira, este é um sistema crítico para um jogo \ac{mmorpg}.
+Dessa maneira, este é um sistema crítico para um jogo \ac{mmorpg}, visto que este sistema será utilizado para inúmeras consultas de proximidade, além de ter uma frequência de atualização e consultas pelos jogadores muito frequente~\cite{albion_online_unite}.
 
 
 \begin{figure}[htb!]
@@ -305,7 +305,12 @@ Fonte: Elaborado pelo Autor
 
 
 
-Entretanto, essas operações precisam de desempenho para não causar em frustração ao jogador final~\cite{7008965}.
+Para os demais sistemas como combate, interação com o mundo, jogadores ou \ac{npcs} também utiliza-se do sistema de raio máximo de interação~\cite{albion_online_unite}.
+%
+Este sistema não permite o personagem interagir com objetos que não estão dentro do contexto de seu posicionamento no ambiente~\cite{albion_online_unite}.
+
+
+Essas operações precisam de desempenho para não causar frustração ao jogador final~\cite{7008965}.
 %
 Nesse sentido, torna-se necessário conhecer os problemas computacionais conhecidos com relação aos serviços de jogos \ac{mmorpg}.
 
@@ -322,7 +327,7 @@ Neste contexto, as ocorrências comuns são~\cite{1417630}:
   \item \textbf{Longo tempo de resposta aos clientes}: implica em uma qualidade insatisfatória de jogabilidade ao usuário ou até mesmo impossibilitando o uso do serviço.
   \item \textbf{Dessincronização com os clientes}: realiza reversão na aplicação. Reversão é definida pela situação na qual uma requisição é solicitada ao servidor, um pré-processamento aparente é executado e essa requisição é negada, sendo necessário desfazer o pré-processamento aparente realizado ao cliente.
   \item \textbf{Problemas internos ao serviço}:  podem estar relacionados a diversos outros erros internos de implementação ou a capacidade de recurso computacional (\textit{e.g.,} sobrecarga no banco de dados, gerenciamento lento do espaço ou inconsistências dentro do jogo perante a regra de negócios).
-  \item \textbf{Falha de conexão entre o cliente e os microsserviços}: causa a negação de serviço ao usuário final.
+  \item \textbf{Falha de conexão entre o cliente e o serviço}: causa a negação de serviço ao usuário final.
 \end{itemize}
 
 Existem algumas causas comuns para essas as ocorrências descritas~\cite{1417630}:
