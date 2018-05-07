@@ -573,8 +573,12 @@ Fonte: Elaborado pelo Autor
 
 Utilizando esse embasamento teórico sobre microsserviços e arquiteturas de jogos \ac{mmorpg}, pode-se analisar os trabalhos (Seção \ref{sec:similares}) relacionados com o tema proposto no atual documento.
 
+
+
 \section{Trabalhos Relacionados}
 \label{sec:similares}
+
+
 
 Para nortear o desenvolvimento da análise se microsserviços utiliziados em jogos \ac{mmorpg} proposto no atual trabalho, essa seção apresenta outros trabalhos que têm o escopo ou objetivo similar, no qual monitoraram e analisaram serviços de jogos \ac{mmorpg}.
 %
@@ -583,8 +587,52 @@ Ao apresentar estes trabalhos, busca-se apresentar o contexto e objetivo, e ent�
 Por fim, será necessário apresentar na Seção \ref{sec:similares_analise} uma análise das abordagens e resultados obtidos dos trabalhos relacionados.
 
 
+
 \subsection{Huang et al. (2004)}
-O trabalho de ~\cite{1417630}
+
+
+
+O trabalho de ~\cite{1417630} investiga a relação entre os recursos utilizados e o número de conexões presentes em um serviço \ac{mmorpg} distribuído.
+%
+Neste trabalho é relatado que a infraestrutura utiliza três serviços: Um \textit{Game Server} sobre protocolo \ac{tcp}, um \textit{Proxy Server} também sobre protocolo \ac{tcp}, e um servidor web para autenticação que executa sobre uma interface \ac{http}.
+%
+O foco de análise é o \textit{Game Server} e o \textit{Proxy Server}.
+
+
+
+\begin{figure}[htb!]
+\caption{Arquitetura distribuída utilizando proxy}
+\label{fig:game_with_proxy}
+\includegraphics[height=7cm]{img/cap2/game_with_proxy.png}
+\centering
+
+Adaptado de:~\cite{1417630}
+\end{figure}
+
+
+
+\begin{figure}[htb!]
+\caption{Número de conexões no serviço pelo tempo decorrido}
+\label{fig:players_peer_time}
+\includegraphics[height=2.5cm]{img/cap2/players_peer_time.png}
+\centering
+
+Adaptado de:~\cite{1417630}
+\end{figure}
+
+
+
+A infraestrutura do servidor de jogo contem um \textit{Proxy Server Farm} utilizando o algoritmo \textit{Round Robin} para balanceamento de carga entre cada cliente.
+%
+Cada \textit{Proxy Server} é responsável por comunicar com os demais microsserviços privados ao servidor, baseado com a área de interesse de sua conexão.
+%
+O protocolo de comunicação utilizado entre o Cliente e \textit{Proxy Server} é baseado em \ac{rpc}~\cite{faber, borella}, porém não é relatado sobre o o protocolo de comunicação utilizado entre o \textit{Proxy Server} e o \textit{Game Server}.
+%
+A sua arquitetura pode ser observada na Figura \ref{fig:game_with_proxy}, na qual obteve seus dados obtidos durante 100 dias para realizar as análises.
+%
+A Figura \ref{fig:players_peer_time} demonstra o número de conexões pelo tempo no serviço analisado.
+
+
 
 \subsection{Villamizar et al. (2016)}
 O trabalho de ~\cite{7515686}
