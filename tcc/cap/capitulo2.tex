@@ -593,7 +593,7 @@ Ao apresentar estes trabalhos, busca-se apresentar o contexto e objetivo, e ent�
 
 
 \subsection{Huang et al. (2004)}
-
+\label{sec:huang}
 
 
 O trabalho de ~\cite{1417630} investiga a relação entre os recursos utilizados e o número de conexões presentes em um serviço \ac{mmorpg} distribuído.
@@ -740,7 +740,71 @@ O autor alerta sobre tolerância a falhas, transações distribuidas, distribui�
 
 
 \subsection{Suznjevic e Matijasevic (2012)}
-O trabalho de ~\cite{6374456}
+
+
+
+O trabalho de ~\cite{6374456} tem seu objetivo a fim de prever a carga a qual um serviço \ac{mmorpg} pode receber utilizando a complexidade das operações nos contextos de \ac{pvp} e \ac{pvnpc} a qual um personagem pode realizar em um ambiente.
+%
+Este trabalho usa com base o modelo descrito na Sessão~\ref{sec:huang}, um modelo distribuído em serviços na qual efetuam o processamento de uma região do ambiente virtual.
+
+
+
+\begin{table}[htb!]
+\centering
+\caption{Complexidade da interação com o ambiente, por contexto da interação}
+\label{tab:complexidade}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Contexto da ação        & \ac{pvp}           & \ac{pvnpc}              & Number of \ac{npcs}    & Network {[}kbits/s{]} \\ \hline
+Questing                & $O(n)$             & $O(n log(n))$           & $N \leq 6 $            & 11.4          \\ \hline
+Trading                 & $O(n)$             & $O(n)$                  & $N \leq 20$            & 8.1           \\ \hline
+Dungeons                & $O(n^2)$           & $O(n^2)$                & $N \leq 20$            & 18.3          \\ \hline
+\ac{pvp} combat         & $O(n^3)$           & $O(n)$                  & $N = 0    $            & 24.1          \\ \hline
+Raiding                 & $O(n^2 log(n))$    & $O(n^3)$                & $N \leq 40$            & 32.0          \\ \hline
+\end{tabular}
+
+Fonte:~\cite{6374456}
+\end{table}
+
+
+
+A análise realizada leva em conta a complexidade das ações no ambiente, a qual pode ser descrita na Tabela~\ref{tab:complexidade}.
+%
+Essa tabela exibe as ações que podem ser executadas para interagir com o ambiente, seja essa interação com \ac{pvp} (jogador com outro jogador) ou \ac{pvnpc} (jogador com um personagem ou objeto gerenciado pelo serviço).
+%
+Os contextos analisados nessa tabela são:
+
+\begin{itemize}
+  \item \textit{Questing}: Contexto de missão, na qual um grupo de jogadores ou um grupo de \ac{npcs} podem ser afetados nas ações.
+  \item \textit{trading}: Contexto de negociação, na qual a complexidade leva em conta somente o número de itens negociados.
+  \item \textit{Dungeons}: Contexto de exploração, na qual o ambiente pode ser modificado conforme as ações dos personagens em um ambiente isolado para este grupo.
+  \item \textit{\ac{pvp} combat}: Contexto de batalha entre jogadores, na qual as ações entre os jogadores influenciam diretamente o estado do personagem oponente.
+  \item \textit{Raiding}: Representa um contexto específico de exploração, onde multiplos jogadores unem forças a fim de combater outro grupo de jogadores ou \ac{npcs}.
+\end{itemize}
+
+
+\begin{figure}[htb!]
+\caption{Regressão levando em conta a complexidade das ações e contexto dos personagens}
+\label{fig:regressao_complexidade}
+\includegraphics[height=6.0cm]{img/cap2/network_regressao_complexidade.png}
+\centering
+
+Fonte:~\cite{6374456}
+\end{figure}
+
+
+
+Utilizando as complexidades das ações, o número de conexões e o contexto de cada personagem no ambiente para predizer a banda utilizada.
+%
+Pode-se visualizar uma regressão na Figura~\ref{fig:regressao_complexidade}.
+
+
+
+O autor conclui que o contexto de interação com o ambiente de cada personagem tem relevância com o consumo de \ac{cpu} e banda, a qual pode ser calculada com sua complexidade a fim de desenvolver uma ferramenta para predição de carga sobre serviços \ac{mmorpg}.
+%
+Entretanto, essa predição não é feita em tempo real, não contribuindo para a automação da escalabilidade vertical e horizontal da arquitetura de microsserviços.
+
+
 
 \subsection{Análise dos trabalhos relacionados}
 \label{sec:similares_analise}
