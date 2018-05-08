@@ -615,7 +615,7 @@ Adaptado de:~\cite{1417630}
 
 
 
-A infraestrutura do servidor de jogo contem um \textit{Proxy Server Farm} utilizando o algoritmo \textit{Round Robin} com pesos para balanceamento de carga entre cada cliente.
+A infraestrutura do servidor de jogo contém um \textit{Proxy Server Farm} utilizando o algoritmo \textit{Round Robin} com pesos para balanceamento de carga entre cada cliente.
 %
 Cada \textit{Proxy Server} é responsável por comunicar com os demais microsserviços privados ao servidor, baseado com a área de interesse de sua conexão.
 %
@@ -623,7 +623,7 @@ O protocolo de comunicação utilizado entre o Cliente e \textit{Proxy Server} �
 %
 A sua arquitetura pode ser observada na Figura \ref{fig:game_with_proxy}, na qual obteve seus dados obtidos durante 100 dias para realizar as análises.
 %
-A Figura \ref{fig:players_peer_time} demonstra o número de conexões pelo tempo no serviço analisado.
+A Figura \ref{fig:players_peer_time} demonstra uma amostra do número de conexões pelo tempo no serviço obtido.
 
 
 
@@ -635,9 +635,6 @@ A Figura \ref{fig:players_peer_time} demonstra o número de conexões pelo tempo
 
 Fonte:~\cite{1417630}
 \end{figure}
-
-
-
 
 
 
@@ -665,7 +662,82 @@ Como trabalhos futuros é relatado a análise do posicionamento de personagens p
 
 
 \subsection{Villamizar et al. (2016)}
-O trabalho de ~\cite{7515686}
+
+
+
+O trabalho de ~\cite{7515686} investiga o custo de arquiteturas de microsserviços, arquiteturas \ac{paas} orientedas a eventos e aplicações monolíticas para aplicações web.
+%
+A sua principal motivação é a comparação de custos para a tradução de sistemas legados para arquiteturas distribuídas.
+%
+Para isso, o autor preparou 3 instâncias de testes com suas configurações desenhadas a fim de ter o maior número de requisições por minuto com o mesmo custo financeiro.
+
+
+
+\begin{figure}[htb!]
+\caption{Arquitetura monolítica web implementada na \ac{aws}}
+\label{fig:aws_monolitico}
+\includegraphics[height=4.5cm]{img/cap2/aws_monolitico.png}
+\centering
+
+Fonte:~\cite{7515686}
+\end{figure}
+
+\textbf{Instância I.} Utilizando quatro instâncias \ac{aws} \textit{c4.large}, uma instância \ac{aws} \textit{c4.xlarge} e uma instância \ac{aws} \textit{db.m3.medium}..
+%
+A Figura~\ref{fig:aws_monolitico} exibe a implantação de uma aplicação web monolítica.
+%
+Essa arquitetura foi implementada utilizando \textit{Jax-RS} e \textit{Play Framework}.
+
+
+
+
+\begin{figure}[htb!]
+\caption{Arquitetura de microsserviços web implementada na \ac{aws}}
+\label{fig:aws_microsservicos}
+\includegraphics[height=4.5cm]{img/cap2/aws_microsservicos.png}
+\centering
+
+Fonte:~\cite{7515686}
+\end{figure}
+
+\textbf{Instância II.} Utilizando três instâncias \ac{aws} \textit{c4.xlarge}, uma instância \ac{aws} \textit{t2.small} e uma instância \ac{aws} \textit{db.m3.medium}.
+%
+A Figura~\ref{fig:aws_microsservicos} exibe a implantação de uma aplicação de microsserviços web. Essa arquitetura foi implementada utilizando \textit{Play Framework}.
+
+
+
+\begin{figure}[htb!]
+\caption{Arquitetura de microsserviços web implementada na \ac{aws} utilizando a tecnologia \textit{lambda}}
+\label{fig:aws_lambda}
+\includegraphics[height=4.5cm]{img/cap2/aws_lambda.png}
+\centering
+
+Fonte:~\cite{7515686}
+\end{figure}
+
+\textbf{Instância III.} Utilizando duas instâncias \ac{aws} \textit{lambda S1}, duas instâncias \ac{aws} \textit{lambda S2}, uma instância \ac{aws} \textit{S3 Bucket} e uma instância \ac{aws} \textit{db.m3.medium}.
+%
+A Figura~\ref{fig:aws_lambda} exibe a implantação de uma aplicação de microsserviços web utilizando a tecnologia \ac{aws} \textit{lambda}. Essa arquitetura foi implementada em \textit{Node.js}, onde as funções de \textit{gateway} foram implementadas em quatro funções independentes do tipo \textit{microservice-http-endpoint}.
+
+
+
+\begin{figure}[htb!]
+\caption{Custo por por um milhão de requisições em dólares utilizando diferentes arquiteturas sobre a \ac{aws}}
+\label{fig:custo_aws}
+\includegraphics[height=4.5cm]{img/cap2/custo_aws.png}
+\centering
+
+Fonte:~\cite{7515686}
+\end{figure}
+
+
+
+Foi concluído que a arquitetura de microsserviços, nas condições desta aplicação, podem reduzir até 13.42\% em gastos com a infraestrutura.
+%
+Essa redução pode ser observada na Figura~\ref{fig:custo_aws}.
+%
+O autor alerta sobre tolerância a falhas, transações distribuidas, distribuição de dados e versionamento de serviço.
+
 
 \subsection{Suznjevic e Matijasevic (2012)}
 O trabalho de ~\cite{6374456}
