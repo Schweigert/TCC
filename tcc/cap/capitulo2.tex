@@ -615,6 +615,18 @@ Adaptado de:~\cite{1417630}
 
 
 
+A infraestrutura do servidor de jogo contem um \textit{Proxy Server Farm} utilizando o algoritmo \textit{Round Robin} com pesos para balanceamento de carga entre cada cliente.
+%
+Cada \textit{Proxy Server} é responsável por comunicar com os demais microsserviços privados ao servidor, baseado com a área de interesse de sua conexão.
+%
+O protocolo de comunicação utilizado entre o Cliente e \textit{Proxy Server} é baseado em \ac{rpc}~\cite{faber, borella}, porém não é relatado sobre o o protocolo de comunicação utilizado entre o \textit{Proxy Server} e o \textit{Game Server}.
+%
+A sua arquitetura pode ser observada na Figura \ref{fig:game_with_proxy}, na qual obteve seus dados obtidos durante 100 dias para realizar as análises.
+%
+A Figura \ref{fig:players_peer_time} demonstra o número de conexões pelo tempo no serviço analisado.
+
+
+
 \begin{figure}[htb!]
 \caption{Número de conexões no serviço pelo tempo decorrido}
 \label{fig:players_peer_time}
@@ -626,15 +638,29 @@ Fonte:~\cite{1417630}
 
 
 
-A infraestrutura do servidor de jogo contem um \textit{Proxy Server Farm} utilizando o algoritmo \textit{Round Robin} com pesos para balanceamento de carga entre cada cliente.
+
+
+
+Como análise, o autor correlacionou o número de conexões com número de pacotes, banda, memória e \ac{cpu} consumidos utilizando uma função estatística linear.
 %
-Cada \textit{Proxy Server} é responsável por comunicar com os demais microsserviços privados ao servidor, baseado com a área de interesse de sua conexão.
+Esta função pode ser utilizada com regressão linear para prever consumo de recursos futuros e por fim realocar mais recursos ao serviço, contribuindo com escalabilidade vertical autônoma.
 %
-O protocolo de comunicação utilizado entre o Cliente e \textit{Proxy Server} é baseado em \ac{rpc}~\cite{faber, borella}, porém não é relatado sobre o o protocolo de comunicação utilizado entre o \textit{Proxy Server} e o \textit{Game Server}.
+Um exemplo de aplicação dessa regressão linear pode ser visualizada na Figura~\ref{fig:regressao_bytes}, onde o autor compara o consumo de banda real comparado a regressão linear.
+
+
+\begin{figure}[htb!]
+\caption{Regressão linear comparado ao consumo de banda real do servidor}
+\label{fig:regressao_bytes}
+\includegraphics[height=4.5cm]{img/cap2/regressao.png}
+\centering
+
+Fonte:~\cite{1417630}
+\end{figure}
+
+
+Entretanto, a escalabilidade horizontal não pode ser prevista, visto que não é analisado o posicionamento de cada personagem a fim de dividir os ambientes em pedaços menores com outros serviços.
 %
-A sua arquitetura pode ser observada na Figura \ref{fig:game_with_proxy}, na qual obteve seus dados obtidos durante 100 dias para realizar as análises.
-%
-A Figura \ref{fig:players_peer_time} demonstra o número de conexões pelo tempo no serviço analisado.
+Como trabalhos futuros é relatado a análise do posicionamento de personagens para escalabilidade horizontal, a análise de outras arquiteturas e timos de jogos diferentes e qual o impácto de utilizar balanço de carga e provisionamento de recursos de forma dinâmica.
 
 
 
