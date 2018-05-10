@@ -306,7 +306,7 @@ Fonte: Elaborado pelo Autor
 
 A interação com o ambiente, itens, \ac{npcs} e outros jogadores também são afetados pela área de interesse, na qual o personagem terá um raio limitante para cada tipo de interação no ambiente.
 %
-Um exemplo de ambiente com personagens ($P_1$ e $P_2$), objetos ($O_1$) e \ac{npcs} () pode ser visualizado na Figura~\ref{fig:obj_e_npc1}.
+Um exemplo de ambiente com personagens ($P_1$ e $P_2$), objetos ($O_1$) e \ac{npcs} () pode ser visualizado na Figura~\ref{fig:obj_e_npc1}~\cite{albion_online_unite}.
 
 \begin{figure}[htb!]
 \caption{Personagens, objetos e NPCs em no ambiente}
@@ -324,7 +324,7 @@ Essas operações precisam de desempenho para não causar frustração ao jogado
 Nesse sentido, torna-se necessário conhecer os problemas computacionais conhecidos com relação aos serviços de jogos \ac{mmorpg}.
 
 
-/
+
 \section{Problemas em jogos MMORPG}
 \label{sec:problemas}
 
@@ -358,10 +358,13 @@ Em desenvolvimento web é comum utilizar a abordagem de microsserviços para res
 Da mesma forma, faz sentido modularizar um serviço \ac{mmorpg} em microsserviços para suportar cargas maiores e diminuir o custo de manutenção~\cite{7515686}.
 
 
+
 Do ponto de vista da arquitetura de computadores, as operações existentes em um jogo \ac{mmorpg} seguem um padrão de interação com o mundo, criar, excluir ou manipular objetos deste mundo.
 
-%
+
+
 Para suprir o desenvolvimento de tais sistemas, se faz necessário compreender os padrões de desenvolvimento de tais arquiteturas na qual suprem as operações básicas de interação com o mundo.
+
 
 
 \section{Arquitetura de Clientes MMORPG}
@@ -369,13 +372,55 @@ Para suprir o desenvolvimento de tais sistemas, se faz necessário compreender o
 
 
 
+A arquitetura de um cliente \ac{mmorpg} é um pilar fundamental para o sucesso de um jogo deste gênero.
+%
+O seu funcionamento é totalmente visível ao usuário final e tem o principal objetivo de exibir o estado do mundo de forma gráfica ao usuário~\cite{albion_online_unite}.
+%
+Um exemplo de cliente \ac{mmorpg} é o jogo Sandbox-Interactive Albion\footnote{Sandbox-Interactive Albion: \url{https://albiononline.com/en/home}}, que pode ser visualizado na Figura~\ref{fig:cliente_albion}.
+
+
+
+\begin{figure}[htb!]
+\caption{Exemplo de Cliente MMORPG (Sandbox-Interactive Albion).}
+\label{fig:cliente_albion}
+\includegraphics[height=8cm]{img/cap2/cliente_albion.png}
+\centering
+
+Fonte:~\cite{albion_online_unite}
+\end{figure}
+
+
+
+Do ponto de vista de computação gráfica, um cenário 3D pode ser visualizado como uma árvore.
+%
+Utilizar árvores para descrever um cenário ajuda tanto no formado de armazenamento em disco para leitura (\textit{e.g.}, \ac{json}, \ac{xml}, etc.), operações de intersão e deleção, organização do projeto e redução da complexidade utilizando transformações lineares em sistemas gráficos como \textit{OpenGL} e \textit{DirectX}~\cite{Lengyel2011Jun}.
+%
+Esse modelo é amplamente utilizado em motores gráficos, na qual pode ser encontrado em motores gráficos populares como \textit{Godot}, \textit{Unity3D} e \textit{Unreal 3}.
+%
+Um exemplo pode ser visto na Figura~\ref{fig:scene_tree}, retirado do motor gráfico \textit{open source} \textit{Godot}.
+
+
+
+\begin{figure}[htb!]
+\caption{\textit{Scene tree view} no motor gráfico Godot}.
+\label{fig:scene_tree}
+\includegraphics[height=8cm]{img/cap2/scene_tree.png}
+\centering
+
+Fonte: Elaborado pelo Autor
+\end{figure}
+
+
+
 Do ponto de vista da rede de computadores, a arquitetura de um cliente de jogo \ac{mmorpg} deve suportar consultas e chamadas de métodos remotos em um serviço~\cite{albion_online_unite}.
 %
 Um cliente para um jogo \ac{mmorpg} segue o estilo de arquitetura \ac{rest}, porém não obrigatoriamente sobre o protocolo \ac{http}.
 %
-A fim de reduzir o custo operacional das requisições, as consultas podem ser escritas sobre um protocolo otimizado conveniente a aplicação na camada de transporte (\textit{e.g.,}, \ac{tcp}, \ac{udp}, etc)~\cite{albion_online_unite, stephenclarkewillson2017}.
+A fim de reduzir o custo operacional das requisições, as consultas podem ser escritas sobre um protocolo otimizado conveniente a aplicação na camada de transporte (\textit{e.g.}, \ac{tcp}, \ac{udp}, etc)~\cite{albion_online_unite, stephenclarkewillson2017}.
 
-O módulo de \textit{Gateway}, implementado dentro de um cliente de jogo \ac{mmorpg}, é responsável por realizar as requisições ao servidor e aplicar as chamadas de métodos internas ao cliente para exibir o estado de jogo ao jogador~\cite{albion_online_unite}.
+
+
+O módulo de \textit{Network}, implementado dentro de um cliente de jogo \ac{mmorpg}, é responsável por realizar as requisições conforme as ações requiridas pelo jogador ao serviço e aplicar os estados na \textit{Scene Tree} com os objetos da área de interesse~\cite{albion_online_unite}.
 %
 Ele pode ser encontrado na Figura \ref{fig:gateway}.
 
