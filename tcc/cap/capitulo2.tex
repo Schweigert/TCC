@@ -779,7 +779,7 @@ A Figura~\ref{fig:aws_lambda} exibe a implantação de uma aplicação de micros
 
 
 \begin{figure}[htb!]
-\caption{Custo por por um milhão de requisições em dólares utilizando diferentes arquiteturas sobre a \ac{aws}}
+\caption{Custo por um milhão de requisições em dólares utilizando diferentes arquiteturas sobre a \ac{aws}}
 \label{fig:custo_aws}
 \includegraphics[height=4.5cm]{img/cap2/custo_aws.png}
 \centering
@@ -802,7 +802,7 @@ O autor alerta sobre tolerância a falhas, transações distribuidas, distribui�
 
 O trabalho de ~\cite{6374456} tem seu objetivo a fim de prever a carga a qual um serviço \ac{mmorpg} pode receber utilizando a complexidade das operações nos contextos de \ac{pvp} e \ac{pvnpc} a qual um personagem pode realizar em um ambiente.
 %
-Este trabalho usa com base o modelo descrito na Sessão~\ref{sec:huang}, um modelo distribuído em serviços na qual efetuam o processamento de uma região do ambiente virtual.
+Este trabalho usa com base o modelo descrito na Seção~\ref{sec:huang}, um modelo distribuído em serviços na qual efetuam o processamento de uma região do ambiente virtual.
 
 
 
@@ -865,3 +865,50 @@ Entretanto, essa predição não é feita em tempo real, não contribuindo para 
 
 \subsection{Análise dos trabalhos relacionados}
 \label{sec:similares_analise}
+
+
+
+Esta seção expõe uma análise sobre os trabalhos relacionados apresentados. Em específico, são apontadas características relevantes a cada trabalho e por fim é feita uma comparação entre estas características.
+
+
+Ao levantar o problema de consumo de recursos, existem duas vertentes de pesquisas. Elas são descritas dessa forma:
+
+\begin{itemize}
+  \item \textbf{Comparação de arquiteturas}: O autor utiliza alguma métrica a fim de decidir qual a melhor alternativa de arquitetura para determinada aplicação.
+  \item \textbf{Previsão de carga}: Projetar a carga futura sobre algum recurso a fim de escalar automaticamente a sua arquitetura na nuvem, a fim de reduzir gastos de alocações ociosas.
+\end{itemize}
+
+Dessa forma, podemos dividir os trabalhos relacionados com a sua categoria. Esta relação pode ser visualizada na Tabela~\ref{tab:categoria_trabalhos}.
+
+\begin{table}[htb!]
+\centering
+\caption{Trabalhos relacionados por categoria}
+\label{tab:categoria_trabalhos}
+\begin{tabular}{|l|l|}
+\hline
+Autor & Categoria                  \\ \hline
+\cite{6374456}  & Previsão de Carga          \\ \hline
+\cite{7515686}  & Comparação de Arquiteturas \\ \hline
+\cite{1417630}  & Previsão de Carga          \\ \hline
+\end{tabular}
+\end{table}
+
+Para o trabalho referente a comparação de arquiteturas~\cite{7515686}, o recurso utilizado foi o custo por um determinado número de requisições web.
+%
+Já para os trabalhos referentes a previsão de carga~\cite{6374456, 1417630} foi levantado o consumo da banda, \ac{cpu} e memória, entretanto não levantou-se o número de conexões e latência aos usuários, na qual podem ser observados na Tabela~\ref{tab:recursos_categoria}.
+
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Trabalhos relacionados por recurso utilizado}
+\label{tab:recursos_categoria}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+Autor           & \ac{cpu}   & Memória    & Banda      & Custo      & Latência & Limite de conexões \\ \hline
+\cite{1417630}  & $\times$   & $\times$   & \checkmark & $\times$   & $\times$ & $\times$ \\ \hline
+\cite{7515686}  & $\times$   & $\times$   & $\times$   & \checkmark & $\times$ & $\times$ \\ \hline
+\cite{6374456}  & \checkmark & \checkmark & \checkmark & $\times$   & $\times$ & $\times$ \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
