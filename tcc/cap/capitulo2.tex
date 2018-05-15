@@ -393,11 +393,11 @@ Fonte:~\cite{albion_online_unite}
 
 Do ponto de vista de computação gráfica, um cenário 3D pode ser visualizado como uma árvore.
 %
-Utilizar árvores para descrever um cenário ajuda tanto no formado de armazenamento em disco para leitura (\textit{e.g.}, \ac{json}, \ac{xml}, etc.), operações de intersão e deleção, organização do projeto e redução da complexidade utilizando transformações lineares em sistemas gráficos como \textit{OpenGL} e \textit{DirectX}~\cite{Lengyel2011Jun}.
+Utilizar árvores para descrever um cenário ajuda tanto no formado de armazenamento em disco para leitura facilitada (\textit{e.g.}, \ac{json}, \ac{xml}, etc.), operações de intersão e deleção, organização do projeto e redução da complexidade utilizando transformações lineares em sistemas gráficos como \textit{OpenGL} e \textit{DirectX}~\cite{Lengyel2011Jun}.
 %
 Esse modelo é amplamente utilizado em motores gráficos, na qual pode ser encontrado em motores gráficos populares como \textit{Godot}, \textit{Unity3D} e \textit{Unreal 3}.
 %
-Um exemplo pode ser visto na Figura~\ref{fig:scene_tree}, retirado do motor gráfico \textit{open source} \textit{Godot}.
+Um exemplo pode ser visto na Figura~\ref{fig:scene_tree}, na qual exibe a árvore de um cenário na \ac{ide} do motor gráfico \textit{Godot}.
 
 
 
@@ -412,15 +412,20 @@ Fonte: Elaborado pelo Autor
 
 
 
+Dentro dessa árvore, cada nodo tem uma funcionalidade específica.
+%
+Essas funcionalidades são específicas a cada motor gráfico, podendo existir nodos específicos a física, renderização ou controles~\cite{godot_docs}.
+%
+Em um jogo \ac{mmorpg}, o serviço será responsável por enviar atualizações dos parâmetros aos nodos frequentemente e o cliente será responsável por realizar chamadas remotas a fim de descrever as ações a qual o jogador aplicou sobre seu personagem~\cite{photon_engine}.
+
+
 Do ponto de vista da rede de computadores, a arquitetura de um cliente de jogo \ac{mmorpg} deve suportar consultas e chamadas de métodos remotos em um serviço~\cite{albion_online_unite}.
 %
-Um cliente para um jogo \ac{mmorpg} segue o estilo de arquitetura \ac{rest}, porém não obrigatoriamente sobre o protocolo \ac{http}.
-%
-A fim de reduzir o custo operacional das requisições, as consultas podem ser escritas sobre um protocolo otimizado conveniente a aplicação na camada de transporte (\textit{e.g.}, \ac{tcp}, \ac{udp}, etc)~\cite{albion_online_unite, stephenclarkewillson2017}.
+Um cliente para um jogo \ac{mmorpg} pode seguir o estilo de arquitetura \ac{rest}, porém não obrigatoriamente sobre o protocolo \ac{http}, mas sim usando algum protocolo \ac{rpc} sobre o protocolo \ac{tcp} ou \ac{udp}~\cite{albion_online_unite, stephenclarkewillson2017}.
 
 
 
-O módulo de \textit{Network}, implementado dentro de um cliente de jogo \ac{mmorpg}, é responsável por realizar as requisições conforme as ações requiridas pelo jogador ao serviço e aplicar os estados na \textit{Scene Tree} com os objetos da área de interesse~\cite{albion_online_unite}.
+O módulo de \textit{Network} implementado em um cliente de jogo \ac{mmorpg} é responsável por realizar as requisições conforme as ações requiridas pelo jogador ao serviço e aplicar os parâmetros na \textit{Scene Tree} por ordens do cliente~\cite{albion_online_unite}.
 %
 Ele pode ser encontrado na Figura \ref{fig:gateway}.
 
