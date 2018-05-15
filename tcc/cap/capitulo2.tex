@@ -197,7 +197,8 @@ Nesse sentido torna-se necessário descrever as características de jogabilidade
 É comum em jogos \ac{mmorpg} ter sistemas com funcionalidades parecidas.
 %
 Por esse motivo é fácil identificar os sistemas em jogos do mercado após a compreensão dos sistemas identificados.
-
+%
+Essa seção está presente a fim de definir algumas funcionalidades básicas que estão detro do contexto de jogabilidade de jogos \ac{mmorpg} para melhor compreensão de sua arquitetura em seções futuras.
 
 
 O sistema de autenticação é o que inicia o cliente de algum jogo \ac{mmorpg}~\cite{albion_online_unite, matthiasrudy2011}.
@@ -306,7 +307,7 @@ Fonte: Elaborado pelo Autor
 
 A interação com o ambiente, itens, \ac{npcs} e outros jogadores também são afetados pela área de interesse, na qual o personagem terá um raio limitante para cada tipo de interação no ambiente.
 %
-Um exemplo de ambiente com personagens ($P_1$ e $P_2$), objetos ($O_1$) e \ac{npcs} () pode ser visualizado na Figura~\ref{fig:obj_e_npc1}~\cite{albion_online_unite}.
+Um exemplo de ambiente com personagens ($P_1$ e $P_2$), objetos ($O_1$) e \ac{npcs} (NPC somente) pode ser visualizado na Figura~\ref{fig:obj_e_npc1}~\cite{albion_online_unite}.
 
 \begin{figure}[htb!]
 \caption{Personagens, objetos e NPCs em no ambiente}
@@ -364,124 +365,6 @@ Do ponto de vista da arquitetura de computadores, as operações existentes em u
 
 
 Para suprir o desenvolvimento de tais sistemas, se faz necessário compreender os padrões de desenvolvimento de tais arquiteturas na qual suprem as operações básicas de interação com o mundo.
-
-
-
-\section{Arquitetura de Clientes MMORPG}
-\label{sec:cliente}
-
-
-
-A arquitetura de um cliente \ac{mmorpg} é um pilar fundamental para o sucesso de um jogo deste gênero.
-%
-O seu funcionamento é totalmente visível ao usuário final e tem o principal objetivo de exibir o estado do mundo de forma gráfica ao usuário~\cite{albion_online_unite}.
-%
-Um exemplo de cliente \ac{mmorpg} é o jogo Sandbox-Interactive Albion\footnote{Sandbox-Interactive Albion: \url{https://albiononline.com/en/home}}, que pode ser visualizado na Figura~\ref{fig:cliente_albion}.
-
-
-
-\begin{figure}[htb!]
-\caption{Exemplo de Cliente MMORPG (Sandbox-Interactive Albion).}
-\label{fig:cliente_albion}
-\includegraphics[height=8cm]{img/cap2/cliente_albion.png}
-\centering
-
-Fonte:~\cite{albion_online_unite}
-\end{figure}
-
-
-
-Do ponto de vista de computação gráfica, um cenário 3D pode ser visualizado como uma árvore.
-%
-Utilizar árvores para descrever um cenário ajuda tanto no formado de armazenamento em disco para leitura facilitada (\textit{e.g.}, \ac{json}, \ac{xml}, etc.), operações de intersão e deleção, organização do projeto e redução da complexidade utilizando transformações lineares em sistemas gráficos como \textit{OpenGL} e \textit{DirectX}~\cite{Lengyel2011Jun}.
-%
-Esse modelo é amplamente utilizado em motores gráficos, na qual pode ser encontrado em motores gráficos populares como \textit{Godot}, \textit{Unity3D} e \textit{Unreal 3}.
-%
-Um exemplo pode ser visto na Figura~\ref{fig:scene_tree}, na qual exibe a árvore de um cenário na \ac{ide} do motor gráfico \textit{Godot}.
-
-
-
-\begin{figure}[htb!]
-\caption{\textit{Scene tree view} no motor gráfico Godot}.
-\label{fig:scene_tree}
-\includegraphics[height=8cm]{img/cap2/scene_tree.png}
-\centering
-
-Fonte: Elaborado pelo Autor
-\end{figure}
-
-
-
-Dentro dessa árvore, cada nodo tem uma funcionalidade específica.
-%
-Essas funcionalidades são específicas a cada motor gráfico, podendo existir nodos específicos a física, renderização ou controles~\cite{godot_docs}.
-%
-Em um jogo \ac{mmorpg}, o serviço será responsável por enviar atualizações dos parâmetros aos nodos frequentemente e o cliente será responsável por realizar chamadas remotas a fim de descrever as ações a qual o jogador aplicou sobre seu personagem~\cite{photon_engine}.
-
-
-Do ponto de vista da rede de computadores, a arquitetura de um cliente de jogo \ac{mmorpg} deve suportar consultas e chamadas de métodos remotos em um serviço~\cite{albion_online_unite}.
-%
-Um cliente para um jogo \ac{mmorpg} pode seguir o estilo de arquitetura \ac{rest}, porém não obrigatoriamente sobre o protocolo \ac{http}, mas sim usando algum protocolo \ac{rpc} sobre o protocolo \ac{tcp} ou \ac{udp}~\cite{albion_online_unite, stephenclarkewillson2017}.
-
-
-
-O módulo de \textit{Network} implementado em um cliente de jogo \ac{mmorpg} é responsável por realizar as requisições conforme as ações requiridas pelo jogador ao serviço e aplicar os parâmetros na \textit{Scene Tree} por ordens do cliente~\cite{albion_online_unite}.
-%
-Ele pode ser encontrado na Figura \ref{fig:gateway}.
-
-
-\begin{figure}[htb!]
-\caption{Requisição de uma chamada de método pela visão do cliente.}
-\label{fig:gateway}
-\includegraphics[height=3.8cm]{img/cap2/gateway.png}
-\centering
-
-Adaptado de:~\cite{albion_online_unite}
-\end{figure}
-
-
-
-A Figura \ref{fig:gateway} refere-se a uma visão macro de uma requisição realizada pelo jogador.
-%
-Nessa requisição, o jogador realiza o pedido para o seu personagem caminhar até um determinado ponto.
-%
-Essa requisição será processada pelo servidor, que atualizará sua posição e retornará ao Gateway a nova posição do personagem, exibindo o personagem em uma nova posição.
-
-
-
-Para facilitar o desenvolvimento, a aplicação de cliente é dividida em diversos módulos, sendo os dois principais~\cite{albion_online_unite}:
-
-
-
-\begin{itemize}
-  \item \textbf{Renderização:} É o processo que transformará a estrutura de dados obtida do serviço de forma gráfica ao jogador utilizando um motor gráfico (\textit{e.g.,} Unity3D\footnote{Unity3D: \url{https://www.unity3d.com}}, GodotEngine\footnote{GodotEngine: \url{https://www.godotengine.org}}, etc).
-  \item \textbf{Gateway:} É o módulo responsável pela comunicação entre o serviço e o cliente, a fim de requisitar chamadas de métodos ou obter informações do servidor.
-\end{itemize}
-
-
-
-Também existe um módulo nomeado \textit{ObjectManager} na Figura \ref{fig:gateway} que gerenciará a criação e deleção de objetos do mundo.
-%
-Tanto os objetos em cena quanto o ObjectManager podem ser utilizados ora pelo jogador ora pelo serviço a fim de sincronizar o cliente ou realizar requisições ao serviço.
-%
-Entretanto, existe um filtro de requisições maliciosas a fim de garantir a consistência do jogo~\cite{albion_online_unite}.
-%
-Esse filtro pode ser implementado no Gateway e/ou no serviço (Seção \ref{sec:arquiteturas}).
-
-
-
-Uma característica importante do ObjectManager é a requisição e exibição de objetos com base na área de interesse do jogador.
-%
-Essa característica reduz problemas de trapaça por meio de clientes adulterados (visto que limita a interação de objetos do cliente) e reduz o tráfego de dados na rede tanto para o cliente quanto para o serviço~\cite{albion_online_unite, stephenclarkewillson2017}.
-
-
-
-A abordagem de engenharia por utilizar um Gateway permite que o serviço mude de arquitetura sem a necessidade de uma refatoração completa ao módulo de renderização~\cite{albion_online_unite, stephenclarkewillson2017}.
-%
-Essa mesma abordagem também facilita o desenvolvimento de uma suíte de testes do módulo de renderização independente do serviço~\cite{Freeman2009Oct}, podendo realizar testes utilizando o padrão de objetos Mock~\cite{Beck2004Nov} para simular as requisições.
-%
-Dessa forma, é possivel garantir um padrão de integração desejado entre o serviço e o cliente utilizando baixo acoplamento, com ganho de desempenho na suíte de testes do cliente, sem a necessidade real de um serviço para testar o cliente.
-
 
 
 \section{Arquitetura de Microsserviços}
@@ -563,8 +446,129 @@ Por esse motivo se faz necessário ver as diferenças entre uma arquitetura de m
 
 
 
-\subsection{Protocolos para microsserviços \ac{mmorpg}}
+\subsection{Arquitetura de Clientes MMORPG}
+\label{sec:cliente}
 
+
+
+A arquitetura de um cliente \ac{mmorpg} é um pilar fundamental para o sucesso de um jogo deste gênero.
+%
+O seu funcionamento é totalmente visível ao usuário final e tem o principal objetivo de exibir o estado do mundo de forma gráfica ao usuário~\cite{albion_online_unite}.
+%
+Um exemplo de cliente \ac{mmorpg} é o jogo Sandbox-Interactive Albion\footnote{Sandbox-Interactive Albion: \url{https://albiononline.com/en/home}}, que pode ser visualizado na Figura~\ref{fig:cliente_albion}.
+
+
+
+\begin{figure}[htb!]
+\caption{Exemplo de Cliente MMORPG (Sandbox-Interactive Albion).}
+\label{fig:cliente_albion}
+\includegraphics[height=8cm]{img/cap2/cliente_albion.png}
+\centering
+
+Fonte:~\cite{albion_online_unite}
+\end{figure}
+
+
+
+Do ponto de vista de computação gráfica, um cenário 3D pode ser visualizado como uma árvore.
+%
+Utilizar árvores para descrever um cenário ajuda tanto no formado de armazenamento em disco para leitura facilitada (\textit{e.g.}, \ac{json}, \ac{xml}, etc.), operações de intersão e deleção, organização do projeto e redução da complexidade utilizando transformações lineares em sistemas gráficos como \textit{OpenGL} e \textit{DirectX}~\cite{Lengyel2011Jun}.
+%
+Esse modelo é amplamente utilizado em motores gráficos, na qual pode ser encontrado em motores gráficos populares como \textit{Godot}, \textit{Unity3D} e \textit{Unreal 3}.
+%
+Um exemplo pode ser visto na Figura~\ref{fig:scene_tree}, na qual exibe a árvore de um cenário na \ac{ide} do motor gráfico \textit{Godot}.
+
+
+
+\begin{figure}[htb!]
+\caption{\textit{Scene tree view} no motor gráfico Godot}.
+\label{fig:scene_tree}
+\includegraphics[height=8cm]{img/cap2/scene_tree.png}
+\centering
+
+Fonte: Elaborado pelo Autor
+\end{figure}
+
+
+
+Dentro dessa árvore, cada nodo tem uma funcionalidade específica.
+%
+Essas funcionalidades são específicas a cada motor gráfico, podendo existir nodos específicos a física, renderização ou controles~\cite{godot_docs}.
+%
+Em um jogo \ac{mmorpg}, o serviço será responsável por enviar atualizações dos parâmetros aos nodos frequentemente e o cliente será responsável por realizar chamadas remotas a fim de descrever as ações a qual o jogador aplicou sobre seu personagem~\cite{photon_engine}.
+
+
+Do ponto de vista da rede de computadores, a arquitetura de um cliente de jogo \ac{mmorpg} deve suportar consultas e chamadas de métodos remotos em um serviço~\cite{albion_online_unite}.
+%
+Um cliente para um jogo \ac{mmorpg} pode seguir o estilo de arquitetura \ac{rest}, porém não obrigatoriamente sobre o protocolo \ac{http}, mas sim usando algum protocolo \ac{rpc} sobre o protocolo \ac{tcp} ou \ac{udp}~\cite{albion_online_unite, stephenclarkewillson2017}.
+
+
+
+Entretanto, o protocolo de um cliente \ac{mmorpg} não deve somente permitir
+
+
+
+O módulo de \textit{Network} implementado em um cliente de jogo \ac{mmorpg} é responsável por realizar as requisições conforme as ações requiridas pelo jogador ao serviço e aplicar os parâmetros na \textit{Scene Tree} por ordens do cliente~\cite{albion_online_unite}.
+%
+Ele pode ser encontrado na Figura \ref{fig:gateway}.
+
+
+\begin{figure}[htb!]
+\caption{Requisição de uma chamada de método pela visão do cliente.}
+\label{fig:gateway}
+\includegraphics[height=3.8cm]{img/cap2/gateway.png}
+\centering
+
+Adaptado de:~\cite{albion_online_unite}
+\end{figure}
+
+
+
+A Figura \ref{fig:gateway} refere-se a uma visão macro de uma requisição realizada pelo jogador.
+%
+Nessa requisição, o jogador realiza o pedido para o seu personagem caminhar até um determinado ponto.
+%
+Essa requisição será processada pelo servidor, que atualizará sua posição e retornará ao Gateway a nova posição do personagem, exibindo o personagem em uma nova posição.
+
+
+
+Para facilitar o desenvolvimento, a aplicação de cliente é dividida em diversos módulos, sendo os dois principais~\cite{albion_online_unite}:
+
+
+
+\begin{itemize}
+  \item \textbf{Renderização:} É o processo que transformará a estrutura de dados obtida do serviço de forma gráfica ao jogador utilizando um motor gráfico (\textit{e.g.,} Unity3D\footnote{Unity3D: \url{https://www.unity3d.com}}, GodotEngine\footnote{GodotEngine: \url{https://www.godotengine.org}}, etc).
+  \item \textbf{Gateway:} É o módulo responsável pela comunicação entre o serviço e o cliente, a fim de requisitar chamadas de métodos ou obter informações do servidor.
+\end{itemize}
+
+
+
+Também existe um módulo nomeado \textit{ObjectManager} na Figura \ref{fig:gateway} que gerenciará a criação e deleção de objetos do mundo.
+%
+Tanto os objetos em cena quanto o ObjectManager podem ser utilizados ora pelo jogador ora pelo serviço a fim de sincronizar o cliente ou realizar requisições ao serviço.
+%
+Entretanto, existe um filtro de requisições maliciosas a fim de garantir a consistência do jogo~\cite{albion_online_unite}.
+%
+Esse filtro pode ser implementado no Gateway e/ou no serviço (Seção \ref{sec:arquiteturas}).
+
+
+
+Uma característica importante do ObjectManager é a requisição e exibição de objetos com base na área de interesse do jogador.
+%
+Essa característica reduz problemas de trapaça por meio de clientes adulterados (visto que limita a interação de objetos do cliente) e reduz o tráfego de dados na rede tanto para o cliente quanto para o serviço~\cite{albion_online_unite, stephenclarkewillson2017}.
+
+
+
+A abordagem de engenharia por utilizar um Gateway permite que o serviço mude de arquitetura sem a necessidade de uma refatoração completa ao módulo de renderização~\cite{albion_online_unite, stephenclarkewillson2017}.
+%
+Essa mesma abordagem também facilita o desenvolvimento de uma suíte de testes do módulo de renderização independente do serviço~\cite{Freeman2009Oct}, podendo realizar testes utilizando o padrão de objetos Mock~\cite{Beck2004Nov} para simular as requisições.
+%
+Dessa forma, é possivel garantir um padrão de integração desejado entre o serviço e o cliente utilizando baixo acoplamento, com ganho de desempenho na suíte de testes do cliente, sem a necessidade real de um serviço para testar o cliente.
+
+
+
+\subsection{Protocolos para microsserviços \ac{mmorpg}}
+\label{sec:arquiteturas}
 
 
 Um serviço \ac{mmorpg} não utilizará protocolos com base no protocolo \ac{http}, mas ainda assim implementará um protocolo \ac{rest} sobre o protocolo \ac{tcp} a fim de realizar requisições a um serviço utilizando uma arquitetura de software \ac{mvc}~\cite{Chadwick2012Oct, LeckyThompson2008Nov}.
