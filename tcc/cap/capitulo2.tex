@@ -37,7 +37,7 @@ Dentre esses hardwares, iniciou-se o uso da rede de computadores para prover a i
 %
 Jogos como EA Habitat\footnote{EA Habitat: \url{http://www.mobygames.com/game/c64/habitat/credits}}, CipSoft Tibia\footnote{CipSoft Tibia: \url{http://www.tibia.com/}} e Jajex Runescape\footnote{Jajex Runescape: \url{https://www.runescape.com}} começam a utilizar, como requisito obrigatório do jogo, a conexão com a Internet para interagir em um mundo compartilhado com outos jogadores.
 %
-Tais jogos popularizaram um novo gênero, trazendo inovação em sua de jogabilidade e desafio proposto ao jogar com milhares de jogadores~\cite{guinness_runescape, 1417630}, criando o gênero de jogos \ac{mmo} na árvore de gêneros.
+Tais jogos popularizaram um novo gênero, trazendo inovação tecnológica como complemento a sua de jogabilidade e desafio proposto ao jogar com milhares de jogadores~\cite{guinness_runescape, 1417630}, criando o gênero de jogos \ac{mmo} na árvore de gêneros.
 
 
 
@@ -72,8 +72,6 @@ Um gênero de jogo eletrônico é uma categoria específica para agrupar estilos
 %
 Porém, gêneros não definem de forma explícita o conteúdo expresso em algum jogo eletrônico, mas sim um desafio comum presente no jogo analisado~\cite{adams_1208533, video_game_technologies}.
 %
-Cada gênero de jogo contém variações, para uma melhor classificação.
-%
 A árvore pode ser visualizada pelo diagrama na Figura \ref{fig:generos}.
 %
 O contexto breve de cada gênero é:
@@ -83,7 +81,7 @@ O contexto breve de cada gênero é:
 \begin{itemize}
   \item Estratégia: São focados em uma jogabilidade que exija habilidades de raciocínio e/ou gerenciamento de recurso. Neste gênero, o jogador tem uma boa visualização do mundo, controlando indiretamente as suas tropas disponíveis~\cite{rollings2003andrew}. É comum encontrar jogos que disponibilizam algum modo de competição entre jogadores usando \ac{lan}, \ac{wan} ou \ac{p2p}~\cite{adams_1208533}.
     \begin{itemize}
-      \item \ac{rts}: Utiliza as características de um jogo de estratégia, porém esse subgênero indica que as jogadas dos jogadores não são atômicas. É comum encontrar modos de jogo competitivo utilizando \ac{lan} neste gênero~\cite{adams_1208533}.
+      \item \ac{rts}: Utiliza as características de um jogo de estratégia, porém esse subgênero indica que as ações dos jogadores são concorrentes. É comum encontrar modos de jogo competitivo utilizando \ac{lan} neste gênero~\cite{adams_1208533}.
     \end{itemize}
   \item \ac{mmo}: Preza pela interação com outros jogadores em um mundo compartilhado~\cite{adams_1208533}. SecondLife\footnote{SecondLife: \url{https://www.secondlife.com/}} é um jogo focado na interação social, com artifícios de comércio e relacionamentos em um mundo fictício criado pela comunidade~\cite{tecmundo_secondlife}. Em grande parte, esses jogos utilizam tecnologia \ac{wan} e \ac{ws}.
     \begin{itemize}
@@ -140,7 +138,7 @@ TPS             & \checkmark & \checkmark & \checkmark         &              & 
 JOGOS SÉRIOS    & \checkmark & \checkmark & \checkmark         & \checkmark   &   até 10~\cite{sherlock_dengue}                   \\ \hline
 \end{tabular}
 
-Fonte: Elaborado pelo autor
+Fonte: O próprio autor.
 \end{table}
 
 
@@ -196,7 +194,7 @@ Nesse sentido torna-se necessário descrever as características de jogabilidade
 %
 Por esse motivo é fácil identificar os sistemas em jogos do mercado após a compreensão dos sistemas identificados.
 %
-Essa seção está presente a fim de definir algumas funcionalidades básicas que estão detro do contexto de jogabilidade de jogos \ac{mmorpg} para melhor compreensão de sua arquitetura em seções futuras.
+Essa seção está presente a fim de definir algumas funcionalidades básicas que estão dentro do contexto de jogabilidade de jogos \ac{mmorpg} para melhor compreensão de sua arquitetura em seções futuras.
 
 
 O sistema de autenticação é o que inicia o cliente de algum jogo \ac{mmorpg}~\cite{albion_online_unite, matthiasrudy2011}.
@@ -298,7 +296,7 @@ Dessa maneira, este é um sistema crítico para um jogo \ac{mmorpg}, visto que o
 \includegraphics[height=4cm]{img/cap2/walk.png}
 \centering
 
-Fonte: Elaborado pelo Autor
+Fonte: O próprio autor.
 \end{figure}
 
 
@@ -313,7 +311,7 @@ Um exemplo de ambiente com personagens ($P_1$ e $P_2$), objetos ($O_1$) e \ac{np
 \includegraphics[height=4cm]{img/cap2/obj_e_npc1.png}
 \centering
 
-Fonte: Elaborado pelo Autor
+Fonte: O próprio autor.
 \end{figure}
 
 
@@ -406,7 +404,7 @@ Um exemplo pode ser visto na Figura~\ref{fig:scene_tree}, na qual exibe a árvor
 \includegraphics[height=8cm]{img/cap2/scene_tree.png}
 \centering
 
-Fonte: Elaborado pelo Autor
+Fonte: O próprio autor.
 \end{figure}
 
 
@@ -472,7 +470,7 @@ Utilizando esses dois módulos é possível sincronizar os estados de jogo e exi
 
 
 
-Entende-se por microsserviço aplicações que executam operações menores de um macrosserviço, da melhor forma possível~\cite{stephenclarkewillson2017, Newman2015Feb}.
+Entende-se por microsserviço, aplicações que executam operações menores de um macrosserviço, da melhor forma possível~\cite{stephenclarkewillson2017, Newman2015Feb}.
 %
 O objetivo de uma arquitetura de microsserviços é funcionar separadamente de forma autônoma, contendo baixo acoplamento~\cite{Newman2015Feb}.
 %
@@ -583,7 +581,7 @@ Pode-se associar a técnica de \ac{rpc}~\cite{LeckyThompson2008Nov}. Pode-se ana
 \includegraphics[height=4.5cm]{img/cap2/crud_rpc.png}
 \centering
 
-Fonte: Elaborado pelo autor
+Fonte: O próprio autor.
 \end{figure}
 
 
@@ -621,7 +619,7 @@ Essa arquitetura pode ser melhor compreendida pela Figura \ref{fig:network_crud_
 \includegraphics[height=6.5cm]{img/cap2/network_rpc_crud_micro.png}
 \centering
 
-Fonte: Elaborado pelo Autor
+Fonte: O próprio autor.
 \end{figure}
 
 
@@ -637,7 +635,7 @@ Utilizando esse embasamento teórico sobre microsserviços e arquiteturas de jog
 
 Para nortear o desenvolvimento da análise se microsserviços utilizados em jogos \ac{mmorpg} proposto no atual trabalho, essa seção apresenta outros trabalhos que têm o escopo ou objetivo similar, no qual monitoraram e analisaram serviços de jogos \ac{mmorpg}.
 %
-Ao apresentar estes trabalhos, busca-se apresentar o contexto e objetivo, e então aprofundar em características, métricas e ferramentas que auxiliaram nas análises.
+Ao apresentar estes trabalhos, busca-se apresentar o contexto e objetivo, e então aprofundar em características dos trabalhos, métricas utilizadas e ferramentas que auxiliaram nas análises.
 %
 %Por fim, será necessário apresentar na Seção \ref{sec:similares_analise} uma análise das abordagens e resultados obtidos dos trabalhos relacionados.
 
@@ -689,7 +687,7 @@ Fonte:~\cite{1417630}
 
 
 
-Como análise, o autor correlacionou o número de conexões com número de pacotes e banda consumidos utilizando uma função estatística linear.
+Como análise, o autor correlacionou o número de conexões com número de pacotes e banda, consumidos, utilizando uma função estatística linear.
 %
 Esta função pode ser utilizada com regressão linear para prever consumo de recursos futuros e por fim realocar mais recursos ao serviço, contribuindo com escalabilidade vertical autônoma.
 %
@@ -708,7 +706,7 @@ Fonte:~\cite{1417630}
 
 Entretanto, a escalabilidade horizontal não pode ser prevista, visto que não é analisado o posicionamento de cada personagem a fim de dividir os ambientes em pedaços menores com outros serviços.
 %
-Como trabalhos futuros é relatado a análise do posicionamento de personagens para escalabilidade horizontal, a análise de outras arquiteturas e timos de jogos diferentes e qual o impácto de utilizar balanço de carga e provisionamento de recursos de forma dinâmica.
+Como trabalhos futuros é relatado a análise do posicionamento de personagens para escalabilidade horizontal, a análise de outras arquiteturas e a análise de outros gêneros de jogos, além do impácto de utilizar balanço de carga e provisionamento de recursos de forma dinâmica.
 
 
 
@@ -716,7 +714,7 @@ Como trabalhos futuros é relatado a análise do posicionamento de personagens p
 
 
 
-O trabalho de ~\cite{7515686} investiga o custo de arquiteturas de microsserviços, arquiteturas \ac{paas} orientedas a eventos e aplicações monolíticas para aplicações web.
+O trabalho de ~\cite{7515686} investiga o custo de arquiteturas de microsserviços, arquiteturas \ac{paas} orientadas a eventos e aplicações monolíticas para aplicações web.
 %
 A sua principal motivação é a comparação de custos para a tradução de sistemas legados para arquiteturas distribuídas.
 %
@@ -880,14 +878,14 @@ Dessa forma, podemos dividir os trabalhos relacionados com a sua categoria. Esta
 \label{tab:categoria_trabalhos}
 \begin{tabular}{|l|l|}
 \hline
-Autor & Categoria                  \\ \hline
+Autor & Categoria                            \\ \hline
 \cite{6374456}  & Previsão de Carga          \\ \hline
 \cite{7515686}  & Comparação de Arquiteturas \\ \hline
 \cite{1417630}  & Previsão de Carga          \\ \hline
 \end{tabular}
 
 
-Fonte: Elaborado pelo autor
+Fonte: O próprio autor.
 \end{table}
 
 Para o trabalho referente a comparação de arquiteturas~\cite{7515686}, o recurso utilizado foi o custo por um determinado número de requisições web.
@@ -910,12 +908,12 @@ Autor           & \ac{cpu}   & Memória    & Banda      & Custo      & Latência
 \end{tabular}
 \end{adjustbox}
 
-Fonte: Elaborado pelo autor
+Fonte: O próprio autor.
 \end{table}
 
 
 
-Outro ponto a ser analisado é as arquiteturas utilizadas. Os trabalhos referentes a previsão de carga não utilizaram uma arquitetura de microsserviços, mesmo sendo um sistema distribuído.
+Outro ponto a ser analisado são as arquiteturas utilizadas. Os trabalhos referentes a previsão de carga não utilizaram uma arquitetura de microsserviços, mesmo sendo um sistema distribuído.
 %
 Nesses serviços, os sistemas eram dependentes entre sí e precisavam um dos outros para o seu funcionamento.
 %
@@ -938,5 +936,5 @@ Autor           & Arquitetura de Microsserviços & Arquitetura Distribuída  & \
 \end{tabular}
 \end{adjustbox}
 
-Fonte: Elaborado pelo autor
+Fonte: O próprio autor.
 \end{table}
