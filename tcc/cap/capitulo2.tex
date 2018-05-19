@@ -422,10 +422,6 @@ Um cliente para um jogo \ac{mmorpg} pode seguir o estilo de arquitetura \ac{rest
 
 
 
-Entretanto, o protocolo de um cliente \ac{mmorpg} não deve somente permitir
-
-
-
 O módulo de \textit{Network} implementado em um cliente de jogo \ac{mmorpg} é responsável por realizar as requisições conforme as ações requiridas pelo jogador ao serviço, além de aplicar os parâmetros na \textit{Scene Tree} ou chamar métodos remotos no cliente por ordens do serviço~\cite{albion_online_unite}.
 %
 Ele pode ser encontrado na Figura \ref{fig:gateway}.
@@ -550,41 +546,71 @@ Por esse motivo se faz necessário ver as diferenças entre uma arquitetura de m
 
 
 
-\subsection{Protocolos para microsserviços \ac{mmorpg}}
+\subsection{Microsserviços \ac{mmorpg}}
 \label{sec:arquiteturas}
 
 
-Um serviço \ac{mmorpg} não utilizará protocolos com base no protocolo \ac{http}, mas ainda assim implementará um protocolo \ac{rest} sobre o protocolo \ac{tcp} a fim de realizar requisições a um serviço utilizando uma arquitetura de software \ac{mvc}~\cite{Chadwick2012Oct, LeckyThompson2008Nov}.
-%
-O protocolo \ac{rest} permitirá ele, similar a técnica de armazenamento persistente \ac{crud}, executar quatro métodos aos controladores de cada microsserviço~\cite{6267019}:
 
+A fim de otimizar o custo operacional das arquiteturas de microsserviços de jogos \ac{mmorpg}, é incomum a utilização de protocolos \textit{Web} em tais arquiteturas.
+%
+Por esse motivo, a seção atual mostrará o funcionamento básico do protocolo \ac{rpc} e a sua utilização para atualização dos parâmetros na \textit{Scene Tree} e o modelo \ac{rest}.
+
+
+
+Em engenharia de software, é comum a utilização de arquiteturas \ac{mvc} a fim de organizar o código fonte e prover agilidade de desenvolvimento~\cite{Chadwick2012Oct, LeckyThompson2008Nov}.
+%
+A separação de um serviço \ac{mmorpg} pode ser dada seguindo este padrão de projeto, dividindo-se em três camadas~\cite{5718337}:
 
 
 \begin{enumerate}
-  \item Criar: Permite criar um dado no serviço (\textit{e.g.,} criar um personagem em sua conta, criar um pedido de amizade, etc).
-  \item Ler: Permite consultar um dado no serviço (\textit{e.g.,} ler os personagens que estão em sua região, ler os itens, etc).
-  \item Atualizar: Permite atualizar um dado no serviço (\textit{e.g.,} efetuar a compra de um item de \ac{npcs}, andar para um ponto do mapa, etc).
-  \item Deletar: Permite deletar um dado no serviço (\textit{e.g.,} usar um item do inventário, deletar uma mensagem lida de um amigo, etc).
+  \item \textit{Model}: Representa qualquer dado presente no jogo (\textit{e.g.,} itens, personagens, \ac{npcs}, objetivos, etc.).
+  \item \textit{View}: Representa o modo a qual estes dados serão exibidos, do ponto de vista de redes (\textit{e.g.,} O mapa será exibido somente na área de interesse do jogador, e esta redução de contexto pode ser aplicada na visualização).
+  \item \textit{Controller}: Representa as operações sobre modelos que serão requiridos pelos jogadores (\textit{e.g.,} andar, pegar item, interagir com \ac{npcs}, etc.).
 \end{enumerate}
 
 
 
-Porém, além de realizar as operações \ac{crud}, se faz necessário a chamada de métodos específicos a um objeto.
+Dentro de um \textit{Controller} teremos operações padrões aplicados sobre \textit{Models} da aplicação.
 %
-Pode-se associar a técnica de \ac{rpc}~\cite{LeckyThompson2008Nov}. Pode-se analisar um exemplo da interface disponível na Figura \ref{fig:crud_rpc} e o diagrama de requisições na Figura \ref{fig:network_crud_rpc}.
+Esses métodos padrões seguem o protocolo \ac{crud}, contendo 4 métodos principais para complementar as consultas sobre os \textit{Models}~\cite{Chadwick2012Oct, LeckyThompson2008Nov}:
+
+
+
+\begin{enumerate}
+  \item \textit{Create}: Representa a criação de um novo objeto no banco.
+  \item \textit{Update}: Representa a atualização de um objeto no banco.
+  \item \textit{Delete}: Representa a exclusão de um objeto no banco.
+  \item \textit{Create}: Representa a consulta sobre este objeto no banco.
+\end{enumerate}
+
+
+
+Para o padrão \textit{crud}, se faz necessário que os métodos \textit{Read}, \textit{Update} e \textit{Delete} repassem o parâmetro de identificação do objeto a ser consultado~\cite{LeckyThompson2008Nov}.
+%
+Outros argumentos necessários nos métodos \textit{Create} e \textit{Update} são os atributos do objeto, além do seu retorno ser um valor booleano representando se a operação foi bem sucedida~\cite{Chadwick2012Oct, LeckyThompson2008Nov}.
+%
+Entretanto outros métodos mais apropriados ao funcionamento de um \textit{Controller} podem existir.
+%
+Como a exemplo, pode-se visualizar uma interface \ac{crud} na Figura~\ref{fig:crud}.
 
 
 
 \begin{figure}[htb!]
-\caption{Cliente pode realizar requisições \ac{crud} ou \ac{rpc}}
-\label{fig:crud_rpc}
-\includegraphics[height=4.5cm]{img/cap2/crud_rpc.png}
+\caption{Cliente pode realizar requisições \ac{crud} ao serviço}
+\label{fig:crud}
+\includegraphics[height=2.5cm]{img/cap2/crud.png}
 \centering
 
-Fonte: O próprio autor.
+Fonte: Adaptado de~\cite{albion_online_unite}.
 \end{figure}
 
 
+
+Essas operações são executadas utilizando protocolo \ac{rpc}~\cite{albion_online_unite}.
+%
+As requisições de métodos remotos são realizadas entre dois processos distintos, a fim de gerar uma computação distribuída~\cite{rpc}.
+%
+Entretanto, a base do protocolo não é legível como em servidores web que utilizam \ac{json} para transmissão de estrutura de dados, mas sim uma codificação binária nomeado \ac{xdr}~\cite{xdr}.
 
 \begin{figure}[htb!]
 \caption{Diagrama de requisições entre serviço e cliente com operações \ac{crud} e \ac{rpc} em uma arquitetura monolítico}
