@@ -2,22 +2,29 @@
 \label{cap2}
 
 
-
-O conceito de jogos eletrônicos (Seção~\ref{sec:jogos_eletronicos}) é amplamente conhecido fazendo parte da nossa cultura cotidianda, sendo referenciado em filmes e obras literárias.
+O termo de jogos eletrônicos é amplamente difundido, entretanto as especificações, características e histórico deste termo não é de conhecimento popular.
 %
-Nesse sentido uma breve definição de jogos eletrônicos se faz necessária a fim de introduzir o conceito do gênero \ac{mmorpg} e a diferença entre outros gêneros (Seção~\ref{sec:arvore_generos}).
-
-
-
-Os jogos~\ac{mmorpg} são implementados sobre arquitetados em multiplas camadas, e por esse motivo é necessário descrever o conceito de um jogo~\ac{mmorpg} (Seção~\ref{sec:mmorpg}) e a sua jogabilidade (Seção~\ref{sec:jogabilidade}) para permitir a descrição das arquiteturas dos conceitos de Cliente e Serviço.
+A Seção~\ref{sec:jogos_eletronicos} tratará a definição de jogo eletrônico, um levante histórico e o impácto da evolução do hardware no desenvolvimento dos jogos.
 %
-Nesse sentido, as Seções~\ref{sec:cliente} e~\ref{sec:microsservicos} definem a funcionalidade da integração entre serviço e cliente, popularmente utilizados em aplicações comerciais do segmento de jogos \ac{mmorpg}.
+Este termo será tomado como introdução para o conceito de gênero de jogo, abordado na Seção~\ref{sec:arvore_generos}, na qual serão abordados os principais gêneros, características e tecnologias (do ponto de vista de rede de computadores) que são comuns em cada gênero.
 %
-Dentro deste contexto, também é definido a funcionalidade de uma microsserviços, dando exemplos de seu funcionamento com o escopo de serviços web.
+Esta introdução acerca dos gêneros e suas tecnologias de comunicação tenta trazer a importância do desempenho das arquiteturas dos jogos \ac{mmorpg} e proporção da comunidade impactada caso haja falhas de funcionamento nessas arquiteturas.
 
 
 
-Por fim, será mostrado trabalhos relacionados (Seção~\ref{sec:similares}) que abordem o tema de arquitetura de jogos \ac{mmorpg} e arquitetura de microsserviços.
+Após definir a categoria de jogo abordado, a Seção~\ref{sec:mmorpg} abordará sobre uma introdução ao impácto de mercado desse gênero, uma definição simplista e a divisão das camadas de aplicação que permeiam uma arquitetura para um jogo \ac{mmorpg}.
+%
+Entretanto, antes de abordar sobre as camadas da infraestrutura de um arquitetura \ac{mmorpg}, se faz obrigatório o entendimento acerca da jogabilidade (Seção~\ref{sec:jogabilidade}) e problemas relativos a rede relevantes a este gênero (Seção~\ref{sec:problemas}).
+
+
+Os conceitos de Cliente (Seção~\ref{sec:cliente}) e Serviço (Seção~\ref{sec:microsservicos}) serão abordados a fim de introduzir conceitos de arquiteturas comuns nestes serviços.
+%
+O objetivo destas seções é referenciar diversas tecnologias e técnicas utilizadas nesses sistemas a fim de permitir o desenvolvimento de uma arquitetura de microsserviços específica a jogos \ac{mmorpg}.
+%
+Por fim torna-se obrigatório a apresentação de trabalhos relacionados (Seção~\ref{sec:similares}) a arquitetura de jogos \ac{mmorpg} desenvolvidos de forma distribuída ou sobre uma arquitetura de microsserviços.
+%
+Esta seção em específico abordará exemplos de métodos e métricas utilizadas para menssurar o desempenho de tais arquiteturas, realizando por fim uma análise destes trabalhos (Seção~\ref{sec:similares_analise}).
+
 
 \section{Jogos Eletrônicos}
 \label{sec:jogos_eletronicos}
