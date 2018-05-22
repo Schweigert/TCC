@@ -452,7 +452,6 @@ Ele pode ser encontrado na Figura \ref{fig:gateway}.
 
 Adaptado de:~\cite{507915, faber}
 \end{figure}
-%ccm Figura em portugues
 
 
 A Figura \ref{fig:gateway} refere-se a uma visão macro de um cliente \ac{mmorpg}.
@@ -461,7 +460,7 @@ Nesta figura é possível ver o ator \textit{player} na qual pode executar açõ
 %
 Por sua vez, existe uma entrada de dados a mais comparado a esquemas de jogos \textit{offline}.
 %
-É por essa entrada de dados secundária na qual o serviço e o cliente podem se manter sincronizados~\cite{faber}. %ccm <-1
+Neste caso, o módulo \textit{Network} será também uma entrada de dados, a qual poderá manipular a cena do motor gráfico~\cite{faber}.
 
 
 
@@ -694,11 +693,12 @@ Ao apresentar estes trabalhos, busca-se apresentar o contexto e objetivo, e ent�
 \label{sec:huang}
 
 
+
 O trabalho de ~\cite{1417630} investiga a relação entre os recursos utilizados e o número de conexões presentes em um serviço \ac{mmorpg} distribuído.
 %
 Neste trabalho é relatado que a infraestrutura utiliza três serviços: Um \textit{Game Server} sobre protocolo \ac{tcp}, um \textit{Proxy Server} também sobre protocolo \ac{tcp}, e um servidor web para autenticação que executa sobre uma interface \ac{http}.
 %
-O foco de análise é o \textit{Game Server} e o \textit{Proxy Server}. %ccm <-14
+O foco de análise é o \textit{Proxy Server}, um serviço especificado em receber requisições e repassar atualizações da área de interesse destes jogadores, e o \textit{Game Server}, um serviço especificado para consumir as requisições realizadas pelo jogador.
 
 
 
@@ -743,6 +743,7 @@ Esta função pode ser utilizada com regressão linear para prever consumo de re
 Um exemplo de aplicação dessa regressão linear pode ser visualizada na Figura~\ref{fig:regressao_bytes}, no qual o autor compara o consumo de banda real comparado a regressão linear.
 
 
+
 \begin{figure}[htb!]
 \caption{Regressão linear comparado ao consumo de banda real do servidor.}
 \label{fig:regressao_bytes}
@@ -751,6 +752,7 @@ Um exemplo de aplicação dessa regressão linear pode ser visualizada na Figura
 
 Fonte:~\cite{1417630}
 \end{figure}
+
 
 
 Entretanto, a escalabilidade horizontal não pode ser prevista, visto que não é analisado o posicionamento de cada personagem a fim de dividir os ambientes em pedaços menores com outros serviços.
@@ -774,11 +776,13 @@ Para isso, o autor preparou três instâncias de testes com suas configurações
 \begin{figure}[htb!]
 \caption{Arquitetura monolítica web implementada na \ac{aws}}
 \label{fig:aws_monolitico}
-\includegraphics[height=4.5cm]{img/cap2/aws_monolitico.png}
+\includegraphics[height=6.5cm]{img/cap2/aws_monolitico.png}
 \centering
 
 Fonte:~\cite{7515686}
 \end{figure}
+
+
 
 \textbf{Instância I.} Utilizando quatro instâncias \ac{aws} \textit{c4.large}, uma instância \ac{aws} \textit{c4.xlarge} e uma instância \ac{aws} \textit{db.m3.medium}.
 %
@@ -792,7 +796,7 @@ Essa arquitetura foi implementada utilizando \textit{Jax-RS} e \textit{Play Fram
 \begin{figure}[htb!]
 \caption{Arquitetura de microsserviços web implementada na \ac{aws}}
 \label{fig:aws_microsservicos}
-\includegraphics[height=4.5cm]{img/cap2/aws_microsservicos.png}
+\includegraphics[height=6.5cm]{img/cap2/aws_microsservicos.png}
 \centering
 
 Fonte:~\cite{7515686}
@@ -807,7 +811,7 @@ A Figura~\ref{fig:aws_microsservicos} exibe a implantação de uma aplicação d
 \begin{figure}[htb!]
 \caption{Arquitetura de microsserviços web implementada na \ac{aws} utilizando a tecnologia \textit{lambda}}
 \label{fig:aws_lambda}
-\includegraphics[height=4.5cm]{img/cap2/aws_lambda.png}
+\includegraphics[height=6.5cm]{img/cap2/aws_lambda.png}
 \centering
 
 Fonte:~\cite{7515686}
@@ -822,7 +826,7 @@ A Figura~\ref{fig:aws_lambda} exibe a implantação de uma aplicação de micros
 \begin{figure}[htb!]
 \caption{Custo por um milhão de requisições em dólares utilizando diferentes arquiteturas sobre a \ac{aws}}
 \label{fig:custo_aws}
-\includegraphics[height=4.5cm]{img/cap2/custo_aws.png}
+\includegraphics[height=6.5cm]{img/cap2/custo_aws.png}
 \centering
 
 Fonte:~\cite{7515686}
@@ -987,6 +991,19 @@ Autor           & Arquitetura de Microsserviços & Arquitetura Distribuída  & \
 Fonte: O próprio autor.
 \end{table}
 
-%ccm <22
+
+Este Trabalho de Conclusão de Curso pretende analisar uma arquitetura de microsserviços especificada a jogos \ac{mmorpg}, visando métricas de desempenho e custo de operação.
+
 
 \section{Considerações parciais}
+
+Este capítulo conceituou jogos eletrônicos, gênero de jogo e especificou as características de um jogo \ac{mmorpg}.
+%
+Após apresentar sobre o gênero de jogo abordado, detalha-se a sua jogabilidade, problemas relevantes a este gênero do ponto de vista de rede de computadores e por fim sobre técnicas e abordagens populares acerca do desenvolvimento destes serviços, a qual serão utilizados no problema deste Trabalho de Conclusão de Curso.
+
+
+Por fim, são apresentados trabalhos relacionados a fim de guiar por métricas, métodos de coleta de dados e métodos de desenvolvimento e implantação de tais arquiteturas a fim de contribuir com o atual escopo do trabalho.
+%
+Entretanto, houve uma dificuldade em encontrar na literatura analises sobre arquiteturas de microsserviços focado a jogos, principalmente em específico o gênero \ac{mmorpg}.
+%
+Dessa forma, espera-se introduzir a analise da viabilidade e do custo de recursos computacionais para manter um serviço \ac{mmorpg} sobre uma arquitetura de microsserviços.
