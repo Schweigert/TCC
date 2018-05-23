@@ -1,4 +1,31 @@
-\chapter{Proposta para análise de consumo de recursos computacionais}
+\chapter{Proposta para análise de arquiteturas de microsserviços \ac{mmorpg}}
 \label{cap3}
 
-CAP 3
+Para realizar a análise de consumo de recursos de uma arquitetura de jogos \ac{mmorpg} é necessário coletar / medir os recursos utilizados para posterior análise.
+%
+Na fase de coleta de informação, é possível utilizar ferramentas existentes para coletar informações sobre o consumo da rede (\textit{e.g.}, Tcpdump, Wireshark, etc.) e consumo de recursos computacionais do serviço (e.g., Golang Flame, Ruby Thread profiler tool, Golang profiler, \textit{etc.})
+%
+Estas ferramentas contribuem com a análise, sendo de extrema importância para a coleta de dados.
+
+
+
+Contudo, se faz necessário uma arquitetura de microsserviços para jogos \ac{mmorpg} a fim de ser utilizado para análise.
+%
+Esta arquitetura será descrita na Seção~\ref{sec:arquitetura_proposta}.
+
+
+\section{Arquitetura proposta para análise}
+\label{sec:arquitetura_proposta}
+
+Esta seção tem como objetivo descrever a arquitetura implementada para análise, baseada na arquitetura Willson~\cite{stephenclarkewillson2017}.
+%
+Esta mesma arquitetura de microsserviços é utilizada no jogo NCSoft Guild Wars 2\footnote{NCSoft Guild Wars 2: \url{https://www.guildwars2.com/}}.
+
+Em uma visão macro, o serviço terá os seguintes microsserviços:
+
+\begin{enumerate}
+  \item{\textit{Account Service}}: Responsável por criar, alterar e autenticar as contas dos jogadores e seus personagens.
+  \item{\textit{Proxy Service}}: Receberá requisições e distribuirá o mesmo ao microsserviço de interesse.
+  \item{\textit{Map Service}}: Gerenciará posicionamento dos personagens, consulta de caminhos e calculos de área de interesse.
+  \item{\textit{Character Service}}: Armazenará as informações referentes ao inventário do personagem, habilidades, nivel e afins.
+\end{enumerate}
