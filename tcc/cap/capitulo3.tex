@@ -14,18 +14,36 @@ Contudo, se faz necessário uma arquitetura de microsserviços para jogos \ac{mm
 Esta arquitetura será descrita na Seção~\ref{sec:arquitetura_proposta}.
 
 
+
 \section{Arquitetura proposta para análise}
 \label{sec:arquitetura_proposta}
 
-Esta seção tem como objetivo descrever a arquitetura implementada para análise, baseada na arquitetura Willson~\cite{stephenclarkewillson2017}.
+Esta seção tem como objetivo descrever a arquitetura implementada para análise, baseada na arquitetura Salz~\cite{albion_online_unite}.
 %
-Esta mesma arquitetura de microsserviços é utilizada no jogo NCSoft Guild Wars 2\footnote{NCSoft Guild Wars 2: \url{https://www.guildwars2.com/}}.
+A mesma arquitetura é utilizada no jogo Sandbox-Interactive Albion\footnote{Sandbox-Interactive Albion: \url{https://albiononline.com/en/home}}.
+%
+Ela pode ser vista em uma visão macro na Figura~\ref{fig:salz}.
 
-Em uma visão macro, o serviço terá os seguintes microsserviços:
 
-\begin{enumerate}
-  \item{\textit{Account Service}}: Responsável por criar, alterar e autenticar as contas dos jogadores e seus personagens.
-  \item{\textit{Proxy Service}}: Receberá requisições e distribuirá o mesmo ao microsserviço de interesse.
-  \item{\textit{Map Service}}: Gerenciará posicionamento dos personagens, consulta de caminhos e calculos de área de interesse.
-  \item{\textit{Character Service}}: Armazenará as informações referentes ao inventário do personagem, habilidades, nivel e afins.
-\end{enumerate}
+\begin{figure}[htb!]
+\caption{Arquitetura de microsserviços proposta para análise.}
+\label{fig:salz}
+\includegraphics[height=5cm]{img/cap3/salz.png}
+\centering
+
+Adaptado de:~\cite{albion_online_unite}.
+\end{figure}
+
+
+
+Essa arquitetura contém os seguintes microsserviços:
+
+\begin{itemize}
+\item Login Service: Responsável por gerenciar as conexões do jogo fornecer autorização aos clientes para os demais microsserviços.
+  \item Chat Service: Receberá mensagens e distribuirá aos demais jogadores da mesma região ou enviará mensagens diretas a outros jogadores. Ele receberá a conexão diretamente do jogador, e por sua vez será necessário utilizar o \textit{Login Service} para autenticar a conexão.
+  \item Game Service: Gerenciará um pedaço do ambiente do jogo. Cada microsserviço desta categoria será responsável por um pedaço do jogo, controlando as ações dos personagens em relação a sua área de interesse. Ele receberá a conexão diretamente do cliente, e por sua vez precisa utilizar o \textit{Login Service} para autenticar a conexão.
+  \item Global Service: Este microsserviço resolve as requisições globais requisitadas pelo \textit{chat service}, \textit{login service} ou \textit{game service}.
+  \item Web Service: Servirá para gerência de contas pessoais, autenticação e afins. Será implementado sobre o \textit{framework Ruby on Rails}.
+  \item Game DB: Banco de dados NoSQL. Será utilizado o Cassandra.
+  \item Account DB: Banco de dados SQL. Será utilizado o Postgresql.
+\end{itemize}
