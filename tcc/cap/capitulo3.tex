@@ -39,11 +39,31 @@ Adaptado de:~\cite{albion_online_unite}.
 Essa arquitetura contém os seguintes microsserviços:
 
 \begin{itemize}
-\item Login Service: Responsável por gerenciar as conexões do jogo fornecer autorização aos clientes para os demais microsserviços.
+\item Login Service: Responsável por gerenciar as conexões do jogo e fornecer autorização aos clientes para os demais microsserviços.
   \item Chat Service: Receberá mensagens e distribuirá aos demais jogadores da mesma região ou enviará mensagens diretas a outros jogadores. Ele receberá a conexão diretamente do jogador, e por sua vez será necessário utilizar o \textit{Login Service} para autenticar a conexão.
   \item Game Service: Gerenciará um pedaço do ambiente do jogo. Cada microsserviço desta categoria será responsável por um pedaço do jogo, controlando as ações dos personagens em relação a sua área de interesse. Ele receberá a conexão diretamente do cliente, e por sua vez precisa utilizar o \textit{Login Service} para autenticar a conexão.
   \item Global Service: Este microsserviço resolve as requisições globais requisitadas pelo \textit{chat service}, \textit{login service} ou \textit{game service}.
-  \item Web Service: Servirá para gerência de contas pessoais, autenticação e afins. Será implementado sobre o \textit{framework Ruby on Rails}.
-  \item Game DB: Banco de dados NoSQL. Será utilizado o Cassandra.
-  \item Account DB: Banco de dados SQL. Será utilizado o Postgresql.
+  \item Web Service: Servirá para gerência de contas pessoais, autenticação e afins.
+  \item Game DB: Banco de dados em memória utilizado pelos microsserviços.
+  \item Account DB: Banco de dados persistente.
 \end{itemize}
+
+
+Para melhor compreendimento se faz necessário a descrição específica de funcionamento em cada microsserviço, tecnologias e protocolos utilizados e esquema de funcionamento.
+%
+Além disso será obrigatório descrever os microsserviços de GameDB e AccountDB utilizados na arquitetura.
+
+\subsection{Login Service}
+
+\subsection{Chat Service}
+
+\subsection{Game Service}
+
+\subsection{Global Service}
+
+\subsection{Web Service}
+
+\subsection{GameDB}
+
+\subsection{AccountDB}
+
