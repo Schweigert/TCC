@@ -6,6 +6,8 @@ Para realizar a análise de consumo de recursos de uma arquitetura de jogos \ac{
 Na fase de coleta de informação, é possível utilizar ferramentas existentes para coletar informações sobre o consumo da rede (\textit{e.g.}, Tcpdump, Wireshark, etc.) e consumo de recursos computacionais do serviço (e.g., Golang Flame, Ruby Thread profiler tool, Golang profiler, \textit{etc.})
 %
 Estas ferramentas contribuem com a análise, sendo de extrema importância para a coleta de dados.
+%
+Este tópico será abordado na Seção~ref{sec:metricas}.
 
 
 
@@ -13,6 +15,59 @@ Contudo, se faz necessário uma arquitetura de microsserviços para jogos \ac{mm
 %
 Esta arquitetura será descrita na Seção~\ref{sec:arquitetura_proposta}.
 
+
+\section{Ferramentas de análise de consumo de recursos}
+\label{sec:metricas}
+
+
+Para efetuar a análise de uma arquitetura, de faz necessário um sistema de monitoramento a fim de obter métricas do uso de recursos do sistema.
+%
+Para este fim, se faz necessário obter três classes de aplicação:
+
+
+\begin{enumerate}
+  \item Banco de dados para métricas
+  \item Sistema de alimentação do banco de dados
+  \item Sistema de visualização do banco de dados
+\end{enumerate}
+
+Nesse sentido, se faz necessário obter um banco de dados específico ao armazenamento de métricas.
+%
+O banco \textit{Graphite}\footnote{Graphite: \url{https://github.com/graphite-project}} é específico a esta operação.
+%
+Ele permite o envio de registros utilizando texto plano por chamadas de sistema, \ac{udp} ou \ac{tcp}.
+%
+Um exemplo de chamada de sistema pode ser visualizado na Figura~\ref{fig:graphite}.
+
+\begin{figure}[htb!]
+  \caption{Inserindo dados no Graphite utilizando chamada de sistema.}
+  \label{fig:graphite}
+  \begin{lstlisting}[language=bash]
+    # Exemplo de chamada de sistema em Bash
+    $ echo "foo.bar 1 `date +%s`" | nc localhost 2003
+  \end{lstlisting}
+  \centering
+
+  Fonte:~\cite{graphite}.
+\end{figure}
+
+Para visualização dos dados, o sistema \textit{web Grafana}\footnote{Grafana: \url{https://github.com/grafana/}} exibe os dados armazenados pelo \textit{Graphite} em um \textit{dashboard}.
+%
+Este \textit{dashboard} pode ser visualizado na Figura~\ref{fig:grafana}.
+
+
+\begin{figure}[htb!]
+  \caption{Dashboard de análise do Grafana.}
+  \label{fig:grafana}
+  \includegraphics[height=5cm]{img/cap3/grafana.png}
+  \centering
+
+  Fonte:~\cite{grafana}.
+\end{figure}
+
+Entretanto, se faz necessário o envio de métricas de uso de recursos pelos próprios microsserviços.
+%
+Nesse sentidio, ferramentas de análise (\textit{e.g.}, TCPDump, Go Pprofit, etc.) e informações do sistema operacional serão utilizadas para popular o banco de dados.
 
 
 \section{Arquitetura proposta para análise}
