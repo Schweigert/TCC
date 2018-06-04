@@ -229,11 +229,50 @@ Este microsserviço gerenciará conexões de uma determinada região do ambiente
 %
 Ele servirá para atualizar a árvore de cena do cliente e executar operações sobre a árvore de cena do chunk a qual o serviço ficou responsável.
 %
-A abordagem de divisão em \textit{chunks} serve para minimizar a influência de conexões sobre as operações no mundo, e assim permitir mais conexões sobre um único mundo compartilhado.
+Uma visão macro deste microsserviço pode ser visualizada na Figura~\ref{fig:game_service}.
+
+
+\begin{figure}[htb!]
+  \caption{\textit{Game Service}}
+  \label{fig:game_service}
+  \includegraphics[height=6cm]{img/cap3/game_service.png}
+  \centering
+
+  Adaptado de:~\cite{albion_online_unite}.
+\end{figure}
+
+
+
+Nesse sentido, esta arquitetura funcionará em paralelo a fim de executar os métodos requisitados pelo cliente e alterar a árvore de cena que será representada no \textit{GameDB}.
 %
-Entretando é necessário tomar uma abordagem para definir a troca de contexto entre duas \textit{chunks} no jogo.
+Para processar essas requisições, será necessário \textit{workers}, a qual processará as requisições armazenadas em um \textit{buffer}.
 %
-Neste microsserviço foi escolhida a abordagem sobre banco de dados~\cite{albion_online_unite}, onde o cliente terá que trocar de microsserviço conforme a sua localidade a troca de mapa e armazenar estra troca de dados no banco para que o microsserviço que controla esta região possa resgatar seus dados e prosseguir com o jogo.
+Cada worker irá trabalhar a fim de executar os métodos chamados e retornar ao cliente a sua resposta.
+%
+O esquema completo do \textit{Game Service} pode ser visualizado na Figura~\ref{fig:game_service_internal}.
+
+
+
+\begin{figure}[htb!]
+  \caption{\textit{Game Service} detalhado}
+  \label{fig:game_service_internal}
+  \includegraphics[height=6cm]{img/cap3/game_service_internal.png}
+  \centering
+
+  Adaptado de:~\cite{albion_online_unite}.
+\end{figure}
+
+
+
+O número de \textit{workers} pode variar conforme o ambiente a qual o serviço estará rodando.
+%
+Dessa forma, este pode ser um elemento a ser considerado para a análise.
+
+
+
+Outra característica é na qual os modelos podem ser resgatados e armazenados através de requisições ao \textit{Global Service}.
+%
+Isto permitirá que a arquitetura armazene e altere dados dos jogadores ao efetuar limpezas do \textit{GameDB}.
 
 
 
