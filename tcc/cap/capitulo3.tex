@@ -183,22 +183,41 @@ Para gerar este token, será utilizado a tecnologia \ac{jwt}, a fim que permita 
 \subsection{Chat Service}
 
 
-Este microsserviço será responsável por redirecionar mensagens a jogadores.
-%
-Ele terá duas principais funções:
+Este microsserviço será responsável por redirecionar mensagens a jogadores, e pode ser visualizado na Figura~\ref{fig:chat_service}.
+
+
+\begin{figure}[htb!]
+  \caption{\textit{Chat Service}}
+  \label{fig:chat_service}
+  \includegraphics[height=10cm]{img/cap3/chat_service.png}
+  \centering
+
+  Elaborado pelo autor.
+\end{figure}
+
+
+Este serviço terá três principais funções na interface pública:
 
 
 
 \begin{itemize}
-  \item Enviar mensagens aos personagens que estão na área de interesse do remetente.
-  \item Enviar mensagens diretas a outros personagens.
+  \item \textit{local\_chat}: Envia mensagens aos personagens que estão na área de interesse do remetente.
+  \item \textit{direct\_message}: Envia mensagens diretas a outros personagens.
+  \item \textit{pull\_messages}: Recebe mensagens não lidas até então.
 \end{itemize}
 
 
-
-O seu funcionamento será baseado na área de interesse do jogador em relação ao microsserviço de conexão.
+Para compartilhamento de informações do ambiente de jogo, o microsserviço terá acesso ao GameDB a fim de obter informações de posicionamento dos personagens.
 %
-Entretanto, para o envio de mensagens diretas, se faz necessário a troca de mensagens entre todos os microsserviços, a fim de comunicar a mensagem enviada por um jogador.
+Entretanto, a abordagem para mensagens diretas é mais complexa.
+%
+Se faz necessário o redirecionamento das mensagens entre microsserviços a fim de entregar ao microsserviço onde o destinatário esteja conectado.
+%
+Para este redirecionamento funcionar, será necessário uma tabela de localização da conexão deste jogador, a qual armazenará a relação entre o personagem e o IP:Porta do microsserviço a qual ele está conectado.
+%
+Por este motivo, o microsserviço terá acesso ao \textit{GameDB}.
+%
+No mesmo sentido, mensagens a jogadores offline não são entregues com roteamento, sendo necessário o armazenamento para entrega posterior, tendo esta requisição armazenada junto ao \textit{Global Service}.
 
 
 
@@ -210,11 +229,11 @@ Este microsserviço gerenciará conexões de uma determinada região do ambiente
 %
 Ele servirá para atualizar a árvore de cena do cliente e executar operações sobre a árvore de cena do chunk a qual o serviço ficou responsável.
 %
-A abordagem de divisão em \textit{chunks} serve para minimizar a influência de conexões sobre as operações no mundo, e assim permitir mais conexões sobre o mundo como um todo.
+A abordagem de divisão em \textit{chunks} serve para minimizar a influência de conexões sobre as operações no mundo, e assim permitir mais conexões sobre um único mundo compartilhado.
 %
-Entretando é necessário todar uma abordagem para definir a troca de contexto entre duas \textit{chunks} no jogo.
+Entretando é necessário tomar uma abordagem para definir a troca de contexto entre duas \textit{chunks} no jogo.
 %
-Neste microsserviço foi escolhida a abordagem sobre banco de dados, onde o jogador terá que informar a troca de mapa e armazenar estra troca de dados no banco para que o microsserviço que controla esta região possa resgatar seus dados e prosseguir com o jogo.
+Neste microsserviço foi escolhida a abordagem sobre banco de dados~\cite{albion_online_unite}, onde o cliente terá que trocar de microsserviço conforme a sua localidade a troca de mapa e armazenar estra troca de dados no banco para que o microsserviço que controla esta região possa resgatar seus dados e prosseguir com o jogo.
 
 
 
