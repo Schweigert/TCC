@@ -687,10 +687,32 @@ Fonte:~\cite{albion_online_unite}
 
 
 A integração descrita na Figura~\ref{fig:integracao_unity_albion} está presente no jogo Sandbox-Interactive Albion\footnote{Sandbox-Interactive Albion: \url{https://albiononline.com/en/home}}~\cite{albion_online_unite}.
+
+
+O processo de análise é suscetível a arquitetura que será analisada. Nesse sentido, espera-se explicar o problema que este TCC deseja abordar, permitindo a portabilidade deste trabalho a outras arquiteturas.
+
+
+\section{Definição do Problema}
+
+
+Arquitetura monolíticas tradicionais para jogos \ac{mmorpg} não garantem alta disponibilidade, podendo ser um eventual problema na escalabilidade do negócio de empresas que forneçam tais serviços.
 %
-Utilizando esse embasamento teórico sobre microsserviços e arquiteturas de jogos \ac{mmorpg}, pode-se analisar os trabalhos (Seção \ref{sec:similares}) relacionados com o tema proposto no atual documento.
+Em alguns serviços, a divisão da carga é dada pela área de interesse, dividindo o ambiente em pedaços a fim de diminuir a carga no serviço.
+%
+Entretanto, locais populares no ambiente do jogo ainda são vulneráveis a disponibilidade de serviço~\cite{1417630}.
 
 
+Nesse sentido, arquiteturas de microsserviços surgiram com o objetivo de aumentar a disponibilidade e viabilizar produtos de demanda massiva.
+%
+Para este fim, a literatura aborda a previsibilidade de carga (a fim de guiar escolhas no \textit{Game Design} do produto e viabilizando o comércio do mesmo) e análise de disponibilidade ou uso de recurso de tais arquiteturas, relatados na Seção~\ref{sec:similares}.
+%
+Torna-se de interesse para empresas de desenvolvimento de jogos \ac{mmorpg} analisar o impacto e uso de recursos computacionais ao implantar uma arquitetura de microsserviços \ac{mmorpg} visando melhorar a disponibilidade de tais jogos.
+
+
+
+Dentro do cenário de análise do atual trabalho, planeja-se analisar o consumo de recursos de uma arquitetura de microsserviços para jogos \ac{mmorpg}, analisando o consumo de memória, disco, processador e banda.
+%
+Para auxiliar este TCC, se faz necessário a análise de trabalhos relacionados ao escopo deste trabalho, a qual analisem arquiteturas de jogos \ac{mmorpg} ou arquiteturas de microsserviços.
 
 \section{Trabalhos Relacionados}
 \label{sec:similares}
