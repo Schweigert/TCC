@@ -132,7 +132,7 @@ Essa arquitetura contém os seguintes microsserviços:
   \item \textbf{Login Service}: Responsável por gerenciar as conexões do jogo e fornecer autorização aos clientes para os demais microsserviços.
   \item \textbf{Chat Service}: Receberá mensagens e distribuirá aos demais jogadores da mesma região ou enviará mensagens diretas a outros jogadores. Ele receberá a conexão diretamente do jogador, e por sua vez será necessário utilizar a tecnologia \ac{jwt} assinado pelo serviço \textit{Login Service} para autenticar a conexão.
   \item \textbf{Game Service}: Gerenciará um pedaço do ambiente do jogo. Cada microsserviço desta categoria será responsável por um pedaço de ambiente do jogo, na qual controlará as ações dos personagens em relação a sua área de interesse. Ele receberá a conexão diretamente do cliente, e por sua vez usará a mesma técnica de autenticação do \textit{Chat Service} para autenticar a conexão.
-  \item \textbf{Global Service}: Este microsserviço resolve as requisições globais requisitadas pelo \textit{chat service}, \textit{login service} ou \textit{game service}. Será responsável por orquestrar os microsserviços, gerenciar as mudanças de microsserviços dos clientes e obter métricas referentes ao jogo, como número de personagens, ações principais e coordenação geral do jogo.
+  \item \textbf{Global Service}: Este microsserviço resolve as requisições globais requisitadas pelo \textit{chat service}, \textit{login service} ou \textit{game service}. Será responsável por orquestrar os microsserviços, gerenciar as mudanças de microsserviços dos clientes e obter métricas referentes ao jogo, como número de personagens, ações principais e coordenação geral do jogo. Além disso, ele será o gerente de operações \ac{crud} ao banco de dados \textit{Account DB}.
   \item \textbf{Web Service}: Servirá para gerênciar o banco de dados utilizando operações~\ac{crud}.
   \item \textbf{Game DB}: Banco de dados em memória utilizado pelos microsserviços para compartilhamento do estado de mundo.
   \item \textbf{Account DB}: Banco de dados persistente para armazenar o estado de jogo em disco.
@@ -140,8 +140,6 @@ Essa arquitetura contém os seguintes microsserviços:
 
 
 Para melhor compreendimento se faz necessário a descrição específica de funcionamento em cada microsserviço, tecnologias e protocolos utilizados e esquema de funcionamento.
-%
-Além disso será obrigatório descrever os microsserviços de GameDB e AccountDB utilizados na arquitetura.
 
 
 
@@ -149,9 +147,20 @@ Além disso será obrigatório descrever os microsserviços de GameDB e AccountD
 
 
 
-Microsserviço respoonsável por efetuar a autenticação do usuário ao mundo.
+O microsserviço respoonsável por efetuar a autenticação do usuário aos demais microsserviços é nomeado \textit{Login Service}, descrito na Figura~\ref{fig:login_service}.
 %
-Ele será responsável por impedir multiplas conexões utilizando um mesmo usuário.
+Ele será responsável por impedir multiplas conexões utilizando um mesmo usuário, e assinar um token que será utilizado para autenticação nos demais microsserviços.
+
+
+
+\begin{figure}[htb!]
+\caption{\textit{Login Service}}
+\label{fig:login_service}
+\includegraphics[height=10cm]{img/cap3/login_service.png}
+\centering
+
+Elaborado pelo autor.
+\end{figure}
 
 
 
@@ -161,7 +170,7 @@ Ele será o responsável pela descrição de status da atual conexão do jogador
 %
 Isto servirá para evitar requisições maliciosas ao serviço.
 %
-Nesse sentido, faz necessário que o \textit{Login Service} comunique frequentemente os demais serviços de interesse para que atualize o status de conexão dos jogadores e suas credenciais de conexão.
+Nesse sentido, faz necessário que o \textit{Login Service} comunique frequentemente os demais serviços de interesse para que atualize o status de conexão dos jogadores e suas credenciais de conexão, além de obrigar ao cliente uma requisição em um espaço determinado de tempo.
 
 
 
