@@ -1,10 +1,33 @@
 \chapter{Fundamentação Teórica}
 \label{cap2}
 
-%ccm <-9
+
+O termo de jogos eletrônicos é amplamente difundido, entretanto as especificações, características e histórico deste termo não são de conhecimento popular.
+%
+A Seção~\ref{sec:jogos_eletronicos} trata a definição de jogo eletrônico, um levante histórico e o impacto da evolução do hardware no desenvolvimento dos jogos.
+%
+Este termo será tomado como introdução para o conceito de gênero de jogo, abordado na Seção~\ref{sec:arvore_generos}, na qual serão abordados os principais gêneros, características e tecnologias (do ponto de vista de rede de computadores) que são comuns em cada gênero. %ccm <-38
+%
+Esta introdução acerca dos gêneros e suas tecnologias de comunicação busca trazer a importância do desempenho das arquiteturas dos jogos \ac{mmorpg} e proporção da comunidade impactada caso haja falhas de funcionamento nessas arquiteturas.
+
+
+
+Após definir a categoria de jogo abordado, a Seção~\ref{sec:mmorpg} abordará sobre uma introdução ao impacto de mercado desse gênero, uma definição simplista e a divisão das camadas de aplicação que permeiam uma arquitetura para um jogo \ac{mmorpg}. %ccm <-38
+%
+Entretanto, antes de abordar sobre as camadas da infraestrutura de um arquitetura \ac{mmorpg}, faz-se obrigatório o entendimento sobre jogabilidade (Seção~\ref{sec:jogabilidade}) e problemas relativos a rede relevantes a este gênero (Seção~\ref{sec:problemas}).
+
+
+Os conceitos de Cliente (Seção~\ref{sec:cliente}) e Serviço (Seção~\ref{sec:microsservicos}) serão abordados a fim de introduzir conceitos de arquiteturas comuns nestes serviços. %ccm <-38
+%
+O objetivo destas seções é referenciar diversas tecnologias e técnicas utilizadas nesses sistemas a fim de permitir o desenvolvimento de uma arquitetura de microsserviços específica a jogos \ac{mmorpg}.
+%
+Por fim, torna-se obrigatório a apresentação de trabalhos relacionados (Seção~\ref{sec:similares}) a arquitetura de jogos \ac{mmorpg} desenvolvidos de forma distribuída ou sobre uma arquitetura de microsserviços.
+%
+Esta seção em específico abordará exemplos de métodos e métricas utilizadas para mensurar o desempenho de tais arquiteturas, realizando por fim uma análise destes trabalhos (Seção~\ref{sec:similares_analise}). %ccm <-38
+
 
 \section{Jogos Eletrônicos}
-
+\label{sec:jogos_eletronicos}
 
 
 O primeiro sistema de entretenimento interativo foi construído em 1947, utilizando como base de exibição um tubo de raios catódicos.
@@ -23,7 +46,7 @@ O sistema operacional, hardware ou base de execução da aplicação gráfica de
 
 Inicialmente os jogos eram implementados de forma simples por conta da limitação de hardware das plataformas dos anos 80.
 %
-As implementações de jogos para \textit{videogames} eram desenhadas diretamente para algum hardware proprietário, sem sistema operacional, por muitas vezes sem utilizar comunicação por rede ou memória de disco~\cite{rollings2003andrew}.
+As implementações de jogos para \textit{videogames} eram projetadas diretamente para algum hardware proprietário, sem sistema operacional, por muitas vezes sem utilizar comunicação por rede ou armazenamento em memória secundária~\cite{rollings2003andrew}.
 %
 Além de diversas plataformas não terem acesso a rede, os serviços para jogos eram inviabilizados pelo custo de manutenção e pela ausência de demanda a qual teriam os requisitos mínimos para jogar~\cite{adams_1208533}.
 %
@@ -33,15 +56,15 @@ Na década de 80, o \textit{videogame} Atari foi uma plataforma popular, vendend
 
 O crescente recurso computacional disponível em computadores pessoais e \textit{videogames} após os anos 90 permitiu que desenvolvedores criassem novos estilos de jogos que utilizavam de hardware mais específico~\cite{adams_1208533}.
 %
-Dentre esses hardwares, iniciou-se o uso da rede de computadores para proporcionar a interação entre jogadores de máquinas distintas~\cite{statisita_consumo_rede}.
+Dentre esses hardwares, iniciou-se o uso da rede de computadores para proporcionar a interação entre jogadores em equipamentos distintas~\cite{statisita_consumo_rede}.
 %
-Jogos como EA Habitat\footnote{EA Habitat: \url{http://www.mobygames.com/game/c64/habitat/credits}}, CipSoft Tibia\footnote{CipSoft Tibia: \url{http://www.tibia.com/}} e Jajex Runescape\footnote{Jajex Runescape: \url{https://www.runescape.com}} começam a utilizar, como requisito obrigatório do jogo, a conexão com a Internet para interagir em um mundo compartilhado com outos jogadores.
+Jogos como EA Habitat\footnote{EA Habitat: \url{http://www.mobygames.com/game/c64/habitat/credits}}, CipSoft Tibia\footnote{CipSoft Tibia: \url{http://www.tibia.com/}} e Jajex Runescape\footnote{Jajex Runescape: \url{https://www.runescape.com}} começam a utilizar, como requisito obrigatório do jogo, a conexão com a Internet para interagir em um mundo compartilhado com outros jogadores.
 %
 Tais jogos popularizaram um novo gênero, trazendo inovação tecnológica como complemento a sua de jogabilidade e desafio proposto ao jogar com milhares de jogadores~\cite{guinness_runescape, 1417630}, criando o gênero de jogos \ac{mmo} na árvore de gêneros.
 
 
 
-Nesse sentido, as redes de computadores serviram como impulsionador para várias categorias de jogos que antes não eram possíveis por conta da limitação de comunicação entre computadores.
+Nesse sentido, as redes de computadores serviram como impulsionador para várias categorias de jogos, que antes não eram possíveis por conta da limitação de comunicação entre computadores.
 %
 Sendo assim, torna-se necessário ter uma visão geral das principais categorias de jogos eletrônicos.
 
@@ -54,7 +77,8 @@ Sendo assim, torna-se necessário ter uma visão geral das principais categorias
 A classificação por gênero é uma ferramenta tradicional para auxiliar a fácil identificação de características de alguma literatura, arte e outras mídias.
 %
 Dentro de jogos eletrônicos, o gênero permite que jogadores comprem jogos com características conforme o seu interesse~\cite{Clarke2015}.
-
+%
+A árvore pode ser visualizada pelo diagrama na Figura~\ref{fig:generos}.
 
 
 \begin{figure}[htb!]
@@ -72,9 +96,7 @@ Um gênero de jogo eletrônico é uma categoria específica para agrupar estilos
 %
 Porém, os gêneros não definem de forma explícita o conteúdo expresso em algum jogo eletrônico, mas sim um desafio comum presente no jogo analisado~\cite{adams_1208533, video_game_technologies}.
 %
-A árvore pode ser visualizada pelo diagrama na Figura \ref{fig:generos}.
-%
-O contexto breve de cada gênero é:
+O contexto breve de cada gênero é (Figura~\ref{fig:generos}):
 
 
 
@@ -101,12 +123,12 @@ O contexto breve de cada gênero é:
       \item Jogos de Tiro: Usa um número finito de armas para executar ações a distância. O posicionamento, movimentação estratégia e mira são fatores de desafio ao jogador nesse gênero~\cite{adams_1208533}. É comum encontrar tecnologias \ac{lan}, \ac{p2p} ou \ac{wan}.
         \begin{itemize}
           \item \ac{fps}: Utiliza o método de gravação conhecido como \ac{pov}. Nesse método, o modo de exibição do mundo é dado como a visão de um personagem do jogo, na qual o jogador tem visão pelo próprio personagem~\cite{video_game_technologies, adams_1208533}. É comum encontrar tecnologias \ac{lan}, \ac{p2p} ou \ac{wan}.
-          \item \ac{tps}: Diferente dos jogos \ac{fps}, os jogos \ac{tps} utilizam cameras soltas no cenário no qual o jogador é visível na cena exibida~\cite{video_game_technologies, adams_1208533}. É comum encontrar tecnologias \ac{lan}, \ac{p2p} ou \ac{wan}.
+          \item \ac{tps}: Diferente dos jogos \ac{fps}, os jogos \ac{tps} utilizam câmeras soltas no cenário no qual o jogador é visível na cena exibida~\cite{video_game_technologies, adams_1208533}. É comum encontrar tecnologias \ac{lan}, \ac{p2p} ou \ac{wan}.
         \end{itemize}
     \end{itemize}
   \item Jogos sérios: Tem como objetivo transmitir um conteúdo educacional~\cite{video_game_technologies}. O jogo Sherlock Dengue 8~\cite{sherlock_dengue} é um título desenvolvido com o objetivo de conscientizar os problemas e a prevenção da Dengue no Brasil. É comum encontrar tecnologias \ac{lan}, \ac{p2p}, \ac{wan} e \ac{ws}.
 \end{itemize}
-
+%ccm <-13
 
 
 Dentre vários gêneros, alguns utilizam popularmente algumas tecnologias de rede.
@@ -142,10 +164,10 @@ Fonte: O próprio autor.
 \end{table}
 
 
-Dentre todos os jogos, o gênero \ac{mmorpg} é o mais impactado pela quantia de jogadores\cite{mmo_analytic}, visível na Tabela~\ref{tab:comunicacao_genero}.
+Dentre todos os jogos, o gênero \ac{mmorpg} é o mais impactado pela quantidade de jogadores\cite{mmo_analytic}, visível na Tabela~\ref{tab:comunicacao_genero}.
 %
 Por esse motivo, a escolha por abordar o gênero \ac{mmorpg} se torna interessante do ponto de vista computacional, a fim de analisar o comportamento de rede e processamento das arquiteturas desses jogos.
-
+%ccm <-pode escrever um pouco mais sobre essa escolha
 
 
 \section{\ac{mmorpg}}
@@ -169,21 +191,19 @@ A principal característica desse estilo de jogo é a comunicação e representa
 
 Um jogo \ac{mmorpg} é arquitetado em duas partes~\cite{mmo_analytic}:
 \begin{itemize}
-  \item \textbf{Cliente}: Aplicação que realizará as requisições com a interface do serviço, exibindo o estado de jogo de forma imersiva ao jogador. Este tema será melhor abordado na Seção \ref{sec:cliente}.
+  \item \textbf{Cliente}: Aplicação que realizará as requisições com a interface do serviço, exibindo o estado de jogo de forma imersiva ao jogador. Este tema será melhor abordado na Seção \ref{sec:cliente}. %ccm <-38
   \item \textbf{Servidor}: Conjunto de computadores que recebe as requisições do cliente a fim de ser processadas pelo Serviço.
-  \item \textbf{Serviço}: Implementa as regras de negócio e requisitos do jogo. O serviço disponibiliza uma interface com ações possíveis ao cliente sobre algum protocolo de rede. Este tema será melhor abordado na Seção \ref{sec:microsservicos}.
+  \item \textbf{Serviço}: Implementa as regras de negócio e requisitos do jogo. O serviço disponibiliza uma interface com ações possíveis ao cliente sobre algum protocolo de rede. Este tema será melhor abordado na Seção~\ref{sec:microsservicos}.%ccm <-38
 \end{itemize}
 
 
 A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores~\cite{stephenclarkewillson2017}, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}.
 %
 Por sua vez, o Cliente é implementado em algum ambiente convencional a jogos, como motores gráficos, bibliotecas gráficas ou sobre alguma outra plataforma, como web.
+%
+Nesse sentido, torna-se necessário descrever as características de jogabilidade de jogos \ac{mmorpg} a fim de melhor compreender o funcionamento da arquitetura de um cliente e de um serviço para jogos \ac{mmorpg} nas seções seguintes. %ccm <19
 
-
-
-Nesse sentido torna-se necessário descrever as características de jogabilidade de jogos \ac{mmorpg} a fim de melhor compreender o funcionamento da arquitetura de um cliente e de um serviço para jogos \ac{mmorpg} nas seções seguintes.
-
-
+%ccm Falou bastante mas n`ão falou de consumo de recursos, e.g., rede, processador, etc.
 
 \section{Jogabilidade de jogos MMORPG}
 \label{sec:jogabilidade}
@@ -194,7 +214,7 @@ Nesse sentido torna-se necessário descrever as características de jogabilidade
 %
 Por esse motivo é fácil identificar os sistemas em jogos do mercado após a compreensão dos sistemas identificados.
 %
-Essa seção está presente a fim de definir algumas funcionalidades básicas que estão dentro do contexto de jogabilidade de jogos \ac{mmorpg} para melhor compreensão de sua arquitetura em seções futuras.
+Deste modo, torna-se necessário definir algumas funcionalidades básicas que estão dentro do contexto de jogabilidade de jogos \ac{mmorpg} para melhor compreensão de sua arquitetura em seções futuras.
 
 
 O sistema de autenticação é o que inicia o cliente de algum jogo \ac{mmorpg}~\cite{albion_online_unite, matthiasrudy2011}.
@@ -202,7 +222,7 @@ O sistema de autenticação é o que inicia o cliente de algum jogo \ac{mmorpg}~
 Este sistema é implementado via protocolo web, a fim de disponibilizar um código para validar todas as futuras ações da seção do usuário.
 %
 Ele pode ser visualizado de forma macro na Figura \ref{fig:autenticacao}.
-
+%ccm REssaltar que esse é o principal, citar os demais.
 
 \begin{figure}[htb!]
 \caption{Sistema de autenticação para jogos}
@@ -212,7 +232,7 @@ Ele pode ser visualizado de forma macro na Figura \ref{fig:autenticacao}.
 
 Fonte: Adaptado de ~\cite{LeckyThompson2008Nov}
 \end{figure}
-
+%ccm <-24
 
 
 Esse método de autenticação é definido pela RFC7519~\cite{rfc7519}, com a tecnologia \ac{jwt}.
@@ -222,7 +242,7 @@ O código de validação repassado é auditorado em qualquer serviço pertencent
 
 Após a autenticação, é comum existir um sistema para seleção de personagem, caso o jogo seja desenhado com este objetivo.
 %
-Efetuada a seleção ou criação de um personagem, ele será imerso no mundo compartilhado do jogo com os demais jogadores~\cite{matthiasrudy2011}.
+Efetuada a seleção ou criação de um personagem, este será imerso no mundo compartilhado do jogo com os demais jogadores~\cite{matthiasrudy2011}.
 %
 Nos jogos \ac{mmorpg} é comum a restrição da visão do personagem (Figura~\ref{fig:proximidade}), ora pelas características de jogabilidade do gênero \ac{mmorpg} ora por motivos de desempenho e otimização.
 %
@@ -241,7 +261,7 @@ Fonte:~\cite{albion_online_unite}
 Esse caso pode ser visualizado na Figura~\ref{fig:proximidade}, na qual o personagem selecionado (destacado em vermelho) tem uma área de interesse de baixa distância e uma área de interesse de longa distância~\cite{albion_online_unite}, sendo que o jogador não tem informações dos demais objetos e jogadores fora de sua área de interesse.
 %
 Esta característica impede trapaças (visto que o cliente não tem informações que só estão contidas no serviço) e reduz a frequência de atualização a cada cliente~\cite{albion_online_unite}.
-
+%ccm <-20->
 
 
 Algumas ações comuns dentro do ambiente de um jogo \ac{mmorpg}~\cite{mmorpg_culture}:
@@ -255,7 +275,7 @@ Algumas ações comuns dentro do ambiente de um jogo \ac{mmorpg}~\cite{mmorpg_cu
 
 
 
-O envio e recepção de mensagens do chat é dado com o contexto do posicionamento do personagem~\cite{albion_online_unite}, visível na Figura \ref{fig:chat}.
+O envio e recepção de mensagens do chat é dado com o contexto do posicionamento do personagem~\cite{albion_online_unite}, visível na Figura~\ref{fig:chat}.
 %
 Somente outros personagens dentro de uma distância podem receber alguma mensagem emitida pelo jogador $P_n$.
 
@@ -268,7 +288,7 @@ Somente outros personagens dentro de uma distância podem receber alguma mensage
 Fonte: Adaptado de ~\cite{albion_online_unite}
 \end{figure}
 
-Essa distância (Figura \ref{fig:chat}) pode ser calculada utilizando Distância Euclidiana~\cite{Deza2009Aug}, na qual a distância entre dois personagens podem ser calculadas pela equação $d(p, q) = \sqrt{\sum_{i=1}^{n}(q_i - p_i)^2}$.
+Essa distância (Figura~\ref{fig:chat}) pode ser calculada utilizando Distância Euclidiana~\cite{Deza2009Aug}, na qual a distância entre dois personagens podem ser calculadas pela equação $d(p, q) = \sqrt{\sum_{i=1}^{n}(q_i - p_i)^2}$.
 %
 Para diminuir a complexidade das comparações, a fim de decidir quais personagens $P_n$ devem receber a mensagem, é comum utilizar técnicas de divisão de área utilizando algoritmos como \textit{Quadtree} ou \textit{Octree}~\cite{Lengyel2011Jun}, subdividindo os quadrantes de uma região do ambiente do jogo a fim de facilitar a consulta de quais personagens estão em determinada área deste ambiente.
 
@@ -339,6 +359,7 @@ Existem algumas causas comuns para essas as ocorrências descritas~\cite{1417630
   \item \textbf{Complexidade de algoritmos}: o serviço usa algoritmos de alta complexidade ou regras de negócios que demandam por um algoritmo complexo.
   \item \textbf{Limitado pela própria arquitetura}: está limitado diretamente pelo número de conexões, não suportando a carga recebida.
 \end{itemize}
+%ccm explicar mais arquitetura neste contexto
 
 Tais ocorrências estão diretamente correlacionadas a carga a qual tais serviços estão submetidos e podem ser amenizadas utilizando técnicas de provisionamento de recursos e balanceamento de carga~\cite{1417630}, mas não suficiente para eliminar tais ocorrências.
 
@@ -351,9 +372,7 @@ Da mesma forma, faz sentido modularizar um serviço \ac{mmorpg} em microsserviç
 
 
 Do ponto de vista da arquitetura de computadores, as operações existentes em um jogo \ac{mmorpg} seguem um padrão de interação com o mundo, criar, excluir ou manipular objetos deste mundo.
-
-
-
+%
 Para suprir o desenvolvimento de tais sistemas, se faz necessário compreender os padrões de desenvolvimento de tais arquiteturas na qual suprem as operações básicas de interação com o mundo.
 
 
@@ -363,7 +382,7 @@ Para suprir o desenvolvimento de tais sistemas, se faz necessário compreender o
 
 
 
-A arquitetura de um cliente \ac{mmorpg} é um pilar fundamental para o sucesso de um jogo deste gênero.
+A arquitetura de um cliente \ac{mmorpg} é um aspecto fundamental para o sucesso de um jogo deste gênero. %ccm fundamental mas não é único
 %
 O seu funcionamento é totalmente visível ao usuário final e tem o principal objetivo de exibir o estado do mundo de forma gráfica ao usuário~\cite{albion_online_unite}.
 %
@@ -384,7 +403,7 @@ Fonte:~\cite{albion_online_unite}
 
 Do ponto de vista de computação gráfica, um cenário 3D pode ser visualizado como uma árvore.
 %
-Utilizar árvores para descrever um cenário ajuda tanto no formado de armazenamento em disco para leitura facilitada (\textit{e.g.}, \ac{json}, \ac{xml}, etc.), operações de intersão e deleção, organização do projeto e redução da complexidade utilizando transformações lineares em sistemas gráficos como \textit{OpenGL} e \textit{DirectX}~\cite{Lengyel2011Jun}.
+Utilizar árvores para descrever um cenário ajuda tanto no formado de armazenamento em disco para leitura facilitada (\textit{e.g.}, \ac{json}, \ac{xml}, etc.), operações de inserção e exclusão, organização do projeto e redução da complexidade utilizando transformações lineares em sistemas gráficos como \textit{OpenGL} e \textit{DirectX}~\cite{Lengyel2011Jun}.
 %
 Esse modelo é amplamente utilizado em motores gráficos, na qual pode ser encontrado em motores gráficos populares como \textit{Godot}, \textit{Unity3D} e \textit{Unreal 3}.
 %
@@ -415,10 +434,10 @@ Do ponto de vista da rede de computadores, a arquitetura de um cliente de jogo \
 Um cliente para um jogo \ac{mmorpg} pode seguir o estilo de arquitetura \ac{rest}, porém não obrigatoriamente sobre o protocolo \ac{http}, mas sim usando algum protocolo \ac{rpc} sobre o protocolo \ac{tcp} ou \ac{udp}~\cite{albion_online_unite, stephenclarkewillson2017}.
 
 
-
-O módulo de \textit{Network} implementado em um cliente de jogo \ac{mmorpg} é responsável por realizar as requisições conforme as ações requiridas pelo jogador ao serviço, além de aplicar os parâmetros na \textit{Scene Tree} ou chamar métodos remotos no cliente por ordens do serviço~\cite{albion_online_unite}.
+%ccm <-20->
+O módulo de \textit{Network} implementado em um cliente de jogo \ac{mmorpg} é responsável por realizar as requisições conforme as ações solicitadas pelo jogador ao serviço, além de aplicar os parâmetros na \textit{Scene Tree} ou chamar métodos remotos no cliente por ordens do serviço~\cite{albion_online_unite}.
 %
-Ele pode ser encontrado na Figura \ref{fig:gateway}.
+Ele pode ser observado na Figura~\ref{fig:gateway}.
 
 
 \begin{figure}[htb!]
@@ -429,16 +448,15 @@ Ele pode ser encontrado na Figura \ref{fig:gateway}.
 
 Adaptado de:~\cite{507915, faber}
 \end{figure}
-%ccm Figura em portugues
 
 
-A Figura \ref{fig:gateway} refere-se a uma visão macro de um cliente \ac{mmorpg}.
+A Figura~\ref{fig:gateway} refere-se a uma visão macro de um cliente \ac{mmorpg}.
 %
-Nesta figura é possível ver o ator \textit{player} na qual pode executar ações sobre seu personagem por meio da \textit{engine}.
+Na Figura~\ref{fig:gateway} é possível ver o ator \textit{player} o qual pode executar ações sobre seu personagem por meio da \textit{engine}.
 %
-Por sua vez, existe uma entrada de dados a mais comparado a esquemas de jogos \textit{offline}. 
+Por sua vez, existe uma entrada de dados a mais comparado a esquemas de jogos \textit{offline}.
 %
-É por essa entrada de dados secundária na qual o serviço e o cliente podem se manter sincronizados~\cite{faber}. %ccm <-1
+Neste caso, o módulo \textit{Network} será também uma entrada de dados, a qual poderá manipular a cena do motor gráfico~\cite{faber}.
 
 
 
@@ -453,9 +471,9 @@ Para facilitar o desenvolvimento, a aplicação de cliente é dividida em divers
 
 
 
-Utilizando esses dois módulos é possível sincronizar os estados de jogo e exibilos ao jogador. 
+Utilizando esses dois módulos é possível sincronizar os estados de jogo e exibi-los ao jogador.
 %
-Entretanto, se faz necessário compreender o funcionamento do serviço a fim de escolher um protocolo padrão para essa sincronização.
+Entretanto, faz-se necessário compreender o funcionamento do serviço a fim de escolher um protocolo padrão para essa sincronização.
 
 
 
@@ -490,13 +508,15 @@ Um microsserviço é definido pelas seguintes características~\cite{8169955}:
 
 
 
-O microsserviço deverá ser uma entidade separada. Ela deve ser implantada como um sistema independente em um \ac{paas}.
+O microsserviço deverá ser uma entidade separada.
+%
+A entidade deve ser implantada como um sistema independente em um \ac{paas}. %ccm Por quê PaaS??? está estranho.
 %
 Toda a comunicação entre os microsserviços de um macrosserviço será executada sobre a rede, a fim de reforçar a separação entre cada serviço.
 %
 As chamadas pela rede com o cliente ou entre os microsserviços será executada através de uma \ac{api}, permitindo a liberdade de tecnologia em que cada um será implementado~\cite{Newman2015Feb}.
 %
-Isso permite que o sistema contenha tecnologias distintas que melhor resolvam os problemas relacionados ao contexto deste microsserviço.
+Isso permite que o sistema suporte tecnologias distintas que melhor resolvam os problemas relacionados ao contexto deste microsserviço.
 %
 Isso pode ser visualizado na Figura~\ref{fig:microsservicos_tecnologias}.
 
@@ -510,12 +530,12 @@ Isso pode ser visualizado na Figura~\ref{fig:microsservicos_tecnologias}.
 
 Adaptado de:~\cite{Newman2015Feb}
 \end{figure}
+%ccm terminar com n ao invés de último número
 
 
-
-Uma arquitetura de microsserviços é escalável, como visível na Figura \ref{fig:microsservicos_escalabilidade}.
+Uma arquitetura de microsserviços é escalável, como visível na Figura~\ref{fig:microsservicos_escalabilidade}.
 %
-Ela permite o aumento do número de microsserviços sob demanda para suprir a necessidade de escalabilidade.
+A arquitetura permite o aumento do número de microsserviços sob demanda para suprir a necessidade de escalabilidade.
 %
 Este modelo computacional obtém maior desempenho, principalmente se executar sobre plataformas de computação elástica, na qual o orquestrador do macrosserviço pode aumentar o número de instâncias conforme a necessidade de requisições~\cite{Nadareishvili2016Aug}.
 
@@ -535,12 +555,10 @@ Adaptado de:~\cite{Newman2015Feb}
 Microsserviços desenvolvidos para web utilizam arquitetura \ac{rest} baseado sobre o protocolo \ac{http}.
 %
 É uma boa prática utilizar o corpo com conteúdo da requisição e resposta no formato \ac{json} nas chamadas a uma \ac{api} de microsserviço web~\cite{Nadareishvili2016Aug}.
-
-
-
-Entretanto não é uma prática comum para um serviço \ac{mmorpg} utilizar o protocolo \ac{http} pela sua elevada carga desnecessária na requisição~\cite{1417630}.
 %
-Por esse motivo se faz necessário ver as diferenças entre uma arquitetura de microsserviços para \ac{mmorpg} comparados a microsserviços web.
+Entretanto, não é uma prática comum para um serviço \ac{mmorpg} utilizar o protocolo \ac{http} pela sua elevada carga administrativa na requisição~\cite{1417630}.
+%
+Por esse motivo, torna-se relevante compreender a composição de uma arquitetura com microsserviços para \ac{mmorpg}, comparado-a a microsserviços web.
 
 
 
@@ -568,9 +586,9 @@ A separação de um serviço \ac{mmorpg} pode ser dada seguindo este padrão de 
 
 
 
-Dentro de um \textit{Controller} teremos operações padrões aplicados sobre \textit{Models} da aplicação.
+Dentro de um \textit{Controller} teremos operações padrões aplicados sobre \textit{Models} da aplicação. %ccm <-1
 %
-Esses métodos padrões seguem o protocolo \ac{crud}, contendo 4 métodos principais para complementar as consultas sobre os \textit{Models}~\cite{Chadwick2012Oct, LeckyThompson2008Nov}:
+Esses métodos padrões seguem o protocolo \ac{crud}, contendo quatro métodos principais para complementar as consultas sobre os \textit{Models}~\cite{Chadwick2012Oct, LeckyThompson2008Nov}:
 
 
 
@@ -583,18 +601,18 @@ Esses métodos padrões seguem o protocolo \ac{crud}, contendo 4 métodos princi
 
 
 
-Para o padrão \ac{crud}, se faz necessário que os métodos \textit{Read}, \textit{Update} e \textit{Delete} repassem o parâmetro de identificação do objeto a ser consultado~\cite{LeckyThompson2008Nov}.
+Para o padrão \ac{crud}, faz-se necessário que os métodos \textit{Read}, \textit{Update} e \textit{Delete} repassem o parâmetro de identificação do objeto a ser consultado~\cite{LeckyThompson2008Nov}.
 %
 Outros argumentos necessários nos métodos \textit{Create} e \textit{Update} são os atributos do objeto, além do seu retorno ser um valor booleano representando se a operação foi bem sucedida~\cite{Chadwick2012Oct, LeckyThompson2008Nov}.
 %
-Entretanto outros métodos mais apropriados ao funcionamento de um \textit{Controller} podem existir.
+Entretanto, outros métodos mais apropriados ao funcionamento de um \textit{Controller} podem existir.
 %
-Como a exemplo, pode-se visualizar uma interface \ac{crud} na Figura~\ref{fig:crud}.
+Como exemplo, pode-se visualizar uma interface \ac{crud} na Figura~\ref{fig:crud}.
 
 
 
 \begin{figure}[htb!]
-\caption{Cliente pode realizar requisições \ac{crud} ao serviço}
+\caption{Cliente pode realizar requisições \ac{crud} ao serviço.}
 \label{fig:crud}
 \includegraphics[height=2.5cm]{img/cap2/crud.png}
 \centering
@@ -611,7 +629,7 @@ As requisições de métodos remotos são realizadas entre dois processos distin
 Entretanto, a base do protocolo não é legível como em servidores web que utilizam \ac{json} para transmissão de estrutura de dados, mas sim uma codificação binária nomeado \ac{xdr}~\cite{xdr}.
 
 \begin{figure}[htb!]
-\caption{Diagrama de requisições entre serviço e cliente com operações \ac{crud} e \ac{rpc} em uma arquitetura monolítico}
+\caption{Diagrama de requisições entre serviço e cliente com operações \ac{crud} e \ac{rpc} em uma arquitetura monolítico.}
 \label{fig:network_crud_rpc}
 \includegraphics[height=6.5cm]{img/cap2/network_rpc_crud.png}
 \centering
@@ -621,24 +639,24 @@ Fonte: Adaptado de~\cite{LeckyThompson2008Nov}
 
 
 
-Uma técnica comum em jogos é a compressão de pacotes utilizando mapeamento hash de bytes~\cite{LeckyThompson2008Nov}.
+Uma técnica comum em jogos é a compressão de pacotes utilizando mapeamento \textit{hash} de bytes~\cite{LeckyThompson2008Nov}.
 %
 Tanto o cliente quanto o serviço precisam ter a mesma estrutura de dados.
 %
-Dessa forma, é possivel trocar o nome das funções requiridas em \ac{rpc} por poucos bytes para transitar na rede.
+Dessa forma, é possível trocar o nome das funções solicitadas em \ac{rpc} por poucos bytes para transitar na rede.
 %
 Já para operações \ac{crud}, pode-se utilizar tanto requisições sobre o protocolo \ac{http} ou sobre um protocolo otimizado sobre \ac{tcp} dependendo da necessidade de desempenho~\cite{LeckyThompson2008Nov}.
 
-Como relatado na Seção \ref{sec:microsservicos}, uma arquitetura de microsserviços permite multiplas tecnologias, pois a comunicação entre todos os elementos de um microsserviço será pela rede.
+Como relatado na Seção~\ref{sec:microsservicos}, uma arquitetura de microsserviços permite múltiplas tecnologias, pois a comunicação entre todos os elementos de um microsserviço será pela rede.
 %
 Por esse motivo, é possível utilizar um serviço web para realizar operações \ac{crud} e um serviço dedicado para realizar operações \ac{rpc}.
 %
-Essa arquitetura pode ser melhor compreendida pela Figura \ref{fig:network_crud_rpc_micro}.
+Essa arquitetura pode ser melhor visualizada na Figura~\ref{fig:network_crud_rpc_micro}.
 
 
 
 \begin{figure}[htb!]
-\caption{Diagrama de requisições entre serviço e cliente com operações \ac{crud} e \ac{rpc} em uma arquitetura de microsserviços}
+\caption{Diagrama de requisições entre serviço e cliente com operações \ac{crud} e \ac{rpc} em uma arquitetura de microsserviços.}
 \label{fig:network_crud_rpc_micro}
 \includegraphics[height=6.5cm]{img/cap2/network_rpc_crud_micro.png}
 \centering
@@ -648,9 +666,47 @@ Fonte: O próprio autor.
 
 
 
-Utilizando esse embasamento teórico sobre microsserviços e arquiteturas de jogos \ac{mmorpg}, pode-se analisar os trabalhos (Seção \ref{sec:similares}) relacionados com o tema proposto no atual documento.
+Como resultado da integração entre Cliente, Serviço e Motor Gráfico, o resultado final obtido é descrito pelo diagrama presente na Figura~\ref{fig:integracao_unity_albion}.
 
 
+
+\begin{figure}[htb!]
+\caption{Diagrama de integração entre Cliente e Serviço, considerando a \textit{engine} Unity3D.}
+\label{fig:integracao_unity_albion}
+\includegraphics[height=6.5cm]{img/cap2/integracao_unity_albion.png}
+\centering
+
+Fonte:~\cite{albion_online_unite}
+\end{figure}
+
+
+A integração descrita na Figura~\ref{fig:integracao_unity_albion} está presente no jogo Sandbox-Interactive Albion\footnote{Sandbox-Interactive Albion: \url{https://albiononline.com/en/home}}~\cite{albion_online_unite}.
+
+
+O processo de análise é suscetível a arquitetura que será analisada. Nesse sentido, espera-se explicar o problema que este TCC deseja abordar, permitindo a portabilidade deste trabalho a outras arquiteturas.
+
+
+\section{Definição do Problema}
+
+
+Arquitetura monolíticas tradicionais para jogos \ac{mmorpg} não garantem alta disponibilidade, podendo ser um eventual problema na escalabilidade do negócio de empresas que forneçam tais serviços.
+%
+Em alguns serviços, a divisão da carga é dada pela área de interesse, dividindo o ambiente em pedaços a fim de diminuir a carga no serviço.
+%
+Entretanto, locais populares no ambiente do jogo ainda são vulneráveis a disponibilidade de serviço~\cite{1417630}.
+
+
+Nesse sentido, arquiteturas de microsserviços surgiram com o objetivo de aumentar a disponibilidade e viabilizar produtos de demanda massiva.
+%
+Para este fim, a literatura aborda a previsibilidade de carga (a fim de guiar escolhas no \textit{Game Design} do produto e viabilizando o comércio do mesmo) e análise de disponibilidade ou uso de recurso de tais arquiteturas, relatados na Seção~\ref{sec:similares}.
+%
+Torna-se de interesse para empresas de desenvolvimento de jogos \ac{mmorpg} analisar o impacto e uso de recursos computacionais ao implantar uma arquitetura de microsserviços \ac{mmorpg} visando melhorar a disponibilidade de tais jogos.
+
+
+
+Dentro do cenário de análise do atual trabalho, planeja-se analisar o consumo de recursos de uma arquitetura de microsserviços para jogos \ac{mmorpg}, analisando o consumo de memória, disco, processador e banda.
+%
+Para auxiliar este TCC, se faz necessário a análise de trabalhos relacionados ao escopo deste trabalho, a qual analisem arquiteturas de jogos \ac{mmorpg} ou arquiteturas de microsserviços.
 
 \section{Trabalhos Relacionados}
 \label{sec:similares}
@@ -669,11 +725,12 @@ Ao apresentar estes trabalhos, busca-se apresentar o contexto e objetivo, e ent�
 \label{sec:huang}
 
 
+
 O trabalho de ~\cite{1417630} investiga a relação entre os recursos utilizados e o número de conexões presentes em um serviço \ac{mmorpg} distribuído.
 %
 Neste trabalho é relatado que a infraestrutura utiliza três serviços: Um \textit{Game Server} sobre protocolo \ac{tcp}, um \textit{Proxy Server} também sobre protocolo \ac{tcp}, e um servidor web para autenticação que executa sobre uma interface \ac{http}.
 %
-O foco de análise é o \textit{Game Server} e o \textit{Proxy Server}.
+O foco de análise é o \textit{Proxy Server}, um serviço especificado em receber requisições e repassar atualizações da área de interesse destes jogadores, e o \textit{Game Server}, um serviço especificado para consumir as requisições realizadas pelo jogador.
 
 
 
@@ -701,7 +758,7 @@ A Figura \ref{fig:players_peer_time} demonstra uma amostra do número de conexõ
 
 
 \begin{figure}[htb!]
-\caption{Número de conexões no serviço pelo tempo decorrido}
+\caption{Número de conexões no serviço pelo tempo decorrido.}
 \label{fig:players_peer_time}
 \includegraphics[height=2.5cm]{img/cap2/players_peer_time.png}
 \centering
@@ -715,11 +772,12 @@ Como análise, o autor correlacionou o número de conexões com número de pacot
 %
 Esta função pode ser utilizada com regressão linear para prever consumo de recursos futuros e por fim realocar mais recursos ao serviço, contribuindo com escalabilidade vertical autônoma.
 %
-Um exemplo de aplicação dessa regressão linear pode ser visualizada na Figura~\ref{fig:regressao_bytes}, onde o autor compara o consumo de banda real comparado a regressão linear.
+Um exemplo de aplicação dessa regressão linear pode ser visualizada na Figura~\ref{fig:regressao_bytes}, no qual o autor compara o consumo de banda real comparado a regressão linear.
+
 
 
 \begin{figure}[htb!]
-\caption{Regressão linear comparado ao consumo de banda real do servidor}
+\caption{Regressão linear comparado ao consumo de banda real do servidor.}
 \label{fig:regressao_bytes}
 \includegraphics[height=4.5cm]{img/cap2/regressao.png}
 \centering
@@ -728,9 +786,10 @@ Fonte:~\cite{1417630}
 \end{figure}
 
 
+
 Entretanto, a escalabilidade horizontal não pode ser prevista, visto que não é analisado o posicionamento de cada personagem a fim de dividir os ambientes em pedaços menores com outros serviços.
 %
-Como trabalhos futuros é relatado a análise do posicionamento de personagens para escalabilidade horizontal, a análise de outras arquiteturas e a análise de outros gêneros de jogos, além do impácto de utilizar balanço de carga e provisionamento de recursos de forma dinâmica.
+Como trabalhos futuros é relatado a análise do posicionamento de personagens para escalabilidade horizontal, a análise de outras arquiteturas e a análise de outros gêneros de jogos, além do impacto de utilizar balanço de carga e provisionamento de recursos de forma dinâmica.
 
 
 
@@ -742,20 +801,22 @@ O trabalho de ~\cite{7515686} investiga o custo de arquiteturas de microsserviç
 %
 A sua principal motivação é a comparação de custos para a tradução de sistemas legados para arquiteturas distribuídas.
 %
-Para isso, o autor preparou 3 instâncias de testes com suas configurações desenhadas a fim de ter o maior número de requisições por minuto com o mesmo custo financeiro.
+Para isso, o autor preparou três instâncias de testes com suas configurações desenhadas a fim de ter o maior número de requisições por minuto com o mesmo custo financeiro.
 
 
 
 \begin{figure}[htb!]
 \caption{Arquitetura monolítica web implementada na \ac{aws}}
 \label{fig:aws_monolitico}
-\includegraphics[height=4.5cm]{img/cap2/aws_monolitico.png}
+\includegraphics[height=6.5cm]{img/cap2/aws_monolitico.png}
 \centering
 
 Fonte:~\cite{7515686}
 \end{figure}
 
-\textbf{Instância I.} Utilizando quatro instâncias \ac{aws} \textit{c4.large}, uma instância \ac{aws} \textit{c4.xlarge} e uma instância \ac{aws} \textit{db.m3.medium}..
+
+
+\textbf{Instância I.} Utilizando quatro instâncias \ac{aws} \textit{c4.large}, uma instância \ac{aws} \textit{c4.xlarge} e uma instância \ac{aws} \textit{db.m3.medium}.
 %
 A Figura~\ref{fig:aws_monolitico} exibe a implantação de uma aplicação web monolítica.
 %
@@ -767,7 +828,7 @@ Essa arquitetura foi implementada utilizando \textit{Jax-RS} e \textit{Play Fram
 \begin{figure}[htb!]
 \caption{Arquitetura de microsserviços web implementada na \ac{aws}}
 \label{fig:aws_microsservicos}
-\includegraphics[height=4.5cm]{img/cap2/aws_microsservicos.png}
+\includegraphics[height=6.5cm]{img/cap2/aws_microsservicos.png}
 \centering
 
 Fonte:~\cite{7515686}
@@ -782,7 +843,7 @@ A Figura~\ref{fig:aws_microsservicos} exibe a implantação de uma aplicação d
 \begin{figure}[htb!]
 \caption{Arquitetura de microsserviços web implementada na \ac{aws} utilizando a tecnologia \textit{lambda}}
 \label{fig:aws_lambda}
-\includegraphics[height=4.5cm]{img/cap2/aws_lambda.png}
+\includegraphics[height=6.5cm]{img/cap2/aws_lambda.png}
 \centering
 
 Fonte:~\cite{7515686}
@@ -797,7 +858,7 @@ A Figura~\ref{fig:aws_lambda} exibe a implantação de uma aplicação de micros
 \begin{figure}[htb!]
 \caption{Custo por um milhão de requisições em dólares utilizando diferentes arquiteturas sobre a \ac{aws}}
 \label{fig:custo_aws}
-\includegraphics[height=4.5cm]{img/cap2/custo_aws.png}
+\includegraphics[height=6.5cm]{img/cap2/custo_aws.png}
 \centering
 
 Fonte:~\cite{7515686}
@@ -884,10 +945,9 @@ Entretanto, essa predição não é feita em tempo real, não contribuindo para 
 
 
 
-Esta seção expõe uma análise sobre os trabalhos relacionados apresentados. Em específico, são apontadas características relevantes a cada trabalho e por fim é feita uma comparação entre estas características.
-
-
-Ao levantar o problema de consumo de recursos, existem duas vertentes de pesquisas. Elas são descritas dessa forma:
+Em específico, nesta seção são apontadas características relevantes a cada trabalho e por fim é feita uma comparação entre estas características.
+%
+Ao levantar o problema de consumo de recursos, existem duas vertentes de pesquisas, sendo descritas dessa forma:
 
 \begin{itemize}
   \item \textbf{Comparação de arquiteturas}: O autor utiliza alguma métrica a fim de decidir qual a melhor alternativa de arquitetura para determinada aplicação.
@@ -903,9 +963,9 @@ Dessa forma, podemos dividir os trabalhos relacionados com a sua categoria. Esta
 \begin{tabular}{|l|l|}
 \hline
 Autor & Categoria                            \\ \hline
-\cite{6374456}  & Previsão de Carga          \\ \hline
-\cite{7515686}  & Comparação de Arquiteturas \\ \hline
-\cite{1417630}  & Previsão de Carga          \\ \hline
+\cite{6374456}  & Previsão de carga          \\ \hline
+\cite{7515686}  & Comparação de arquiteturas \\ \hline
+\cite{1417630}  & Previsão de carga          \\ \hline
 \end{tabular}
 
 
@@ -962,3 +1022,20 @@ Autor           & Arquitetura de Microsserviços & Arquitetura Distribuída  & \
 
 Fonte: O próprio autor.
 \end{table}
+
+
+Este Trabalho de Conclusão de Curso pretende analisar uma arquitetura de microsserviços especificada a jogos \ac{mmorpg}, visando métricas de desempenho e custo de operação.
+
+
+\section{Considerações parciais}
+
+Este capítulo conceituou jogos eletrônicos, gênero de jogo e especificou as características de um jogo \ac{mmorpg}.
+%
+Após apresentar sobre o gênero de jogo abordado, detalha-se a sua jogabilidade, problemas relevantes a este gênero do ponto de vista de rede de computadores e por fim sobre técnicas e abordagens populares acerca do desenvolvimento destes serviços, a qual serão utilizados no problema deste Trabalho de Conclusão de Curso.
+
+
+Por fim, são apresentados trabalhos relacionados a fim de guiar por métricas, métodos de coleta de dados e métodos de desenvolvimento e implantação de tais arquiteturas a fim de contribuir com o atual escopo do trabalho.
+%
+Entretanto, houve uma dificuldade em encontrar na literatura analises sobre arquiteturas de microsserviços focado a jogos, principalmente em específico o gênero \ac{mmorpg}.
+%
+Dessa forma, espera-se introduzir a analise da viabilidade e do custo de recursos computacionais para manter um serviço \ac{mmorpg} sobre uma arquitetura de microsserviços.
