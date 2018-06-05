@@ -3,7 +3,28 @@
 
 \section{Proposta}
 
-Este trabalho propôe-se a realizar a análise de consumo de recursos por arquiteturas de microsserviços para jogos \ac{mmorpg} com foco na...
+Este trabalho propôe-se a realizar a análise de consumo de recursos por arquiteturas de microsserviços para jogos \ac{mmorpg}.
+%
+Para este fim, o atual trabalho desenvolverá uma análise sobre arquiteturas encontradas na literatura a fim de encontrar gargalos nestas arquiteturas.
+
+
+A análise será realizada capturando informações sobre o uso de recursos do sistema operacional que implantará a base das arquiteturas, obtendo assim estes dados de forma gráfica para que auxiliem a análise.
+%
+Os recursos analisados são memória, memória secundária, processador, banda e número máximo de conexões.
+%
+Tais dados coletados permitirão tomadas de decisão de projetos para o desenvolvimento de jogos \ac{mmorpg}.
+
+
+Para obter tais dados a fim de efetuar uma análise do uso de recursos computacionais consumidos por arquiteturas de jogos \ac{mmorpg}, se faz necessário a execução do plano de testes.
+%
+Teste plano de testes irá analisar os seguintes aspéctos nas arquiteturas:
+
+\begin{enumerate}
+  \item Consumo de memória: Análise do consumo de memória do sistema levando em consideração o número de conexões.
+  \item Consumo de memória secundária: Análise do consumo de memória secundária para funcionamento dos microsserviços tanto do banco de dados.
+  \item Consumo de CPU: Análise do consumo de processamento, tanto em relação ao tempo de resposta das requisições quanto ao consumo obtido do sistema operacional.
+  \item Consumo de Banda: Análise da vasão de dados com relação ao número de conexões em que cada microsserviço será submetido.
+\end{enumerate}
 
 \section{Critérios de análise}
 
