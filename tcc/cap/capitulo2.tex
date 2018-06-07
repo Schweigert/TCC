@@ -128,8 +128,10 @@ O contexto breve de cada gênero é (Figura~\ref{fig:generos}):
     \end{itemize}
   \item Jogos sérios: Tem como objetivo transmitir um conteúdo educacional~\cite{video_game_technologies}. O jogo Sherlock Dengue 8~\cite{sherlock_dengue} é um título desenvolvido com o objetivo de conscientizar os problemas e a prevenção da Dengue no Brasil. É comum encontrar tecnologias \ac{lan}, \ac{p2p}, \ac{wan} e \ac{ws}.
 \end{itemize}
-%ccm <-13
 
+A árvore de gêneros guia ora aos usuários finais para classificar jogos que lhe agradem ora desenvolvedores a fim de seguir tendências de mercado pelas características do gênero.
+%
+Dessa forma, encontra-se um padrão nos jogos, na qual também guiam o desenvolvimento das arquiteturas de tais jogos~\cite{video_game_technologies}.
 
 Dentre vários gêneros, alguns utilizam popularmente algumas tecnologias de rede.
 %
@@ -144,19 +146,19 @@ Essa correlação é importante para identificar as características de jogabili
 \label{tab:comunicacao_genero}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
-                & \ac{lan}   & \ac{p2p}   & \ac{wan}            & \ac{ws}  &  Jogadores                                            \\ \hline
+                & \ac{lan}   & \ac{p2p}   & \ac{wan}            & \ac{ws}  &  Jogadores                                           \\ \hline
 ESTRATÉGIA      & \checkmark & \checkmark & \checkmark         &              &   até 10~\cite{eoe3}                              \\ \hline
 RTS             & \checkmark &            &                    &              &   até 10~\cite{starcraft2}                        \\ \hline
-MMO             &            &            & \checkmark         & \checkmark   &   mais que 1000~\cite{runescape_online_users}     \\ \hline
 MOBA            & \checkmark & \checkmark & \checkmark         &              &   até 10~\cite{lol_how_work_games}                \\ \hline
+MMO             &            &            & \checkmark         & \checkmark   &   mais que 1000~\cite{runescape_online_users}     \\ \hline
 MMORPG          &            &            & \checkmark         & \checkmark   &   mais que 1000~\cite{runescape_online_users}     \\ \hline
-AVENTURA        & \checkmark & \checkmark & \checkmark         &              &   até 100~\cite{minecraft}                         \\ \hline
-AÇÃO            & \checkmark & \checkmark & \checkmark         & \checkmark   &   até 10~\cite{cuphead}                            \\ \hline
-AÇÃO E AVENTURA & \checkmark & \checkmark & \checkmark         &              &   até 10~\cite{cuphead}                            \\ \hline
+AVENTURA        & \checkmark & \checkmark & \checkmark         &              &   até 100~\cite{minecraft}                        \\ \hline
+AÇÃO            & \checkmark & \checkmark & \checkmark         & \checkmark   &   até 10~\cite{cuphead}                           \\ \hline
+AÇÃO E AVENTURA & \checkmark & \checkmark & \checkmark         &              &   até 10~\cite{cuphead}                           \\ \hline
 SIMULAÇÃO       &            &            &                    & \checkmark   &   até 10~\cite{eurotruck2}                        \\ \hline
-ESPORTES        & \checkmark & \checkmark &                    &              &   até 10~\cite{fifa2018}                           \\ \hline
-FPS             & \checkmark & \checkmark & \checkmark         &              &   até 100~\cite{battlefield3}                      \\ \hline
-TPS             & \checkmark & \checkmark & \checkmark         &              &   até 100~\cite{battlefield3}                      \\ \hline
+ESPORTES        & \checkmark & \checkmark &                    &              &   até 10~\cite{fifa2018}                          \\ \hline
+FPS             & \checkmark & \checkmark & \checkmark         &              &   até 100~\cite{battlefield3}                     \\ \hline
+TPS             & \checkmark & \checkmark & \checkmark         &              &   até 100~\cite{battlefield3}                     \\ \hline
 JOGOS SÉRIOS    & \checkmark & \checkmark & \checkmark         & \checkmark   &   até 10~\cite{sherlock_dengue}                   \\ \hline
 \end{tabular}
 
@@ -164,10 +166,13 @@ Fonte: O próprio autor.
 \end{table}
 
 
+
 Dentre todos os jogos, o gênero \ac{mmorpg} é o mais impactado pela quantidade de jogadores\cite{mmo_analytic}, visível na Tabela~\ref{tab:comunicacao_genero}.
 %
-Por esse motivo, a escolha por abordar o gênero \ac{mmorpg} se torna interessante do ponto de vista computacional, a fim de analisar o comportamento de rede e processamento das arquiteturas desses jogos.
-%ccm <-pode escrever um pouco mais sobre essa escolha
+Nesse sentido, as arquiteturas do serviço e cliente se tornam um ponto crítico no desenvolvimento a fim de suportar a carga necessária ao desenho do jogo.
+%
+Por esse motivo, a escolha por abordar o gênero \ac{mmorpg} se torna interessante do ponto de vista computacional, a fim de analisar o comportamento e consumo de jogos \ac{mmorpg}, visando obter características destas arquiteturas.
+
 
 
 \section{\ac{mmorpg}}
@@ -196,14 +201,15 @@ Um jogo \ac{mmorpg} é arquitetado em duas partes~\cite{mmo_analytic}:
   \item \textbf{Serviço}: Implementa as regras de negócio e requisitos do jogo. O serviço disponibiliza uma interface com ações possíveis ao cliente sobre algum protocolo de rede. Este tema é melhor abordado na Seção~\ref{sec:microsservicos}.
 \end{itemize}
 
-
+Jogos \ac{mmorpg} trabalham como serviço. Por este motivo o modelo de negócios de tais jogos, do ponto de vista de redes de computador, são suscetíveis a perda financeira em casos de negação de serviço~\cite{1417630}.
+%
 A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores~\cite{stephenclarkewillson2017}, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}.
 %
 Por sua vez, o Cliente é implementado em algum ambiente convencional a jogos, como motores gráficos, bibliotecas gráficas ou sobre alguma outra plataforma, como web.
 %
-Nesse sentido, torna-se necessário descrever as características de jogabilidade de jogos \ac{mmorpg} a fim de melhor compreender o funcionamento da arquitetura de um cliente e de um serviço para jogos \ac{mmorpg} nas seções seguintes. %ccm <19
+Nesse sentido, torna-se necessário descrever as características de jogabilidade de jogos \ac{mmorpg} a fim de melhor compreender o funcionamento da arquitetura de um cliente e de um serviço para jogos \ac{mmorpg}.
 
-%ccm Falou bastante mas n`ão falou de consumo de recursos, e.g., rede, processador, etc.
+
 
 \section{Jogabilidade de jogos MMORPG}
 \label{sec:jogabilidade}
@@ -217,12 +223,11 @@ Por esse motivo é fácil identificar os sistemas em jogos do mercado após a co
 Deste modo, torna-se necessário definir algumas funcionalidades básicas que estão dentro do contexto de jogabilidade de jogos \ac{mmorpg} para melhor compreensão de sua arquitetura em seções futuras.
 
 
-O sistema de autenticação é o que inicia o cliente de algum jogo \ac{mmorpg}~\cite{albion_online_unite, matthiasrudy2011}.
+O sistema de autenticação é o sistema que geralmente inicia o cliente de algum jogo \ac{mmorpg}~\cite{albion_online_unite, matthiasrudy2011}.
 %
 Este sistema é implementado via protocolo web, a fim de disponibilizar um código para validar todas as futuras ações da seção do usuário.
 %
-Ele pode ser visualizado de forma macro na Figura \ref{fig:autenticacao}.
-%ccm REssaltar que esse é o principal, citar os demais.
+Ele pode ser visualizado de forma macro na Figura~\ref{fig:autenticacao}.
 
 \begin{figure}[htb!]
 \caption{Sistema de autenticação para jogos}
@@ -232,7 +237,11 @@ Ele pode ser visualizado de forma macro na Figura \ref{fig:autenticacao}.
 
 Fonte: Adaptado de ~\cite{LeckyThompson2008Nov}
 \end{figure}
-%ccm <-24
+
+
+O sistema de autenticação visualizado na Figura~\ref{fig:autenticacao} é o principal, porém não o único.
+%
+O jogo Realm of the Mad God\footnote{Realm of the Mad God: \url{https://www.realmofthemadgod.com/}} é um exemplo na qual não exige autenticação do usuário, entretanto ele não armazena o progresso do jogador caso o jogador não efetue a autenticação.
 
 
 Esse método de autenticação é definido pela RFC7519~\cite{rfc7519}, com a tecnologia \ac{jwt}.
@@ -257,14 +266,15 @@ Como o jogador não precisa obter dados de regiões que não estão em sua área
 Fonte:~\cite{albion_online_unite}
 \end{figure}
 
-%
+
 Esse caso pode ser visualizado na Figura~\ref{fig:proximidade}, na qual o personagem selecionado (destacado em vermelho) tem uma área de interesse de baixa distância e uma área de interesse de longa distância~\cite{albion_online_unite}, sendo que o jogador não tem informações dos demais objetos e jogadores fora de sua área de interesse.
 %
 Esta característica impede trapaças (visto que o cliente não tem informações que só estão contidas no serviço) e reduz a frequência de atualização a cada cliente~\cite{albion_online_unite}.
-%ccm <-20->
 
 
-Algumas ações comuns dentro do ambiente de um jogo \ac{mmorpg}~\cite{mmorpg_culture}:
+Após o jogador estar com o controle do personagem no ambiente, é comum em tais jogos que ele possa realizar determinadas ações.
+%
+Nesse sentido, algumas ações comuns dentro do ambiente de um jogo \ac{mmorpg}~\cite{mmorpg_culture}:
 
 \begin{itemize}
   \item Enviar e receber mensagem no chat;
@@ -358,7 +368,7 @@ Existem algumas causas comuns para essas as ocorrências descritas~\cite{1417630
   \item \textbf{Baixo poder computacional do servidor}: poder computacional baixo para a qualidade de experiência de jogabilidade do usuário final desejada.
   \item \textbf{Complexidade de algoritmos}: o serviço usa algoritmos de alta complexidade ou regras de negócios que demandam por um algoritmo complexo.
   \item \textbf{Limitado pela própria arquitetura}: está limitado diretamente pelo número de conexões, não suportando a carga recebida.
-  \item \textbf{Limitado pela rede}: a quantidade de requisições não é suportada pelo meio físico onde a arquitetura está implantada.
+  \item \textbf{Limitado pela rede}: a quantidade de requisições não é suportada pelo meio físico na qual a arquitetura está implantada.
 \end{itemize}
 
 Tais ocorrências estão diretamente correlacionadas a carga a qual tais serviços estão submetidos e podem ser amenizadas utilizando técnicas de provisionamento de recursos e balanceamento de carga~\cite{1417630}, mas não suficiente para eliminar tais ocorrências.
@@ -431,10 +441,13 @@ Em um jogo \ac{mmorpg}, o serviço será responsável por enviar atualizações 
 Do ponto de vista da rede de computadores, a arquitetura de um cliente de jogo \ac{mmorpg} deve suportar consultas e chamadas de métodos remotos em um serviço~\cite{albion_online_unite}.
 %
 Um cliente para um jogo \ac{mmorpg} pode seguir o estilo de arquitetura \ac{rest}, porém não obrigatoriamente sobre o protocolo \ac{http}, mas sim usando algum protocolo \ac{rpc} sobre o protocolo \ac{tcp} ou \ac{udp}~\cite{albion_online_unite, stephenclarkewillson2017}.
+%
+Essa comunicação é realizada pelo módulo \textit{Network}, presente em um cliente \ac{mmorpg}.
 
 
-%ccm <-20->
-O módulo de \textit{Network} implementado em um cliente de jogo \ac{mmorpg} é responsável por realizar as requisições conforme as ações solicitadas pelo jogador ao serviço, além de aplicar os parâmetros na \textit{Scene Tree} ou chamar métodos remotos no cliente por ordens do serviço~\cite{albion_online_unite}.
+O módulo de \textit{Network} implementado em um cliente de jogo \ac{mmorpg} é responsável por realizar as requisições \ac{rpc} conforme as ações solicitadas pelo jogador ao serviço, além de aplicar os parâmetros na \textit{Scene Tree} ou chamar métodos remotos no cliente por ordens do serviço.
+%
+E módulo possui uma \textit{Thread} dedicada ao seu funcionamento~\cite{albion_online_unite}.
 %
 Ele pode ser observado na Figura~\ref{fig:gateway}.
 
@@ -529,7 +542,6 @@ Isso pode ser visualizado na Figura~\ref{fig:microsservicos_tecnologias}.
 
 Adaptado de:~\cite{Newman2015Feb}
 \end{figure}
-%ccm terminar com n ao invés de último número
 
 
 Uma arquitetura de microsserviços é escalável, como visível na Figura~\ref{fig:microsservicos_escalabilidade}.
@@ -585,7 +597,7 @@ A separação de um serviço \ac{mmorpg} pode ser dada seguindo este padrão de 
 
 
 
-Dentro de um \textit{Controller} teremos operações padrões aplicados sobre \textit{Models} da aplicação. %ccm <-1
+Dentro de um \textit{Controller} é implementado operações a qual o cliente pode requirir através de chamadas \ac{rpc} a fim de manipular \textit{Models} da aplicação.
 %
 Esses métodos padrões seguem o protocolo \ac{crud}, contendo quatro métodos principais para complementar as consultas sobre os \textit{Models}~\cite{Chadwick2012Oct, LeckyThompson2008Nov}:
 
@@ -665,8 +677,11 @@ Fonte: O próprio autor.
 
 
 
-Como resultado da integração entre Cliente, Serviço e Motor Gráfico, o resultado final obtido é descrito pelo diagrama presente na Figura~\ref{fig:integracao_unity_albion}. %ccm <-11
-
+Como resultado da integração entre Cliente, Serviço e Motor Gráfico, o resultado final obtido é descrito pelo diagrama presente na Figura~\ref{fig:integracao_unity_albion}.
+%
+Tal integração está presente no jogo Sandbox-Interactive Albion\footnote{Sandbox-Interactive Albion: \url{https://albiononline.com/en/home}}~\cite{albion_online_unite}.
+%
+Percebe-se neste contexto que o jogo deverá funcionar sem o motor gráfico, do ponto de vista de redes e estrutura de dados~\cite{albion_online_unite}.
 
 
 \begin{figure}[htb!]
@@ -678,13 +693,14 @@ Como resultado da integração entre Cliente, Serviço e Motor Gráfico, o resul
 Fonte:~\cite{albion_online_unite}
 \end{figure}
 
-
-A integração descrita na Figura~\ref{fig:integracao_unity_albion} está presente no jogo Sandbox-Interactive Albion\footnote{Sandbox-Interactive Albion: \url{https://albiononline.com/en/home}}~\cite{albion_online_unite}. %ccm <-11
-
-
-O processo de análise é suscetível a arquitetura que será analisada.
+A Figura~\ref{fig:integracao_unity_albion} demonstra a separação da camada de renderização de objetos da árvore da cena, a camada de integração com o cliente e serviço (descrito anteriormente como módulo \textit{Network}) e o serviço.
 %
-Nesse sentido, espera-se explicar o problema que este TCC deseja abordar, permitindo a portabilidade deste trabalho a outras arquiteturas. %ccm <-1,16
+Nesse sentido, a alteração entre clientes e serviços facilita um sistema de teste de carga e busca de erros automatizado, facilitando a manutenção e desenvolvimento incremental do serviço~\cite{albion_online_unite}.
+
+
+
+Após a definição de conceitos básicos que permitam o compreendimento de funcionamento das arquiteturas de microsserviços para jogos \ac{mmorpg}, se faz necessário descrever os problemas a qual esta área tem, a fim que este trabalho contribua com futuras escolhas de projetos para jogos \ac{mmorpg}.
+%ccm
 
 
 \section{Definição do Problema}
@@ -862,7 +878,7 @@ Fonte:~\cite{7515686}
 
 \textbf{Instância III.} Utilizando duas instâncias \ac{aws} \textit{lambda S1}, duas instâncias \ac{aws} \textit{lambda S2}, uma instância \ac{aws} \textit{S3 Bucket} e uma instância \ac{aws} \textit{db.m3.medium}.
 %
-A Figura~\ref{fig:aws_lambda} exibe a implantação de uma aplicação de microsserviços web utilizando a tecnologia \ac{aws} \textit{lambda}. Essa arquitetura foi implementada em \textit{Node.js}, onde as funções de \textit{gateway} foram implementadas em quatro funções independentes do tipo \textit{microservice-http-endpoint}. %ccm <-39
+A Figura~\ref{fig:aws_lambda} exibe a implantação de uma aplicação de microsserviços web utilizando a tecnologia \ac{aws} \textit{lambda}. Essa arquitetura foi implementada em \textit{Node.js}, nas quais as funções de \textit{gateway} foram implementadas em quatro funções independentes do tipo \textit{microservice-http-endpoint}. %ccm <-39
 
 
 
@@ -924,7 +940,7 @@ Os contextos analisados nessa tabela são:
   \item \textit{Trading}: Contexto de negociação, na qual a complexidade leva em conta somente o número de itens negociados.
   \item \textit{Dungeons}: Contexto de exploração, na qual o ambiente pode ser modificado conforme as ações dos personagens em um ambiente isolado para este grupo.
   \item \textit{\ac{pvp} combat}: Contexto de batalha entre jogadores, na qual as ações entre os jogadores influenciam diretamente o estado do personagem oponente.
-  \item \textit{Raiding}: Representa um contexto específico de exploração, onde múltiplos jogadores unem forças a fim de combater outro grupo de jogadores ou \ac{npcs}.
+  \item \textit{Raiding}: Representa um contexto específico de exploração, na qual múltiplos jogadores unem forças a fim de combater outro grupo de jogadores ou \ac{npcs}.
 \end{itemize}
 
 
