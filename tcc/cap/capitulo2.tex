@@ -698,31 +698,66 @@ A Figura~\ref{fig:integracao_unity_albion} demonstra a separação da camada de 
 Nesse sentido, a alteração entre clientes e serviços facilita um sistema de teste de carga e busca de erros automatizado, facilitando a manutenção e desenvolvimento incremental do serviço~\cite{albion_online_unite}.
 
 
-
-Após a definição de conceitos básicos que permitam o compreendimento de funcionamento das arquiteturas de microsserviços para jogos \ac{mmorpg}, se faz necessário descrever os problemas a qual esta área tem, a fim que este trabalho contribua com futuras escolhas de projetos para jogos \ac{mmorpg}.
-%ccm
+A qualidade de serviço e custo de operação de serviços de jogos massivos é suscetível a arquitetura empregada.
+%
+Portanto, o embasamento técnico do funcionamento destas arquiteturas pode ajudar na definição de estratégias que diminuam o consumo de recursos e contribuam com a qualidade de serviço e custo ao usuário final, criando jogos mais competitivos no mercado.
 
 
 \section{Definição do Problema}
 
-Arquitetura monolíticas tradicionais para jogos \ac{mmorpg} não garantem alta disponibilidade, podendo ser um eventual problema na escalabilidade do negócio de empresas que forneçam tais serviços. %ccm Em qual parte do texto estão descritas as arquiteturas? e.g., monolĩtica tradicional?
+
+
+A escolha de uma arquitetura para serviços \ac{mmorpg} que não suportem uma elevada carga de trabalho podem ser um eventual problema na escalabilidade do negócio de empresas que forneçam tais serviços.
 %
 Em alguns serviços, a divisão da carga é dada pela área de interesse, dividindo o ambiente em pedaços a fim de diminuir a carga no serviço.
 %
 Entretanto, locais populares no ambiente do jogo ainda são vulneráveis a disponibilidade de serviço~\cite{1417630}.
 
 
-Nesse sentido, arquiteturas de microsserviços surgiram com o objetivo de aumentar a disponibilidade e viabilizar produtos de demanda massiva. %ccm COo aumentam a disponibilidade?
+
+Nesse sentido, arquiteturas de microsserviços surgiram com o objetivo de aumentar a disponibilidade e viabilizar produtos de demanda massiva.
 %
-Para este fim, a literatura aborda a previsibilidade de carga (a fim de guiar escolhas no \textit{Game Design} do produto e viabilizando o comércio do mesmo) e análise de disponibilidade ou uso de recurso de tais arquiteturas, relatados na Seção~\ref{sec:similares}.
+Tais arquiteturas dividem o seu funcionamento em módulos menores a fim de proporcionar maior demanda utilizando uma abordagem distribuída.
+%
+Entretanto, o custo de atender uma alta demanda de conexões pode consumir uma quantia de recursos computacionais ou uma qualidade insatisfatória de serviço, inviabilizando a sua utilização no mercado.
+
+
+
+Um exemplo de implementação de arquitetura de um jogo \ac{mmorpg} pode ser visualizado na Figura~\ref{fig:generica}, no qual cada cliente deve conectar em um microsserviço de gerenciamento de mundo para receber as atualizações da região e submeter seus comandos.
+%
+Nessa arquitetura, é necessário levar em conta o funcionamento, método de compartilhamento dos dados e abordagem para processamento do ambiente do jogo a fim de descrever a sua escalabilidade e qualidade de serviço.
+
+
+\begin{figure}[htb!]
+\caption{Arquitetura de um jogo \ac{mmorpg} genérico.}
+\label{fig:generica}
+\includegraphics[height=6.0cm]{img/cap3/generica.png}
+\centering
+
+Fonte: O próprio autor
+\end{figure}
+
+A arquitetura genérica descrita na Figura~\ref{fig:generica} também precisa corresponder as demandas necessárias do \textit{GameDesign} do próprio jogo.
+%
+Neste caso, só um tipo de microsserviço é visível nesta rede, porém poderiam existir microsserviços responsáveis pela parte social, comércio e estatíticas, aumentando o grau de complexibilidade da arquitetura.
+%
+Em relação aos recursos utilizados por uma arquitetura, este trabalho foca na análise das arquiteturas de microsserviços descritas na literatura a fim de descrever o seu comportamento e desempenho.
+
+
+
+A literatura aborda a previsibilidade de carga, análise de disponibilidade e uso de recurso de tais arquiteturas (a fim de guiar escolhas na etapa de \textit{Game Design} do produto e viabilizar o comércio do mesmo), relatados na Seção~\ref{sec:similares}.
 %
 Torna-se de interesse para empresas de desenvolvimento de jogos \ac{mmorpg} analisar o impacto e uso de recursos computacionais ao implantar uma arquitetura de microsserviços \ac{mmorpg} visando melhorar a disponibilidade de tais jogos.
-
-
-
-Dentro do cenário de análise do atual trabalho, planeja-se analisar o consumo de recursos de uma arquitetura de microsserviços para jogos \ac{mmorpg}, analisando o consumo de memória, disco, processador e consumo de banda de rede.
 %
-Para auxiliar este TCC, se faz necessário a análise de trabalhos relacionados ao escopo deste trabalho, a qual analisem arquiteturas de jogos \ac{mmorpg} ou arquiteturas de microsserviços.
+Dentro do cenário de testes espera-se analisar por exemplo a estabilidade, limite de conexões e custo de processamento de tais arquiteturas.
+%
+Além disso, espera-se simular a carga de uma arquitetura utilizada em produção, a fim de possibilitar a quantificação do custo de operação de tal serviço.
+%
+Estas são expectativas gerais do que espera-se analisar, mas conforme a análise dos dados obtidos for feita, é possível que outras características surjam.
+%
+Para guiar a proposta, um dos passos importantes são os trabalhos relacionados com este tema, na qual analisa-se estudos que abordam arquiteturas de jogos \ac{mmorpg} e/ou arquiteturas de microsserviços.
+
+
 
 \section{Trabalhos Relacionados}
 \label{sec:similares}
@@ -732,9 +767,7 @@ Para auxiliar este TCC, se faz necessário a análise de trabalhos relacionados 
 Para nortear o desenvolvimento da análise de microsserviços utilizados em jogos \ac{mmorpg} proposto no atual trabalho, essa seção apresenta outros trabalhos que têm o escopo ou objetivo similar, no qual monitoraram e analisaram serviços de jogos \ac{mmorpg}.
 %
 Ao apresentar estes trabalhos, busca-se apresentar o contexto e objetivo, e então aprofundar em características dos trabalhos, métricas utilizadas e ferramentas que auxiliaram nas análises.
-%
-%Por fim, será necessário apresentar na Seção \ref{sec:similares_analise} uma análise das abordagens e resultados obtidos dos trabalhos relacionados.
-%ccm Critérios para analisar e econtrar esses trabalhos
+
 
 Para encontrar os trabalhos relacionados, foi efetuada uma busca pelos termos \ac{mmorpg} ou \textit{microsservices}.
 %
@@ -744,7 +777,7 @@ Nesse sentido, os trabalhos relacionados abordam arquiteturas de jogos \ac{mmorp
 
 
 
-Como critério de análise, foi observado em questão qual a classificação o trabalho se encontrava, entre previsão de carga ou análise de arquitetura, e quais métricas foram utilizadas na análise.
+Como critério de análise, foi observado em questão qual a classificação em que o trabalho encontra-se, entre previsão de carga ou análise de arquitetura, e quais métricas foram utilizadas na análise.
 
 \subsection{Huang et al. (2004)}
 \label{sec:huang}
