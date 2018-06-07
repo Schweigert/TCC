@@ -49,7 +49,7 @@ Por este motivo, é necessário descrever as arquiteturas existentes na literatu
 
 \subsection{Rudy}
 
-A arquitetura Rudy~\cite{matthiasrudy2011} tem como objetivo criar multiplos mundos isolados, na qual cada microsserviço será responsável por um mundo.
+A arquitetura Rudy~\cite{matthiasrudy2011} tem como objetivo criar multiplos mundos isolados, na qual cada microsserviço será responsável por um ambiente isolado.
 %
 Esta arquitetura pode ser visualizada na Figura~\ref{rudy}.
 
@@ -63,7 +63,7 @@ Esta arquitetura pode ser visualizada na Figura~\ref{rudy}.
   Adaptado de:~\cite{matthiasrudy2011}.
 \end{figure}
 
-O banco de dados de armazenamento de estado de mundo é compartilhado na arquitetura Rudy (Figura~\ref{rudy}), porém pode não ter ligação lógica entre cada mundo no banco.
+O banco de dados de armazenamento de estado de mundo é compartilhado na arquitetura Rudy (Figura~\ref{rudy}), porém pode não ter ligação lógica entre cada ambiente no banco.
 %
 Esta arquitetura é escalável, porém é limitada o número de conexões em um único ambiente.
 
@@ -128,6 +128,8 @@ A sua principal diferença está na certeza de que o banco de dados é compartil
 \subsection{Willson}
 \label{willson}
 
+
+
 A arquitetura Willson~\cite{stephenclarkewillson2017} (Figura~\ref{fig:willson}) tenta suprir a necessidade de migração de conexão entre microsserviços ao personagem transladar dentre \textit{chunks} distintos.
 %
 Dessa forma, a arquitetura deixa de armazenar a estrutura da cena em memória para armazenar os status de objetos do ambiente em um banco de dados em memória compartilhado.
@@ -135,6 +137,8 @@ Dessa forma, a arquitetura deixa de armazenar a estrutura da cena em memória pa
 Nesse sentido, o ambiente torna-se escalável, porém é limitado ao desempenho do banco de dados escolhido.
 %
 Esta arquitetura permite implantar microsserviços sem configurações individuais, na qual facilita a sua gestão de manutenção e distribuição de carga.
+
+
 
 \begin{figure}[htb!]
   \caption{Arquitetura Salz.}
@@ -145,13 +149,18 @@ Esta arquitetura permite implantar microsserviços sem configurações individua
   Adaptado de:~\cite{albion_online_unite}.
 \end{figure}
 
+
+
 O processamento de requisições segue o modelo de processamento paralelo descrito na Figura~\ref{fig:processamento}.
 %
 Entretanto, este serviço não armazenará nada em sua memória, realizando todas as operações no banco do jogo em memória.
 
 
+
 \section{Critérios de análise}
 \label{analise}
+
+
 
 A etapa de análise das arquiteturas descritas na proposta (Seção~\ref{proposta}) busca gerar informações que ajudem a compreender o consumo de recursos das arquiteturas de microsserviços.
 %
@@ -159,10 +168,54 @@ A análise terá escopo limitado, ignorando a orquestração de microsserviços,
 %
 A proposta atual pretende analisar seguindo os seguintes critérios:
 
+
+
 \begin{enumerate}
-  \item Consumo de recursos por conexão: Será analisado o comportamento dos recursos utilizados comparado ao número de conexões ativas no ambiente, a fim de analisar a escalabilidade destes sistemas. Analisar em específico os recursos de memória principal, memória secundária, processamento, largura de banda da rede. e tempo para processar uma requisição
-  \item Limite de conexões por arquitetura: Comparar o limite de conexões com um recurso alocado finito, a fim de validar o consumo de recursos pela arquitetura. Analisar em específico os recursos de memória principal, memória secundária, processamento e largura de banda da rede e tempo para processar uma requisição.
+  \item Consumo de recursos por conexão: Analisar o comportamento dos recursos utilizados comparado ao número de conexões ativas no ambiente, a fim de analisar a escalabilidade destes sistemas. Analisar em específico os recursos de memória principal, memória secundária, processamento, largura de banda da rede. latência e tempo de processamento uma requisição.
+  \item Limite de conexões por arquitetura: Comparar o limite de conexões com um recurso alocado finito, a fim de validar o consumo de recursos pela arquitetura. Analisar em específico os recursos de memória principal, memória secundária, processamento e largura de banda da rede, latência e tempo para processar uma requisição.
 \end{enumerate}
+
+
+
+Para obter estes critérios de análise, será necessário executar o plano de testes a fim de obter dados para a etapa de análise.
+
+
 
 \section{Plano de testes}
 \label{testes}
+
+
+
+O plano de testes visa definir os experimentos a serem executados, no qual aplicará a proposta de análise de arquiteturas de jogos \ac{mmorpg}.
+%
+A finalidade destes experimentos é analisar o comportamento e características em específico das arquiteturas propostas pela literatura.
+%
+Serão realizados experimentos executados a fim de obter o consumo de memória primária e secundária, processador, largura de banda, latência e tempo de processamento de requisições utilizando um número finito de recursos fixo a todos os experimentos.
+%
+No total serão cinco experimentos:
+
+
+
+\begin{itemize}
+  \item \textbf{Experimento 1:} Coletar o uso de recursos com um número fixo de conexões, a fim de prever a estabilidade das arquiteturas.
+  \item \textbf{Experimento 2:} Coletar o uso de recursos com um número crescente de conexões, até a sua primeira negação de serviço ou limite da carga de teste, a fim de analisar a escalabilidade das arquiteturas.
+  \item \textbf{Experimento 3:} Coletar o uso de recursos utilizando uma curva real de número de conexões (Figura~\ref{fig:players_peer_time}), a fim de obter dados em uma aplicação real.
+\end{itemize}
+
+
+
+A fim de normalizar os testes, será realizado uma análise dos dados coletados com o objetivo de realizar um comparativo entre tais arquiteturas, utilizando o mesmo cenário de jogo, com as mesmas operações.
+%
+Espera-se analizar a estabilidade, escalabilidade, ocorrências de operação e gargalos nas arquiteturas.
+
+
+
+\section{Considerações do Capítulo}
+
+Este capítulo apresentou a proposta de análise para arquiteturas de microsserviços a jogos \ac{mmorpg}.
+%
+A proposta basea-se na análise das arquiteturas, executando experimentos de carga sobre as mesmas.
+%
+Para este fim, será contruído cenários para obter dados do comportamento de tais arquiteturas em situações controladas e em outras situações utilizando uma carga real.
+%
+Por fim, os dados obtidos guiará a análise das arquiteturas encontradas na literatura.
