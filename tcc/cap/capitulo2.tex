@@ -311,7 +311,7 @@ Nesse exemplo, mostra-se visível que a as mensagens de $P_1$ devem ser visívei
 
 O sistema de movimento pelo ambiente do jogo possibilita que cada jogador movimente o seu personagem pelo ambiente a fim de explorá-lo.
 %
-Dessa maneira, este é um sistema crítico para um jogo \ac{mmorpg}, visto que o posicionamento de objetos serão utilizados para inúmeras consultas de proximidade, além de necessitar uma frequência de atualização contante pela qualidade da jogabilidade~\cite{albion_online_unite}.
+Dessa maneira, este é um sistema crítico para um jogo \ac{mmorpg}, visto que o posicionamento de objetos serão utilizados para diversas consultas de proximidade, além de necessitar uma frequência de atualização contante pela qualidade da jogabilidade~\cite{albion_online_unite}.
 
 
 \begin{figure}[htb!]
@@ -949,7 +949,7 @@ Este trabalho usa com base o modelo descrito na Seção~\ref{sec:huang}, um mode
 \label{tab:complexidade}
 \begin{tabular}{|l|l|l|l|l|}
 \hline
-Contexto da ação        & \ac{pvp}           & \ac{pvnpc}              & Number of \ac{npcs}    & Network {[}kbits/s{]} \\ \hline
+Contexto da ação        & \ac{pvp}           & \ac{pvnpc}              & Número de \ac{npcs}    & Network {[}kbits/s{]} \\ \hline
 Questing                & $O(n)$             & $O(n log(n))$           & $N \leq 6 $            & 11.4          \\ \hline
 Trading                 & $O(n)$             & $O(n)$                  & $N \leq 20$            & 8.1           \\ \hline
 Dungeons                & $O(n^2)$           & $O(n^2)$                & $N \leq 20$            & 18.3          \\ \hline
@@ -959,7 +959,7 @@ Raiding                 & $O(n^2 log(n))$    & $O(n^3)$                & $N \leq
 
 Fonte:~\cite{6374456}
 \end{table}
-
+%ccm traduzir
 
 
 A análise realizada leva em conta a complexidade das ações no ambiente, a qual pode ser descrita na Tabela~\ref{tab:complexidade}.
@@ -1005,16 +1005,16 @@ Entretanto, essa predição não é feita em tempo real, não contribuindo para 
 
 
 
-Em específico, nesta seção são apontadas características relevantes a cada trabalho e por fim é feita uma comparação entre estas características. %ccm <- Melhorar
+%Em específico, nesta seção são apontadas características relevantes a cada trabalho e por fim é feita uma comparação entre estas características. %ccm <- Melhorar
 %
-Ao levantar o problema de consumo de recursos, existem duas vertentes de pesquisas, sendo descritas dessa forma:
+Ao levantar o problema de consumo de recursos, existem duas vertentes de pesquisas, sendo descritas dessa forma: %ccm <-8
 
 \begin{itemize}
   \item \textbf{Comparação de arquiteturas}: O autor utiliza alguma métrica a fim de decidir qual a melhor alternativa de arquitetura para determinada aplicação.
   \item \textbf{Previsão de carga}: Projetar a carga futura sobre algum recurso a fim de escalar automaticamente a sua arquitetura na nuvem, a fim de reduzir gastos de alocações ociosas.
 \end{itemize}
 
-Dessa forma, podemos dividir os trabalhos relacionados com a sua categoria. %ccm <-39
+Dessa forma, pode-se dividir os trabalhos relacionados com a sua categoria.
 %
 Esta relação pode ser visualizada na Tabela~\ref{tab:categoria_trabalhos}.
 
@@ -1087,7 +1087,7 @@ Fonte: O próprio autor.
 
 
 Este Trabalho de Conclusão de Curso pretende analisar uma arquitetura de microsserviços especificada a jogos \ac{mmorpg}, visando métricas de desempenho e custo de operação. %ccm <-11
-
+%ccm defnir métricas
 
 \section{Considerações parciais}
 
