@@ -719,8 +719,19 @@ Esta arquitetura pode ser visualizada na Figura~\ref{rudy}.
 
 O banco de dados de armazenamento de estado de mundo é compartilhado na arquitetura Rudy (Figura~\ref{rudy}), porém pode não ter ligação lógica entre cada ambiente no banco.
 %
-Esta arquitetura é escalável, porém é limitada o número de conexões em um único ambiente.
+Esta arquitetura é escalável, porém limitada o número de conexões em um único ambiente.
 
+
+A arquitetura Rudy conta com diversos elementos para guiar o seu funcionamento.
+Existem os seguintes elementos nesta arquitetura de microsserviço~\cite{matthiasrudy2011}:
+
+\begin{enumerate}
+  \item \textit{Serviço de Jogo}: Disponível em IP público para os clientes, a qual podem ser descobertos a partir do serviço de web dinâmico.
+  \item \textit{Serviço Web Dinâmico}: Disponibilizam acesso a informações públicas dos serviços, operações \ac{crud} sobre o banco de dados do jogo.
+  \item \textit{Serviço Web Estático}: Disponibilizam acesso a documentos, guias, estilos e textos fixos ao web site.
+  \item \textit{Serviço de Consultas}: Serviço intermediário de consultas ao banco, utilizado pelo serviço web dinâmico e o serviço de jogo.
+  \item \textit{Serviço de Pagamento}: Efetua a integração com sistemas de pagamentos para gerenciar compras de itens e assinaturas.
+\end{enumerate}
 
 
 O gerente de ambiente por sua vez será comunicado via \ac{tcp}.
