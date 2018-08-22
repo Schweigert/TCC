@@ -5,15 +5,16 @@ Este trabalho propõe a análise do consumo de recursos de arquiteturas de micro
 %
 Para realizar a análise proposta sobre as arquiteturas descritas na referência teórica, se faz necessário obter coletar/medir métricas de recursos consumidos por tal arquitetura.
 %
-Nesse sentido, faz-se necessário a descrição específica da arquitetura analisada, equivalente as arquiteturas descritas no Capítulo~\ref{cap2}. 
+Nesse sentido, faz-se necessário a descrição específica da arquitetura analisada, equivalente as arquiteturas descritas no Capítulo~\ref{cap2}.
 %
 Para este fim, este trabalho irá analisar o consumo de recursos como:
 
 \begin{enumerate}
-  \item{Memória}
-  \item{Banda de rede}
-  \item{Processamento}
-  \item{Tempo de resposta}
+  \item{Memória: Analisar a quantia de memória utilizada referente a cada arquitetura, analisando possíveis rotinas que consomem recursos de forma inapropriada;}
+  \item{Banda de rede: Analisar o comportamento da arquitetura em relação ao consumo de banda, relevando a topologia da arquitetura;}
+  \item{Processamento: Analisar rotinas de processamento de baixo desempenho;}
+  \item{Tempo de resposta: Analisar o tempo de resposta para que as ações sejam computadas, a partir da chamada do cliente, pelo número de conexões no serviço;}
+  \item{Limite de conexões: Analisar o limite de conexões de determinada arquitetura;}
 \end{enumerate}
 
 A fim de garantir a confiabilidade dos dados coletados, cada microsserviço da arquitetura executará de forma isolada, a nível do sistema operacional.
@@ -27,18 +28,31 @@ Outros critérios também serão abordados na análise, tais como a estabilidade
 
 Entretanto, as arquiteturas de microsserviços para jogos \ac{mmorpg} são aplicações de alta complexidade, a qual sofrem alterações conforma as regras de negócio impostas ao jogo em específico.
 %
-Por este motivo, torna-se necessário descrever as suas funcionalidades específicas, a fim de reduzir incertezas entre a comparação das arquiteturas, e descrever as especificações de implementação de tais requisitos, sobre as arquiteturas NAME1, NAME2, NAME3.
-
+Por este motivo, torna-se necessário descrever as suas funcionalidades específicas, a fim de suprir comfiabilidade na análise das arquiteturas, descrevendo as especificações de implementação sobre as arquiteturas Rudy, Willson e Salz.
 
 \section{Proposta}
 
+O atual trabalho propôe uma análise de consumo de recursos a arquiteturas de jogos \ac{mmorpg}, em específico para as arquiteturas Rudy (~\ref{rudy}), Willson (~\ref{willson}) e Salz (~\ref{salz}).
+
+Esta análise contribuirá a melhorar técnicas de desenvolvimento de jogos massivos, reduzindo custos de manutenção de tais serviços.
 
 
 \section{Critérios de análise}
 
-Descrever de forma funcional, o que a arquitetura deverá ter.
+A fim de guiar um padrão para todas as arquiteturas analisadas, será utilizado um padrão de regra de negócios para os serviços desenvolvidos.
+%
+Este padrão seguirá as seguintes regras de negócio:
 
-Descrever com diagramas, fluxogramas, etc.
+\begin{enumerate}
+  \item Ambiente tridimenssional, com posicionamento bidimenssional: O ambiente de jogo será computado em 3D dimenssões, porém os personagens são fixos em um eixo.
+  \item Troca de mensagens locais e globais: O serviço deve permitir a troca de mensagens com os demais personagens ao seu redor, dentro do seu campo de visão, e com todos os personagens de um mundo.
+  \item Movimentação no ambiente: O serviço deve permitir o personagem a movimentar-se da sua posição atual para outra posição.
+  \item Realizar ações no ambiente: O serviço deve permitir o usuário a interagir com itens, \ac{npcs} e outros jogadores.
+\end{enumerate}
+
+\subsection{Ambiente Tridimenssional}
+\subsection{Troca de mensagens locais e globais}
+\subsection{Realizar ações no ambiente}
 
 \section{Plano de testes}
 
