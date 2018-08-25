@@ -701,46 +701,62 @@ Utilizando estas características, alguns padrões tornam-se populares nessas ar
 %
 Torna-se de interesse a este trabalho realizar um levantamento de algumas arquiteturas comuns em jogos massivos.
 
+
+
 \subsection{Arquitetura elaborada por Rudy}
 
-A arquitetura Rudy~\cite{matthiasrudy2011} tem como objetivo criar multiplos mundos isolados, na qual cada microsserviço será responsável por um ambiente isolado.
-%
-Esta arquitetura pode ser visualizada na Figura~\ref{rudy}.
 
+
+
+A arquitetura Rudy~\cite{matthiasrudy2011} tem como objetivo criar múltiplos mundos isolados, na qual cada microsserviço será responsável por um ambiente a qual não compartilha dados com os demais ambientes.
+%
+Esta arquitetura pode ser visualizada na Figura~\ref{full_rudy}.
 
 \begin{figure}[htb!]
-  \caption{Arquitetura Rudy.}
-  \label{rudy}
-  \includegraphics[height=3.5cm]{img/cap3/rudy.png}
+  \caption{Arquitetura Rudy completa.}
+  \label{full_rudy}
+  \includegraphics[height=5.5cm]{arquiteturas/full_rudy.png}
   \centering
 
-  Adaptado de:~\cite{matthiasrudy2011}.
+  Fonte:~\cite{matthiasrudy2011}.
 \end{figure}
 
-O banco de dados de armazenamento de estado de mundo é compartilhado na arquitetura Rudy (Figura~\ref{rudy}), porém pode não ter ligação lógica entre cada ambiente no banco.
+Ao todos são 6 microsserviços distintos na arquitetura Rudy para o seu funcionamento, utilizando um microsserviço de pagamento necessário para regra de negócios como exibido na Figura~\ref{full_rudy}.
 %
-Esta arquitetura é escalável, porém limitada o número de conexões em um único ambiente.
-
-
-A arquitetura Rudy conta com diversos elementos para guiar o seu funcionamento.
-Existem os seguintes elementos nesta arquitetura de microsserviço~\cite{matthiasrudy2011}:
+Os microsserviços que compõem a arquitetura são definidos pelas suas seguintes responsabilidades~\cite{matthiasrudy2011}:
+\cite{matthiasrudy2011}:
 
 \begin{enumerate}
-  \item \textit{Serviço de Jogo}: Disponível em IP público para os clientes, a qual podem ser descobertos a partir do serviço de web dinâmico.
-  \item \textit{Serviço Web Dinâmico}: Disponibilizam acesso a informações públicas dos serviços, operações \ac{crud} sobre o banco de dados do jogo.
-  \item \textit{Serviço Web Estático}: Disponibilizam acesso a documentos, guias, estilos e textos fixos ao web site.
-  \item \textit{Serviço de Consultas}: Serviço intermediário de consultas ao banco, utilizado pelo serviço web dinâmico e o serviço de jogo.
-  \item \textit{Serviço de Pagamento}: Efetua a integração com sistemas de pagamentos para gerenciar compras de itens e assinaturas.
+  \item \textbf{Serviço web estático}: Armazena documentos estáticos para o serviço web (\textit{e.g., }imagens, executáveis do jogo, páginas web fixas, etc).
+  \item \textbf{Serviço web dinâmico}: Sistema web para cadastro de contas, guias, informações sobre atualizações, compras e demais demanda de páginas dinâmicas.
+  \item \textbf{Balanço de carga web}: Realiza a distribuição de carga sobre o \textit{Serviço web estático} e o \textit{Serviço web dinâmico}.
+  \item \textbf{Serviço de Jogo}: Gerencia um mundo inteiro, em um único serviço. Esta abordagem segrega os jogadores em diversos mundos, contendo 1050 jogadores simultâneos por serviço. Este serviço opera sobre o protocolo \ac{rpc}.
+  \item \textbf{Serviço de Autenticação}: Gerencia a autenticação das conexões ao \textit{Serviço de jogo}.
+  \item \textbf{Gerenciador de Consultas}: Realiza consultas em memória e disco, utilizando vários bancos de dados diferentes, simulando o uso de banco de dados distribuídos, algo complexo de ser implementado utilizando banco de dados SQL (\textit{e.g.,} PostgreSQL\footnote{PostgreSQL: \url{https://www.postgresql.org}}, MySQL\footnote{MySQL: \url{https://www.mysql.com/}}, etc).
 \end{enumerate}
 
 
-O gerente de ambiente por sua vez será comunicado via \ac{tcp}.
+No contexto do atual trabalho, o serviço de pagamento será ignorado, visto que ele não serve para o funcionamento básico do serviço.
 %
-O funcionamento interno desta arquitetura trabalhará em rodadas.
+Dentre todos os microsserviços, o usuário só tem acesso ao serviço de balanço de carga pelo protocolo \ac{http} e o serviço de jogo sobre o protocolo \ac{rpc}, tendo os demais serviços protegidos por um \textit{firewall}~\cite{matthiasrudy2011}.
 %
-Cada jogador pode enfileirar somente um número determinado de requisições para ser consumido pelo ciclo de processamento do gerente de ambiente.
+A proteção do firewall é aplicada no serviço de pagamento e no ponto de acesso ao serviço, podendo ser vizualizada na Figura~\ref{full_rudy_fw}.
+
+\begin{figure}[htb!]
+  \caption{Arquitetura Rudy completa.}
+  \label{full_rudy_fw}
+  \includegraphics[height=5.5cm]{arquiteturas/full_rudy_fw.png}
+  \centering
+
+  Fonte:~\cite{matthiasrudy2011}.
+\end{figure}
+
+
+
+
+O funcionamento interno do serviço de jogo trabalha em rodadas, visando não penalizar usuários com baixa transferência de dados entre o cliente e o serviço.
 %
-Por sua vez, o consumidor de requisições irá atualizar o estado no mundo e enviar o resultado, caso a requisição tenha uma resposta.
+Cada cliente produz requisições para ser consumido pelo ciclo de processamento do gerente de jogo. Entretanto o serviço irá consumir de forma igualitária uma requisição de um jogador diferente, como uma fila~\cite{albion_online_unite, matthiasrudy2011}.
 %
 O modelo de processamento do gerente de ambiente pode ser visualizado na Figura~\ref{fig:processamento}.
 
@@ -752,10 +768,34 @@ O modelo de processamento do gerente de ambiente pode ser visualizado na Figura~
   \includegraphics[height=4.5cm]{img/cap3/thread_model.png}
   \centering
 
-  Adaptado de:~\cite{matthiasrudy2011}.
+  Adaptado de:~\cite{matthiasrudy2011} e ~\cite{albion_online_unite}.
 \end{figure}
 
 O mesmo modelo de processamento paralelo apresentado na Figura~\ref{fig:processamento} para consumo das requisições dos clientes é utilizado de forma similar na arquitetura Willson (Seção~\ref{willson}) e Salz (Seção~\ref{salz}).
+
+Um serviço que chama atenção na arquitetura Rudy é o Gerenciador de Consultas, um serviço web que implementa uma camada sobre diversos bancos de dados a fim de prover variedade entre vários bancos de forma facilitada por requisições web, utilizando operações \ac{crud}.
+%
+Implementar esta camada garante uma padronização de acesso ao banco de dados, porém adiciona um possível gargalo a arquitetura~\cite{matthiasrudy2011}.
+
+Os pontos positivos de utilizar esta camada de consultas na arquitetura é~\cite{matthiasrudy2011}:
+\begin{enumerate}
+  \item Não permite acesso direto ao banco de dados do serviço web e do serviço de jogo.
+  \item Permite maior manejo a migrações em tabelas e troca de tecnologias.
+  \item Define uma sintaxe estrita para consulta, via \ac{crud}.
+  \item Permite acesso do banco a diversos serviços, sem gerenciar o banco.
+  \item Permite contar número de requisições e tempo das requisições.
+\end{enumerate}
+
+Entretanto adicionando uma camada sobre os bancos de dados para gerenciamento tem pontos negativos~\cite{matthiasrudy2011}.
+
+\begin{enumerate}
+  \item Aumenta a complexibilidade de implementação, teste, administração e ponto de falha.
+  \item Adiciona limites como número de conexões, número de requisições, etc.
+\end{enumerate}
+
+
+
+COMO LIGAR DUAS ARQUITETURAS?
 
 
 \subsection{Arquitetura elaborada por Salz}
