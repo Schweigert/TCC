@@ -704,8 +704,7 @@ Torna-se de interesse a este trabalho realizar um levantamento de algumas arquit
 
 
 \subsection{Arquitetura elaborada por Rudy}
-
-
+\label{rudy}
 
 
 A arquitetura Rudy~\cite{matthiasrudy2011} tem como objetivo criar múltiplos mundos isolados, na qual cada microsserviço será responsável por um ambiente a qual não compartilha dados com os demais ambientes.
@@ -768,14 +767,22 @@ O modelo de processamento do gerente de ambiente pode ser visualizado na Figura~
   \includegraphics[height=4.5cm]{img/cap3/thread_model.png}
   \centering
 
-  Adaptado de:~\cite{matthiasrudy2011} e ~\cite{albion_online_unite}.
+  Adaptado de:~\cite{matthiasrudy2011} e ~\cite{matthiasrudy2011}.
 \end{figure}
 
-O mesmo modelo de processamento paralelo apresentado na Figura~\ref{fig:processamento} para consumo das requisições dos clientes é utilizado de forma similar na arquitetura Willson (Seção~\ref{willson}) e Salz (Seção~\ref{salz}).
+Este modelo trabalha com um a padrão \textit{Thread Pool}~\cite{Ringler2014Dec, matthiasrudy2011}, executando a chamada de método remoto de cada jogador em uma fila, onde prioriza executar as chamadas sem repetir a mesma conexão.
+%
+Dessa forma, cada jogador pode executar somente um método concorrente, sem competir com os demais. Todas as requisições são enfileiradas no buffer de rede do serviço.
+%
+Caso o cliente entre em sua vez de processamento, e nenhuma chamada remota esteja na fila, ele é pulado.
+
+
 
 Um serviço que chama atenção na arquitetura Rudy é o Gerenciador de Consultas, um serviço web que implementa uma camada sobre diversos bancos de dados a fim de prover variedade entre vários bancos de forma facilitada por requisições web, utilizando operações \ac{crud}.
 %
 Implementar esta camada garante uma padronização de acesso ao banco de dados, porém adiciona um possível gargalo a arquitetura~\cite{matthiasrudy2011}.
+
+
 
 Os pontos positivos de utilizar esta camada de consultas na arquitetura é~\cite{matthiasrudy2011}:
 \begin{enumerate}
@@ -786,16 +793,14 @@ Os pontos positivos de utilizar esta camada de consultas na arquitetura é~\cite
   \item Permite contar número de requisições e tempo das requisições.
 \end{enumerate}
 
+
+
 Entretanto adicionando uma camada sobre os bancos de dados para gerenciamento tem pontos negativos~\cite{matthiasrudy2011}.
 
 \begin{enumerate}
   \item Aumenta a complexidade de implementação, teste, administração e ponto de falha.
   \item Adiciona limites como número de conexões, número de requisições, etc.
 \end{enumerate}
-
-
-
-COMO LIGAR DUAS ARQUITETURAS?
 
 
 \subsection{Arquitetura elaborada por Salz}
@@ -814,18 +819,56 @@ Para o funcionamento adequado, o cliente necessita manter 3 conexões abertas co
   Fonte:~\cite{albion_online_unite}.
 \end{figure}
 
+
+
 A Figura~\ref{full_salz} exibe a arquitetura salz de forma completa. Nela encontra-se 4 bancos de dados distintos, sendo eles banco de dados \ac{sql}, exceto ao banco de jogo, que utiliza um banco de \ac{nosql} com tecnologia chave-valor em memória.
 %
 Referente aos microsserviços que compõem a arquitetura, temos os seguintes elementos~\cite{salz_albion}:
+
+
 
 \begin{enumerate}
   \item \textbf{Serviço de Comunicação}: Gerencia a troca de mensagens entre os jogadores. Opera sobre o protocolo \ac{rpc}.
   \item \textbf{Serviço de Autenticação}: Recepciona e gerencia as conexões dos clientes entre os demais microsserviços. Opera sobre o protocolo \ac{http}.
   \item \textbf{Serviço de Jogo}: Gerencia o estado do mundo, referente a um \textit{chunk} do ambiente. Opera sobre o protocolo \ac{rpc}.
   \item \textbf{Serviço Global}: Gerencia operações globais (\textit{e.g,} interações entre grupos, procedimentos recorrentes globais, \textit{etc.}). Opera sobre \ac{http}.
-  \item \textbf{Serviço de Pagamento}: Efetua operações bancárias com serviços externos de pagamento e gerencia o estado de pagamento das contas. Opera sobre o protocolo \ac{https}.
+  \item \textbf{Serviço de Pagamento}: Efetua operações bancárias com serviços externos de pagamento e gerencia o estado de pagamento das contas. Opera sobre o protocolo \ac{http}.
   \item \textbf{Serviço de Negociação}: Opera como um serviço de leilão para itens do jogo. Opera sobre o protocolo \ac{http}.
 \end{enumerate}
+
+
+
+Os microsserviços que compõem a arquitetura Salz utiliza em grande parte serviços \textit{web}, utilizando somente o protocolo \ac{rpc} para o serviço de jogo.
+%
+Neste serviço, o protocolo \ac{rpc}, tanto o cliente quando o serviço podem invocar métodos remotos, tendo como padrão métodos com retorno vazio~\cite{salz_albion, photon_serialization}.
+%
+O modelo de \textit{thread} do serviço de jogo pode ser visualizado na Figura~\ref{salz_thread_model}.
+
+
+
+\begin{figure}[htb!]
+  \caption{Modelo de Threads do serviço de jogo.}
+  \label{salz_thread_model}
+  \includegraphics[height=5.5cm]{arquiteturas/salz_thread_model.png}
+  \centering
+
+  Fonte:~\cite{salz_albion}.
+\end{figure}
+
+
+
+O microsserviço de jogo executa a lógica do jogo para uma única área em um único processo~\cite{salz_albion}.
+%
+Esta decisão é dada por conta da interação entre objetos ser complicada de executar, devido a quantia semáforos necessários.
+%
+Outra facilidade de implementar um modelo com um único processo é de facilitar que objetos não sejam manipulados, quando não for necessário~\cite{albion_online_unite, salz_albion}.
+%
+As entradas e saídas de mensagens(\textit{e.g.,} rede, Banco de dados, \textit{etc.}) e busca de caminho é executado por processos de trabalho separado do principal, utilizando a técnica de \textit{Thread Pool}~\cite{salz_albion, albion_online_unite, Ringler2014Dec}
+%
+Todos os demais microsserviços operam sobre múltiplos processos, a partir do processo de conexão ao serviço~\cite{salz_albion}.
+%
+Diferente da arquitetura Rudy~\ref{rudy}, as chamadas de processo remoto são executadas por ordem de chegada~\cite{salz_albion}.
+
 
 
 \subsection{Arquitetura elaborada por Willson}
