@@ -789,7 +789,7 @@ Os pontos positivos de utilizar esta camada de consultas na arquitetura é~\cite
 Entretanto adicionando uma camada sobre os bancos de dados para gerenciamento tem pontos negativos~\cite{matthiasrudy2011}.
 
 \begin{enumerate}
-  \item Aumenta a complexibilidade de implementação, teste, administração e ponto de falha.
+  \item Aumenta a complexidade de implementação, teste, administração e ponto de falha.
   \item Adiciona limites como número de conexões, número de requisições, etc.
 \end{enumerate}
 
@@ -801,33 +801,31 @@ COMO LIGAR DUAS ARQUITETURAS?
 \subsection{Arquitetura elaborada por Salz}
 \label{salz}
 
-
-
-A arquitetura Salz~\cite{albion_online_unite} tem como objetivo criar um único mundo, integrando mais jogadores no mesmo ambiente.
+A arquitetura elaborada por Salz~\cite{albion_online_unite}, a qual pode ser visualizada na Figura~\ref{full_salz} contém 7 microsserviços especializados para seu funcionamento.
 %
-A sua estratégia de escalabilidade está na divisão do ambiente em \textit{chunks}, diminuindo o impacto do número de conexões em casos na qual a comunidade está esparsa pelo ambiente.
-%
-Entretanto, esta arquitetura contém problemas com relação a aglomeração da comunidade, visto que a relação a pedaços do ambiente está diretamente relacionada ao poder computacional para processamento do mesmo.
-%
-Nesse sentido, torna-se viavel o uso desta arquitetura para jogos na qual a frequência de jogadores na mesma região é baixa.
-%
-Ela é visível na Figura~\ref{fig:salz}.
-
+Para o funcionamento adequado, o cliente necessita manter 3 conexões abertas com o servidor, sendo a conexão de jogo a com maior demanda~\cite{albion_online_unite}.
 
 \begin{figure}[htb!]
-  \caption{Arquitetura Salz.}
-  \label{fig:salz}
-  \includegraphics[height=3cm]{img/cap3/salz.png}
+  \caption{Arquitetura Salz completa.}
+  \label{full_salz}
+  \includegraphics[height=5.5cm]{arquiteturas/full_salz.png}
   \centering
 
-  Adaptado de:~\cite{albion_online_unite}.
+  Fonte:~\cite{albion_online_unite}.
 \end{figure}
 
-
-O microsserviço de gerenciamento de cenário tratará as requisições utilizando o mesmo modelo de processamento paralelo descrito na Figura~\ref{fig:processamento}, na qual recebe as requisições comunicadas através do protocolo \ac{tcp}, realizando as alterações no cenário a qual cada microsserviço é responsável.
+A Figura~\ref{full_salz} exibe a arquitetura salz de forma completa. Nela encontra-se 4 bancos de dados distintos, sendo eles banco de dados \ac{sql}, exceto ao banco de jogo, que utiliza um banco de \ac{nosql} com tecnologia chave-valor em memória.
 %
-A sua principal diferença está na certeza de que o banco de dados é compartilhado entre todos os microsserviços, e periodicamente atualiza os dados salvos em memória ao banco de dados físico, também atualizando durante a desconexão ou miração entre serviços do personagem.
+Referente aos microsserviços que compõem a arquitetura, temos os seguintes elementos~\cite{salz_albion}:
 
+\begin{enumerate}
+  \item \textbf{Serviço de Comunicação}: Gerencia a troca de mensagens entre os jogadores. Opera sobre o protocolo \ac{rpc}.
+  \item \textbf{Serviço de Autenticação}: Recepciona e gerencia as conexões dos clientes entre os demais microsserviços. Opera sobre o protocolo \ac{http}.
+  \item \textbf{Serviço de Jogo}: Gerencia o estado do mundo, referente a um \textit{chunk} do ambiente. Opera sobre o protocolo \ac{rpc}.
+  \item \textbf{Serviço Global}: Gerencia operações globais (\textit{e.g,} interações entre grupos, procedimentos recorrentes globais, \textit{etc.}). Opera sobre \ac{http}.
+  \item \textbf{Serviço de Pagamento}: Efetua operações bancárias com serviços externos de pagamento e gerencia o estado de pagamento das contas. Opera sobre o protocolo \ac{https}.
+  \item \textbf{Serviço de Negociação}: Opera como um serviço de leilão para itens do jogo. Opera sobre o protocolo \ac{http}.
+\end{enumerate}
 
 
 \subsection{Arquitetura elaborada por Willson}
