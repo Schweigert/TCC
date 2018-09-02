@@ -875,39 +875,55 @@ Diferente da arquitetura Rudy~\ref{rudy}, as chamadas de processo remoto são ex
 \label{willson}
 
 
-
-A arquitetura Willson~\cite{stephenclarkewillson2017} (Figura~\ref{fig:willson}) tenta suprir a necessidade de migração de conexão entre microsserviços ao personagem transladar dentre \textit{chunks} distintos.
+A arquitetura elaborada por Clarke-Willson leva como principal característica a preocupação da disponibilização de atualizações aos clientes~\cite{willson}.
 %
-Dessa forma, a arquitetura deixa de armazenar a estrutura da cena em memória para armazenar os status de objetos do ambiente em um banco de dados em memória compartilhado.
+Essas atualizações são versionadas a todos os microsserviços utilizando sistemas de versionamento de código fonte~\cite{stephenclarkewillson2017, willson}.
 %
-Nesse sentido, o ambiente torna-se escalável, porém é limitado ao desempenho do banco de dados escolhido.
+Por este motivo, a sua arquitetura também compreende microsserviços de armazenamento de arquivos sobre protocolo \ac{http} para atualização dos clientes~\cite{stephenclarkewillson2017}.
 %
-Esta arquitetura permite implantar microsserviços sem configurações individuais, na qual facilita a sua gestão de manutenção e distribuição de carga.
-
+Uma outra característica do serviço de jogo é a utilização de uma única conexão \ac{tcp} por cliente.
+%
+Essa arquitetura pode ser visualizada na Figura~\ref{willson}.
 
 
 \begin{figure}[htb!]
-  \caption{Arquitetura Salz.}
-  \label{fig:willson}
-  \includegraphics[height=4.5cm]{img/cap3/willson.png}
+  \caption{Arquitetura Willson}
+  \label{willson}
+  \includegraphics[height=5.5cm]{arquiteturas/full_willson.png}
   \centering
 
-  Adaptado de:~\cite{albion_online_unite}.
+  Fonte:~\cite{stephenclarkewillson2017}.
 \end{figure}
 
 
-
-O processamento de requisições segue o modelo de processamento paralelo descrito na Figura~\ref{fig:processamento}.
+A arquitura Willson, exibido na Figura~\ref{willson} mostra um gradual entre a arquitetura Rudy (Figura~\ref{full_rudy}) e a arquitetura Salz (Figura~\ref{full_salz}), propondo uma arquitetura onde divide funcionalidades em outros processos, porém ainda mantem-se conservador para dividir funcionalidades que podem estar juntos ao serviço de jogo~\cite{albion_online_unite, willson}.
 %
-Entretanto, este serviço não armazenará nada em sua memória, realizando todas as operações no banco do jogo em memória.
+Os microsserviços que compõem a arquitetura Willson são~\cite{willson, stephenclarkewillson2017}:
 
+\begin{enumerate}
+  \item \textbf{Serviço web}: Exibe informações do jogo, oferece operações \ac{crud} para cadastro de usuários e o sistema de pagamento.
+  \item \textbf{Serviço de Atualização}: Integrado junto ao processo de desenvolvimento, fornecendo versionamento do cliente por um sistema web. Este microsserviço utiliza serviços internos ao desenvolvimento da aplicação.
+  \item \textbf{Serviço de Autenticação e Social}: Gerencia a autenticação dos jogadores através de um serviço web. Também gerencia ações sociais (\textit{e.g.} sistema de amigos, grupos, nações, comércio, \textit{etc}).
+  \item \textbf{Serviço de balanço de carga}: Gerencia a carga entre os serviços web da arquitetura.
+  \item \textbf{Serviço de Jogo}: Processa a lógica de jogo. Cada microsserviço gerencia um \textit{chunk} do ambiente do jogo.
+  \item \textbf{Serviços Globais}: Processa rotinas globais do jogo, a qual não dependem do posicionamento do jogador.
+\end{enumerate}
 
-
-
-A qualidade de serviço e custo de operação de serviços de jogos massivos é suscetível a arquitetura empregada.
+O serviço de jogo da arquitetura Willson é comparada ao serviço similar na Salz~\ref{salz}, entretanto utiliza a técnica de \textit{thread pool} com valor de processos fixo conforme o \textit{hardware} hospedeiro do serviço~\cite{stephenclarkewillson2017}.
 %
-Portanto, o embasamento técnico do funcionamento destas arquiteturas pode ajudar na definição de estratégias que diminuam o consumo de recursos e contribuam com a qualidade de serviço e custo ao usuário final, criando jogos mais competitivos no mercado.
+Para modelos de paralelismo, pode-se utilizar os seguintes números processos paralelos~\cite{willson}:
 
+
+\begin{enumerate}
+  \item O dobro de número de núcleos: exige maior carga do serviço por troca de contexto entre os processos.
+  \item O número exato de núcleos mais n: O serviço perderá tempo de processamento, trocando de contexto para outro processo, porém de forma mais sutil ao dobro do número de núcleos de processamento.
+  \item O número de núcleos, exigindo um número menor de carga de contexto, dividindo somente com o sistema operacional.
+  \item O número de núcleos menos um, liberando um núcleo para o sistema operacional.
+\end{enumerate}
+
+O número de processos paralelos para processamento de requisições é o número de núcleos menos um, visando evitar a troca de contexto com o sistema operacional~\cite{willson}.
+%
+Essa troca de contexto trás variação na latência da resposta do serviço, a qual não tem controle pelo próprio serviço. Nesse sentido, a melhor escolha é o número de núcleos menos um, escolhido após um teste de \textit{stress}~\ref{willson}.
 
 \section{Definição do Problema}
 
