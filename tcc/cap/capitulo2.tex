@@ -717,7 +717,7 @@ Esta arquitetura pode ser visualizada na Figura~\ref{full_rudy}.
   \includegraphics[height=5.5cm]{arquiteturas/full_rudy.png}
   \centering
 
-  Fonte:~\cite{matthiasrudy2011}.
+  Adaptado de:~\cite{matthiasrudy2011}.
 \end{figure}
 
 Ao todos são 6 microsserviços distintos na arquitetura Rudy para o seu funcionamento, utilizando um microsserviço de pagamento necessário para regra de negócios como exibido na Figura~\ref{full_rudy}.
@@ -739,7 +739,8 @@ No contexto do atual trabalho, o serviço de pagamento será ignorado, visto que
 %
 Dentre todos os microsserviços, o usuário só tem acesso ao serviço de balanço de carga pelo protocolo \ac{http} e o serviço de jogo sobre o protocolo \ac{rpc}, tendo os demais serviços protegidos por um \textit{firewall}~\cite{matthiasrudy2011}.
 %
-A proteção do firewall é aplicada no serviço de pagamento e no ponto de acesso ao serviço, podendo ser vizualizada na Figura~\ref{full_rudy_fw}.
+A proteção do firewall é aplicada no serviço de pagamento e no ponto de acesso ao serviço, podendo ser visualizada na Figura~\ref{full_rudy_fw}.
+
 
 \begin{figure}[htb!]
   \caption{Arquitetura Rudy completa.}
@@ -747,7 +748,7 @@ A proteção do firewall é aplicada no serviço de pagamento e no ponto de aces
   \includegraphics[height=5.5cm]{arquiteturas/full_rudy_fw.png}
   \centering
 
-  Fonte:~\cite{matthiasrudy2011}.
+  Adaptado de:~\cite{matthiasrudy2011}.
 \end{figure}
 
 
@@ -757,20 +758,19 @@ O funcionamento interno do serviço de jogo trabalha em rodadas, visando não pe
 %
 Cada cliente produz requisições para ser consumido pelo ciclo de processamento do gerente de jogo. Entretanto o serviço irá consumir de forma igualitária uma requisição de um jogador diferente, como uma fila~\cite{albion_online_unite, matthiasrudy2011}.
 %
-O modelo de processamento do gerente de ambiente pode ser visualizado na Figura~\ref{fig:processamento}.
-
+O modelo de processamento do gerente de ambiente pode ser visualizado na Figura~\ref{fig:thread_pool}.
 
 
 \begin{figure}[htb!]
-  \caption{Modelo de \textit{Threads} do gerente de ambiente.}
-  \label{fig:processamento}
-  \includegraphics[height=4.5cm]{img/cap3/thread_model.png}
+  \caption{Modelo de processos \textit{Thread Pool}}
+  \label{fig:thread_pool}
+  \includegraphics[height=4.5cm]{arquiteturas/thread_pool.png}
   \centering
 
-  Adaptado de:~\cite{matthiasrudy2011} e ~\cite{matthiasrudy2011}.
+  Adaptado de:~\cite{matthiasrudy2011, Ringler2014Dec}.
 \end{figure}
 
-Este modelo trabalha com um a padrão \textit{Thread Pool}~\cite{Ringler2014Dec, matthiasrudy2011}, executando a chamada de método remoto de cada jogador em uma fila, onde prioriza executar as chamadas sem repetir a mesma conexão.
+O modelo de processamento do gerente de mundo, visualizado na Figura~\ref{fig:thread_pool} trabalha com um a padrão \textit{Thread Pool}~\cite{Ringler2014Dec, matthiasrudy2011}, executando a chamada de método remoto de cada jogador em uma fila, onde prioriza executar as chamadas sem repetir a mesma conexão.
 %
 Dessa forma, cada jogador pode executar somente um método concorrente, sem competir com os demais. Todas as requisições são enfileiradas no buffer de rede do serviço.
 %
@@ -816,7 +816,7 @@ Para o funcionamento adequado, o cliente necessita manter 3 conexões abertas co
   \includegraphics[height=5.5cm]{arquiteturas/full_salz.png}
   \centering
 
-  Fonte:~\cite{albion_online_unite}.
+  Adaptado de:~\cite{albion_online_unite}.
 \end{figure}
 
 
@@ -842,22 +842,21 @@ Os microsserviços que compõem a arquitetura Salz utiliza em grande parte servi
 %
 Neste serviço, o protocolo \ac{rpc}, tanto o cliente quando o serviço podem invocar métodos remotos, tendo como padrão métodos com retorno vazio~\cite{salz_albion, photon_serialization}.
 %
-O modelo de \textit{thread} do serviço de jogo pode ser visualizado na Figura~\ref{salz_thread_model}.
-
+O modelo de processos do serviço de jogo pode ser visualizado na Figura~\ref{salz_thread_model}.
 
 
 \begin{figure}[htb!]
-  \caption{Modelo de Threads do serviço de jogo.}
+  \caption{Modelo de processos do serviço de jogo.}
   \label{salz_thread_model}
   \includegraphics[height=5.5cm]{arquiteturas/salz_thread_model.png}
   \centering
 
-  Fonte:~\cite{salz_albion}.
+  Adaptado de:~\cite{salz_albion, willson}.
 \end{figure}
 
 
 
-O microsserviço de jogo executa a lógica do jogo para uma única área em um único processo~\cite{salz_albion}.
+O microsserviço de jogo executa a lógica do jogo, visível na Figura~\ref{salz_thread_model}, para uma única área em um único processo~\cite{salz_albion}.
 %
 Esta decisão é dada por conta da interação entre objetos ser complicada de executar, devido a quantia semáforos necessários.
 %
