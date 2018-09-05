@@ -697,9 +697,9 @@ A Figura~\ref{fig:integracao_unity_albion} demonstra a separação da camada de 
 %
 Nesse sentido, a alteração entre clientes e serviços facilita um sistema de teste de carga e busca de erros automatizado, facilitando a manutenção e desenvolvimento incremental do serviço~\cite{albion_online_unite}.
 
-Utilizando estas características, alguns padrões tornam-se populares nessas arquiteturas.
+Utilizando estes padrões de projeto, algumas arquiteturas tornam-se populares no desenvolvimento de jogos \ac{mmorpg}.
 %
-Torna-se de interesse a este trabalho realizar um levantamento de algumas arquiteturas comuns em jogos massivos.
+Para este fim, torna-se de interesse a este trabalho realizar um levantamento de algumas arquiteturas comuns em jogos massivos.
 
 
 
@@ -708,6 +708,8 @@ Torna-se de interesse a este trabalho realizar um levantamento de algumas arquit
 
 
 A arquitetura Rudy~\cite{matthiasrudy2011} tem como objetivo criar múltiplos mundos isolados, na qual cada microsserviço será responsável por um ambiente a qual não compartilha dados com os demais ambientes.
+%
+Esta é uma característica importante para esta arquitetura, visto que o processamento de ações pelo serviço de jogo não precisa lidar com multiplos processos~\cite{matthiasrudy2011}.
 %
 Esta arquitetura pode ser visualizada na Figura~\ref{full_rudy}.
 
@@ -720,7 +722,7 @@ Esta arquitetura pode ser visualizada na Figura~\ref{full_rudy}.
   Adaptado de:~\cite{matthiasrudy2011}.
 \end{figure}
 
-Ao todos são 6 microsserviços distintos na arquitetura Rudy para o seu funcionamento, utilizando um microsserviço de pagamento necessário para regra de negócios como exibido na Figura~\ref{full_rudy}.
+Ao todos são 6 microsserviços distintos na arquitetura Rudy (Figura~\ref{full_rudy}) para o seu funcionamento, não sendo necessário o microsserviço de pagamento, utilizado somente para regra de negócios.
 %
 Os microsserviços que compõem a arquitetura são definidos pelas suas seguintes responsabilidades~\cite{matthiasrudy2011}:
 \cite{matthiasrudy2011}:
@@ -802,13 +804,17 @@ Entretanto adicionando uma camada sobre os bancos de dados para gerenciamento te
   \item Adiciona limites como número de conexões, número de requisições, etc.
 \end{enumerate}
 
+Entretanto, esta arquitetura não permite escalar um único ambiente para um número de jogadores simultâneos maior a qual o hardware que hospeda o serviço é designado.
+%
+Para este motivo, as arquiteturas Salz e Willson tomam abordagens para subdividir o ambiente do jogo em mais serviços, podendo assim escalar um único ambiente para mais jogadores simultâneos.
+
 
 \subsection{Arquitetura elaborada por Salz}
 \label{salz}
 
 A arquitetura elaborada por Salz~\cite{albion_online_unite}, a qual pode ser visualizada na Figura~\ref{full_salz} contém 7 microsserviços especializados para seu funcionamento.
 %
-Para o funcionamento adequado, o cliente necessita manter 3 conexões abertas com o servidor, sendo a conexão de jogo a com maior demanda~\cite{albion_online_unite}.
+Para o funcionamento adequado, o cliente necessita manter 3 conexões abertas com o servidor, sendo a conexão de jogo a com maior demanda de banda e a qual necessita o menor tempo de latência~\cite{albion_online_unite}.
 
 \begin{figure}[htb!]
   \caption{Arquitetura Salz completa.}
@@ -821,7 +827,7 @@ Para o funcionamento adequado, o cliente necessita manter 3 conexões abertas co
 
 
 
-A Figura~\ref{full_salz} exibe a arquitetura salz de forma completa. Nela encontra-se 4 bancos de dados distintos, sendo eles banco de dados \ac{sql}, exceto ao banco de jogo, que utiliza um banco de \ac{nosql} com tecnologia chave-valor em memória.
+A Figura~\ref{full_salz} exibe a arquitetura salz de forma completa. Nela encontra-se 4 bancos de dados distintos, sendo eles o banco de \textit{Pagamento}, \textit{Negociação}, \textit{Autenticação} e \textit{Jogo}, sendo os bancos de Autenticação e Jogo com tecnologias \ac{nosql}, sendo os demais bancos com tecnologia \ac{sql}.
 %
 Referente aos microsserviços que compõem a arquitetura, temos os seguintes elementos~\cite{salz_albion}:
 
@@ -840,15 +846,19 @@ Referente aos microsserviços que compõem a arquitetura, temos os seguintes ele
 
 Os microsserviços que compõem a arquitetura Salz utiliza em grande parte serviços \textit{web}, utilizando somente o protocolo \ac{rpc} para o serviço de jogo.
 %
-Neste serviço, o protocolo \ac{rpc}, tanto o cliente quando o serviço podem invocar métodos remotos, tendo como padrão métodos com retorno vazio~\cite{salz_albion, photon_serialization}.
+No serviço de jogo, tanto o cliente quando o serviço podem invocar métodos remotos através do protocolo \ac{rpc}, tendo como padrão métodos com retorno nulo~\cite{salz_albion, photon_serialization}.
 %
-O modelo de processos do serviço de jogo pode ser visualizado na Figura~\ref{salz_thread_model}.
+Esta abordagem garante que o usuário não fique esperando pelo retorno do serviço para continuar a lógica do jogo~\cite{faber}.
+%
+Para este funcionamento, o modelo de processamento paralelo deste serviço possúi mais regras, a qual não foram abordadas pela arquitetura Rudy (Figura~\ref{full_rudy}).
+%
+O modelo de paralelismo do serviço de jogo pode ser visualizado na Figura~\ref{salz_thread_model}.
 
 
 \begin{figure}[htb!]
-  \caption{Modelo de processos do serviço de jogo.}
+  \caption{Modelo de paralelismo do serviço de jogo na arquitetura Salz.}
   \label{salz_thread_model}
-  \includegraphics[height=5.5cm]{arquiteturas/salz_thread_model.png}
+  \includegraphics[height=6.5cm]{arquiteturas/salz_thread_model.png}
   \centering
 
   Adaptado de:~\cite{salz_albion, willson}.
@@ -856,17 +866,30 @@ O modelo de processos do serviço de jogo pode ser visualizado na Figura~\ref{sa
 
 
 
-O microsserviço de jogo executa a lógica do jogo, visível na Figura~\ref{salz_thread_model}, para uma única área em um único processo~\cite{salz_albion}.
+O microsserviço de jogo executa a lógica do jogo, visível na Figura~\ref{salz_thread_model}, para uma única área em um único processo.
 %
-Esta decisão é dada por conta da interação entre objetos ser complicada de executar, devido a quantia semáforos necessários.
+Esta decisão é dada por conta da interação entre objetos ser complicada de executar em paralelo, visto o gerenciamento do custo de gerenciamento de semáforos necessários, caso execute estas ações em paralelo~\cite{salz_albion}.
+
+
+
+Outra facilidade de implementar um modelo com um único processo para as interações entre objetos é facilitar o não manejo de objetos a qual não estão no campo de visão de todos os jogadores do serviço, realizando estas operações somente quando necessário~\cite{albion_online_unite, salz_albion}.
+
+
+As entradas e saídas de mensagens(\textit{e.g.,} rede, Banco de dados, \textit{etc.}) e busca de caminho é executado por processos de trabalho separado do principal, utilizando a técnica de \textit{Thread Pool}~\cite{salz_albion, albion_online_unite, Ringler2014Dec}.
 %
-Outra facilidade de implementar um modelo com um único processo é de facilitar que objetos não sejam manipulados, quando não for necessário~\cite{albion_online_unite, salz_albion}.
+Todos os demais microsserviços operam sobre múltiplos processos, a partir do processo de conexão \ac{tcp} ao serviço~\cite{salz_albion}.
 %
-As entradas e saídas de mensagens(\textit{e.g.,} rede, Banco de dados, \textit{etc.}) e busca de caminho é executado por processos de trabalho separado do principal, utilizando a técnica de \textit{Thread Pool}~\cite{salz_albion, albion_online_unite, Ringler2014Dec}
+Diferente da arquitetura Rudy(Seção ~\ref{rudy}) a qual prioriza a solução de requesições, evitando a repetição da mesma conexão, na arquitetura Salz (Figura~\ref{full_salz}) as chamadas de processo remoto são executadas por ordem de chegada~\cite{salz_albion}.
 %
-Todos os demais microsserviços operam sobre múltiplos processos, a partir do processo de conexão ao serviço~\cite{salz_albion}.
+Desta forma, a melhor conexão com o serviço terá maior vantagem, porém não existe custo de recursos para este gerenciamento no serviço.
+
+
+
+Na arquitetura salz, são necessários 3 conexões com o servidor, de forma contínua~\cite{albion_online_unite}.
 %
-Diferente da arquitetura Rudy~\ref{rudy}, as chamadas de processo remoto são executadas por ordem de chegada~\cite{salz_albion}.
+O custo desta operação é alto, e por isso nem sempre é viável utilizar esta abordagem, principalmente para jogos onde a demanda de banda seja menor.
+%
+Para evitar esta decisão, também é notório a abordagem utilizada pela arquitetura Willson.
 
 
 
@@ -895,7 +918,9 @@ Essa arquitetura pode ser visualizada na Figura~\ref{willson}.
 \end{figure}
 
 
-A arquitura Willson, exibido na Figura~\ref{willson} mostra um gradual entre a arquitetura Rudy (Figura~\ref{full_rudy}) e a arquitetura Salz (Figura~\ref{full_salz}), propondo uma arquitetura onde divide funcionalidades em outros processos, porém ainda mantem-se conservador para dividir funcionalidades que podem estar juntos ao serviço de jogo~\cite{albion_online_unite, willson}.
+A arquitura Willson, exibido na Figura~\ref{willson}, mostra um gradual entre a arquitetura Rudy (Figura~\ref{full_rudy}) e a arquitetura Salz (Figura~\ref{full_salz}), propondo uma arquitetura híbrida, onde divide funcionalidades em outros microsserviços, porém ainda mantem diversas funcionalidade junto ao serviço de jogo evitando consumo de rede~\cite{albion_online_unite, willson}.
+%
+Essa abordagem garante menor latência de resposta, porém terá maior consumo de recursos da mesma máquina hospedeira do serviço~\cite{willson}.
 %
 Os microsserviços que compõem a arquitetura Willson são~\cite{willson, stephenclarkewillson2017}:
 
@@ -908,7 +933,7 @@ Os microsserviços que compõem a arquitetura Willson são~\cite{willson, stephe
   \item \textbf{Serviços Globais}: Processa rotinas globais do jogo, a qual não dependem do posicionamento do jogador.
 \end{enumerate}
 
-O serviço de jogo da arquitetura Willson é comparada ao serviço similar na Salz~\ref{salz}, entretanto utiliza a técnica de \textit{thread pool} com valor de processos fixo conforme o \textit{hardware} hospedeiro do serviço~\cite{stephenclarkewillson2017}.
+O serviço de jogo da arquitetura Willson é comparada ao serviço similar na Salz~\ref{salz}, entretanto utiliza a técnica de \textit{thread pool} com valor de processos da fila de processadores fixo conforme o \textit{hardware} hospedeiro do serviço~\cite{stephenclarkewillson2017}.
 %
 Para modelos de paralelismo, pode-se utilizar os seguintes números processos paralelos~\cite{willson}:
 
@@ -920,9 +945,18 @@ Para modelos de paralelismo, pode-se utilizar os seguintes números processos pa
   \item O número de núcleos menos um, liberando um núcleo para o sistema operacional.
 \end{enumerate}
 
-O número de processos paralelos para processamento de requisições é o número de núcleos menos um, visando evitar a troca de contexto com o sistema operacional~\cite{willson}.
+O número padrão de processos paralelos para processamento de requisições é o número de núcleos menos um, visando evitar a troca de contexto com o sistema operacional~\cite{willson}.
 %
-Essa troca de contexto trás variação na latência da resposta do serviço, a qual não tem controle pelo próprio serviço. Nesse sentido, a melhor escolha é o número de núcleos menos um, escolhido após um teste de \textit{stress}~\ref{willson}.
+Essa troca de contexto trás variação na latência da resposta do serviço, a qual não tem controle pelo próprio serviço.
+%
+Nesse sentido, a melhor escolha é o número de núcleos menos um, escolhido após um teste de \textit{stress}~\ref{willson}.
+
+
+
+Entretanto, não foi encontrado análises públicas sobre as arquiteturas Rudy, Salz e Willson, com relação ao uso de recursos dessas arquiteturas.
+%
+Nesse sentido, o atual trabalho define o seu problema sobre o consumo de recursos em buscar uma análise sobre o comportamento das arquiteturas referenciadas.
+
 
 \section{Definição do Problema}
 
