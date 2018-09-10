@@ -6,7 +6,7 @@ O termo \textit{jogos eletrônicos} é amplamente difundido, entretanto as espec
 %
 A Seção~\ref{sec:jogos_eletronicos} trata a definição de jogo eletrônico, um levante histórico e o impacto da evolução do hardware no desenvolvimento dos jogos.
 %
-Este termo será tomado como introdução para o conceito de gênero de jogo, abordado na Seção~\ref{sec:arvore_generos}, na qual são abordados os principais gêneros, características e tecnologias (do ponto de vista de rede de computadores) que são comuns em cada gênero.
+Este termo será tomado como introdução para o conceito de gênero de jogo, abordado na Subseção~\ref{sec:arvore_generos}, na qual são abordados os principais gêneros, características e tecnologias (do ponto de vista de rede de computadores) que são comuns em cada gênero.
 %
 Esta introdução acerca dos gêneros e suas tecnologias de comunicação busca trazer a importância do desempenho das arquiteturas dos jogos \ac{mmorpg} e proporção da comunidade impactada caso haja falhas de funcionamento nessas arquiteturas.
 
@@ -23,7 +23,7 @@ O objetivo destas seções é referenciar diversas tecnologias e técnicas utili
 %
 Por fim, torna-se obrigatório a apresentação de trabalhos relacionados (Seção~\ref{sec:similares}) a arquitetura de jogos \ac{mmorpg} desenvolvidos de forma distribuída ou sobre uma arquitetura de microsserviços.
 %
-Esta seção em específico aborda exemplos de métodos e métricas utilizadas para mensurar o desempenho de tais arquiteturas, realizando por fim uma análise destes trabalhos (Seção~\ref{sec:similares_analise}).
+Esta seção em específico aborda exemplos de métodos e métricas utilizadas para mensurar o desempenho de tais arquiteturas, realizando por fim uma análise destes trabalhos (Subseção~\ref{sec:similares_analise}).
 
 
 \section{Jogos Eletrônicos}
@@ -58,12 +58,12 @@ O crescente recurso computacional disponível em computadores pessoais e \textit
 %
 Dentre esses hardwares, iniciou-se o uso da rede de computadores para proporcionar a interação entre jogadores em equipamentos distintas~\cite{statisita_consumo_rede}.
 %
-Jogos como EA Habitat\footnote{EA Habitat: \url{http://www.mobygames.com/game/c64/habitat/credits}}, CipSoft Tibia\footnote{CipSoft Tibia: \url{http://www.tibia.com/}} e Jajex Runescape\footnote{Jajex Runescape: \url{https://www.runescape.com}} começam a utilizar, como requisito obrigatório do jogo, a conexão com a Internet para interagir em um mundo compartilhado com outros jogadores.
+Jogos como EA Habitat\footnote{EA Habitat: \url{http://www.mobygames.com/game/c64/habitat/credits}}, CipSoft Tibia\footnote{CipSoft Tibia: \url{http://www.tibia.com/}} e Jajex Runescape\footnote{Jajex Runescape: \url{https://www.runescape.com}} começaram a utilizar, como requisito obrigatório do jogo, a conexão com a Internet para interagir em um mundo compartilhado com outros jogadores.
 %
-Tais jogos popularizaram um novo gênero, trazendo inovação tecnológica como complemento a sua de jogabilidade e desafio proposto ao jogar com milhares de jogadores~\cite{guinness_runescape, 1417630}, criando o gênero de jogos \ac{mmo} na árvore de gêneros.
+Tais jogos popularizaram um novo gênero, trazendo inovação tecnológica como complemento a sua de jogabilidade e desafio proposto ao jogar com milhares de jogadores~\cite{guinness_runescape, 1417630}, criando o gênero de jogos \ac{mmo}.
 
-
-
+Como o gênero \ac{mmo}, muitos outros foram criados devido ao aumento da quantidade de desenvolvedores e as novas tecnologias.
+%
 Nesse sentido, as redes de computadores serviram como impulsionador para várias categorias de jogos, que antes não eram possíveis por conta da limitação de comunicação entre computadores.
 %
 Sendo assim, torna-se necessário ter uma visão geral das principais categorias de jogos eletrônicos.
@@ -96,7 +96,7 @@ Um gênero de jogo eletrônico é uma categoria específica para agrupar estilos
 %
 Porém, os gêneros não definem de forma explícita o conteúdo expresso em algum jogo eletrônico, mas sim um desafio comum presente no jogo analisado~\cite{adams_1208533, video_game_technologies}.
 %
-O contexto breve de cada gênero é (Figura~\ref{fig:generos}):
+Uma breve explicação sobre os principais gêneros (Figura~\ref{fig:generos}):
 
 
 
@@ -129,9 +129,9 @@ O contexto breve de cada gênero é (Figura~\ref{fig:generos}):
   \item Jogos sérios: Tem como objetivo transmitir um conteúdo educacional~\cite{video_game_technologies}. O jogo Sherlock Dengue 8~\cite{sherlock_dengue} é um título desenvolvido com o objetivo de conscientizar os problemas e a prevenção da Dengue no Brasil. É comum encontrar tecnologias \ac{lan}, \ac{p2p}, \ac{wan} e \ac{ws}.
 \end{itemize}
 
-A árvore de gêneros guia ora aos usuários finais para classificar jogos que lhe agradem ora desenvolvedores a fim de seguir tendências de mercado pelas características do gênero.
+A árvore de gêneros guia ora aos usuários finais para classificar jogos que lhe agradem ora desenvolvedores a fim de seguir tendências de mercado pelas características do gênero. %ccm <- ora não está errado mas ficou estranho aos ouvidos
 %
-Dessa forma, encontra-se um padrão nos jogos, na qual também guiam o desenvolvimento das arquiteturas de tais jogos~\cite{video_game_technologies}.
+Dessa forma, encontra-se um padrão nos jogos, o qual também orienta o desenvolvimento das arquiteturas de tais jogos~\cite{video_game_technologies}.
 
 Dentre vários gêneros, alguns utilizam popularmente algumas tecnologias de rede.
 %
@@ -164,6 +164,7 @@ JOGOS SÉRIOS    & \checkmark & \checkmark & \checkmark         & \checkmark   &
 
 Fonte: O próprio autor.
 \end{table}
+%ccm Deixar as colunas lAN e WAN lado a lado. Acredito que no lugar de WS seja CS de cliente-servidor. Verificar e corrigir. Outra alternativa: LAN, MAN, CS, P2P e Web
 
 
 
@@ -196,14 +197,16 @@ A principal característica desse estilo de jogo é a comunicação e representa
 
 Um jogo \ac{mmorpg} é arquitetado em duas partes~\cite{mmo_analytic}:
 \begin{itemize}
-  \item \textbf{Cliente}: Aplicação que realiza as requisições com a interface do serviço, exibindo o estado de jogo de forma imersiva ao jogador. Este tema é melhor abordado na Seção \ref{sec:cliente}.
-  \item \textbf{Servidor}: Conjunto de computadores que recebe as requisições do cliente a fim de ser processadas pelo Serviço.
-  \item \textbf{Serviço}: Implementa as regras de negócio e requisitos do jogo. O serviço disponibiliza uma interface com ações possíveis ao cliente sobre algum protocolo de rede. Este tema é melhor abordado na Seção~\ref{sec:microsservicos}.
+  \item \textbf{Cliente}: Aplicação que realiza as requisições com a interface do serviço, exibindo o estado de jogo de forma imersiva ao jogador. Este tema é melhor abordado na Subseção \ref{sec:cliente}.
+  \item \textbf{Servidor}: O computador, ou conjunto de computadores, que recebe as requisições do cliente a fim de serem processadas pelo Serviço.
+  \item \textbf{Serviço}: Implementa as regras de negócio e requisitos do jogo. O serviço disponibiliza uma interface com ações possíveis ao cliente sobre algum protocolo de rede. Este tema é abordado na Subseção~\ref{sec:microsservicos}.
 \end{itemize}
 
-Jogos \ac{mmorpg} trabalham como serviço. Por este motivo o modelo de negócios de tais jogos, do ponto de vista de redes de computador, são suscetíveis a perda financeira em casos de negação de serviço~\cite{1417630}.
+Jogos \ac{mmorpg} trabalham como serviço. 
 %
-A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores~\cite{stephenclarkewillson2017}, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}.
+Por este motivo, o modelo de negócios de tais jogos, do ponto de vista de redes de computador, são suscetíveis a perda financeira em casos de negação de serviço~\cite{1417630}.
+%
+A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores~\cite{stephenclarkewillson2017}, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}. %ccm Verificar Clarke, deveria ter A e B
 %
 Por sua vez, o Cliente é implementado em algum ambiente convencional a jogos, como motores gráficos, bibliotecas gráficas ou sobre alguma outra plataforma, como web.
 %
@@ -218,7 +221,7 @@ Nesse sentido, torna-se necessário descrever as características de jogabilidad
 
 É comum em jogos \ac{mmorpg} ter sistemas com funcionalidades parecidas.
 %
-Por esse motivo é fácil identificar os sistemas em jogos do mercado após a compreensão dos sistemas identificados.
+Por esse motivo é fácil identificar os sistemas em jogos do mercado após a compreensão dos sistemas identificados. %ccm <-16,8
 %
 Deste modo, torna-se necessário definir algumas funcionalidades básicas que estão dentro do contexto de jogabilidade de jogos \ac{mmorpg} para melhor compreensão de sua arquitetura em seções futuras.
 
@@ -237,6 +240,7 @@ Ele pode ser visualizado de forma macro na Figura~\ref{fig:autenticacao}.
 
 Fonte: Adaptado de ~\cite{LeckyThompson2008Nov}
 \end{figure}
+%ccm o quê são os pontos amarelos? Legenda?
 
 
 O sistema de autenticação visualizado na Figura~\ref{fig:autenticacao} é o principal, porém não o único.
@@ -408,6 +412,7 @@ Um exemplo de cliente \ac{mmorpg} é o jogo Sandbox-Interactive Albion\footnote{
 
 Fonte:~\cite{albion_online_unite}
 \end{figure}
+%ccm colocar balões explicativos na imagem e/ou um parágrafo após (<-24)
 
 
 Do ponto de vista de computação gráfica, um cenário 3D pode ser visualizado como uma árvore.
@@ -433,7 +438,7 @@ Fonte: O próprio autor.
 
 Dentro dessa árvore, cada nodo tem uma funcionalidade específica.
 %
-Essas funcionalidades são específicas a cada motor gráfico, podendo existir nodos específicos a física, renderização ou controles~\cite{godot_docs}.
+Essas funcionalidades são específicas a cada motor gráfico, podendo existir nodos específicos à parte física, renderização ou controles~\cite{godot_docs}.
 %
 Em um jogo \ac{mmorpg}, o serviço será responsável por enviar atualizações dos parâmetros aos nodos frequentemente e o cliente será responsável por realizar chamadas remotas a fim de descrever as ações a qual o jogador aplicou sobre seu personagem~\cite{photon_engine}.
 
@@ -447,9 +452,9 @@ Essa comunicação é realizada pelo módulo \textit{Network}, presente em um cl
 
 O módulo de \textit{Network} implementado em um cliente de jogo \ac{mmorpg} é responsável por realizar as requisições \ac{rpc} conforme as ações solicitadas pelo jogador ao serviço, além de aplicar os parâmetros na \textit{Scene Tree} ou chamar métodos remotos no cliente por ordens do serviço.
 %
-E módulo possui uma \textit{Thread} dedicada ao seu funcionamento~\cite{albion_online_unite}.
+Além disso, o módulo possui uma \textit{Thread} dedicada ao seu funcionamento~\cite{albion_online_unite}.
 %
-Ele pode ser observado na Figura~\ref{fig:gateway}.
+Os principais módulos podem ser observados na Figura~\ref{fig:gateway}.
 
 
 \begin{figure}[htb!]
@@ -464,7 +469,7 @@ Adaptado de:~\cite{507915, faber}
 
 A Figura~\ref{fig:gateway} refere-se a uma visão macro de um cliente \ac{mmorpg}.
 %
-Na Figura~\ref{fig:gateway} é possível ver o ator \textit{player} o qual pode executar ações sobre seu personagem por meio da \textit{engine}.
+Na Figura~\ref{fig:gateway} é possível ver o ator \textit{jogador} o qual pode executar ações sobre seu personagem por meio da \textit{engine}.
 %
 Por sua vez, existe uma entrada de dados a mais comparado a esquemas de jogos \textit{offline}.
 %
@@ -681,7 +686,7 @@ Como resultado da integração entre Cliente, Serviço e Motor Gráfico, o resul
 %
 Tal integração está presente no jogo Sandbox-Interactive Albion\footnote{Sandbox-Interactive Albion: \url{https://albiononline.com/en/home}}~\cite{albion_online_unite}.
 %
-Percebe-se neste contexto que o jogo deverá funcionar sem o motor gráfico, do ponto de vista de redes e estrutura de dados~\cite{albion_online_unite}.
+Percebe-se, neste contexto, que o jogo deverá funcionar sem o motor gráfico, do ponto de vista de redes e estrutura de dados~\cite{albion_online_unite}.
 
 
 \begin{figure}[htb!]
@@ -692,6 +697,7 @@ Percebe-se neste contexto que o jogo deverá funcionar sem o motor gráfico, do 
 
 Fonte:~\cite{albion_online_unite}
 \end{figure}
+%ccm traduzir as partes cabíveis 
 
 A Figura~\ref{fig:integracao_unity_albion} demonstra a separação da camada de renderização de objetos da árvore da cena, a camada de integração com o cliente e serviço (descrito anteriormente como módulo \textit{Network}) e o serviço.
 %
@@ -701,7 +707,8 @@ Utilizando estes padrões de projeto, algumas arquiteturas tornam-se populares n
 %
 Para este fim, torna-se de interesse a este trabalho realizar um levantamento de algumas arquiteturas comuns em jogos massivos.
 
-
+\section{Principais arquiteturas \ac{morpg}}
+%ccm <-10
 
 \subsection{Arquitetura elaborada por Rudy}
 \label{rudy}
@@ -709,7 +716,7 @@ Para este fim, torna-se de interesse a este trabalho realizar um levantamento de
 
 A arquitetura Rudy~\cite{matthiasrudy2011} tem como objetivo criar múltiplos mundos isolados, na qual cada microsserviço será responsável por um ambiente a qual não compartilha dados com os demais ambientes.
 %
-Esta é uma característica importante para esta arquitetura, visto que o processamento de ações pelo serviço de jogo não precisa lidar com multiplos processos~\cite{matthiasrudy2011}.
+Esta é uma característica importante para esta arquitetura, visto que o processamento de ações pelo serviço de jogo não precisa lidar com múltiplos processos~\cite{matthiasrudy2011}.
 %
 Esta arquitetura pode ser visualizada na Figura~\ref{full_rudy}.
 
@@ -722,10 +729,9 @@ Esta arquitetura pode ser visualizada na Figura~\ref{full_rudy}.
   Adaptado de:~\cite{matthiasrudy2011}.
 \end{figure}
 
-Ao todos são 6 microsserviços distintos na arquitetura Rudy (Figura~\ref{full_rudy}) para o seu funcionamento, não sendo necessário o microsserviço de pagamento, utilizado somente para regra de negócios.
+No total, seis microsserviços distintos constam na arquitetura Rudy (Figura~\ref{full_rudy}) para o seu funcionamento, não sendo necessário o microsserviço de pagamento (utilizado somente para regra de negócios).
 %
 Os microsserviços que compõem a arquitetura são definidos pelas suas seguintes responsabilidades~\cite{matthiasrudy2011}:
-\cite{matthiasrudy2011}:
 
 \begin{enumerate}
   \item \textbf{Serviço web estático}: Armazena documentos estáticos para o serviço web (\textit{e.g., }imagens, executáveis do jogo, páginas web fixas, etc).
@@ -741,7 +747,7 @@ No contexto do atual trabalho, o serviço de pagamento será ignorado, visto que
 %
 Dentre todos os microsserviços, o usuário só tem acesso ao serviço de balanço de carga pelo protocolo \ac{http} e o serviço de jogo sobre o protocolo \ac{rpc}, tendo os demais serviços protegidos por um \textit{firewall}~\cite{matthiasrudy2011}.
 %
-A proteção do firewall é aplicada no serviço de pagamento e no ponto de acesso ao serviço, podendo ser visualizada na Figura~\ref{full_rudy_fw}.
+A proteção do \textit{firewall} é aplicada no serviço de pagamento e no ponto de acesso ao serviço, podendo ser visualizada na Figura~\ref{full_rudy_fw}.
 
 
 \begin{figure}[htb!]
@@ -758,7 +764,9 @@ A proteção do firewall é aplicada no serviço de pagamento e no ponto de aces
 
 O funcionamento interno do serviço de jogo trabalha em rodadas, visando não penalizar usuários com baixa transferência de dados entre o cliente e o serviço.
 %
-Cada cliente produz requisições para ser consumido pelo ciclo de processamento do gerente de jogo. Entretanto o serviço irá consumir de forma igualitária uma requisição de um jogador diferente, como uma fila~\cite{albion_online_unite, matthiasrudy2011}.
+Cada cliente produz requisições para ser consumido pelo ciclo de processamento do gerente de jogo. 
+%
+Entretanto, o serviço irá consumir de forma igualitária uma requisição de um jogador diferente, como uma fila~\cite{albion_online_unite, matthiasrudy2011}.
 %
 O modelo de processamento do gerente de ambiente pode ser visualizado na Figura~\ref{fig:thread_pool}.
 
@@ -772,9 +780,9 @@ O modelo de processamento do gerente de ambiente pode ser visualizado na Figura~
   Adaptado de:~\cite{matthiasrudy2011, Ringler2014Dec}.
 \end{figure}
 
-O modelo de processamento do gerente de mundo, visualizado na Figura~\ref{fig:thread_pool} trabalha com um a padrão \textit{Thread Pool}~\cite{Ringler2014Dec, matthiasrudy2011}, executando a chamada de método remoto de cada jogador em uma fila, onde prioriza executar as chamadas sem repetir a mesma conexão.
+O modelo de processamento do gerente de mundo, visualizado na Figura~\ref{fig:thread_pool} trabalha com um a padrão \textit{Thread Pool}~\cite{Ringler2014Dec, matthiasrudy2011}, executando a chamada de método remoto de cada jogador em uma fila, o qual prioriza executar as chamadas sem repetir a mesma conexão.
 %
-Dessa forma, cada jogador pode executar somente um método concorrente, sem competir com os demais. Todas as requisições são enfileiradas no buffer de rede do serviço.
+Dessa forma, cada jogador pode executar somente um método concorrente, sem competir com os demais. Todas as requisições são enfileiradas no \textit{buffer} de rede do serviço.
 %
 Caso o cliente entre em sua vez de processamento, e nenhuma chamada remota esteja na fila, ele é pulado.
 
@@ -807,14 +815,14 @@ Entretanto adicionando uma camada sobre os bancos de dados para gerenciamento te
 Entretanto, esta arquitetura não permite escalar um único ambiente para um número de jogadores simultâneos maior a qual o hardware que hospeda o serviço é designado.
 %
 Para este motivo, as arquiteturas Salz e Willson tomam abordagens para subdividir o ambiente do jogo em mais serviços, podendo assim escalar um único ambiente para mais jogadores simultâneos.
-
+%ccm faltou informar os protocolos usados
 
 \subsection{Arquitetura elaborada por Salz}
 \label{salz}
 
-A arquitetura elaborada por Salz~\cite{albion_online_unite}, a qual pode ser visualizada na Figura~\ref{full_salz} contém 7 microsserviços especializados para seu funcionamento.
+A arquitetura elaborada por Salz~\cite{albion_online_unite}, a qual pode ser visualizada na Figura~\ref{full_salz} contém sete microsserviços especializados para seu funcionamento.
 %
-Para o funcionamento adequado, o cliente necessita manter 3 conexões abertas com o servidor, sendo a conexão de jogo a com maior demanda de banda e a qual necessita o menor tempo de latência~\cite{albion_online_unite}.
+Para o funcionamento adequado, o cliente necessita manter três conexões abertas com o servidor, sendo a conexão de jogo a com maior demanda de banda e a qual necessita o menor tempo de latência~\cite{albion_online_unite}.
 
 \begin{figure}[htb!]
   \caption{Arquitetura Salz completa.}
@@ -827,9 +835,11 @@ Para o funcionamento adequado, o cliente necessita manter 3 conexões abertas co
 
 
 
-A Figura~\ref{full_salz} exibe a arquitetura salz de forma completa. Nela encontra-se 4 bancos de dados distintos, sendo eles o banco de \textit{Pagamento}, \textit{Negociação}, \textit{Autenticação} e \textit{Jogo}, sendo os bancos de Autenticação e Jogo com tecnologias \ac{nosql}, sendo os demais bancos com tecnologia \ac{sql}.
+A Figura~\ref{full_salz} exibe a arquitetura Salz de forma completa. 
 %
-Referente aos microsserviços que compõem a arquitetura, temos os seguintes elementos~\cite{salz_albion}:
+Na Figura~\ref{full_salz} encontram-se quatro bancos de dados distintos, sendo eles o banco de \textit{Pagamento}, \textit{Negociação}, \textit{Autenticação} e \textit{Jogo}, sendo os bancos de Autenticação e Jogo com tecnologias \ac{nosql}, sendo os demais bancos com tecnologia \ac{sql}.
+%
+Referente aos microsserviços que compõem a arquitetura, tem-se os seguintes elementos~\cite{salz_albion}:
 
 
 
@@ -928,7 +938,7 @@ Os microsserviços que compõem a arquitetura Willson são~\cite{willson, stephe
   \item \textbf{Serviço web}: Exibe informações do jogo, oferece operações \ac{crud} para cadastro de usuários e o sistema de pagamento.
   \item \textbf{Serviço de Atualização}: Integrado junto ao processo de desenvolvimento, fornecendo versionamento do cliente por um sistema web. Este microsserviço utiliza serviços internos ao desenvolvimento da aplicação.
   \item \textbf{Serviço de Autenticação e Social}: Gerencia a autenticação dos jogadores através de um serviço web. Também gerencia ações sociais (\textit{e.g.} sistema de amigos, grupos, nações, comércio, \textit{etc}).
-  \item \textbf{Serviço de balanço de carga}: Gerencia a carga entre os serviços web da arquitetura.
+  \item \textbf{Serviço de Balanceamento de carga}: Gerencia a carga entre os serviços web da arquitetura.
   \item \textbf{Serviço de Jogo}: Processa a lógica de jogo. Cada microsserviço gerencia um \textit{chunk} do ambiente do jogo.
   \item \textbf{Serviços Globais}: Processa rotinas globais do jogo, a qual não dependem do posicionamento do jogador.
 \end{enumerate}
@@ -956,7 +966,7 @@ Nesse sentido, a melhor escolha é o número de núcleos menos um, escolhido ap�
 Entretanto, não foi encontrado análises públicas sobre as arquiteturas Rudy, Salz e Willson, com relação ao uso de recursos dessas arquiteturas.
 %
 Nesse sentido, o atual trabalho define o seu problema sobre o consumo de recursos em buscar uma análise sobre o comportamento das arquiteturas referenciadas.
-
+%ccm Também não menciona os protocolos empregados
 
 \section{Definição do Problema}
 
@@ -1266,7 +1276,7 @@ Ao levantar o problema de consumo de recursos, existem duas vertentes de pesquis
 
 \begin{itemize}
   \item \textbf{Comparação de arquiteturas}: O autor utiliza alguma métrica a fim de decidir qual a melhor alternativa de arquitetura para determinada aplicação.
-  \item \textbf{Previsão de carga}: Projetar a carga futura sobre algum recurso a fim de escalar automaticamente a sua arquitetura na nuvem, a fim de reduzir gastos de alocações ociosas.
+  \item \textbf{Previsão de carga}: Projetar a carga futura sobre algum recurso a fim de escalar automaticamente a sua arquitetura na nuvem, a fim de reduzir gastos de alocações ociosas de servidor(es). %ccm tanto de flavor como de quantidade de instâncias
 \end{itemize}
 
 Dessa forma, pode-se dividir os trabalhos relacionados com a sua categoria.
@@ -1326,7 +1336,7 @@ Além disso, não foi descrito um método de replicação automática dos servi�
 \begin{table}[htb!]
 \centering
 \begin{adjustbox}{max width=\textwidth}
-\caption{Arquiteturas Analisadas}
+\caption{Arquiteturas analisadas}
 \label{tab:arquiteturas_analisadas}
 \begin{tabular}{|l|l|l|l|}
 \hline
