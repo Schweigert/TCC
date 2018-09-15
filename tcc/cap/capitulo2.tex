@@ -879,7 +879,7 @@ No serviço de jogo, tanto o cliente quando o serviço podem invocar métodos re
 %
 Esta abordagem garante que o usuário não fique esperando pelo retorno do serviço para continuar a lógica do jogo~\cite{faber}.
 %
-Para este funcionamento, o modelo de processamento paralelo deste serviço possúi mais regras, a qual não foram abordadas pela arquitetura Rudy (Figura~\ref{full_rudy}).
+Para este funcionamento, o modelo de processamento paralelo deste serviço possúi mais regras, a qual não são abordadas pela arquitetura Rudy (Figura~\ref{full_rudy}).
 %
 O modelo de paralelismo do serviço de jogo pode ser visualizado na Figura~\ref{salz_thread_model}.
 
@@ -1060,7 +1060,7 @@ Nesse sentido, os trabalhos relacionados abordam arquiteturas de jogos \ac{mmorp
 
 
 
-Como critério de análise, foi observado em questão qual a classificação em que o trabalho encontra-se, entre previsão de carga ou análise de arquitetura, e quais métricas foram utilizadas na análise.
+Como critério de análise, foi observado em questão qual a classificação em que o trabalho encontra-se, entre previsão de carga ou análise de arquitetura, e quais métricas são utilizadas na análise.
 
 \subsection{Huang et al. (2004)}
 \label{sec:huang}
@@ -1173,11 +1173,10 @@ Essa arquitetura foi implementada utilizando \textit{Jax-RS} e \textit{Play Fram
 
 Fonte:~\cite{7515686}
 \end{figure}
-%ccm Figura em português
 
 \textbf{Instância II.} Utilizando três instâncias \ac{aws} \textit{c4.xlarge}, uma instância \ac{aws} \textit{t2.small} e uma instância \ac{aws} \textit{db.m3.medium}.
 %
-A Figura~\ref{fig:aws_microsservicos} exibe a implantação de uma aplicação de microsserviços web. Essa arquitetura foi implementada utilizando \textit{Play Framework}. %ccm <-14
+A Figura~\ref{fig:aws_microsservicos} exibe a implantação de uma aplicação de microsserviços web. Essa arquitetura foi implementada utilizando \textit{Play Framework}, framework para desenvolvimento web para a linguagem Java e Scala~\footnote{Play Framework: \url{https://www.playframework.com/}}.
 
 
 
@@ -1189,11 +1188,10 @@ A Figura~\ref{fig:aws_microsservicos} exibe a implantação de uma aplicação d
 
 Fonte:~\cite{7515686}
 \end{figure}
-%ccm Figura em português
 
 \textbf{Instância III.} Utilizando duas instâncias \ac{aws} \textit{lambda S1}, duas instâncias \ac{aws} \textit{lambda S2}, uma instância \ac{aws} \textit{S3 Bucket} e uma instância \ac{aws} \textit{db.m3.medium}.
 %
-A Figura~\ref{fig:aws_lambda} exibe a implantação de uma aplicação de microsserviços web utilizando a tecnologia \ac{aws} \textit{lambda}. Essa arquitetura foi implementada em \textit{Node.js}, nas quais as funções de \textit{gateway} foram implementadas em quatro funções independentes do tipo \textit{microservice-http-endpoint}. %ccm <-39
+A Figura~\ref{fig:aws_lambda} exibe a implantação de uma aplicação de microsserviços web utilizando a tecnologia \ac{aws} \textit{lambda}. Essa arquitetura foi implementada utilizando o \textit{framework} \textit{Node.js}\footnote{Node.js: \url{https://nodejs.org/en/}}, nas quais as funções de \textit{gateway} são implementadas em quatro funções independentes do tipo \textit{microservice-http-endpoint}.
 
 
 
@@ -1241,7 +1239,6 @@ Raiding                 & $O(n^2 log(n))$    & $O(n^3)$                & $N \leq
 
 Fonte:~\cite{6374456}
 \end{table}
-%ccm traduzir
 
 
 A análise realizada leva em conta a complexidade das ações no ambiente, a qual pode ser descrita na Tabela~\ref{tab:complexidade}.
@@ -1267,7 +1264,6 @@ Os contextos analisados nessa tabela são:
 
 Fonte:~\cite{6374456}
 \end{figure}
-%ccm Figura em português
 
 
 Utilizando as complexidades das ações, o número de conexões e o contexto de cada personagem no ambiente para predizer a banda utilizada.
@@ -1287,13 +1283,16 @@ Entretanto, essa predição não é feita em tempo real, não contribuindo para 
 
 
 
-%Em específico, nesta seção são apontadas características relevantes a cada trabalho e por fim é feita uma comparação entre estas características. %ccm <- Melhorar
+Para os trabalhos relacionados, são analisados o tipo de pesquisa realizado sobre Microsserviços e serviços \ac{mmorpg}.
 %
-Ao levantar o problema de consumo de recursos, existem duas vertentes de pesquisas, sendo descritas dessa forma: %ccm <-8
+Também são levantados quais os recursos computacionais relacionados com estas análises.
+
+
+Nos trabalhos relacionados existem duas abordagens utilizadas pelos autores, na qual estão relacionados a Previsão de Carga ou Comparação entre Arquiteturas de microsserviços~\cite{7515686, 6374456}:
 
 \begin{itemize}
   \item \textbf{Comparação de arquiteturas}: O autor utiliza alguma métrica a fim de decidir qual a melhor alternativa de arquitetura para determinada aplicação.
-  \item \textbf{Previsão de carga}: Projetar a carga futura sobre algum recurso a fim de escalar automaticamente a sua arquitetura na nuvem, a fim de reduzir gastos de alocações ociosas de servidor(es). %ccm tanto de flavor como de quantidade de instâncias
+  \item \textbf{Previsão de carga}: Projetar a carga futura sobre algum recurso a fim de escalar automaticamente a sua arquitetura na nuvem, a fim de reduzir gastos de recursos ociosos e diminuir o impacto de ocorrências aos usuários finais.
 \end{itemize}
 
 Dessa forma, pode-se dividir os trabalhos relacionados com a sua categoria.
@@ -1368,8 +1367,10 @@ Fonte: O próprio autor.
 \end{table}
 
 
-Este Trabalho de Conclusão de Curso pretende analisar uma arquitetura de microsserviços especificada a jogos \ac{mmorpg}, visando métricas de desempenho e custo de operação. %ccm <-11
-%ccm defnir métricas
+Este Trabalho de Conclusão de Curso pretende analisar uma arquitetura de microsserviços especificada a jogos \ac{mmorpg}, visando métricas de desempenho e custo de operação.
+%
+Os recursos analisados serão CPU, Memória, Banda, Custo, Latência, Limite de Conexões e Complexidade dos Algoritmos empregados.
+
 
 \section{Considerações parciais}
 
