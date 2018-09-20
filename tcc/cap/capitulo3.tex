@@ -84,32 +84,35 @@ Outros critérios também serão abordados na análise, tais como a estabilidade
 
 Entretanto, as arquiteturas de microsserviços para jogos \ac{mmorpg} são aplicações de alta complexidade, a qual sofrem alterações conforma as regras de negócio impostas ao jogo em específico.
 %
-Por este motivo, torna-se necessário descrever as suas funcionalidades específicas, a fim de suprir comfiabilidade na análise das arquiteturas, descrevendo as especificações de implementação sobre as arquiteturas Rudy, Willson e Salz.
+Por este motivo, torna-se necessário descrever as suas funcionalidades específicas, a fim de suprir confiabilidade na análise das arquiteturas, descrevendo as especificações de implementação sobre as arquiteturas Rudy, Willson e Salz.
 
 \section{Proposta}
 
-O atual trabalho propôe uma análise de consumo de recursos a arquiteturas de jogos \ac{mmorpg}, em específico para as arquiteturas Rudy (~\ref{rudy}), Willson (~\ref{willson}) e Salz (~\ref{salz}).
+
+%ccm Usar os critérios das colunas das Tabelas 2.4 e 2.5 de modo a deixar clara a importância de realizar uma análise que contemple todos os itens e não apenas partes deles, como identificado nos trabalahos relacionados (Seção 2.7).
+
+O atual trabalho propõe uma análise de consumo de recursos a arquiteturas de jogos \ac{mmorpg}, em específico para as arquiteturas Rudy (~\ref{rudy}), Willson (~\ref{willson}) e Salz (~\ref{salz}).
 
 Esta análise contribuirá a melhorar técnicas de desenvolvimento de jogos massivos, reduzindo custos de manutenção de tais serviços.
 
 
 \section{Critérios de análise}
 
-A fim de guiar um padrão para todas as arquiteturas analisadas, será utilizado um padrão de regra de negócios para os serviços desenvolvidos.
-%
-Este padrão seguirá as seguintes regras de negócio:
-
-\begin{enumerate}
-  \item Ambiente tridimenssional, com posicionamento bidimenssional: O ambiente de jogo será computado em 3D dimenssões, porém os personagens são fixos em um eixo.
-  \item Troca de mensagens locais e globais: O serviço deve permitir a troca de mensagens com os demais personagens ao seu redor, dentro do seu campo de visão, e com todos os personagens de um mundo.
-  \item Movimentação no ambiente: O serviço deve permitir o personagem a movimentar-se da sua posição atual para outra posição.
-  \item Realizar ações no ambiente: O serviço deve permitir o usuário a interagir com itens, \ac{npcs} e outros jogadores.
-\end{enumerate}
-
-\subsection{Ambiente Tridimenssional}
-\subsection{Troca de mensagens locais e globais}
-\subsection{Realizar ações no ambiente}
-
+% A fim de guiar um padrão para todas as arquiteturas analisadas, será utilizado um padrão de regra de negócios para os serviços desenvolvidos.
+% %
+% Este padrão seguirá as seguintes regras de negócio:
+% 
+% \begin{enumerate}
+%   \item Ambiente tridimensional, com posicionamento bidimensional: O ambiente de jogo será computado em 3D dimensões, porém os personagens são fixos em um eixo.
+%   \item Troca de mensagens locais e globais: O serviço deve permitir a troca de mensagens com os demais personagens ao seu redor, dentro do seu campo de visão, e com todos os personagens de um mundo.
+%   \item Movimentação no ambiente: O serviço deve permitir o personagem a movimentar-se da sua posição atual para outra posição.
+%   \item Realizar ações no ambiente: O serviço deve permitir o usuário a interagir com itens, \ac{npcs} e outros jogadores.
+% \end{enumerate}
+% 
+% \subsection{Ambiente Tridimenssional}
+% \subsection{Troca de mensagens locais e globais}
+% \subsection{Realizar ações no ambiente}
+% 
 \section{Plano de testes}
-
-Descrever como cenários, critérios e objetivos de testes.
+% 
+% Descrever como cenários, critérios e objetivos de testes.
