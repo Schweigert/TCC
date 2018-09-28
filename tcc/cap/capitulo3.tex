@@ -102,17 +102,73 @@ Espera-se relacionar as informações obtidas a fim de obter características da
 \section {Plano de testes}
 \label{sec:plano}
 
-O plano de testes definirá os cenários que serão aplicados em todas as arquiteturas de microsserviços para jogos \ac{mmorpg}.
+O plano de testes definirá os cenários que serão aplicados sobre todas as arquiteturas de microsserviços para jogos \ac{mmorpg}.
 %
 Ele servirá para descrever formas de estressar as arquiteturas, a fim de obter os valores para análise.
 %
 Os cenários existentes são:
+
+
 
 \begin{enumerate}
   \item \textbf{Cenário I}: Um único jogador durante um tempo determinado;
   \item \textbf{Cenário II}: Crescimento linear de jogadores simultâneos até exceder o limite de conexões da arquitetura;
   \item \textbf{Cenário III}: Número de jogadores simultâneos a partir de uma amostra obtida de um ambiente real;
 \end{enumerate}
+
+
+
+No \textbf{Cenário I}, espera-se obter métricas fixas do funcionamento básico do serviço.
+%
+Desta forma, espera-se obter características para serviços com um número de jogadores simultâneos baixo, caracterizando o mínimo de recurso utilizado pela arquitetura.
+
+
+
+No \textbf{Cenário II}, espera-se estressar o serviço para obter métricas em um linear crescente de jogadores simultâneos, até ele exceder o limite de conexões da arquitetura.
+%
+Neste cenário espera-se encontrar tanto o limite de conexões simultâneas e suas características por número de conexões.
+%
+Com este cenário planeja-se estressar todos os recursos, e será um cenário propício para obter métricas relevantes sobre gargalos dos algoritmos implementados, consumo de banda e tempo de resposta.
+
+
+
+No \textbf{Cenário III}, espera-se obter métricas referente a uma utilização real de um serviço \ac{mmorpg}.
+%
+Desta forma, espera-se obter uma situação aproximada de uma arquitetura em ambiente de produção.
+%
+É planejado que este cenário gere dados com valores distintos de conexões, e por este motivo diversifiquem os dados obtidos a fim de gerar maior confiabilidade nas conclusões da análise.
+
+
+A infraestrutura planejada para os testes será dividida em cinco camadas:
+\begin{enumerate}
+  \item \textbf{Serviço de Jogo}: A camada de serviço da infraestrutura dos testes concentrará a arquitetura de microsserviços referente as arquiteturas de microsserviços analisadas.
+  \item \textbf{Banco de dados do serviço de jogo}: A camada de banco de dados do serviço de jogo conterá os serviços de dados e web a fim de manter um padrão de dados no serviço \ac{mmorpg}.
+  \item \textbf{Estresse}: A camada de estresse será responsável por realizar requisições ao serviço a fim de estressá-lo.
+  \item \textbf{Cliente}: A camada de cliente será composta pelos mesmos elementos da camada de estresse, porém em um ambiente controlado para que a suíte de stress não interfira nas métricas obtidas no lado do cliente.
+  \item \textbf{Dados}: A camada de dados será composta por algum banco de dados de log a fim de armazenar os dados obtidos da camada Cliente.
+\end{enumerate}
+
+Esta separação se faz importante para que demais camadas não interfiram nos valores obtidos.
+%
+A camada de banco de dados do serviço de jogo, estresse, cliente e dados serão fixos a fim de reduzir alterações nos valores obtidos por conta de implementações diferentes.
+%
+O serviço de banco de dados do serviço de jogo e serviço de jogo será alterado conforme o caso de uso sobre as arquiteturas descritas na referenciação teórica.
+%
+O plano de testes será executado sobre a infraestrutura na qual pode ser visualizada na Figura~\ref{infraestrutura}.
+
+\begin{figure}[htb!]
+  \caption{Infraestrutura definida para os cenários de teste}
+  \label{infraestrutura}
+  \includegraphics[height=6.5cm]{img/cap3/infraestrutura.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+A infraestrutura definida na Figura~\ref{infraestrutura} será elaborada na nuvem de computadores do \ac{labp2d}, a qual opera sobre o sistema OpenStack\footnote{OpenStack: \url{https://www.openstack.org/}}, facilitando assim a criação desta infraestrutura virtual.
+
+A execução dos cenários ocorrerão utilizando as arquiteturas Rudy (~\ref{rudy}), Salz (~\ref{salz}) e Willson(~\ref{willson}), sendo referenciados no atual trabalho como casos de uso.
+%
 
 
 %ccm Genérico/abstratpo
