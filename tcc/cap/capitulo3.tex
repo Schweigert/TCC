@@ -3,7 +3,7 @@
 
 
 
-As arquiteturas de serviços \ac{mmorpg} são desenvolvidas visando suprir as necessidades do \textit{design} do jogo desenvolvido, de forma a qual viabilize o comércio deste serviço como produto.
+As arquiteturas de serviços \ac{mmorpg} são desenvolvidas visando suprir as necessidades do \textit{design} do jogo desenvolvido, de forma a qual viabilize a utilização deste serviço.
 %
 Nesse sentido, jogos com mecânicas de \textit{design} parecidos possuem implementações parecidas para os clientes.
 %
@@ -39,9 +39,9 @@ Tendo analisado os trabalhos relacionados e as arquiteturas específicas para jo
 Em específico, serão obtidos das arquiteturas Rudy (Subseção~\ref{rudy}), Salz (Subseção~\ref{salz}) e Willson (Subseção~\ref{willson}) os seguintes valores referente aos recursos (Tabela~\ref{tab:recursos_categoria}):
 
 \begin{enumerate}
-  \item \ac{cpu};
-  \item Memória;
-  \item Banda.
+  \item \textbf{\ac{cpu}}: o uso de CPU, com relação a porcentagem dos núcleos utilizados;
+  \item \textbf{Memória}: Quantia de memória utilizada pelos processos da máquina. O valor será com valor absoluto;
+  \item \textbf{Rede}: Serão obtidos os valores de entrada e saída do serviço, utilizando valores absolutos.
 \end{enumerate}
 
 Além dos recursos computacionais, esta análise levará em conta valores referente a outras métricas.
@@ -49,10 +49,11 @@ Além dos recursos computacionais, esta análise levará em conta valores refere
 As métricas, cujos os valores serão obtidos são:
 
 \begin{enumerate}
-  \item Limite de conexões;
-  \item Tempo de resposta;
-  \item Latência.
+  \item \textbf{Número máximo de jogadores simultâneos}: Descobrir o limite de conexões para as arquiteturas propostas a análise.
+  \item \textbf{Tempo de resposta das requisições}: Obter tempo de resposta por categoria de requisição, conforme o número de jogadores no serviço.
 \end{enumerate}
+
+Todas estas métricas obtidas, serão obtidos com simulações, e por este motivo se faz necessário descrever o comportamento dos jogadores simulados.
 
 Para prever o comportamento destas métricas e recursos, serão calculadas as complexidades das operações usadas no plano de teste.
 %
@@ -71,19 +72,7 @@ A fim de realizar a análise das arquiteturas de microsserviços específicos a 
 %
 Os critérios de análise vão guiar os casos de teste e a análise das arquiteturas.
 
-O uso de \ac{cpu} está relacionado com os algoritmos empregados no serviço.
 
-O uso de memória deve estar relacionado diretamente ao número de jogadores simultâneos no serviço.
-
-O uso de banda está relacionado a complexidade da arquitetura de microsserviços e número de conexões necessários para manter a comunicação com o serviço.
-
-O limite de conexões está relacionado escalabilidade dos serviços e o consumo do gerenciamento da arquitetura.
-
-O tempo de resposta está relacionado diretamente ao número de conexões a um microsserviço e ao modelo de processamento de chamadas remotas.
-
-A latência poderá trazer informações sobre o meio físico entre os clientes e o serviço.
-
-Espera-se relacionar as informações obtidas a fim de obter características das arquiteturas de microsserviços.
 
 \begin{itemize}
   \item Tabelas de consumo de recurso por cenário;
@@ -102,73 +91,167 @@ Espera-se relacionar as informações obtidas a fim de obter características da
 \section {Plano de testes}
 \label{sec:plano}
 
+
+
 O plano de testes definirá os cenários que serão aplicados sobre todas as arquiteturas de microsserviços para jogos \ac{mmorpg}.
 %
 Ele servirá para descrever formas de estressar as arquiteturas, a fim de obter os valores para análise.
 %
-Os cenários existentes são:
-
-
-
-\begin{enumerate}
-  \item \textbf{Cenário I}: Um único jogador durante um tempo determinado;
-  \item \textbf{Cenário II}: Crescimento linear de jogadores simultâneos até exceder o limite de conexões da arquitetura;
-  \item \textbf{Cenário III}: Número de jogadores simultâneos a partir de uma amostra obtida de um ambiente real;
-\end{enumerate}
-
-
-
-No \textbf{Cenário I}, espera-se obter métricas fixas do funcionamento básico do serviço.
+Entretanto, antes de relatar os cenários de teste, se faz necessário descrever o ambiente onde ocorrerá tais testes.
 %
-Desta forma, espera-se obter características para serviços com um número de jogadores simultâneos baixo, caracterizando o mínimo de recurso utilizado pela arquitetura.
+A Figura~\ref{Ambiente de testes} descreve a infraestrutura utilizada para execução das camadas de aplicação utilizados nos testes.
 
 
-
-No \textbf{Cenário II}, espera-se estressar o serviço para obter métricas em um linear crescente de jogadores simultâneos, até ele exceder o limite de conexões da arquitetura.
-%
-Neste cenário espera-se encontrar tanto o limite de conexões simultâneas e suas características por número de conexões.
-%
-Com este cenário planeja-se estressar todos os recursos, e será um cenário propício para obter métricas relevantes sobre gargalos dos algoritmos implementados, consumo de banda e tempo de resposta.
-
-
-
-No \textbf{Cenário III}, espera-se obter métricas referente a uma utilização real de um serviço \ac{mmorpg}.
-%
-Desta forma, espera-se obter uma situação aproximada de uma arquitetura em ambiente de produção.
-%
-É planejado que este cenário gere dados com valores distintos de conexões, e por este motivo diversifiquem os dados obtidos a fim de gerar maior confiabilidade nas conclusões da análise.
-
-
-A infraestrutura planejada para os testes será dividida em cinco camadas:
-\begin{enumerate}
-  \item \textbf{Serviço de Jogo}: A camada de serviço da infraestrutura dos testes concentrará a arquitetura de microsserviços referente as arquiteturas de microsserviços analisadas.
-  \item \textbf{Banco de dados do serviço de jogo}: A camada de banco de dados do serviço de jogo conterá os serviços de dados e web a fim de manter um padrão de dados no serviço \ac{mmorpg}.
-  \item \textbf{Estresse}: A camada de estresse será responsável por realizar requisições ao serviço a fim de estressá-lo.
-  \item \textbf{Cliente}: A camada de cliente será composta pelos mesmos elementos da camada de estresse, porém em um ambiente controlado para que a suíte de stress não interfira nas métricas obtidas no lado do cliente.
-  \item \textbf{Dados}: A camada de dados será composta por algum banco de dados de log a fim de armazenar os dados obtidos da camada Cliente.
-\end{enumerate}
-
-Esta separação se faz importante para que demais camadas não interfiram nos valores obtidos.
-%
-A camada de banco de dados do serviço de jogo, estresse, cliente e dados serão fixos a fim de reduzir alterações nos valores obtidos por conta de implementações diferentes.
-%
-O serviço de banco de dados do serviço de jogo e serviço de jogo será alterado conforme o caso de uso sobre as arquiteturas descritas na referenciação teórica.
-%
-O plano de testes será executado sobre a infraestrutura na qual pode ser visualizada na Figura~\ref{infraestrutura}.
 
 \begin{figure}[htb!]
-  \caption{Infraestrutura definida para os cenários de teste}
-  \label{infraestrutura}
+  \caption{Ambiente de testes definido para a coleta de dados}
+  \label{Ambiente de testes}
   \includegraphics[height=6.5cm]{img/cap3/infraestrutura.png}
   \centering
 
   Fonte: O próprio autor.
 \end{figure}
 
-A infraestrutura definida na Figura~\ref{infraestrutura} será elaborada na nuvem de computadores do \ac{labp2d}, a qual opera sobre o sistema OpenStack\footnote{OpenStack: \url{https://www.openstack.org/}}, facilitando assim a criação desta infraestrutura virtual.
 
-A execução dos cenários ocorrerão utilizando as arquiteturas Rudy (~\ref{rudy}), Salz (~\ref{salz}) e Willson(~\ref{willson}), sendo referenciados no atual trabalho como casos de uso.
+
+Como visível na Figura~\ref{Ambiente de testes}, o ambiente de testes planejado está segregado em 5 camadas.
 %
+Essas camadas tem o objetivo de diminuir o impacto de desempenho e consumo de recursos por outras ferramentas durante os testes.
+%
+Por este motivo, as regiões da infraestrutura planejada são:
+
+
+
+\begin{enumerate}
+  \item \textbf{Serviço de Jogo}: A camada de serviço da infraestrutura dos testes concentrará a arquitetura de microsserviços referente as arquiteturas de microsserviços analisadas.
+  \item \textbf{Banco de dados do serviço de jogo}: A camada de banco de dados do serviço de jogo conterá os serviços de dados e web a fim de manter um padrão de banco de dados para ambos os serviços utilizados e auxiliar na inicialização dos testes.
+  \item \textbf{Estresse}: A camada de estresse será responsável por realizar requisições ao serviço a fim de estressá-lo, simulando padrões de requisição de um padrão de um jogador.
+  \item \textbf{Cliente}: A camada de cliente será composta pelos mesmos elementos da camada de estresse, porém em um ambiente controlado para que a suíte de estresse não interfira nas métricas obtidas no lado do cliente.
+  \item \textbf{Dados}: A camada de dados será composta por algum banco de dados de log a fim de armazenar os dados obtidos da camada Cliente e serviço, para utilizar na análise.
+\end{enumerate}
+
+
+
+As regiões da infraestrutura utilizada no ambiente de testes deve manter um padrão a fim que não exista interferência entre os testes, além do desempenho das arquiteturas do serviço.
+%
+Espera-se utilizar em grande parte o mesmo sistema de cliente para ambas as arquiteturas, excluso casos onde a arquitetura necessite de alterações.
+%
+Nesse sentido, espera-se obter somente a interferência das arquiteturas expressa nos valores obtidos.
+
+
+
+Para os casos de uso, serão utilizada as arquiteturas de microsserviços específicos a jogos \ac{mmorpg} obtidos da literatura.
+%
+São essas elas:
+
+
+
+\begin{enumerate}
+  \item \textbf{Arquitetura Rudy} (Subseção~\ref{rudy});
+  \item \textbf{Arquitetura Salz} (Subseção~\ref{salz});
+  \item \textbf{Arquitetura Willson} (Subseção~\ref{willson}).
+\end{enumerate}
+
+
+
+Tais arquiteturas vão impactar o serviço de jogo, banco de dados e as requisições a qual os clientes deverão realizar.
+%
+Espera-se obter os valores referente a diferença de consumo de recursos computacionais dentro de cenários controlados utilizando o ambiente de testes.
+
+
+
+Com o objetivo de obter dados, se faz necessário estressar as arquiteturas em casos diferentes para garantir a confiabilidade dos dados obtidos.
+%
+Dessa forma, será desenvolvido três cenários distintos a fim de obter dados utilizando para um número mínimo de jogadores simulados, com um custo operacional crescente de jogadores simulados a fim de descobrir as limitações das arquiteturas e por fim um cenário utilizando um número real de jogadores de um serviço \ac{mmorpg} obtidos da literatura.
+
+
+
+\subsection{Cenário I}
+
+
+
+O Cenário I corresponde execução dos casos de uso utilizando o menor número de jogadores simultâneos simulados possível.
+%
+Em específico as arquiteturas de microsserviços para jogos \ac{mmorpg}, este número será de apenas um cliente para o serviço.
+
+
+
+Tal cenário contribuirá para obter valores referente a execução das arquiteturas com um número mínimo de conexões, a qual deve retornar os requisitos mínimos para execução de tais arquiteturas.
+%
+Para alcançar tal objetivo, este cenário será executado utilizando o método descrito na Tabela~\ref{tab:cenario_1}.
+
+\begin{table}[htb!]
+\centering
+\caption{Método de execução do cenário 1}
+\label{tab:cenario_1}
+\begin{tabular}{|l|l|}
+\hline
+Tempo de captura    & 30 minutos \\ \hline
+Número de jogadores & 1          \\ \hline
+Jogadores por tempo & $f(t) = 1$ \\ \hline
+Número de execuções & 5          \\ \hline 
+\end{tabular}
+\end{table}
+
+
+
+A Tabela~\ref{tab:cenario_1} descreve as características de tempo de captura de logs para cara execução, a partir do inicio dos testes, o número de jogadores inicial, a função de crescimento de jogadores pelo tempo e o número de execuções do mesmo cenário.
+%
+Espera-se que seguindo tais medidas, obtenha-se dados semelhantes.
+
+
+\subsection{Cenário II}
+
+O cenário II corresponde ao cenário onde o número de jogadores seguirá crescendo, linearmente, até o limite do serviço.
+%
+Espera-se ocupar o máximo de todos os recursos do serviço, e com isso descobrir características como o número máximo de conexões de um serviço, tipos de requisições que geram gargalos e o seu consumo limite de consumo de recursos, conforme a limitação da infraestrutura dos testes.
+%
+Além dos recursos ocupados, outro valor importante será o tempo de resposta, a qual espera-se estressar com um número de jogadores mais elevado.
+%
+Para alcançar tais objetivos, este cenário será executado utilizando o método descrito na Tabela~\ref{tab:cenario_2}.
+
+\begin{table}[htb!]
+\centering
+\caption{Método de execução do cenário 2}
+\label{tab:cenario_2}
+\begin{tabular}{|l|l|}
+\hline
+Tempo de captura    &    *              \\ \hline
+Número de jogadores & 50                \\ \hline
+Jogadores por tempo & $f(t) = 50 + 5*t$ \\ \hline
+Número de execuções & 5                 \\ \hline 
+\end{tabular}
+\end{table}
+
+O método descrito na Tabela~\ref{tab:cenario_2} não leva em conta o tempo de execução, visto que o mesmo seguirá até o limite da arquitetura, a qual espera-se alcançar com a elevação gradual de jogadores por parcela de tempo.
+%
+Serão executados 5 testes, para obter-se dados semelhantes.
+
+\subsection{Cenário III}
+
+O cenário III executará utilizando um gráfico de número de jogadores simultâneos de um serviço \ac{mmorpg} real obtido da literatura.
+%
+Espera-se obter com este cenário métricas reais para a manutenção deste serviço em ambiente de produção.
+
+Estes dados serão valiosos para analisar a estabilidade dos recursos consumidos, garantindo que o teste de estresse está obtendo dados corretos para a análise.
+%
+A fim de alcançar tais objetivos, este cenário executará utilizando o método descrito na Tabela~\ref{tab:cenario_3}.
+
+\begin{table}[htb!]
+\centering
+\caption{Método de execução do cenário 3}
+\label{tab:cenario_3}
+\begin{tabular}{|l|l|}
+\hline
+Tempo de captura    &  1 ciclo de função \\ \hline
+Número de jogadores & *                 \\ \hline
+Jogadores por tempo & $f(x) multimodal$ \\ \hline
+Número de execuções & 5                 \\ \hline 
+\end{tabular}
+\end{table}
+
+Para o método descrito na Tabela~\ref{tab:cenario_3}, espera-se executar 5 vezes para cada arquitetura utilizando a função multimodal (Figura~\ref{fig:players_peer_time}) obtida da literatura.
+Cada ciclo de tempo será considerado uma execução completa.
 
 
 %ccm Genérico/abstratpo
