@@ -68,19 +68,37 @@ Para este fim, se faz necessário a descrição dos critérios que serão utiliz
 \section{Critérios de análise}
 \label{sec:criterios}
 
-A fim de realizar a análise das arquiteturas de microsserviços específicos a jogos \ac{mmorpg}, se faz necessário definir critérios para analisar os valores obtidos.
+A fim de padronizar a análise dos dados obtdos, a seção Critérios de Análise irá descrever como será guiada a análise conforme o coportamento dos valores obtidos.
 %
-Os critérios de análise vão guiar os casos de teste e a análise das arquiteturas.
+Neste sentido, a análise dos dados obtidos serão guiadas pelo esperado dos valores obtidos em um serviço perfeito:
 
+\begin{enumerate}
+  \item \textbf{CPU}: Deve seguir linearmente conforme o número de conexões. Caso estes valores estejam desalinhados dos demais recursos, é um indício de gargalo em outro recurso físico do serviço.
+  \item \textbf{Memória}: Deve seguir linearmente conforme o número de conexões. Caso contrário, poderá ser estresse do coletor de lixo ou o consumo exagerado por algum algoritmo interno do serviço.
+  \item \textbf{Rede - Entrada}: Pode ser o limitante das arquiteturas. Caso isso não ocorra, significará que tal arquitetura está subdimensionada aos recursos da máquina.
+  \item \textbf{Rede - Saída}: Pode ser o limitante das arquiteturas. Caso isso não ocorra, significará que tal arquitetura está subdimensionada aos recursos da máquina.
+  \item \textbf{Número de Conexões}: Pode ser o limitante das arquitetuars. Caso isso não ocorra, significa que tal arquitetura está subdimensionada aos recursos da máquina.
+  \item \textbf{Tempo de resposta das requisições}: Espera-se estressar o tempo de respostas das requisições com um número maior conexões no serviço.
+\end{enumerate}
 
+A partir dos valores obtidos e seguindo o esperado de uma arquitetura totalmente relacionada ao número de conexões, espera-se encontrar um conjunto de eventuais problemas nas arquiteturas.
+%
+Um conjunto exemplo destes problemas são exibidos na Tabela~\ref{tab:problemas}.
 
-\begin{itemize}
-  \item Tabelas de consumo de recurso por cenário;
-  \item Gráficos de relação de consumo de recursos por número de conexões;
-\end{itemize}
+\begin{table}[htb!]
+  \centering
+  \caption{Possíveis conjuntos para a anáise}
+  \label{tab:problemas}
+  \begin{tabular}{|l|l|}
+  \hline
+  Recrusos                                                                                                                                                                   & Motivo Possível                                                                                                           \\ \hline
+  \begin{tabular}[c]{@{}l@{}}Elevado consumo de CPU\\ Elevado tempo de resposta\\ baixo número de conexões\end{tabular}                                                      & \begin{tabular}[c]{@{}l@{}}Conjunto inadequado de algoritmos\\ ou poder de processamento baixo\\ do serviço.\end{tabular} \\ \hline
+  \begin{tabular}[c]{@{}l@{}}Elevado consumo de Memória\\ Elevado tempo de resposta\\ Baixo número de conexões\end{tabular}                                                  & \begin{tabular}[c]{@{}l@{}}Conjunto inadequado de algoritmos\\ para o consumo de memória\end{tabular}                     \\ \hline
+  \begin{tabular}[c]{@{}l@{}}Elevado número de conexões\\ Elevado tempo de resposta\\ Elevado consumo de Rede\\ Baixo consumo de CPU\\ Baixo consumo de memória\end{tabular} & Protocolo inadequado para o serviço                                                                                       \\ \hline
+  \end{tabular}
 
-
-
+  Fonte: O próprio autor.
+\end{table}
 
 %ccm
 % Identificar como os valores obtidos pelas métricas devem ser interpretados
@@ -189,7 +207,7 @@ Para alcançar tal objetivo, este cenário será executado utilizando o método 
 Tempo de captura    & 30 minutos \\ \hline
 Número de jogadores & 1          \\ \hline
 Jogadores por tempo & $f(t) = 1$ \\ \hline
-Número de execuções & 5          \\ \hline 
+Número de execuções & 5          \\ \hline
 \end{tabular}
 \end{table}
 
@@ -219,7 +237,7 @@ Para alcançar tais objetivos, este cenário será executado utilizando o métod
 Tempo de captura    &    *              \\ \hline
 Número de jogadores & 50                \\ \hline
 Jogadores por tempo & $f(t) = 50 + 5*t$ \\ \hline
-Número de execuções & 5                 \\ \hline 
+Número de execuções & 5                 \\ \hline
 \end{tabular}
 \end{table}
 
@@ -246,7 +264,7 @@ A fim de alcançar tais objetivos, este cenário executará utilizando o método
 Tempo de captura    &  1 ciclo de função \\ \hline
 Número de jogadores & *                 \\ \hline
 Jogadores por tempo & $f(x) multimodal$ \\ \hline
-Número de execuções & 5                 \\ \hline 
+Número de execuções & 5                 \\ \hline
 \end{tabular}
 \end{table}
 
@@ -256,5 +274,5 @@ Cada ciclo de tempo será considerado uma execução completa.
 
 %ccm Genérico/abstratpo
 % Quais experimentos serão realizados, se não necessário explicitar os caso de uso e o quê espera-se de resultado.
-% 
+%
 % Descrever como cenários, critérios e objetivos de testes.
