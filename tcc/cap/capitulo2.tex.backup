@@ -202,7 +202,7 @@ Um jogo \ac{mmorpg} é arquitetado em duas partes~\cite{mmo_analytic}:
   \item \textbf{Serviço}: Implementa as regras de negócio e requisitos do jogo. O serviço disponibiliza uma interface com ações possíveis ao cliente sobre algum protocolo de rede. Este tema é abordado na Subseção~\ref{sec:microsservicos}.
 \end{itemize}
 
-Jogos \ac{mmorpg} trabalham como serviço. 
+Jogos \ac{mmorpg} trabalham como serviço.
 %
 Por este motivo, o modelo de negócios de tais jogos, do ponto de vista de redes de computador, são suscetíveis a perda financeira em casos de negação de serviço~\cite{1417630}.
 %
@@ -697,7 +697,7 @@ Percebe-se, neste contexto, que o jogo deverá funcionar sem o motor gráfico, d
 
 Fonte:~\cite{albion_online_unite}
 \end{figure}
-%ccm traduzir as partes cabíveis 
+%ccm traduzir as partes cabíveis
 
 A Figura~\ref{fig:integracao_unity_albion} demonstra a separação da camada de renderização de objetos da árvore da cena, a camada de integração com o cliente e serviço (descrito anteriormente como módulo \textit{Network}) e o serviço.
 %
@@ -764,7 +764,7 @@ A proteção do \textit{firewall} é aplicada no serviço de pagamento e no pont
 
 O funcionamento interno do serviço de jogo trabalha em rodadas, visando não penalizar usuários com baixa transferência de dados entre o cliente e o serviço.
 %
-Cada cliente produz requisições para ser consumido pelo ciclo de processamento do gerente de jogo. 
+Cada cliente produz requisições para ser consumido pelo ciclo de processamento do gerente de jogo.
 %
 Entretanto, o serviço irá consumir de forma igualitária uma requisição de um jogador diferente, como uma fila~\cite{albion_online_unite, matthiasrudy2011}.
 %
@@ -835,7 +835,7 @@ Para o funcionamento adequado, o cliente necessita manter três conexões aberta
 
 
 
-A Figura~\ref{full_salz} exibe a arquitetura Salz de forma completa. 
+A Figura~\ref{full_salz} exibe a arquitetura Salz de forma completa.
 %
 Na Figura~\ref{full_salz} encontram-se quatro bancos de dados distintos, sendo eles o banco de \textit{Pagamento}, \textit{Negociação}, \textit{Autenticação} e \textit{Jogo}, sendo os bancos de Autenticação e Jogo com tecnologias \ac{nosql}, sendo os demais bancos com tecnologia \ac{sql}.
 %
@@ -1363,6 +1363,6 @@ Após apresentar sobre o gênero de jogo abordado, detalha-se a sua jogabilidade
 
 Por fim, são apresentados trabalhos relacionados a fim de guiar por métricas, métodos de coleta de dados e métodos de desenvolvimento e implantação de tais arquiteturas a fim de contribuir com o atual escopo do trabalho.
 %
-Entretanto, houve uma dificuldade em encontrar na literatura analises sobre arquiteturas de microsserviços focado a jogos, principalmente em específico o gênero \ac{mmorpg}.
+Entretanto, houve uma dificuldade em encontrar na literatura análises sobre arquiteturas de microsserviços focado a jogos, principalmente em específico o gênero \ac{mmorpg}.
 %
-Dessa forma, espera-se introduzir a analise da viabilidade e do custo de recursos computacionais para manter um serviço \ac{mmorpg} sobre uma arquitetura de microsserviços.
+Dessa forma, espera-se introduzir a análise da viabilidade e do custo de recursos computacionais para manter um serviço \ac{mmorpg} sobre uma arquitetura de microsserviços.
