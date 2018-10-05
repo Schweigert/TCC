@@ -71,13 +71,23 @@ A fim de padronizar a análise dos dados obtdos, a seção Critérios de Anális
 Neste sentido, a análise dos dados obtidos serão guiadas pelo esperado dos valores obtidos em um serviço perfeito:
 
 \begin{enumerate}
-  \item \textbf{CPU}: Deve seguir linearmente conforme o número de conexões. Caso estes valores estejam desalinhados dos demais recursos, é um indício de gargalo em outro recurso físico do serviço.
-  \item \textbf{Memória}: Deve seguir linearmente conforme o número de conexões. Caso contrário, poderá ser estresse do coletor de lixo ou o consumo exagerado por algum algoritmo interno do serviço.
-  \item \textbf{Rede - Entrada}: Pode ser o limitante das arquiteturas. Caso isso não ocorra, significará que tal arquitetura está subdimensionada aos recursos da máquina.
-  \item \textbf{Rede - Saída}: Pode ser o limitante das arquiteturas. Caso isso não ocorra, significará que tal arquitetura está subdimensionada aos recursos da máquina.
-  \item \textbf{Número de Conexões}: Pode ser o limitante das arquitetuars. Caso isso não ocorra, significa que tal arquitetura está subdimensionada aos recursos da máquina.
-  \item \textbf{Tempo de resposta das requisições}: Espera-se estressar o tempo de respostas das requisições com um número maior conexões no serviço.
+  \item \textbf{CPU}: Espera-se estressar com um elevado número de requisições.
+  \item \textbf{Memória}: Espera-se estressar com requisições na qual exija armazenamento em memória.
+  \item \textbf{Rede - Entrada}: Espera-se estressar com requisições na qual tenham uma carga de dados elevada.
+  \item \textbf{Rede - Saída}: Espera-se estressar com respostas na qual tenham uma carga de dados elevada.
+  \item \textbf{Número de Conexões}: Servirá como guia de comparação com os demais valores e desempenho da arquitetura;
+  \item \textbf{Tempo de resposta das requisições}: Servira como guia de desempenho da arquitetura;
+  \item \textbf{Latência}: Servirá como guia de comparação com os demais valores;
 \end{enumerate}
+
+Em um caso de uso perfeito, todos os recursos não são estressáveis, com um número de conexões simultâneas elevado.
+%
+Porém, espera-se para o atual trabalho um possível conjunto de ocorrências, na qual podem ou não ocorrer.
+%
+Este conjunto servirá de guia / exemplo de problemas relevantes retirado dos valores obtidos.
+%
+Logo, a simulação e cenários serão desenhados para forçar tais ocorrências.
+
 
 A partir dos valores obtidos e seguindo o esperado de uma arquitetura totalmente relacionada ao número de conexões, espera-se encontrar um conjunto de eventuais problemas nas arquiteturas.
 %
@@ -91,18 +101,38 @@ Um conjunto exemplo destes problemas são exibidos na Tabela~\ref{tab:problemas}
   \hline
   \multicolumn{7}{|c|}{Recursos}                                                                      & \multirow{2}{*}{Descrição} \\ \cline{1-7}
   \rotatebox[origin=c]{90}{\ac{cpu}} & \rotatebox[origin=c]{90}{Memória} & \rotatebox[origin=c]{90}{Rede Entrada} & \rotatebox[origin=c]{90}{Rede Saída} & \rotatebox[origin=c]{90}{Conexões Simultâneas} & \rotatebox[origin=c]{90}{Tempo de Resposta} & \rotatebox[origin=c]{90}{Latência} &                            \\ \hline
-  $\uparrow$  &            &            &            &            &            &            & \thead{Rotina de processamento de requisições\\está ocupando muita \ac{cpu}} \\ \hline
-              & $\uparrow$ &            &            &            &            &            & \thead{O microsserviço está armazenando\\informações a qual poderiam estar em outros\\microsserviços}  \\ \hline
-              &            & $\uparrow$ &            &            &            &            & \thead{Uma entrada de dados elevada pode indicar\\o uso de um protocolo\\indapropriado para o serviço} \\ \hline
-              &            &            & $\uparrow$ &            &            &            & \thead{Caso a saída esteja muito elevada\\pode indicar uma má configuração de elementos\\que são transitados na rede ou\\uso inadequado de protocolos} \\ \hline
-              &            &            &            & $\uparrow$ &            &            & \thead{É um valor ideal} \\ \hline
-              &            &            &            &            & $\uparrow$ &            & \thead{Pode estar relacionado\\a desempenho de processamento\\, modelo de paralelismo ou congestionamento de rede} \\ \hline
-              &            &            &            &            &            & $\uparrow$ & \thead{Está relacionado única e exclusivamente\\ao congestionamento da rede} \\ \hline
+  $\uparrow$    &              &              &              & $\downarrow$ &              &              & \thead{Rotina de processamento de requisições\\está ocupando muita \ac{cpu}} \\ \hline
+                & $\uparrow$   &              &              & $\downarrow$ &              &              & \thead{O microsserviço está armazenando\\informações a qual poderiam estar em outros\\microsserviços}  \\ \hline
+                &              & $\uparrow$   &              & $\downarrow$ &              &              & \thead{Uma entrada de dados elevada pode indicar\\o uso de um protocolo\\indapropriado para o serviço} \\ \hline
+                &              &              & $\uparrow$   & $\downarrow$ &              &              & \thead{Caso a saída esteja muito elevada\\pode indicar uma má configuração de elementos\\que são transitados na rede ou\\uso inadequado de protocolos} \\ \hline
+                &              &              &              & $\downarrow$ & $\uparrow$   &              & \thead{Pode estar relacionado\\a desempenho de processamento\\, modelo de paralelismo ou congestionamento de rede} \\ \hline
+                &              &              &              & $\downarrow$ & $\uparrow$   & $\uparrow$   & \thead{Está relacionado com\\ congestionamento da rede} \\ \hline
+  $\downarrow$  &              & $\uparrow$   & $\uparrow$   &              &              &              & \thead{Possível gargalo na rede\\ou protocolo ineficiente} \\ \hline
+  $\uparrow$    & $\uparrow$   & $\downarrow$ & $\downarrow$ &              &              &              & \thead{Possível gargalo nos algoritmos\\utilizados no serviço} \\ \hline
+                &              &              &              & $\downarrow$ &              &              & \thead{Bloqueio de novas conexões pelo\\sistema operacional ou\\modelo de paralelismo} \\ \hline
+  $\uparrow$    & $\uparrow$   & $\uparrow$   & $\uparrow$   & $\uparrow$   & $\uparrow$   &  $\uparrow$  & \thead{Limite de processamento da arquitetura} \\ \hline
+  $\downarrow$  & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\uparrow$   & $\downarrow$ &  $\downarrow$& \thead{Teste perfeito} \\ \hline
+
 
   \end{tabular}
 
   Fonte: O próprio autor.
 \end{table}
+
+A Tabela~\ref{tab:problemas} relaciona os recursos conforme dois padrões:
+
+\begin{itemize}
+  \item Valores acima da média ($\uparrow$): Fazem referência a valores acima da média, comparado ao seu limite.
+  \item Valores baixo da média ($\downarrow$): Fazem referência a valores acima da média, comparado ao seu limite.
+\end{itemize}
+
+Entretanto, espera-se encontrar problemas mais detalhados, além de problemas padronizados de forma genérica na Tabela~\ref{tab:problemas}.
+%
+Espera-se encontrar eventuais problemas conforme o tipo de requisição e desenho da arquitetura.
+%
+Estes problemas servirão para guiar a analise final das arquiteturas.
+
+Seguindo estes critérios da análise, se faz necessário definir um plano de testes para obter os dados conforme os cenários e casos de uso do atual trabalho.
 
 %ccm
 % Identificar como os valores obtidos pelas métricas devem ser interpretados
