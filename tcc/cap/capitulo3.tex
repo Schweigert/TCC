@@ -305,6 +305,104 @@ Número de execuções & 5                 \\ \hline
 Para o método descrito na Tabela~\ref{tab:cenario_3}, espera-se executar 5 vezes para cada arquitetura utilizando a função multimodal (Figura~\ref{fig:players_peer_time}) obtida da literatura.
 Cada ciclo de tempo será considerado uma execução completa.
 
+A fim de estressar os recursos computacionais das arquiteturas selecionadas, será necessário um conjunto de requisições por parte da simulação na qual realize ações iguais a um jogador \ac{mmorpg}.
+
+\subsection{Simulação}
+
+Espera-se, utilizando a simulação, estressar as arquiteturas utilizando um ataque com robôs.
+%
+Neste cenário, para padronizar a coleta de dados, todos os robôs terão a mesma rotina evitando comportamento aleatório.
+
+Porém, como requisito para se estipular as requisições, se faz obrigatório realizar um levantamento de requisitos na qual tanto o serviço quanto o cliente devem implementar.
+%
+Nesse sentido, a Tabela~\ref{tab:requisitos_funcionais} relaciona a funcionalidade com o impacto de implementação de tal funcionalidade.
+
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Requisitos funcionais e impacto de implementação}
+\label{tab:requisitos_funcionais}
+\begin{tabular}{|l|l|l|}
+\hline
+Requisito                                                       & Descrição                                                                                                                                                                                  & Implementação                                                                                                                                                                             \\ \hline
+Identificação                                                   & \begin{tabular}[c]{@{}l@{}}Gera uma numeração única (token) com base\\ em uma tupla de dados.\end{tabular}                                                                                 & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando algoritmo de hash (MD5),\\ de forma a garantir que este token seja único e diferente a\\ cada implementação.\end{tabular}         \\ \hline
+Autenticação                                                    & \begin{tabular}[c]{@{}l@{}}Recebe o token e garante que não existe nenhuma\\ conexão utilizando o mesmo token.\end{tabular}                                                                 & \begin{tabular}[c]{@{}l@{}}Será implementado usando um serviço de chave valor,\\ como o Redis.\end{tabular}                                                                               \\ \hline
+\begin{tabular}[c]{@{}l@{}}Selecionar\\ Personagem\end{tabular} & \begin{tabular}[c]{@{}l@{}}Uma conexão deve requirir o controle de um\\ personagem.\end{tabular}                                                                                           & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando uma árvore de cena interna\\ ao serviço, onde o tipo do nó será Personagem e o seu nome\\ será o nome do personagem.\end{tabular} \\ \hline
+Chat                                                            & \begin{tabular}[c]{@{}l@{}}Será possível enviar mensagens e receber. Elas serão\\ baseadas na região. Será mantido uma distância fixa\\ para todos os casos de uso.\end{tabular}           & \begin{tabular}[c]{@{}l@{}}Deve existir uma estrutura de busca interna ao serviço para\\ consultar personagens de uma região em relação a um\\ usuário.\end{tabular}                      \\ \hline
+Movimentar                                                      & \begin{tabular}[c]{@{}l@{}}Será possível movimentar o personagem para as\\ células adjacentes. Isso indica que o\\ posicionamento do personagem será baseado\\ em uma matriz.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Esta ação deve comunicar a atualização para todos os demais\\ jogadores da região de interesse.\end{tabular}                                                   \\ \hline
+Atacar                                                          & \begin{tabular}[c]{@{}l@{}}Ao atacar, o jogador causará um dano aleatório\\ baseado em seu nível em todos os inimigos das\\ células adjacentes.\end{tabular}                               & \begin{tabular}[c]{@{}l@{}}Esta ação irá manipular a árvore de objetos da cena do serviço\\ e deverá notificar todos os jogadores desta área de interesse.\end{tabular}                   \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+A Tabela~\ref{tab:requisitos_funcionais} relata uma lista de funcionalidades mínimas que serão executadas na simulação.
+%
+A partir destas funcionalidades, pode-se definir quais requisições estarão disponíveis na \ac{api} para o cliente requisitar ao serviço.
+%
+A lista de comandos públicos é exibida na Tabela~\ref{tab:api_publica}.
+
+
+O ambiente do jogo será baseado em uma matrizes. Cada mapa terá 100x100 unidades.
+%
+Os personagens podem locomover-se para as células adjacentes a sua localização.
+%
+O raio de interesse é de 4 células.
+%
+Um exemplo de estado do ambiente do jogo pode ser visualizado na Figura~\ref{fig:roi}.
+
+\begin{figure}[htb!]
+  \caption{Área de interesse da simulação com raio de 4 células}
+  \label{fig:roi}
+  \includegraphics[height=5.0cm]{img/cap3/roi.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+A partir da área de interesse do jogo, como o da Figura~\ref{fig:roi}, o robô poderá decidir suas ações baseado em um automato.
+%
+Todas as ações do robô no mapa será baseado em um automato.
+%
+Nesse sentido, espera-se obter um padrão de movimentação a fim de evitar ciclos a qual um jogador comum dificilmente realizará (\textit{e.g.,} Andar para frente e para trás, ficar equipando itens em ciclo, ficar consumindo itens até acabar, \textit{etc.}).
+%
+A movimentação do personagem seguirá o automato descrito na Figura~\ref{fig:movimentacao}.
+
+
+\begin{figure}[htb!]
+  \caption{Automato de movimentação dos personagens simulados}
+  \label{fig:movimentacao}
+  \includegraphics[height=3.5cm]{img/cap3/movimentacao.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+A Figura~\ref{fig:movimentacao} descreve o comportamento de um robô no ambiente do jogo simulado.
+%
+Ele seguirá um padrão de procurar batalhas, batalhar, gerenciar itens do personagem e buscar novas batalhas.
+%
+Este conjunto de ações simula o comportamento de busca de itens dentro de um jogo \ac{mmorpg}.
+%
+As características específicas de cada estado é definido da seguinte forma:
+
+\begin{itemize}
+  \item Autenticar: Realizará autenticação com o serviço \textit{web} ou \textit{rpc} apropriado a arquitetura. Neste passo o robô receberá as informações do seu personagem.
+  \item Buscar Inimigo: Caminhará de forma aleatória a fim de buscar um inimigo, caso não exista em sua área de interesse. Caso encontre em sua área de interesse, irá aproximar deste inimigo.
+  \item Batalhar: Irá atacar um inimigo, aplicando dano a este \ac{npc}. O personagem poderá receber dano. Estes valores serão fixos baseados em seu equipamento. O personagem pode perder todos os seus pontos de vida, sendo desconectado do serviço.
+  \item Gerenciar Itens: O robô irá consumir itens para recuperar pontos de vida e usar equipamentos melhores aos já utilizados.
+  \item Caminhar Aleatoriamente: O personagem caminhará aleatoriamente por um número de passos máximo. Após isso, voltará a buscar uma batalha.
+\end{itemize}
+
+Espera-se com esta sequência de ações, forçar aos robôs a explorar o cenário.
+%
+A cada mudança de estado, o jogador irá anunciar no chat a sua troca de ação.
+%
+Isso contribuirá com o monitoramento do comportamento dos personagens tanto quanto usará a funcionalidade de chat.
+%
+Para simular a ação de resposta de um jogador, cada robô que receber uma mensagem terá uma porcentagem fixa de $25\%$ responder a sua ação no atual momento.
+%
+Um robô não poderá responder a ele mesmo.
 
 %ccm Genérico/abstratpo
 % Quais experimentos serão realizados, se não necessário explicitar os caso de uso e o quê espera-se de resultado.
