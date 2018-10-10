@@ -327,11 +327,12 @@ Nesse sentido, a Tabela~\ref{tab:requisitos_funcionais} relaciona a funcionalida
 \hline
 Requisito                                                       & Descrição                                                                                                                                                                                  & Implementação                                                                                                                                                                             \\ \hline
 Identificação                                                   & \begin{tabular}[c]{@{}l@{}}Gera uma numeração única (token) com base\\ em uma tupla de dados.\end{tabular}                                                                                 & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando algoritmo de hash (MD5),\\ de forma a garantir que este token seja único e diferente a\\ cada implementação.\end{tabular}         \\ \hline
-Autenticação                                                    & \begin{tabular}[c]{@{}l@{}}Recebe o token e garante que não existe nenhuma\\ conexão utilizando o mesmo token.\end{tabular}                                                                 & \begin{tabular}[c]{@{}l@{}}Será implementado usando um serviço de chave valor,\\ como o Redis.\end{tabular}                                                                               \\ \hline
+Autenticação                                                    & \begin{tabular}[c]{@{}l@{}}Recebe o token e garante que não existe nenhuma\\ conexão utilizando o mesmo token.\end{tabular}                                                                & \begin{tabular}[c]{@{}l@{}}Será implementado usando um serviço de chave valor,\\ como o Redis.\end{tabular}                                                                               \\ \hline
 \begin{tabular}[c]{@{}l@{}}Selecionar\\ Personagem\end{tabular} & \begin{tabular}[c]{@{}l@{}}Uma conexão deve requirir o controle de um\\ personagem.\end{tabular}                                                                                           & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando uma árvore de cena interna\\ ao serviço, onde o tipo do nó será Personagem e o seu nome\\ será o nome do personagem.\end{tabular} \\ \hline
 Chat                                                            & \begin{tabular}[c]{@{}l@{}}Será possível enviar mensagens e receber. Elas serão\\ baseadas na região. Será mantido uma distância fixa\\ para todos os casos de uso.\end{tabular}           & \begin{tabular}[c]{@{}l@{}}Deve existir uma estrutura de busca interna ao serviço para\\ consultar personagens de uma região em relação a um\\ usuário.\end{tabular}                      \\ \hline
 Movimentar                                                      & \begin{tabular}[c]{@{}l@{}}Será possível movimentar o personagem para as\\ células adjacentes. Isso indica que o\\ posicionamento do personagem será baseado\\ em uma matriz.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Esta ação deve comunicar a atualização para todos os demais\\ jogadores da região de interesse.\end{tabular}                                                   \\ \hline
 Atacar                                                          & \begin{tabular}[c]{@{}l@{}}Ao atacar, o jogador causará um dano aleatório\\ baseado em seu nível em todos os inimigos das\\ células adjacentes.\end{tabular}                               & \begin{tabular}[c]{@{}l@{}}Esta ação irá manipular a árvore de objetos da cena do serviço\\ e deverá notificar todos os jogadores desta área de interesse.\end{tabular}                   \\ \hline
+Consumir                                                        & \begin{tabular}[c]{@{}l@{}}Ao consumir um item, os atributos do personagem\\ serão alterados, influenciando na regra de negócio\\ utilizada nas arquiteturas de teste\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Implicará na utilização de um banco de dados em memória\\ e manipulação de dados não visíveis pela\\ árvore de cena.\end{tabular}      \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -343,7 +344,40 @@ A partir destas funcionalidades, pode-se definir quais requisições estarão di
 A lista de comandos públicos é exibida na Tabela~\ref{tab:api_publica}.
 
 
-O ambiente do jogo será baseado em uma matrizes. Cada mapa terá 100x100 unidades.
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Requisitos mínimos para a implementação da simulação descrita}
+\label{tab:api_publica}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Nome                  & Argumentos            & Retorno & Protocolo & Direção              \\ \hline
+\textit{Auth}                  & \textit{Username, Password}    & \ac{json} & \textit{Web}       & Cliente para Serviço \\ \hline
+\textit{CreateAccount}         & \textit{Username, Password}    & \ac{json} & \textit{Web}       & Cliente para Serviço \\ \hline
+\textit{UpdateAccount}         & \textit{Username, Password}    & \ac{json} & \textit{Web}       & Cliente para Serviço \\ \hline
+\textit{CreateCharacter}       & \textit{Token, Character Name} & \ac{json} & \textit{Web}       & Cliente para Serviço \\ \hline
+\textit{DeleteCharacter}       & \textit{Token, Character ID}   & \ac{json} & \textit{Web}       & Cliente para Serviço \\ \hline
+\textit{SelectCharacter}       & \textit{Token, Character ID}   & \ac{json} & \ac{rpc}           & Cliente para Serviço \\ \hline
+\textit{WalkTo}                & \textit{Token, PosX, PosY}     &           & \ac{rpc}           & Cliente para Serviço \\ \hline
+\textit{ConsumeItem}           & \textit{Token, Item}           &           & \ac{rpc}           & Cliente para Serviço \\ \hline
+\textit{AtackHere}             & \textit{Token}                 &           & \ac{rpc}           & Cliente para Serviço \\ \hline
+\textit{SendMessage}           & \textit{Token, Message}        &           & \ac{rpc}           & Cliente para Serviço \\ \hline
+\textit{UpdateMapEstate}       & \textit{NPC, Action, MoreData} &           & \ac{rpc}           & Serviço para Cliente \\ \hline
+\textit{UpdateCharacterEstate} & \textit{NPC, Action, MoreData} &           & \ac{rpc}           & Serviço para Cliente \\ \hline
+\textit{ReceiveMessage}        & \textit{NPC, Message}          &           & \ac{rpc}           & Serviço para Cliente \\ \hline
+\textit{ReBind}                & \textit{IP, Port}              &           & \ac{rpc}           & Serviço para Cliente \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+A Tabela~\ref{tab:api_publica} descreve todos os comando que estarão disponíveis na rede.
+%
+Além destes, serão implementados outros comandos para \ac{api} privada do serviço.
+%
+No entanto, os demais comandos da \ac{api} privada não serão utilizados pelo cliente, sendo necessariamente um requisito para o funcionamento do serviço com determinada arquitetura.
+
+
+O ambiente da simulação será baseado em matrizes. Cada mapa pode ser visualizado como uma matriz de 100x100 unidades.
 %
 Os personagens podem locomover-se para as células adjacentes a sua localização.
 %
@@ -362,7 +396,13 @@ Um exemplo de estado do ambiente do jogo pode ser visualizado na Figura~\ref{fig
 
 A partir da área de interesse do jogo, como o da Figura~\ref{fig:roi}, o robô poderá decidir suas ações baseado em um automato.
 %
-Todas as ações do robô no mapa será baseado em um automato.
+Caso ele alcance os extremos do mapa, ele será movimentado para outro mapa.
+%
+Nos casos de arquiteturas com múltiplos gerenciadores de mundo, será utilizado o comando \textit{ReBind} para realizar a conexão com o microsserviço correto após o translado do personagem.
+
+
+
+Todas as ações do robô no mapa são baseado em um automato.
 %
 Nesse sentido, espera-se obter um padrão de movimentação a fim de evitar ciclos a qual um jogador comum dificilmente realizará (\textit{e.g.,} Andar para frente e para trás, ficar equipando itens em ciclo, ficar consumindo itens até acabar, \textit{etc.}).
 %
@@ -403,6 +443,13 @@ Isso contribuirá com o monitoramento do comportamento dos personagens tanto qua
 Para simular a ação de resposta de um jogador, cada robô que receber uma mensagem terá uma porcentagem fixa de $25\%$ responder a sua ação no atual momento.
 %
 Um robô não poderá responder a ele mesmo.
+
+
+Ao realizar um \textit{ReBind} ou transitar de um mapa para o outro, o estado atual do automato volta para o estado \textbf{Autenticar}.
+%
+Caso já esteja autenticado, continuará a sua busca por inimigos na nova região.
+
+O ambiente final da simulação tem 3 mapas no eixo horizontal e no eixo vertical, visto que esta é a combinação mínima para que o serviço tenha um mapa central com bordas para efetuar transições de novos personagens.
 
 %ccm Genérico/abstratpo
 % Quais experimentos serão realizados, se não necessário explicitar os caso de uso e o quê espera-se de resultado.
