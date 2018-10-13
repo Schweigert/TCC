@@ -3,17 +3,17 @@
 
 
 
-As arquiteturas de serviços \ac{mmorpg} são desenvolvidas visando suprir as necessidades do \textit{design} do jogo desenvolvido, de forma a viabilizar a utilização deste serviço.
+As arquiteturas de serviços \ac{mmorpg} são desenvolvidas visando suprir as necessidades do projeto do jogo desenvolvido, de forma a viabilizar a utilização deste serviço.
 %
-Nesse sentido, jogos com mecânicas de \textit{design} parecidos possuem implementações parecidas para os clientes.
+Nesse sentido, jogos com mecânicas de projeto similares possuem implementações parecidas para os clientes.
 %
 Entretanto, a arquitetura escolhida impacta no custo de operação e qualidade do serviço aos jogadores.
 %
-Por este motivo, diferentes arquiteturas com o mesmo \textit{design} não são comparáveis entre sí, visto que dependem das regras de negócio do \textit{design} do jogo.
+Por este motivo, diferentes arquiteturas com o mesmo \textit{design} não são comparáveis entre sí, visto que dependem das regras de negócio do jogo.
 
 
 
-Ao desenvolver um serviço \ac{mmorpg} é necessário decidir uma arquitetura na qual reduza custos, consumo de recursos e minimize ocorrências para os jogadores a fim de viabilizar o seu comércio como produto.
+Ao desenvolver um serviço \ac{mmorpg} é necessário decidir uma arquitetura que possibilite reduzir custos, consumo de recursos e minimize ocorrências para os jogadores a fim de viabilizar a sua implantação como produto.
 %
 Porém, a impossibilidade de comparação direta entre as arquiteturas de serviço \ac{mmorpg} instiga a análise das características básicas destas arquiteturas que possam influenciar o \textit{game design}, tais como consumo de recursos, tempo de resposta, latência e número máximo de clientes simultâneos conectados nos microsserviços.
 %
@@ -23,25 +23,26 @@ Sendo assim, uma análise do consumo de recursos computacionais das arquiteturas
 
 Nesta seção é descrito a proposta para análise de consumo de recursos computacionais em arquiteturas \ac{mmorpg}.
 %
-A atual seção descreve a Proposta (Subseção~\ref{sec:proposta}), trazendo os objetivos desta análise, quais recursos e métricas serão analisadas.
+Inicialmente, é descrita a proposta em alto nível (Subseção~\ref{sec:proposta}), trazendo os objetivos desta análise, quais recursos e métricas serão analisadas (TCC-II).
 %
 Os Critérios de Análise (Subseção~\ref{sec:criterios}) exibem como os dados obtidos devem ser interpretados, baseando-se nos objetivos da análise das arquiteturas.
 %
 O Plano de Testes (Subseção~\ref{sec:plano}) exibe como será realizada a coleta dos dados, descrevendo cenários, critérios e objetivos dos testes.
-
+%
+%ccm contextualizar simulação
 
 
 \section{Proposta}
 \label{sec:proposta}
 
-Tendo analisado os trabalhos relacionados e as arquiteturas específicas para jogos \ac{mmorpg}, o presente trabalho tem como objetivo analisar as arquiteturas \ac{mmorpg} visando complementar a análise de arquitetura e consumo de recursos computacionais não analisados nos trabalhos relacionados.
+Tendo analisado os trabalhos relacionados (Seção~\ref{sec:similares}) e as arquiteturas específicas para jogos \ac{mmorpg}, o presente trabalho tem como objetivo analisar as arquiteturas \ac{mmorpg} visando complementar a análise de arquitetura e consumo de recursos computacionais não analisados nos trabalhos relacionados.
 %
-Em específico, serão obtidos das arquiteturas Rudy (Subseção~\ref{rudy}), Salz (Subseção~\ref{salz}) e Willson (Subseção~\ref{willson}) os seguintes valores referentes aos recursos computacionais (Tabela~\ref{tab:recursos_categoria}):
+Em específico, serão obtidos os valores referentes aos recursos computacionais das arquiteturas Rudy (Subseção~\ref{rudy}), Salz (Subseção~\ref{salz}) e Willson (Subseção~\ref{willson}), conforme a Tabela~\ref{tab:recursos_categoria}:
 
 \begin{enumerate}
-  \item \textbf{\ac{cpu}}: o uso de CPU, com sua representação sendo em relação a porcentagem dos núcleos utilizados;
-  \item \textbf{Memória}: Quantia de memória utilizada pelos processos da máquina. A sua representação será como dado absoluto;
-  \item \textbf{Rede}: Serão obtidos os valores de entrada e saída de cada microsserviço, utilizando valores absolutos. Também será obtido o valor de latência do cliente ao microsserviço, para analisar o congestionamento da rede, a qual será representado em milissegundos.
+  \item \textbf{\ac{cpu}}: o uso de CPU, com sua representação sendo em relação a porcentagem de processamento nos núcleos utilizados;
+  \item \textbf{Memória}: Quantidade de memória utilizada pelos processos do serviço/arquitetura. A sua representação será como dado absoluto;
+  \item \textbf{Rede}: Banda de rede utilizada nas operações de entrada e saída para cada microsserviço, utilizando valores absolutos. Também será obtido o valor de latência do cliente ao microsserviço, verificando se o congestionamento da rede afeta a latência do microsserviço.
 \end{enumerate}
 
 Além dos recursos computacionais, esta análise levará em conta valores referentes a outras métricas.
@@ -53,11 +54,11 @@ As métricas, cujos os valores serão obtidos são:
   \item \textbf{Tempo de resposta das requisições}: Descobrir o tempo de resposta por categoria de requisição, conforme o número de jogadores no serviço. Será representado como tempo decorrido, em milissegundos.
 \end{enumerate}
 
-Todos estes valores serão obtidos a partir de simulações, e por este motivo se faz necessário descrever o comportamento dos jogadores simulados.
+Todos estes valores serão obtidos a partir de simulações, e por este motivo faz-se necessário descrever o comportamento dos jogadores simulados.
 %
 Espera-se em situações adversas, caracterizar os comportamentos das arquiteturas, gargalos e os custos de recursos computacionais para manutenção das arquiteturas de microsserviços.
 %
-Para este fim, se faz necessário a descrição dos critérios que serão utilizados durante a análise dos valores obtidos nos experimentos.
+Para este fim, faz-se necessário a descrição dos critérios que serão utilizados durante a análise dos valores obtidos nos experimentos.
 
 %ccm
 % objetivos
@@ -66,18 +67,18 @@ Para este fim, se faz necessário a descrição dos critérios que serão utiliz
 \section{Critérios de análise}
 \label{sec:criterios}
 
-A fim de padronizar a análise dos dados obtdos, a seção Critérios de Análise irá descrever como será guiada a análise conforme o coportamento dos valores obtidos.
+A fim de padronizar a análise dos dados obtidos, a seção Critérios de Análise irá descrever como será guiada a análise conforme o comportamento dos valores obtidos.
 %
-Neste sentido, a análise dos dados obtidos serão guiadas pelo esperado dos valores obtidos em um serviço perfeito:
+Neste sentido, a análise dos dados obtidos serão guiadas pelo esperado dos valores obtidos em um serviço perfeito: %ccm o quê é um serviço perfeito? footnote
 
 \begin{enumerate}
-  \item \textbf{CPU}: Espera-se estressar com um elevado número de requisições.
-  \item \textbf{Memória}: Espera-se estressar com requisições na qual exija armazenamento em memória.
-  \item \textbf{Rede - Entrada}: Espera-se estressar com requisições na qual tenham uma carga de dados elevada.
-  \item \textbf{Rede - Saída}: Espera-se estressar com respostas na qual tenham uma carga de dados elevada.
-  \item \textbf{Número de Conexões}: Servirá como guia de comparação com os demais valores e desempenho da arquitetura;
-  \item \textbf{Tempo de resposta das requisições}: Servira como guia de desempenho da arquitetura;
-  \item \textbf{Latência}: Servirá como guia de comparação com os demais valores;
+  \item \textbf{Consumo CPU}: Espera-se estressar com um elevado número de requisições.
+  \item \textbf{Consumo Memória}: Espera-se estressar com requisições na qual exija armazenamento em memória.
+  \item \textbf{Vazão Rede - Entrada}: Espera-se estressar com requisições na qual tenham uma carga de dados elevada.
+  \item \textbf{Vazão Rede - Saída}: Espera-se estressar com respostas na qual tenham uma carga de dados elevada.
+  \item \textbf{Número de Conexões Simultâneas}: Servirá como guia de comparação com os demais valores e desempenho da arquitetura;
+  \item \textbf{Tempo de resposta das requisições}: Servirá como guia de desempenho da arquitetura; e
+  \item \textbf{Latência entre cliente e serviço}: Servirá como guia de comparação com os demais valores.
 \end{enumerate}
 
 Em um caso de uso perfeito, todos os recursos não são estressáveis, com um número de conexões simultâneas elevado.
@@ -86,16 +87,16 @@ Porém, espera-se para o atual trabalho um possível conjunto de ocorrências, n
 %
 Este conjunto servirá de guia / exemplo de problemas relevantes retirado dos valores obtidos.
 %
-Logo, a simulação e cenários serão desenhados para forçar tais ocorrências.
+Logo, a simulação e cenários foram elaborados para forçar tais ocorrências.
 
 
-A partir dos valores obtidos e seguindo o esperado de uma arquitetura totalmente relacionada ao número de conexões, espera-se encontrar um conjunto de eventuais problemas nas arquiteturas.
+A partir dos valores obtidos, e seguindo o esperado de uma arquitetura totalmente relacionada ao número de conexões, espera-se encontrar um conjunto de eventuais problemas nas arquiteturas.
 %
-Um conjunto exemplo destes problemas são exibidos na Tabela~\ref{tab:problemas}.
+Um conjunto exemplo destes problemas estão listados na Tabela~\ref{tab:problemas}.
 
 \begin{table}[htb!]
   \centering
-  \caption{Possíveis conjuntos para a anáise}
+  \caption{Possíveis conjuntos para a análise}
   \label{tab:problemas}
   \begin{tabular}{|l|l|l|l|l|l|l|l|}
   \hline
@@ -119,20 +120,21 @@ Um conjunto exemplo destes problemas são exibidos na Tabela~\ref{tab:problemas}
   Fonte: O próprio autor.
 \end{table}
 
+\\
 A Tabela~\ref{tab:problemas} relaciona os recursos conforme dois padrões:
 
 \begin{itemize}
-  \item Valores acima da média ($\uparrow$): Fazem referência a valores acima da média, comparado ao seu limite.
-  \item Valores baixo da média ($\downarrow$): Fazem referência a valores acima da média, comparado ao seu limite.
-\end{itemize}
+  \item Valores acima da média ($\uparrow$).
+  \item Valores baixo da média ($\downarrow$).
+\end{itemize} %ccm <-16
 
 Entretanto, espera-se encontrar problemas mais detalhados, além de problemas padronizados de forma genérica na Tabela~\ref{tab:problemas}.
 %
 Espera-se encontrar eventuais problemas conforme o tipo de requisição e desenho da arquitetura.
 %
-Estes problemas servirão para guiar a analise final das arquiteturas.
+Estes problemas servirão para guiar a análise final das arquiteturas.
 
-Seguindo estes critérios da análise, se faz necessário definir um plano de testes para obter os dados conforme os cenários e casos de uso do atual trabalho.
+Seguindo estes critérios da análise, faz-se necessário definir um plano de testes para obter os dados conforme os cenários e casos de uso do atual trabalho.
 
 %ccm
 % Identificar como os valores obtidos pelas métricas devem ser interpretados
@@ -145,48 +147,49 @@ Seguindo estes critérios da análise, se faz necessário definir um plano de te
 
 
 
-O plano de testes definirá os cenários que serão aplicados sobre todas as arquiteturas de microsserviços para jogos \ac{mmorpg}.
+O plano de testes define os cenários que serão aplicados sobre todas as arquiteturas de microsserviços para jogos \ac{mmorpg}.
 %
-Ele servirá para descrever formas de estressar as arquiteturas, a fim de obter os valores para análise.
+O plano de testes serve para descrever formas de estressar as arquiteturas, a fim de obter valores para análise.
 %
-Entretanto, antes de relatar os cenários de teste, se faz necessário descrever o ambiente onde ocorrerá tais testes.
+Entretanto, antes de relatar os cenários de teste, faz-se necessário descrever o ambiente no qual serão realizados os experimentos.
 %
 A Figura~\ref{Ambiente de testes} descreve a infraestrutura utilizada para execução das camadas de aplicação utilizados nos testes.
 
 
 
 \begin{figure}[htb!]
-  \caption{Ambiente de testes definido para a coleta de dados}
+  \caption{Ambiente de testes definido para a coleta de dados.}
   \label{Ambiente de testes}
   \includegraphics[height=6.5cm]{img/cap3/infraestrutura.png}
   \centering
 
   Fonte: O próprio autor.
 \end{figure}
+%ccm Contêiner, na figura... corrigir
 
 
 
-Como visível na Figura~\ref{Ambiente de testes}, o ambiente de testes planejado está segregado em 5 camadas.
+Como visível na Figura~\ref{Ambiente de testes}, o ambiente de testes planejado está organizado em cinco regiões.
 %
-Essas camadas tem o objetivo de diminuir o impacto de desempenho e consumo de recursos por outras ferramentas durante os testes.
+Essas regiões foram segregadas com o objetivo de diminuir o impacto de desempenho e consumo de recursos por outras ferramentas durante a coleta de dados.
 %
 Por este motivo, as regiões da infraestrutura planejada são:
 
 
 
 \begin{enumerate}
-  \item \textbf{Serviço de Jogo}: A camada de serviço da infraestrutura dos testes concentrará a arquitetura de microsserviços referente as arquiteturas de microsserviços analisadas.
+  \item \textbf{Serviço de Jogo}: A camada de serviço da infraestrutura dos testes concentrará a arquitetura dos microsserviços referente às arquiteturas de microsserviços analisadas.
   \item \textbf{Banco de dados do serviço de jogo}: A camada de banco de dados do serviço de jogo conterá os serviços de dados e web a fim de manter um padrão de banco de dados para ambos os serviços utilizados e auxiliar na inicialização dos testes.
   \item \textbf{Estresse}: A camada de estresse será responsável por realizar requisições ao serviço a fim de estressá-lo, simulando padrões de requisição de um padrão de um jogador.
   \item \textbf{Cliente}: A camada de cliente será composta pelos mesmos elementos da camada de estresse, porém em um ambiente controlado para que a suíte de estresse não interfira nas métricas obtidas no lado do cliente.
-  \item \textbf{Dados}: A camada de dados será composta por algum banco de dados de log a fim de armazenar os dados obtidos da camada Cliente e serviço, para utilizar na análise.
+  \item \textbf{Dados}: A camada de dados será composta por um banco de dados de log a fim de armazenar os dados obtidos da camada Cliente e serviço, para utilizar na análise.
 \end{enumerate}
+%ccm <-15
 
 
-
-As regiões da infraestrutura utilizada no ambiente de testes deve manter um padrão a fim que não exista interferência entre os testes, além do desempenho das arquiteturas do serviço.
+As regiões da infraestrutura utilizada no ambiente de testes devem manter um padrão a fim que não exista interferência entre os testes, além do desempenho das arquiteturas do serviço.
 %
-Espera-se utilizar em grande parte o mesmo sistema de cliente para ambas as arquiteturas, excluso casos onde a arquitetura necessite de alterações.
+Espera-se utilizar uma considerável parte do mesmo sistema de cliente para ambas as arquiteturas, excluindo-se os casos no quais a arquitetura necessite de alterações.
 %
 Nesse sentido, espera-se obter somente a interferência das arquiteturas expressa nos valores obtidos.
 
@@ -200,7 +203,7 @@ São essas elas:
 
 \begin{enumerate}
   \item \textbf{Arquitetura Rudy} (Subseção~\ref{rudy});
-  \item \textbf{Arquitetura Salz} (Subseção~\ref{salz});
+  \item \textbf{Arquitetura Salz} (Subseção~\ref{salz}); e
   \item \textbf{Arquitetura Willson} (Subseção~\ref{willson}).
 \end{enumerate}
 
@@ -214,12 +217,12 @@ Espera-se obter os valores referente a diferença de consumo de recursos computa
 
 Com o objetivo de obter dados, se faz necessário estressar as arquiteturas em casos diferentes para garantir a confiabilidade dos dados obtidos.
 %
-Dessa forma, será desenvolvido três cenários distintos a fim de obter dados utilizando para um número mínimo de jogadores simulados, com um custo operacional crescente de jogadores simulados a fim de descobrir as limitações das arquiteturas e por fim um cenário utilizando um número real de jogadores de um serviço \ac{mmorpg} obtidos da literatura.
+Dessa forma, foram desenvolvidos três cenários distintos a fim de obter dados utilizando para um número mínimo de jogadores simulados, com um custo operacional crescente de jogadores simulados a fim de descobrir as limitações das arquiteturas e por fim um cenário utilizando um número real de jogadores de um serviço \ac{mmorpg} obtidos da literatura.
 
 
 
 \subsection{Cenário I}
-
+% Caracterização do consumo de recursos em função da quantidade de usuários
 
 
 O Cenário I corresponde execução dos casos de uso utilizando o menor número de jogadores simultâneos simulados possível.
@@ -238,16 +241,16 @@ Para alcançar tal objetivo, este cenário será executado utilizando o método 
 \label{tab:cenario_1}
 \begin{tabular}{|l|l|}
 \hline
-Tempo de captura    & 30 minutos \\ \hline
-Número de jogadores & 1          \\ \hline
-Jogadores por tempo & $f(t) = 1$ \\ \hline
+Tempo de captura    & 30 minutos por experimento \\ \hline
+Número de jogadores inicial & 1          \\ \hline
+Quantidade de jogadores simultâneos & $f(t) = 1$ \\ \hline
 Número de execuções & 5          \\ \hline
 \end{tabular}
 \end{table}
 
 
 
-A Tabela~\ref{tab:cenario_1} descreve as características de tempo de captura de logs para cara execução, a partir do inicio dos testes, o número de jogadores inicial, a função de crescimento de jogadores pelo tempo e o número de execuções do mesmo cenário.
+A Tabela~\ref{tab:cenario_1} descreve as características de tempo de captura de logs para cara execução, a partir do início dos testes, o número de jogadores inicial, a função de crescimento de jogadores pelo tempo e o número de execuções do mesmo cenário.
 %
 Espera-se que seguindo tais medidas, obtenha-se dados semelhantes.
 
