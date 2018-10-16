@@ -494,6 +494,33 @@ Nesse sentido, pode-se definir os seguintes testes:
 
 A partir desta sequência de testes, espera-se obter valores suficientes para a análise das arquiteturas de microsserviços específico a jogos \ac{mmorpg}.
 
+
+
+\section{Considerações parciais}
+
+
+Este capítulo definiu os objetivos da análise de microsserviços específicos a jogos \ac{mmorpg}.
+%
+Para alcançar tais objetivos, se fez necessário definir quais métricas serão obtidas e como estes dados podem ser analisados.
+%
+Por fim, definiu-se qual o ambiente, cenário e testes que serão executados para obter tais dados.
+
+Dessa forma, foi definido que será obtido os valores de uso de \ac{cpu}, memória, vazão de rede (tanto para entrada quanto saída), número de conexões simultâneas, tempo de resposta das requisições e latência entre cliente e serviço.
+%
+Estes valores serão analisados conforme possíveis problemas conhecidos, definidos na seção de critérios.
+
+A fim de obter tais valores para análise, o plano de testes definiu um ambiente baseado em camadas conforme a demanda das arquiteturas submetidas a análise.
+%
+Foi projetado 5 sub-redes no cenário de testes baseado nas regiões definidas no ambiente de testes.
+%
+A partir destas sub-redes, foi estipulado valores de recursos computacionais limites e números de instâncias máximas.
+%
+Entretanto, não foi possível definir o limite de instâncias para a sub-rede de estresse.
+%
+Por fim, foi definido regras de negócio básicas para os clientes simulados, baseados em um automato.
+
+Os testes que serão executados sobre as redes são baseados obter valores dos recursos mínimos para execução dos serviços e o seu crescimento conforme um número de clientes simultâneos.
+
 %ccm Genérico/abstratpo
 % Quais experimentos serão realizados, se não necessário explicitar os caso de uso e o quê espera-se de resultado.
 %
