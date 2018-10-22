@@ -58,16 +58,12 @@ Espera-se, em situações adversas, caracterizar os comportamentos das arquitetu
 %
 Para este fim, faz-se necessário a descrição dos critérios que serão utilizados durante a análise dos valores obtidos nos experimentos.
 
-%ccm
-% objetivos
-% Definição das métricas para os itens levantados nas Tabelas 2.4 e 2.5
-
 \section{Critérios de análise}
 \label{sec:criterios}
 
 A fim de padronizar a análise dos dados obtidos, estes serão estabelecidos usando como base o comportamento dos valores obtidos em referenciais.
 %
-Neste sentido, a análise dos dados obtidos serão guiadas pelo esperado dos valores obtidos em um serviço padrão: 
+Neste sentido, a análise dos dados obtidos serão guiadas pelo esperado dos valores obtidos em um serviço padrão:
 
 \begin{enumerate}
   \item \textbf{Consumo CPU}: Espera-se estressar com um elevado número de requisições.
@@ -134,11 +130,7 @@ Estes problemas servirão para guiar a análise final das arquiteturas.
 
 Seguindo estes critérios da análise, faz-se necessário definir um plano de testes para obter os dados conforme os cenários e casos de uso do atual trabalho.
 
-%ccm
-% Identificar como os valores obtidos pelas métricas devem ser interpretados
-% pode ser individdual ou em grupos, defiir a finalidade? Custo? Desempenho?
 
-%ccm Usar os critérios das colunas das Tabelas 2.4 e 2.5 de modo a deixar clara a importância de realizar uma análise que contemple todos os itens e não apenas partes deles, como identificado nos trabalahos relacionados (Seção 2.7).
 
 \section {Plano de testes}
 \label{sec:plano}
@@ -186,9 +178,10 @@ Por este motivo, as regiões da infraestrutura planejada são:
 
 Tais regiões da infraestrutura utilizada no ambiente de testes devem manter um padrão a fim que não exista interferência entre os testes, além do desempenho das arquiteturas do serviço.
 %
-Espera-se utilizar uma considerável parte do mesmo sistema de cliente para ambas as arquiteturas, excluindo-se os casos no quais a arquitetura necessite de alterações.
+Dessa forma, espera-se dividir as aplicações conforme a sua rede, facilitando o seu monitoramento.
 %
-Nesse sentido, espera-se obter somente a interferência das arquiteturas expressa nos valores obtidos. %ccm <-16
+Entretanto, por se tratar de um sistema baseado em serviço, espera-se utilizar uma considerável parte do mesmo sistema de cliente para ambas as arquiteturas, excluindo-se os casos no quais a arquitetura necessite de alterações.
+
 
 
 
@@ -199,9 +192,9 @@ São essas elas:
 
 
 \begin{enumerate}
-  \item Arquitetura Rudy (Subseção~\ref{rudy}); %ccm colocar uma breve descrição da motivação.
-  \item Arquitetura Salz (Subseção~\ref{salz}); e
-  \item Arquitetura Willson (Subseção~\ref{willson}).
+  \item Arquitetura Rudy (Subseção~\ref{rudy}), na qual basea-se na segregação de jogadores por canais;
+  \item Arquitetura Salz (Subseção~\ref{salz}), na qual basea-se em gerar muitos serviços escaláveis; e
+  \item Arquitetura Willson (Subseção~\ref{willson}), na qual basea-se em extrair microsserviços de regras de negócio mais custosas.
 \end{enumerate}
 
 
@@ -228,10 +221,14 @@ O cenário reflete diretamente sobre o ambiente proposto para esta análise.
 %
 Ela será executada sobre 5 camadas, nas quais cada camada estará isolada em sub-redes em uma nuvem de computadores.
 
-O cenário será composto por 5 sub-redes, na qual cada uma será responsável pela operação de uma região do ambiente planejado (Figura~\ref{fig:cenario}). %ccm <-11
+O cenário será composto por 5 sub-redes, na qual cada uma será responsável pela operação de uma região do ambiente planejado (Figura~\ref{fig:cenario}).
+%
+Esta divisão física em redes facilitará a orquestração dos serviços na rede, seguindo boas práticas de implantação de microsserviços.
+%
+Além disso, pode-se garantir que a interface do serviço público para o cliente segue o padrão de um serviço \ac{mmorpg} real.
 
 \begin{figure}[htb!]
-  \caption{Cenário} %???
+  \caption{Rede de execução dos testes}
   \label{fig:cenario}
   \includegraphics[height=8cm]{img/cap3/cenario.png}
   \centering
@@ -239,7 +236,7 @@ O cenário será composto por 5 sub-redes, na qual cada uma será responsável p
   Fonte: O próprio autor.
 \end{figure}
 
-O cenário, exibido na Figura~\ref{fig:cenario} descreve cinco sub-redes. 
+O cenário, exibido na Figura~\ref{fig:cenario} descreve cinco sub-redes.
 %
 Estas redes são descritas da seguinte forma:
 
@@ -321,12 +318,15 @@ A partir da Tabela~\ref{tab:limite_recursos}, espera-se definir um limite de rec
 %
 A única rede que pode variar conforme o teste será a rede Estresse, visto que a demanda para estressar uma rede pode mudar conforme as características do teste.
 
-Após ter definido as características básicas do cenário na qual será executado os experimentos,  faz-se necessário definir as características da simulação dos clientes para os experimentos. %ccm <-11
+A partir deste cenário, é definido qual o comportamento dos clientes na execução dos testes.
+%
+Neste sentido, se faz necessário definir características mínimas de regra de negócio, padrão de comportamento e interface esperada para o serviço e cliente.
 
 
 
 \subsection{Simulação de Clientes}
 \label{sec:SimulaCliente}
+
 
 
 Utilizando a simulação de clientes objetiva-se estressar as arquiteturas utilizando um ataque com \textit{bots}.
@@ -402,7 +402,11 @@ Além destes, serão implementados outros comandos para \ac{api} privada do serv
 No entanto, os demais comandos da \ac{api} privada não serão utilizados pelo cliente, sendo necessariamente um requisito para o funcionamento do serviço com determinada arquitetura.
 
 
-O ambiente da simulação será baseado em matrizes. Cada mapa pode ser visualizado como uma matriz de 100x100 unidades. %ccm Pensar em justificativa para 100x100
+O ambiente da simulação será baseado em matrizes.
+%
+Cada mapa pode ser visualizado como uma matriz de 100x100 unidades.
+%
+Dessa forma, temos um ambiente com valor exato, a qual facilite calculos internos do serviço e cliente, promovam um ambiente vasto porém sem utilizar recursos de forma exagerada para os testes.
 %
 Os personagens podem locomover-se para as células adjacentes a sua localização.
 %
@@ -493,8 +497,9 @@ Nesse sentido, foram definidos os seguintes testes:
   \item Executar a arquitetura Willson com zero jogadores simultâneos, aumentando a cada minuto 10 jogadores ao serviço, até o serviço obter algum microsserviço terminar a sua execução por erro interno.
 \end{enumerate}
 
-A partir desta sequência de testes, espera-se obter valores suficientes para a análise das arquiteturas de microsserviços específico a jogos \ac{mmorpg}. %ccm <-11 espera-se
-
+A partir desta sequência de testes, é obtido valores suficientes para a análise das arquiteturas de microsserviços específico a jogos \ac{mmorpg}.
+%
+Eles serão utilizados para análise conforme os critérios definidos, buscando possíveis gargalos e problemas de escalabilidade do sistema.
 
 
 \section{Considerações parciais}
@@ -521,8 +526,3 @@ Entretanto, não foi possível definir o limite de instâncias para a sub-rede d
 Por fim, foi definido regras de negócio básicas para os clientes simulados, baseados em um automato.
 
 Os testes que serão executados sobre as redes são baseados obter valores dos recursos mínimos para execução dos serviços e o seu crescimento conforme um número de clientes simultâneos.
-
-%ccm Genérico/abstratpo
-% Quais experimentos serão realizados, se não necessário explicitar os caso de uso e o quê espera-se de resultado.
-%
-% Descrever como cenários, critérios e objetivos de testes.
