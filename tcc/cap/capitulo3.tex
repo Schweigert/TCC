@@ -219,9 +219,9 @@ Este cenário possibilita a execução do experimento junto a simulação de cli
 
 O cenário reflete diretamente sobre o ambiente proposto para esta análise.
 %
-Ela será executada sobre 5 camadas, nas quais cada camada estará isolada em sub-redes em uma nuvem de computadores.
+Este será executado sobre cinco camadas, nas quais cada camada estará isolada em sub-redes em uma nuvem de computadores.
 
-O cenário será composto por 5 sub-redes, na qual cada uma será responsável pela operação de uma região do ambiente planejado (Figura~\ref{fig:cenario}).
+O cenário será composto por cinco sub-redes, na qual cada uma será responsável pela operação de uma região do ambiente planejado (Figura~\ref{fig:cenario}).
 %
 Esta divisão física em redes facilitará a orquestração dos serviços na rede, seguindo boas práticas de implantação de microsserviços.
 %
@@ -344,7 +344,7 @@ Nesse sentido, a Tabela~\ref{tab:requisitos_funcionais} relaciona a funcionalida
 \begin{table}[htb!]
 \centering
 \begin{adjustbox}{max width=\textwidth}
-\caption{Requisitos funcionais e impacto de implementação}
+\caption{Requisitos das funcionalidades e respectivo impacto de implementação.}
 \label{tab:requisitos_funcionais}
 \begin{tabular}{|l|l|l|}
 \hline
@@ -395,11 +395,11 @@ Nome                  & Argumentos            & Retorno & Protocolo & Direção 
 \end{adjustbox}
 \end{table}
 
-A Tabela~\ref{tab:api_publica} descreve todos os comando que estarão disponíveis na rede.
+A Tabela~\ref{tab:api_publica} descreve todos os comandos que estarão disponíveis na rede.
 %
 Além destes, serão implementados outros comandos para \ac{api} privada do serviço.
 %
-No entanto, os demais comandos da \ac{api} privada não serão utilizados pelo cliente, sendo necessariamente um requisito para o funcionamento do serviço com determinada arquitetura.
+Porém, os demais comandos da \ac{api} privada não serão utilizados pelo cliente, sendo necessariamente um requisito para o funcionamento do serviço com determinada arquitetura.
 
 
 O ambiente da simulação será baseado em matrizes.
@@ -415,7 +415,7 @@ O raio de interesse é de quatro células.
 Um exemplo de estado do ambiente do jogo pode ser visualizado na Figura~\ref{fig:roi}.
 
 \begin{figure}[htb!]
-  \caption{Área de interesse da simulação com raio de 4 células}
+  \caption{Área de interesse da simulação com raio de quatro células.}
   \label{fig:roi}
   \includegraphics[height=5.0cm]{img/cap3/roi.png}
   \centering
@@ -497,9 +497,9 @@ Nesse sentido, foram definidos os seguintes testes:
   \item Executar a arquitetura Willson com zero jogadores simultâneos, aumentando a cada minuto 10 jogadores ao serviço, até o serviço obter algum microsserviço terminar a sua execução por erro interno.
 \end{enumerate}
 
-A partir desta sequência de testes, é obtido valores suficientes para a análise das arquiteturas de microsserviços específico a jogos \ac{mmorpg}.
+A partir desta sequência de testes, são obtido valores suficientes para a análise das arquiteturas de microsserviços específicas a jogos \ac{mmorpg}.
 %
-Eles serão utilizados para análise conforme os critérios definidos, buscando possíveis gargalos e problemas de escalabilidade do sistema.
+Estes serão utilizados para análise conforme os critérios definidos, buscando possíveis gargalos e problemas de escalabilidade do sistema.
 
 
 \section{Considerações parciais}
@@ -517,7 +517,7 @@ Estes valores serão analisados conforme possíveis problemas conhecidos, defini
 
 A fim de obter tais valores para análise, o plano de testes definiu um ambiente baseado em camadas conforme a demanda das arquiteturas submetidas a análise.
 %
-Foi projetado 5 sub-redes no cenário de testes baseado nas regiões definidas no ambiente de testes.
+Foram projetado cinco sub-redes no cenário de testes baseado nas regiões definidas no ambiente de testes.
 %
 A partir destas sub-redes, foi estipulado valores de recursos computacionais limites e números de instâncias máximas.
 %
@@ -525,4 +525,4 @@ Entretanto, não foi possível definir o limite de instâncias para a sub-rede d
 %
 Por fim, foi definido regras de negócio básicas para os clientes simulados, baseados em um automato.
 
-Os testes que serão executados sobre as redes são baseados obter valores dos recursos mínimos para execução dos serviços e o seu crescimento conforme um número de clientes simultâneos.
+Os testes que serão executados sobre as redes são baseados obter valores dos recursos mínimos para execução dos serviços e o seu crescimento conforme um número de clientes simultâneos. %ccm <-16,11

@@ -19,23 +19,21 @@ Neste gênero, especificado de interpretação de papéis de forma massiva em um
 
 
 
-A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores\cite{stephenclarkewillson2017}, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}.
+A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sobre uma arquitetura que executa o serviço sobre diversos servidores~\cite{stephenclarkewillson2017}, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}.
 %
 Modelar um sistema de alto desempenho torna-se um trabalho essencial para a satisfação do usuário final neste cenário~\cite{1417630}.
 %
 As ocorrências geradas por um sistema de baixo desempenho podem acarretar em frustração do usuário com o serviço e/ou aumento dos gastos com recurso computacional para manter o serviço.
-
-
-
+%
 Uma ocorrência é qualquer tipo de mal funcionamento em uma aplicação, não necessariamente aparente ao usuário final~\cite{1417630}.
 %
 Evitar ou eliminar as ocorrências durante o projeto e desenvolvimento das arquiteturas do serviço é um processo crítico para o bom funcionamento desses jogos.
 
 
 
-Algumas análises/propostas analisam a escalabilidade de serviços baseados em microsserviços com o seu foco para desenvolvimento \textit{web}~\cite{photon_engine, mmorpg_culture}.
+Algumas análises/propostas discorrem sobre a escalabilidade dos serviços baseados em microsserviços com o seu foco para desenvolvimento \textit{web}~\cite{photon_engine, mmorpg_culture}.
 %
-Entretanto, a estrutura de um serviço \ac{mmorpg} baseado em microsserviços é bem mais abrangente, a qual necessita de maior desempenho comparado a serviços \textit{web}~\cite{photon_engine, mmorpg_culture}.
+Entretanto, a estrutura de um serviço \ac{mmorpg} baseado em microsserviços é bem mais abrangente, necessitando de maior desempenho comparado a serviços \textit{web}~\cite{photon_engine, mmorpg_culture}.
 %
 Dessa forma, torna-se interessante a análise de serviços \ac{mmorpg} baseados em microsserviços.
 
@@ -46,6 +44,7 @@ Portanto o problema principal identificado é a análise de consumo de recursos 
 Adicionalmente a este problema, será necessário o desenvolvimento de tais arquiteturas para submissão a experimentos e análise.
 
 
+%ccm <-objetivos aqui
 
 Para dar suporte a proposta deste trabalho, uma revisão da literatura foi apresentada, a fim de esclarecer os conceitos principais referentes a temática de serviços \ac{mmorpg}.
 %
@@ -55,26 +54,17 @@ A relevância desta análise contribui, diretamente para que outros trabalhos ci
 
 
 
-Este trabalho está organizado em cinco capítulos, que dão suporte a análise das arquiteturas específicas a jogos \ac{mmorpg} proposta.
-%
-No Capítulo~\ref{cap2} são apresentados os conceitos necessários para o entendimento desse trabalho, com a finalidade de apresentar o funcionamento básico de um cliente e serviço \ac{mmorpg}, arquitetura de um serviço baseado em microsserviços e por fim em específico algumas arquiteturas de microsserviços \ac{mmorpg} encontradas na literatura.
-%
-No fim do Capítulo~\ref{cap2}, são abordados trabalhos relacionados encontrados na literatura, tendo como objetivo principal destacar e comparar suas características, a fim de prover fundamentos para a análise dos serviços descritos na referenciação teórica.
-%
-A proposta é definida no Capítulo~\ref{cap3}, a qual define o plano de extração de valores, a interpretação de tais valores e cenário a qual as arquiteturas propostas serão implantados.
-%
-A conclusão definida no Capítulo~\ref{cap:conclusao} levanta algumas considerações finais do trabalho desenvolvido até o momento, bem como indica as atividades concluídas, em andamento e próximas atividades deste trabalho.
 
 
 
-\section{Objetivos Específicos}
+\section{Objetivos}
 
-
+%ccm Objetivo
 
 Os objetivos específicos deste trabalho são:
 
 
-
+%ccm esse são as etapas, não os objetivos específicos
 \begin{enumerate}
 	\item \textbf{Levantamento e fichamento das referências:} Pesquisa de fontes para embasamento teórico do trabalho, com base nos objetivos específicos;
 	      
@@ -108,7 +98,7 @@ Os objetivos específicos deste trabalho são:
 
 
 
-A analise será inicialmente realizada através de um levantamento bibliográfico sobre arquiteturas de microsserviços e arquitetura de serviços \ac{mmorpg}.
+A analise será inicialmente realizada através de um pesquisa referenciada sobre arquiteturas de microsserviços e arquitetura de serviços \ac{mmorpg}.
 %
 Depois, um estudo sobre a intersecção de ambos os temas.
 %
@@ -121,3 +111,16 @@ Em seguida será definida a proposta, junto a testes e cenários a fim de analis
 Este trabalho de conclusão de curso possui natureza aplicada pois será necessário a implementação das arquiteturas descritas na literatura, utilizando as mesmas regras de negócio, viabilizando uma análise igualitária entre as arquiteturas propostas.
 %
 A análise será abordada de maneira qualitativa, pois será feito um estudo a partir de valores gerados por experimentos utilizando as ferramentas, abordando as características de tais arquiteturas.
+
+\section{Organização do trabalho}
+
+
+Este trabalho está organizado em cinco capítulos, que dão suporte a análise das arquiteturas específicas a jogos \ac{mmorpg} proposta.
+%
+No Capítulo~\ref{cap2} são apresentados os conceitos necessários para o entendimento desse trabalho, com a finalidade de apresentar o funcionamento básico de um cliente e serviço \ac{mmorpg}, arquitetura de um serviço baseado em microsserviços e por fim em específico algumas arquiteturas de microsserviços \ac{mmorpg} encontradas na literatura.
+%
+No final do Capítulo~\ref{cap2}, são abordados trabalhos relacionados encontrados na literatura, tendo como objetivo principal destacar e comparar suas características, a fim de prover fundamentos para a análise dos serviços descritos na referenciação teórica.
+%
+A proposta é definida no Capítulo~\ref{cap3}, a qual define o plano de extração de valores, a interpretação de tais valores e cenário a qual as arquiteturas propostas serão implantados.
+%
+%A conclusão definida no Capítulo~\ref{cap:conclusao} levanta algumas considerações finais do trabalho desenvolvido até o momento, bem como indica as atividades concluídas, em andamento e próximas atividades deste trabalho.
