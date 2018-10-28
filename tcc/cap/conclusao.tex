@@ -1,50 +1,60 @@
 \chapter{Considerações \& Próximos passos}
 \label{cap:conclusao}
 
-                1. Uma explicação informando de modo claro se atingiu ou não os objetivos estabelecidos (aqui pode-se ter também uma subdivisão entre objetivos gerais e objetivos específicos). Em cada caso devem ser explicados os motivos:
-                    a. Caso tenha atingido os objetivos: informar os principais fatores que contribuíram para o sucesso, descrevendo-os de forma breve porém que não deixem dúvidas;
-                    b. Caso não tenha atingido os objetivos: informar o quanto do objetivo foi atingido e citar os fatores que contribuíram para o insucesso, descrevendo-os de forma breve porém que não deixe dúvidas.
-                2. Descrever as principais considerações e conclusões que foram obtidas em decorrência da execução do trabalho. Aqui não deve ser repetido texto já existente no trabalho mas escrever as impressões dessas considerações e como elas contribuíram para a execução e atingir o objetivo;
-                3. Citar e descrever as principais dificuldades encontradas para execução do trabalho e projeto. Todo o trabalho desenvolvido significa uma evolução para o aluno, sendo que para chegar essa evolução o mesmo necessitou transpor uma série de obstáculos. Relatar os obstáculos e como superou (ou não superou)  ajuda a dignificar e mostrar o mérito do trabalho em si para o leitor/ avaliador. Também é uma contribuição, no sentido que uma vez expostos os problemas e soluções os leitores/avaliadores aprendem/conhecem formas de resolução ou de abordagem a tais problemas; 
-                4. Comentar se ocorreram modificações durante a execução do trabalho no escopo definido na fase de Projeto e no que fora desenvolvido. Deve ser explicado o quê gerou essas modificações, fundamentando e justificando tais alterações. 
-                5. Pode ser descrita a relação entre cronograma proposto e cronograma realizado no trabalho. Permitindo assim o leitor/avaliador aprender com as distorções/acertos indicados.  
-                6. Descrever ou citar trabalhos futuros que podem ser feitos com base nesse trabalho desenvolvido. No decorrer da execução de um trabalho busca-se atingir um objetivo definido no projeto, porém vários assuntos interessantes de pesquisar são  revelados (sendo que os mesmo não são tratados/pesquisados no trabalho por não condizerem com os objetivos / escopo do trabalho). A descrição de tais assuntos/temas/pesquisas demonstra a percepção desenvolvida pelo aluno no desenvolvimento assim como a sua visão de objetividade na execução desse trabalho.
+                % 1. Uma explicação informando de modo claro se atingiu ou não os objetivos estabelecidos (aqui pode-se ter também uma subdivisão entre objetivos gerais e objetivos específicos). Em cada caso devem ser explicados os motivos:
+                %     a. Caso tenha atingido os objetivos: informar os principais fatores que contribuíram para o sucesso, descrevendo-os de forma breve porém que não deixem dúvidas;
+                %     b. Caso não tenha atingido os objetivos: informar o quanto do objetivo foi atingido e citar os fatores que contribuíram para o insucesso, descrevendo-os de forma breve porém que não deixe dúvidas.
+                % 2. Descrever as principais considerações e conclusões que foram obtidas em decorrência da execução do trabalho. Aqui não deve ser repetido texto já existente no trabalho mas escrever as impressões dessas considerações e como elas contribuíram para a execução e atingir o objetivo;
+                % 3. Citar e descrever as principais dificuldades encontradas para execução do trabalho e projeto. Todo o trabalho desenvolvido significa uma evolução para o aluno, sendo que para chegar essa evolução o mesmo necessitou transpor uma série de obstáculos. Relatar os obstáculos e como superou (ou não superou)  ajuda a dignificar e mostrar o mérito do trabalho em si para o leitor/ avaliador. Também é uma contribuição, no sentido que uma vez expostos os problemas e soluções os leitores/avaliadores aprendem/conhecem formas de resolução ou de abordagem a tais problemas; 
+                % 4. Comentar se ocorreram modificações durante a execução do trabalho no escopo definido na fase de Projeto e no que fora desenvolvido. Deve ser explicado o quê gerou essas modificações, fundamentando e justificando tais alterações. 
+                % 5. Pode ser descrita a relação entre cronograma proposto e cronograma realizado no trabalho. Permitindo assim o leitor/avaliador aprender com as distorções/acertos indicados.  
+                % 6. Descrever ou citar trabalhos futuros que podem ser feitos com base nesse trabalho desenvolvido. No decorrer da execução de um trabalho busca-se atingir um objetivo definido no projeto, porém vários assuntos interessantes de pesquisar são  revelados (sendo que os mesmo não são tratados/pesquisados no trabalho por não condizerem com os objetivos / escopo do trabalho). A descrição de tais assuntos/temas/pesquisas demonstra a percepção desenvolvida pelo aluno no desenvolvimento assim como a sua visão de objetividade na execução desse trabalho.
+
+Este TCC tem como objetivo levantar questões relacionadas a complexidade de coordenação de arquiteturas de microsserviços para jogos \ac{mmorpg}.
+%
+Estas arquiteturas são complexas devido a quantidade de elementos em sua arquitetura a fim de suprir a demanda do mercado para estes jogos.
+%
+Sendo assim, para entender melhor as características de tais arquiteturas, este trabalho propõe a realização de uma análise sobre arquiteturas distintas expressas na literatura.
 
 
+O atual trabalho atingiu seus objetivos, a qual iniciou-se no primeiro semestre de 2018.
+%
+Dentre as atividades estipuladas para a primeira fase do TCC, todas foram concluídas, porém não dentro do prazo estipulado de um semestre.
+
+As principais considerações a cerca da pesquisa referenciada são relevante as características de projeto de um serviço distribuído em microsserviços para atender jogos \ac{mmorpg}.
+%
+Elas podem ser enumeradas da seguinte forma:
+
+\begin{itemize}
+  \item Preocupação de consumo de recursos e escalabilidade para muitos jogadores, evitando a segregação de jogadores em seu ambiente;
+  \item Preocupação dos autores das arquiteturas a cerca do processamento em relação ao escalonador de processos do sistema operacional, cache de dados e/ou requisições e modelo de processamento paralelo das requisições, visando alto desempenho das arquiteturas;
+  \item Preocupação dos desenvolvedores das arquiteturas para permitir o seu funcionamento independente do cliente, fomentando o desenvolvimento multiplataforma do gênero.
+\end{itemize}
+
+Estas preocupações ampliam a utilidade do atual trabalho.
+%
+Entretanto, o conteúdo encontrado para a pesquisa referenciada dificultou o processo de desenvolvimento da referenciação teórica.
+%
+Em específico, as dificuldades encontradas durante a elaboração da primeira parte do atual trabalho foram:
+
+\begin{itemize}
+  \item Dificuldade de encontrar material científico ou acadêmico correlacionando arquiteturas de microsserviços e arquiteturas para jogos \ac{mmorpg}.
+  \item Os autores das arquiteturas especificam com exatidão determinados pontos relevantes ao projeto, mas não existe um aprofundamento para determinados microsserviços da arquitetura. Dessa forma foi necessário realizar buscas na literatura a fim de viabilizar tais projetos, seguindo as especificações das arquiteturas.
+\end{itemize}
+
+Além das dificuldades com relação direta aos objetivos atuais deste trabalho, houve a necessidade de estudar sobre diversas tecnologias que permeiam o processo de implantação, desenvolvimento e testes de arquiteturas de microsserviços.
+%
+A resolução destas dificuldades na atual etapa facilitará o desenvolvimento do TCC II.
+
+Para o TCC-II será desenvolvido as arquiteturas de microsserviços para jogos \ac{mmorpg} descritas na proposta do atual trabalho.
+%
+Também será desenvolvido testes de carga automatizado a fim de facilitar a etapa de testes das arquiteturas.
+%
+Por fim, os dados coletados por um sistema de análise de recursos desenvolvido no TCC-II, durante os testes, serão analisados a fim de gerar uma análise das arquiteturas de microsserviços para jogos \ac{mmorpg} que levantará questões de desempenho presentes nela.
+%
+Espera-se obter características específicas diferentes de cada arquitetura durante esta análise, casos de uso onde cada arquitetura seja aplicável e solução de gargalos encontrados ns arquiteturas descritas.
 
 
-
-
-% 
-% Este TCC tem como objetivo levantar questões relacionadas a complexidade de coordenação de arquiteturas de microsserviços para jogos \ac{mmorpg}.
-% %
-% Estas arquiteturas são complexas devido a quantidade de elementos em sua arquitetura a fim de suprir a demanda do mercado para estes jogos.
-% %
-% Sendo assim, para entender melhor as características de tais arquiteturas, este trabalho propõe a realização de uma análise sobre arquiteturas distintas expressas na literatura.
-% 
-% 
-% 
-% O levantamento bibliográfico é um dos passos iniciais para guiar este objetivo. Nessa etapa apresentou-se conceitos de jogos \ac{mmorpg}, padrões de projetos para tais jogos, protocolos utilizados e técnicas de desenvolvimento.
-% %
-% Sobre estes conceitos foi descrito o problema referenciado neste TCC, no qual aplicaram-se alguns dos conceitos descritos anteriormente.
-% 
-% 
-% 
-% Após, foram analisados trabalhos relacionados cujos os objetivos são de análise de arquiteturas de microsserviços ou análise de arquiteturas de jogos \ac{mmorpg}.
-% %
-% Para guiar o inicio da proposta, foi descrito as arquiteturas encontradas na literatura, na qual serão utilizadas no plano de testes do atual trabalho.
-% %
-% Na segunda parte da proposta, foi apresentado o plano de testes a fim de dar suporte a análise das arquiteturas.
-% 
-% 
-% 
-% Para o TCC-II será desenvolvido as arquiteturas de microsserviços para jogos \ac{mmorpg} descritas na proposta do atual trabalho.
-% %
-% Também será desenvolvido testes de carga automatizado a fim de facilitar a etapa de testes das arquiteturas.
-% %
-% Por fim, os dados coletados por um sistema de análise de recursos desenvolvido no TCC-II, durante os testes, serão analisados a fim de gerar uma análise das arquiteturas de microsserviços para jogos \ac{mmorpg} que levantará questões de desempenho presentes nela.
-% %
-% Espera-se obter características específicas diferentes de cada arquitetura durante esta análise, casos de uso onde cada arquitetura seja aplicável e solução de gargalos encontrados ns arquiteturas descritas.
 
 \section{Cronograma}
 
@@ -69,7 +79,7 @@ A etapas presentes nesta seção foram definidas no Plano de TCC para atingir os
 
   \item \textbf{Especificação das arquiteturas selecionadas:} Especificar o funcionamento das arquiteturas selecionadas.
 
-  \item \textbf{Identificação e definição de simulações aplicáveis ao teste:} Eleger e definir a simulação a ser aplicada nos testes;
+  \item \textbf{Identificação e definição de simulações aplicáveis ao teste:} Eleger e definir a simulação de clientes a ser aplicada nos testes;
 
   \item \textbf{Especificação da simulação elegida:} Especificar os requisitos;
 
@@ -113,15 +123,15 @@ A etapas presentes nesta seção foram definidas no Plano de TCC para atingir os
   \cline{2-25}
    & \textbf{J} & \textbf{F} & \textbf{M} & \textbf{A} & \textbf{M} & \textbf{J} & \textbf{J} & \textbf{A} & \textbf{S} & \textbf{O} & \textbf{N} & \textbf{D} & \textbf{J} & \textbf{F} & \textbf{M} & \textbf{A} & \textbf{M} & \textbf{J} & \textbf{J} & \textbf{A} & \textbf{S} & \textbf{O} & \textbf{N} & \textbf{D} \\
   \hline \hline
-  \textbf{\small{ 1}} &  &  &  &  &  &  &  & \cellcolor{black} \textcolor{white}{X} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ \hline
-  \textbf{\small{ 2}} &  &  &  &  &  &  &  & \cellcolor{black} \textcolor{white}{X} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ \hline
-  \textbf{\small{ 3}} &  &  &  &  &  &  &  & \cellcolor{black} \textcolor{white}{X} & \cellcolor{black} \textcolor{white}{X} &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ \hline
+  \textbf{\small{ 1}} &  & x & x & x & x & x & x & \cellcolor{black} \textcolor{white}{X} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ \hline
+  \textbf{\small{ 2}} &  &  & x & x & x &  &  & \cellcolor{black} \textcolor{white}{X} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ \hline
+  \textbf{\small{ 3}} &  &  &  &  & x & x & x & \cellcolor{black} \textcolor{white}{X} & \cellcolor{black} \textcolor{white}{X} &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ \hline
   \textbf{\small{ 4}} &  &  &  &  &  &  &  & \cellcolor{black} \textcolor{white}{X} & \cellcolor{black} \textcolor{white}{X} &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ \hline
   \textbf{\small{ 5}} &  &  &  &  &  &  &  &  &  & \cellcolor{black} \textcolor{white}{X} &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ \hline
   \textbf{\small{ 6}} &  &  &  &  &  &  &  &  &  & \cellcolor{black} \textcolor{white}{X} &  &  &  &  &  &  &  &  &  &  &  &  &  & \\ \hline
   \textbf{\small{ 7}} &  &  &  &  &  &  &  & \cellcolor{black} \textcolor{white}{X} & \cellcolor{black} \textcolor{white}{X} & \cellcolor{black} \textcolor{white}{X} & \cellcolor{black} \textcolor{white}{X} &  &  &  &  &  &  &  &  &  &  &  &  & \\ \hline
-  \textbf{\small{ 8}} &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{black} & \cellcolor{black} &  &  &  &  &  &  &  &  &  &  & \\ \hline
-  \textbf{\small{ 9}} &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{black} & \cellcolor{black} &  &  &  &  &  &  &  &  &  &  & \\ \hline
+  \textbf{\small{ 8}} &  &  &  &  &  &  &  &  &  &   & x & \cellcolor{black} & \cellcolor{black} &  &  &  &  &  &  &  &  &  &  & \\ \hline
+  \textbf{\small{ 9}} &  &  &  &  &  &  &  &  &  & x & x & \cellcolor{black} & \cellcolor{black} &  &  &  &  &  &  &  &  &  &  & \\ \hline
   \textbf{\small{10}} &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{black} &  &  &  &  &  &  &  &  &  & \\ \hline
   \textbf{\small{11}} &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{black} &  &  &  &  &  &  &  &  &  & \\ \hline
   \textbf{\small{12}} &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \cellcolor{black} &  &  &  &  &  &  &  &  & \\ \hline
