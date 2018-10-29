@@ -12,23 +12,23 @@
 
 Este TCC tem como objetivo levantar questões relacionadas a complexidade de coordenação de arquiteturas de microsserviços para jogos \ac{mmorpg}.
 %
-Estas arquiteturas são complexas devido a quantidade de elementos em sua arquitetura a fim de suprir a demanda do mercado para estes jogos.
+Estas arquiteturas são complexas devido a quantidade que visam suprir a demanda do mercado para esse tipo de jogo.
 %
 Sendo assim, para entender melhor as características de tais arquiteturas, este trabalho propõe a realização de uma análise sobre arquiteturas distintas expressas na literatura.
 
 
-O atual trabalho atingiu seus objetivos, a qual iniciou-se no primeiro semestre de 2018.
+O atual trabalho, iniciado no primeiro semestre de 2018, atingiu seus objetivos.
 %
 Dentre as atividades estipuladas para a primeira fase do TCC, todas foram concluídas, porém não dentro do prazo estipulado de um semestre.
 
-As principais considerações a cerca da pesquisa referenciada são relevante as características de projeto de um serviço distribuído em microsserviços para atender jogos \ac{mmorpg}.
+As principais considerações acerca da pesquisa referenciada são relevantes as características de projeto de um serviço distribuído em microsserviços para atender jogos \ac{mmorpg}.
 %
 Elas podem ser enumeradas da seguinte forma:
 
 \begin{itemize}
   \item Preocupação de consumo de recursos e escalabilidade para muitos jogadores, evitando a segregação de jogadores em seu ambiente;
-  \item Preocupação dos autores das arquiteturas a cerca do processamento em relação ao escalonador de processos do sistema operacional, cache de dados e/ou requisições e modelo de processamento paralelo das requisições, visando alto desempenho das arquiteturas;
-  \item Preocupação dos desenvolvedores das arquiteturas para permitir o seu funcionamento independente do cliente, fomentando o desenvolvimento multiplataforma do gênero.
+  \item Preocupação dos autores das arquiteturas acerca do processamento em relação ao escalonador de processos do sistema operacional, cache de dados e/ou requisições e modelo de processamento paralelo das requisições, visando alto desempenho das arquiteturas;
+  \item Preocupação dos desenvolvedores das arquiteturas com o funcionamento independente do cliente, fomentando o desenvolvimento multiplataforma do gênero.
 \end{itemize}
 
 Estas preocupações ampliam a utilidade do atual trabalho.
@@ -42,18 +42,19 @@ Em específico, as dificuldades encontradas durante a elaboração da primeira p
   \item Os autores das arquiteturas especificam com exatidão determinados pontos relevantes ao projeto, mas não existe um aprofundamento para determinados microsserviços da arquitetura. Dessa forma foi necessário realizar buscas na literatura a fim de viabilizar tais projetos, seguindo as especificações das arquiteturas.
 \end{itemize}
 
-Além das dificuldades com relação direta aos objetivos atuais deste trabalho, houve a necessidade de estudar sobre diversas tecnologias que permeiam o processo de implantação, desenvolvimento e testes de arquiteturas de microsserviços.
+Além das dificuldades com relação direta aos objetivos atuais deste trabalho, houve a necessidade de realizar um estudo sobre as tecnologias que permeiam o processo de implantação, desenvolvimento e testes de arquiteturas de microsserviços.
 %
 A resolução destas dificuldades na atual etapa facilitará o desenvolvimento do TCC II.
 
-Para o TCC-II será desenvolvido as arquiteturas de microsserviços para jogos \ac{mmorpg} descritas na proposta do atual trabalho.
+Para o TCC-II serão desenvolvidas as arquiteturas de microsserviços para jogos \ac{mmorpg} descritas na proposta do atual trabalho.
 %
-Também será desenvolvido testes de carga automatizado a fim de facilitar a etapa de testes das arquiteturas.
+Também serão desenvolvidos testes de carga automatizados a fim de facilitar a etapa de testes das arquiteturas.
 %
-Por fim, os dados coletados por um sistema de análise de recursos desenvolvido no TCC-II, durante os testes, serão analisados a fim de gerar uma análise das arquiteturas de microsserviços para jogos \ac{mmorpg} que levantará questões de desempenho presentes nela.
+Por fim, os dados serão coletados por um sistema de análise de recursos desenvolvido no TCC-II, durante os testes, serão analisados a fim de gerar uma análise das arquiteturas de microsserviços para jogos \ac{mmorpg} que levantará questões de desempenho presentes nela.
 %
-Espera-se obter características específicas diferentes de cada arquitetura durante esta análise, casos de uso onde cada arquitetura seja aplicável e solução de gargalos encontrados ns arquiteturas descritas.
-
+Também serão desenvolvidos testes de carga automatizados a fim de facilitar a etapa de testes das arquiteturas.
+%
+Um sistema de análise de recursos, ao qual será também desenvolvido no TCC-II, coletará os dados durante os testes. Estes dados serão utilizados na análise das arquiteturas de microsserviços para jogos \ac{mmorpg}, essa análise deverá levantar questões acerca de desempenho.
 
 
 \section{Cronograma}
@@ -75,13 +76,13 @@ A etapas presentes nesta seção foram definidas no Plano de TCC para atingir os
 
   \item \textbf{Consolidação das referências:} Compreensão e seleção de artefatos literários que permitam atingir o objetivo do Trabalho de Conclusão de Curso I;
 
-  \item \textbf{Identificação e definição de arquiteturas descritas na literatura:} Enumeração e definir das arquiteturas de microsserviços descritas na literatura, bem como os seus objetivos;
+  \item \textbf{Identificação e definição de arquiteturas descritas na literatura:} Enumeração e definição das arquiteturas de microsserviços descritas na literatura, bem como os seus objetivos;
 
-  \item \textbf{Especificação das arquiteturas selecionadas:} Especificar o funcionamento das arquiteturas selecionadas.
+  \item \textbf{Especificação das arquiteturas selecionadas:} Especificação do funcionamento das arquiteturas selecionadas.
 
-  \item \textbf{Identificação e definição de simulações aplicáveis ao teste:} Eleger e definir a simulação de clientes a ser aplicada nos testes;
+  \item \textbf{Identificação e definição de simulações aplicáveis ao teste:} Seleção e definição da simulação de clientes a ser aplicada nos testes;
 
-  \item \textbf{Especificação da simulação elegida:} Especificar os requisitos;
+  \item \textbf{Especificação da simulação elegida:} Especificação dos requisitos necessários para a simulação dos clientes aos serviços escolhidos;
 
   \item \textbf{Escrita Trabalho de Conclusão de Curso I};
 \end{enumerate}
@@ -102,9 +103,9 @@ A etapas presentes nesta seção foram definidas no Plano de TCC para atingir os
 
   \item \textbf{Realização dos testes utilizando a simulação elegida na pesquisa referênciada:} Execução de testes da arquitetura desenvolvida sobre a nuvem computacional;
 
-  \item \textbf{Análise das arquiteturas testadas:} Analisar as métricas obtidas dos testes e descrever resultados, identificando possíveis gargalos nas arquiteturas;
+  \item \textbf{Análise das arquiteturas testadas:} Análise das métricas obtidas dos testes e descrever resultados, identificando possíveis gargalos nas arquiteturas;
 
-  \item \textbf{Otimização para melhorar as métricas obtidas:} Identificar pontos de gargalo nos microsserviços identificados e propor soluções viáveis para aumentar o desempenho desses sistemas.
+  \item \textbf{Otimização para melhorar as métricas obtidas:} Identificação dos pontos de gargalo nos microsserviços selecionados e proposta de soluções viáveis para aumento do desempenho desses sistemas.
 
   \item \textbf{Escrita Trabalho de Conclusão de Curso II};
 \end{enumerate}
