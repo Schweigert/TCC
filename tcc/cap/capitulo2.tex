@@ -339,7 +339,7 @@ Um exemplo de ambiente com personagens ($P_1$ e $P_2$), objetos ($O_1$) e \ac{np
 Fonte: O próprio autor.
 \end{figure}
 
-Na Figura~\ref{fig:obj_e_npc1} fica visível que a área de interesse pode ser um fator limitante conforme a operação com jogadores, objetos e \ac{npcs}~\cite{albion_online_unite}. 
+Na Figura~\ref{fig:obj_e_npc1} fica visível que a área de interesse pode ser um fator limitante conforme a operação com jogadores, objetos e \ac{npcs}~\cite{albion_online_unite}.
 %
 Dessa forma, o desempenho necessário para a execução dessas tarefas está tanto atrelado ao conjunto de algoritmos utilizado, quanto aos recursos computacionais gastos para tais operações.
 
@@ -916,9 +916,11 @@ As entradas e saídas de mensagens(\textit{e.g.,} rede, Banco de dados, \textit{
 %
 Todos os demais microsserviços operam sobre múltiplos processos, a partir do processo de conexão \ac{tcp} ao serviço~\cite{salz_albion}.
 %
-Diferente da arquitetura Rudy(Seção ~\ref{rudy}) a qual prioriza a solução de requesições, evitando a repetição da mesma conexão, na arquitetura Salz (Figura~\ref{full_salz}) as chamadas de processo remoto são executadas por ordem de chegada~\cite{salz_albion}.
+Diferente da arquitetura Rudy(Seção ~\ref{rudy}) a qual prioriza a resolução de requesições, evitando a executar métodos consecutivos da mesma conexão, na arquitetura Salz (Figura~\ref{full_salz}) as chamadas de processo remoto são executadas por ordem de chegada~\cite{salz_albion}.
 %
-Desta forma, a melhor conexão com o serviço terá maior vantagem, porém não existe custo de recursos para este gerenciamento no serviço. %ccm <-27,31
+Desta forma, quanto melhor a conexão com o serviço, mais requisições um cliente poderá executar.
+%
+Nesse sentido, uma conexão que transfere mais requisições terá mais vantagem sobre uma conexão a qual não transfere tantas requisições, executando mais operações por segundo.
 
 
 

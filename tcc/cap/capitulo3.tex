@@ -129,6 +129,8 @@ Pode ser possível identificar eventuais problemas conforme o tipo de requisiç�
 Estes problemas servirão como guias na análise final das arquiteturas.
 
 Seguindo estes critérios da análise, torna-se necessário definir um plano de testes a fim de obter os dados conforme os cenários e casos de uso definidos no atual trabalho.
+%
+Tais testes servem para ocasionar situações nos serviços a fim de obter dados para posterior análise.
 
 
 
@@ -291,9 +293,9 @@ A estrutura de implantação da rede \textit{Estresse} será dada por um gerenci
 %
 Esta rede terá mais instâncias sob demanda conforme o caso de teste.
 
-O limite de recursos do cenário é definido na Tabela~\ref{tab:limite_recursos}.
+O limite de recursos do cenário é definido na Tabela~\ref{tab:limite_recursos}, sendo definida a faixa de endereços de cada rede a qual foi projetada.
 %
-Nesta Tabela~\ref{tab:limite_recursos} também é definido a faixa de endereços de cada rede a qual foi projetada.
+Estes valores podem ser alterados conforme a necessidade dos testes, tendo seus recursos reduzidos ou incrementados.
 
 \begin{table}[htb!]
 \centering
@@ -481,6 +483,8 @@ Caso já esteja autenticado, continuará a sua busca por inimigos na nova regiã
 O ambiente final da simulação possui três mapas no eixo horizontal e no eixo vertical, visto que esta é a combinação mínima para que o serviço tenha um mapa central com bordas para efetuar transições de novos personagens.
 
 Após definido as características dos clientes simulados, pode-se definir os testes que serão executados sobre as arquiteturas de microsserviços específicos para jogos \ac{mmorpg}.
+%
+Tais testes servem de guia para obter as métricas para a análise das arquiteturas de microsserviços especificadas.
 
 \subsection{Testes}
 
@@ -489,14 +493,12 @@ Os testes que serão executados no atual trabalho esperam analisar a quantia de 
 Nesse sentido, foram definidos os seguintes testes:
 
 \begin{enumerate}
-  \item Executar a arquitetura Rudy com zero jogadores simultâneos, por 5 minutos;
-  \item Executar a arquitetura Rudy com zero jogadores simultâneos, aumentando a cada minuto 10 jogadores ao serviço, até o serviço obter algum erro interno de microsserviço e terminar a sua execução por erro interno;
-  \item Executar a arquitetura Salz com zero jogadores simultâneos, por 5 minutos;
-  \item Executar a arquitetura Salz com zero jogadores simultâneos, aumentando a cada minuto 10 jogadores ao serviço, até o serviço obter algum erro interno de microsserviço e terminar a sua execução por erro interno;
-  \item Executar a arquitetura Willson com zero jogadores simultâneos, por 5 minutos;
-  \item Executar a arquitetura Willson com zero jogadores simultâneos, aumentando a cada minuto 10 jogadores ao serviço, até o serviço obter algum erro interno de microsserviço e terminar a sua execução por erro interno.
+  \item Executar as arquiteturas com zero jogadores simultâneos, por 5 minutos;
+  \item Executar as arquiteturas com zero jogadores simultâneos, aumentando a cada minuto 10 jogadores ao serviço, até o serviço obter algum erro interno de microsserviço e terminar a sua execução por erro interno;
 \end{enumerate}
 
+Todos os testes serão executados utilizando a arquitetura Rudy, Salz e Willson.
+%
 A partir desta sequência de testes, são obtidos valores suficientes para a análise das arquiteturas de microsserviços específicas a jogos \ac{mmorpg}.
 %
 Estes serão utilizados para análise conforme os critérios definidos na Seção~\ref{sec:criterios}, buscando possíveis gargalos e problemas de escalabilidade do sistema.

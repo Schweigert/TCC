@@ -5,17 +5,39 @@
                 %     a. Caso tenha atingido os objetivos: informar os principais fatores que contribuíram para o sucesso, descrevendo-os de forma breve porém que não deixem dúvidas;
                 %     b. Caso não tenha atingido os objetivos: informar o quanto do objetivo foi atingido e citar os fatores que contribuíram para o insucesso, descrevendo-os de forma breve porém que não deixe dúvidas.
                 % 2. Descrever as principais considerações e conclusões que foram obtidas em decorrência da execução do trabalho. Aqui não deve ser repetido texto já existente no trabalho mas escrever as impressões dessas considerações e como elas contribuíram para a execução e atingir o objetivo;
-                % 3. Citar e descrever as principais dificuldades encontradas para execução do trabalho e projeto. Todo o trabalho desenvolvido significa uma evolução para o aluno, sendo que para chegar essa evolução o mesmo necessitou transpor uma série de obstáculos. Relatar os obstáculos e como superou (ou não superou)  ajuda a dignificar e mostrar o mérito do trabalho em si para o leitor/ avaliador. Também é uma contribuição, no sentido que uma vez expostos os problemas e soluções os leitores/avaliadores aprendem/conhecem formas de resolução ou de abordagem a tais problemas; 
-                % 4. Comentar se ocorreram modificações durante a execução do trabalho no escopo definido na fase de Projeto e no que fora desenvolvido. Deve ser explicado o quê gerou essas modificações, fundamentando e justificando tais alterações. 
-                % 5. Pode ser descrita a relação entre cronograma proposto e cronograma realizado no trabalho. Permitindo assim o leitor/avaliador aprender com as distorções/acertos indicados.  
+                % 3. Citar e descrever as principais dificuldades encontradas para execução do trabalho e projeto. Todo o trabalho desenvolvido significa uma evolução para o aluno, sendo que para chegar essa evolução o mesmo necessitou transpor uma série de obstáculos. Relatar os obstáculos e como superou (ou não superou)  ajuda a dignificar e mostrar o mérito do trabalho em si para o leitor/ avaliador. Também é uma contribuição, no sentido que uma vez expostos os problemas e soluções os leitores/avaliadores aprendem/conhecem formas de resolução ou de abordagem a tais problemas;
+                % 4. Comentar se ocorreram modificações durante a execução do trabalho no escopo definido na fase de Projeto e no que fora desenvolvido. Deve ser explicado o quê gerou essas modificações, fundamentando e justificando tais alterações.
+                % 5. Pode ser descrita a relação entre cronograma proposto e cronograma realizado no trabalho. Permitindo assim o leitor/avaliador aprender com as distorções/acertos indicados.
                 % 6. Descrever ou citar trabalhos futuros que podem ser feitos com base nesse trabalho desenvolvido. No decorrer da execução de um trabalho busca-se atingir um objetivo definido no projeto, porém vários assuntos interessantes de pesquisar são  revelados (sendo que os mesmo não são tratados/pesquisados no trabalho por não condizerem com os objetivos / escopo do trabalho). A descrição de tais assuntos/temas/pesquisas demonstra a percepção desenvolvida pelo aluno no desenvolvimento assim como a sua visão de objetividade na execução desse trabalho.
 
 Este TCC tem como objetivo levantar questões relacionadas a complexidade de coordenação de arquiteturas de microsserviços para jogos \ac{mmorpg}.
 %
-Estas arquiteturas são complexas devido a quantidade que visam suprir a demanda do mercado para esse tipo de jogo.
+Estas arquiteturas são complexas, devido a quantidade de módulos, na qual devem funcionar em harmonia, que visam suprir a demanda do mercado para esse tipo de jogo.
 %
-Sendo assim, para entender melhor as características de tais arquiteturas, este trabalho propõe a realização de uma análise sobre arquiteturas distintas expressas na literatura.
+Sendo assim, para melhor descrever as características de tais arquiteturas, este trabalho propõe a realização de uma análise sobre arquiteturas distintas expressas na literatura.
 
+
+Dentre as três arquiteturas selecionadas, é explícito o objetivo a qual cada arquitetura foi planejada.
+%
+O principal objetivo da arquitetura Rudy é justificar conexões de qualidades diferentes.
+%
+Já para a arquitetura Salz o seu objetivo é escalabilidade para jogadores simultâneos em um mesmo ambiente.
+%
+A arquitetura Willson tem como objetivo escalar para multiplos jogadores simultâneos em um mesmo ambiente, com o tempo de resposta menor a arquitetura Salz.
+%
+Entretanto, estes objetivos não são descritos pelos autores.
+%
+Dessa forma espera-se encontrar padrões de valores para tempo de resposta e conexões simultâneas que permeiam estes objetivos implícitos.
+
+Com relação aos testes, os valores de recurso para o cenário não pode ser mensurado.
+%
+Dessa forma, foi definido um teto a fim de não consumir mais que o estipulado.
+%
+Espera-se utilizar menos que o teto definido.
+
+Com relação aos testes, faz necessário verificar na totalidade se será viável desenvolver, implantar e testar todas as arquiteturas no período de tempo estipulado.
+%
+Dessa forma, pode haver alterações para o TCC II.
 
 O atual trabalho, iniciado no primeiro semestre de 2018, atingiu seus objetivos.
 %
