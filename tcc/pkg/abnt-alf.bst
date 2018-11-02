@@ -977,13 +977,13 @@ FUNCTION {format.journal.pages}
 
 FUNCTION {get.url.type}
 {s #1 #5 substring$ "http:" = {http.url}
-  {s #1 #5 substring$ "file:" = {file.url}
-     {s #1 #4 substring$ "ftp:"  = {ftp.url}
-       {s #1 #4 substring$ "doi:"  = {doi.url}
-         {s #1 #7 substring$ "mailto:" = {mailto.url} {unknown.url} if$}
-       if$}
-     if$}
-   if$}
+    {s #1 #5 substring$ "file:" = {file.url}
+      {s #1 #4 substring$ "ftp:"  = {ftp.url}
+        {s #1 #4 substring$ "doi:"  = {doi.url}
+          {s #1 #7 substring$ "mailto:" = {mailto.url} {unknown.url} if$}
+        if$}
+      if$}
+    if$}
  if$
  'url.type :=
 }
