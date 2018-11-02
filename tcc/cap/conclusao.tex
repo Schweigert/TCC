@@ -12,32 +12,36 @@
 
 Este TCC tem como objetivo levantar questões relacionadas a complexidade de coordenação de arquiteturas de microsserviços para jogos \ac{mmorpg}.
 %
-Estas arquiteturas são complexas, devido a quantidade de módulos, na qual devem funcionar em harmonia, que visam suprir a demanda do mercado para esse tipo de jogo.
+Estas arquiteturas são complexas devido a quantidade de módulos e serviços necessários que visam suprir a demanda do mercado para esse gênero de jogo.
 %
-Sendo assim, para melhor descrever as características de tais arquiteturas, este trabalho propõe a realização de uma análise sobre arquiteturas distintas expressas na literatura.
+Sendo assim, para melhor descrever as características de tais arquiteturas, este trabalho propõe a realização de uma análise sobre três arquiteturas distintas descritas na literatura.
 
 
 Dentre as três arquiteturas selecionadas, é explícito o objetivo a qual cada arquitetura foi planejada.
 %
-O principal objetivo da arquitetura Rudy é justificar conexões de qualidades diferentes.
+O principal objetivo da arquitetura Rudy é normalizar conexões de diferentes qualidades com o seu modelo de paralelização de requisições.
 %
-Já para a arquitetura Salz o seu objetivo é escalabilidade para jogadores simultâneos em um mesmo ambiente.
+Já para a arquitetura Salz o seu objetivo é escalabilidade para jogadores simultâneos em um único ambiente.
 %
-A arquitetura Willson tem como objetivo escalar para multiplos jogadores simultâneos em um mesmo ambiente, com o tempo de resposta menor a arquitetura Salz.
+A arquitetura Willson tem como objetivo reduzir o tempo de resposta aos clientes.
 %
-Entretanto, estes objetivos não são descritos pelos autores.
+Porém, este objetivo não é descrito de forma clara e objetiva pelos autores, a qual desenvolveram tais arquiteturas dentro de cenários de demanda específicos do mercado.
 %
-Dessa forma espera-se encontrar padrões de valores para tempo de resposta e conexões simultâneas que permeiam estes objetivos implícitos.
+Dessa forma, espera-se encontrar padrões de valores que venham de encontro com tais objetivos.
 
-Com relação aos testes, os valores de recurso para o cenário não pode ser mensurado.
+Com relação aos testes, os valores de recurso para o cenário não pode ser estipulados.
 %
-Dessa forma, foi definido um teto a fim de não consumir mais que o estipulado.
+Dessa forma, foi definido um teto a fim de limitar o consumo das arquiteturas.
 %
-Espera-se utilizar menos que o teto definido.
+Porém espera-se não utilizar o limite destes recursos, tornando o cenário de testes mais simples.
+%
+Caso o consumo de recursos seja menor ao limite, todas as arquiteturas serão testadas utilizando o mesmo cenário.
 
 Com relação aos testes, faz necessário verificar na totalidade se será viável desenvolver, implantar e testar todas as arquiteturas no período de tempo estipulado.
 %
 Dessa forma, pode haver alterações para o TCC II.
+%
+Espera-se para o TCC II projetar, desenvolver, implantar e analisar os dados, conforme o cronograma estipulado.
 
 O atual trabalho, iniciado no primeiro semestre de 2018, atingiu seus objetivos.
 %
