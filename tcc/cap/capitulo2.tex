@@ -108,11 +108,11 @@ Uma breve explicação sobre os principais gêneros (Figura~\ref{fig:generos}):
   \item \ac{mmo}: Preza pela interação com outros jogadores em um mundo compartilhado~\cite{adams_1208533}. SecondLife\footnote{SecondLife: \url{https://www.secondlife.com/}} é um jogo focado na interação social, com artifícios de comércio e relacionamentos em um mundo fictício criado pela comunidade~\cite{tecmundo_secondlife}. Em grande parte, esses jogos utilizam tecnologia \ac{wan} e \ac{cs}.
     \begin{itemize}
       \item \ac{moba}: Coloca um número fixo de jogadores separados em dois times, no qual o time com maior estratégia de posicionamento e gerenciamento de recursos em equipe ganha a partida. Jogos \ac{moba} perdem algumas características breves do gênero \ac{rpg}, deixando de lado a interpretação e contextualização de um mundo, fixando-se somente em um combate estratégico e momentâneo (distribuído em partidas atômicas) entre as equipes, carregando consigo somente as características de comércio e comunidade dos jogos \ac{mmo}~\cite{adams_1208533}. Tal subgênero é popularmente conhecido pelos títulos Blizzard Dota 2\footnote{Blizzard Dota 2: \url{http://br.dota2.com/}} e Riot League of Legends\footnote{Riot League of Legends: \url{https://br.leagueoflegends.com/pt/}}. O jogo League of Legends obteve 100 milhões de usuários ativos em 2016~\cite{lol_statista}, além de ter um torneio nacional e mundial~\cite{lol_sportv}. É popular nesse subgênero utilizar tecnologias como \ac{lan}, \ac{p2p} e \ac{wan}.
-      \item \ac{mmorpg}: Herda características dos gêneros ação e aventura, \ac{rpg}, e \ac{mmo} diretamente. Nesse gênero é permitido interações em um mundo na qual outros jogadores também estão jogando, na qual a interação entre outros jogadores (herdado dos jogos \ac{mmo}), com o mundo (herdado dos jogos de ação e aventura) e com objetivos guiados por \ac{npcs} (herdados de jogos \ac{rpg}) se faz como desafio e objetivo do jogo~\cite{adams_1208533}. Um título popular para esse gênero é o jogo Word of WarCraft\footnote{Word of WarCraft: \url{https://worldofwarcraft.com/pt-br/}}. A grande parte dos jogos \ac{mmorpg} utilizam tecnologia \ac{wan}.
+      \item \ac{mmorpg}: Herda características dos gêneros ação e aventura, \ac{rpg}, e \ac{mmo} diretamente. Nesse gênero é permitido interações em um mundo na qual outros jogadores também estão jogando, na qual a interação entre outros jogadores (herdado dos jogos \ac{mmo}), com o mundo (herdado dos jogos de ação e aventura) e com objetivos guiados por \acp{npc} (herdados de jogos \ac{rpg}) se faz como desafio e objetivo do jogo~\cite{adams_1208533}. Um título popular para esse gênero é o jogo Word of WarCraft\footnote{Word of WarCraft: \url{https://worldofwarcraft.com/pt-br/}}. A grande parte dos jogos \ac{mmorpg} utilizam tecnologia \ac{wan}.
     \end{itemize}
-  \item Aventura: Caracterizado por desafios envolvendo ações com diversos \ac{npcs} ou com o ambiente para solucionar desafios~\cite{adams_1208533}. A grande parte desses jogos utilizam arquiteturas \ac{wan}, \ac{p2p} ou \ac{lan}.
+  \item Aventura: Caracterizado por desafios envolvendo ações com diversos \acp{npc} ou com o ambiente para solucionar desafios~\cite{adams_1208533}. A grande parte desses jogos utilizam arquiteturas \ac{wan}, \ac{p2p} ou \ac{lan}.
     \begin{itemize}
-      \item Ação e Aventura: Herda características da categoria de Aventura. O jogador é imerso em um mundo para interagir com o ambiente e com \ac{npcs}, além de se preocupar com a movimentação no cenário~\cite{adams_1208533}. Um título popularmente conhecido desse gênero é a série de jogos nomeada Nintendo The Legend of Zelda\footnote{Nintendo The Legend of Zelda: \url{https://www.zelda.com/}}. É comum nesses jogos encontrar tecnologia \ac{lan} ou \ac{p2p} para modo de jogo cooperativo.
+      \item Ação e Aventura: Herda características da categoria de Aventura. O jogador é imerso em um mundo para interagir com o ambiente e com \acp{npc}, além de se preocupar com a movimentação no cenário~\cite{adams_1208533}. Um título popularmente conhecido desse gênero é a série de jogos nomeada Nintendo The Legend of Zelda\footnote{Nintendo The Legend of Zelda: \url{https://www.zelda.com/}}. É comum nesses jogos encontrar tecnologia \ac{lan} ou \ac{p2p} para modo de jogo cooperativo.
     \end{itemize}
   \item Simulação: Caracterizados por abordar temas da realidade. São comuns jogos de construção e gerenciamento, animais de estimação, vida social e simulação de veículos~\cite{adams_1208533}. A grande parte desses jogos não permite a interação entre os demais jogadores. É popular encontrar serviços como \textit{ranking}, loja e janela de notícias utilizando \ac{cs}.
     \begin{itemize}
@@ -219,7 +219,7 @@ Nesse sentido, torna-se necessário descrever as características de jogabilidad
 
 É comum serviços \ac{mmorpg} terem regras de negócio parecidas, visto que pertencem ao mesmo gênero.
 %
-Dessa forma, facilita a compreenção básica de forma genérica de um jogo \ac{mmorpg} e auxilia a compreender o modelo computacional implementado nestes serviços ao explicar regras de negócio recorrentes neste gênero.
+Dessa forma, facilita a compreensão básica de forma genérica de um jogo \ac{mmorpg} e auxilia a compreender o modelo computacional implementado nestes serviços ao explicar regras de negócio recorrentes neste gênero.
 %
 Deste modo, torna-se necessário definir algumas funcionalidades básicas que estão dentro do contexto de jogabilidade de jogos \ac{mmorpg} para melhor compreensão de sua arquitetura em seções futuras.
 
@@ -280,7 +280,7 @@ Nesse sentido, algumas ações comuns dentro do ambiente de um jogo \ac{mmorpg}~
 \begin{itemize}
   \item Enviar e receber mensagem no chat;
   \item Mover-se pelo ambiente;
-  \item Interagir com outros jogadores, \ac{npcs} ou objetos fixos do ambiente; e
+  \item Interagir com outros jogadores, \acp{npc} ou objetos fixos do ambiente; e
   \item Obter itens do ambiente.
 \end{itemize}
 
@@ -326,12 +326,12 @@ Fonte: O próprio autor.
 
 
 
-A interação com o ambiente, itens, \ac{npcs} e outros jogadores também são afetados pela área de interesse, na qual o personagem terá um raio limitante para cada tipo de interação no ambiente.
+A interação com o ambiente, itens, \acp{npc} e outros jogadores também são afetados pela área de interesse, na qual o personagem terá um raio limitante para cada tipo de interação no ambiente.
 %
-Um exemplo de ambiente com personagens ($P_1$ e $P_2$), objetos ($O_1$) e \ac{npcs} (NPC somente) pode ser visualizado na Figura~\ref{fig:obj_e_npc1}~\cite{albion_online_unite}.
+Um exemplo de ambiente com personagens ($P_1$ e $P_2$), objetos ($O_1$) e \acp{npc} (NPC somente) pode ser visualizado na Figura~\ref{fig:obj_e_npc1}~\cite{albion_online_unite}.
 
 \begin{figure}[htb!]
-\caption{Personagens, objetos e NPCs em no ambiente}
+\caption{Personagens, objetos e \acp{npc} em no ambiente}
 \label{fig:obj_e_npc1}
 \includegraphics[height=4cm]{img/cap2/obj_e_npc1.png}
 \centering
@@ -339,7 +339,7 @@ Um exemplo de ambiente com personagens ($P_1$ e $P_2$), objetos ($O_1$) e \ac{np
 Fonte: O próprio autor.
 \end{figure}
 
-Na Figura~\ref{fig:obj_e_npc1} fica visível que a área de interesse pode ser um fator limitante conforme a operação com jogadores, objetos e \ac{npcs}~\cite{albion_online_unite}.
+Na Figura~\ref{fig:obj_e_npc1} fica visível que a área de interesse pode ser um fator limitante conforme a operação com jogadores, objetos e \acp{npc}~\cite{albion_online_unite}.
 %
 Dessa forma, o desempenho necessário para a execução dessas tarefas está tanto atrelado ao conjunto de algoritmos utilizado, quanto aos recursos computacionais gastos para tais operações.
 
@@ -350,7 +350,7 @@ Nesse sentido, torna-se necessário conhecer os problemas computacionais conheci
 
 
 
-\section{Problemas em jogos MMORPG}
+\section{Problemas em jogos \ac{mmorpg}}
 \label{sec:problemas}
 
 Uma métrica popular para mensurar o desempenho de um serviço \ac{mmorpg} é o número de conexões~\cite{1417630} simultâneas suportadas.
@@ -596,9 +596,9 @@ A separação de um serviço \ac{mmorpg} pode ser dada seguindo este padrão de 
 
 
 \begin{enumerate}
-  \item \textit{Model}: Representa qualquer dado presente no jogo (\textit{e.g.,} itens, personagens, \ac{npcs}, objetivos, etc.).
+  \item \textit{Model}: Representa qualquer dado presente no jogo (\textit{e.g.,} itens, personagens, \acp{npc}, objetivos, etc.).
   \item \textit{View}: Representa o modo a qual estes dados serão exibidos, do ponto de vista de redes (\textit{e.g.,} O mapa será exibido somente na área de interesse do jogador, no formato \ac{json}).
-  \item \textit{Controller}: Representa as operações sobre modelos que serão requiridos pelos jogadores (\textit{e.g.,} andar, pegar item, interagir com \ac{npcs}, etc.).
+  \item \textit{Controller}: Representa as operações sobre modelos que serão requiridos pelos jogadores (\textit{e.g.,} andar, pegar item, interagir com \acp{npc}, etc.).
 \end{enumerate}
 
 
@@ -887,7 +887,7 @@ No serviço de jogo, tanto o cliente quando o serviço podem invocar métodos re
 %
 Esta abordagem garante que o usuário não fique esperando pelo retorno do serviço para continuar a lógica do jogo~\cite{faber}.
 %
-Para este funcionamento, o modelo de processamento paralelo deste serviço possúi mais regras, a qual não são abordadas pela arquitetura Rudy (Figura~\ref{full_rudy}).
+Para este funcionamento, o modelo de processamento paralelo deste serviço possui mais regras, a qual não são abordadas pela arquitetura Rudy (Figura~\ref{full_rudy}).
 %
 O modelo de paralelismo do serviço de jogo pode ser visualizado na Figura~\ref{salz_thread_model}.
 
@@ -916,7 +916,7 @@ As entradas e saídas de mensagens(\textit{e.g.,} rede, Banco de dados, \textit{
 %
 Todos os demais microsserviços operam sobre múltiplos processos, a partir do processo de conexão \ac{tcp} ao serviço~\cite{salz_albion}.
 %
-Diferente da arquitetura Rudy(Seção ~\ref{rudy}) a qual prioriza a resolução de requesições, evitando a executar métodos consecutivos da mesma conexão, na arquitetura Salz (Figura~\ref{full_salz}) as chamadas de processo remoto são executadas por ordem de chegada~\cite{salz_albion}.
+Diferente da arquitetura Rudy(Seção ~\ref{rudy}) a qual prioriza a resolução de requisições, evitando a executar métodos consecutivos da mesma conexão, na arquitetura Salz (Figura~\ref{full_salz}) as chamadas de processo remoto são executadas por ordem de chegada~\cite{salz_albion}.
 %
 Desta forma, quanto melhor a conexão com o serviço, mais requisições um cliente poderá executar.
 %
@@ -957,7 +957,7 @@ Essa arquitetura pode ser visualizada na Figura~\ref{full_willson}.
 \end{figure}
 
 
-A arquitura Willson, exibido na Figura~\ref{full_willson}, mostra um gradual entre a arquitetura Rudy (Figura~\ref{full_rudy}) e a arquitetura Salz (Figura~\ref{full_salz}), propondo uma arquitetura híbrida, na qual divide funcionalidades em outros microsserviços, porém ainda mantem diversas funcionalidade junto ao serviço de jogo evitando consumo de rede~\cite{albion_online_unite, willson}.
+A arquitetura Willson, exibido na Figura~\ref{full_willson}, mostra um gradual entre a arquitetura Rudy (Figura~\ref{full_rudy}) e a arquitetura Salz (Figura~\ref{full_salz}), propondo uma arquitetura híbrida, na qual divide funcionalidades em outros microsserviços, porém ainda mantem diversas funcionalidade junto ao serviço de jogo evitando consumo de rede~\cite{albion_online_unite, willson}.
 %
 Essa abordagem garante menor latência de resposta, porém terá maior consumo de recursos da mesma máquina hospedeira do serviço~\cite{willson}.
 %
@@ -1032,7 +1032,7 @@ Fonte: O próprio autor
 
 A arquitetura genérica descrita na Figura~\ref{fig:generica} também precisa corresponder as demandas necessárias do \textit{GameDesign} do próprio jogo.
 %
-Neste caso, só um tipo de microsserviço é visível nesta rede, porém poderiam existir microsserviços responsáveis pela parte social, comércio e estatísticas, aumentando o grau de complexibilidade da arquitetura.
+Neste caso, só um tipo de microsserviço é visível nesta rede, porém poderiam existir microsserviços responsáveis pela parte social, comércio e estatísticas, aumentando o grau de complexidade da arquitetura.
 %
 Em relação aos recursos utilizados por uma arquitetura, este trabalho foca na análise das arquiteturas de microsserviços descritas na literatura a fim de descrever o seu comportamento e desempenho.
 
@@ -1062,7 +1062,7 @@ Para nortear o desenvolvimento da análise de microsserviços utilizados em jogo
 Ao apresentar estes trabalhos, busca-se apresentar o contexto e objetivo, e então aprofundar em características dos trabalhos, métricas utilizadas e ferramentas que auxiliaram nas análises.
 
 
-Para encontrar os trabalhos relacionados, foi efetuada uma busca pelos termos \ac{mmorpg} ou \textit{microsservices}.
+Para encontrar os trabalhos relacionados, foi efetuada uma busca pelos termos \ac{mmorpg} ou \textit{microservices}.
 %
 Entretanto, os dois termos dificilmente se correlacionam nos meios de busca disponíveis para a elaboração deste TCC.
 %
@@ -1239,7 +1239,7 @@ Este trabalho usa com base o modelo descrito na Seção~\ref{sec:huang}, um mode
 \label{tab:complexidade}
 \begin{tabular}{|l|l|l|l|l|}
 \hline
-Contexto da ação        & \ac{pvp}           & \ac{pvnpc}              & Número de \ac{npcs}    & Network {[}kbits/s{]} \\ \hline
+Contexto da ação        & \ac{pvp}           & \ac{pvnpc}              & Número de \acp{npc}    & Network {[}kbits/s{]} \\ \hline
 Questing                & $O(n)$             & $O(n log(n))$           & $N \leq 6 $            & 11.4          \\ \hline
 Trading                 & $O(n)$             & $O(n)$                  & $N \leq 20$            & 8.1           \\ \hline
 Dungeons                & $O(n^2)$           & $O(n^2)$                & $N \leq 20$            & 18.3          \\ \hline
@@ -1258,11 +1258,11 @@ Essa tabela exibe as ações que podem ser executadas para interagir com o ambie
 Os contextos analisados nessa tabela são:
 
 \begin{itemize}
-  \item \textit{Questing}: Contexto de missão, na qual um grupo de jogadores ou um grupo de \ac{npcs} podem ser afetados nas ações.
+  \item \textit{Questing}: Contexto de missão, na qual um grupo de jogadores ou um grupo de \acp{npc} podem ser afetados nas ações.
   \item \textit{Trading}: Contexto de negociação, na qual a complexidade leva em conta somente o número de itens negociados.
   \item \textit{Dungeons}: Contexto de exploração, na qual o ambiente pode ser modificado conforme as ações dos personagens em um ambiente isolado para este grupo.
   \item \textit{\ac{pvp} combat}: Contexto de batalha entre jogadores, na qual as ações entre os jogadores influenciam diretamente o estado do personagem oponente.
-  \item \textit{Raiding}: Representa um contexto específico de exploração, na qual múltiplos jogadores unem forças a fim de combater outro grupo de jogadores ou \ac{npcs}.
+  \item \textit{Raiding}: Representa um contexto específico de exploração, na qual múltiplos jogadores unem forças a fim de combater outro grupo de jogadores ou \acp{npc}.
 \end{itemize}
 
 

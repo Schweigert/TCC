@@ -25,7 +25,7 @@ Já para a arquitetura Salz o seu objetivo é escalabilidade para jogadores simu
 %
 A arquitetura Willson tem como objetivo reduzir o tempo de resposta aos clientes.
 %
-Porém, este objetivo não é descrito de forma clara e objetiva pelos autores, a qual desenvolveram tais arquiteturas dentro de cenários de demanda específicos do mercado.
+Porém, este objetivo não é descrito de forma clara e objetiva pelos autores, os quais desenvolveram tais arquiteturas dentro de cenários de demanda específicos do mercado.
 %
 Dessa forma, espera-se encontrar padrões de valores que venham de encontro com tais objetivos.
 
@@ -33,13 +33,13 @@ Com relação aos testes, os valores de recurso para o cenário não pode ser es
 %
 Dessa forma, foi definido um teto a fim de limitar o consumo das arquiteturas.
 %
-Porém espera-se não utilizar o limite destes recursos, tornando o cenário de testes mais simples.
+Porém, espera-se não utilizar o limite destes recursos, tornando o cenário de testes mais simples.
 %
 Caso o consumo de recursos seja menor ao limite, todas as arquiteturas serão testadas utilizando o mesmo cenário.
 
 Com relação aos testes, faz necessário verificar na totalidade se será viável desenvolver, implantar e testar todas as arquiteturas no período de tempo estipulado.
 %
-Dessa forma, pode haver alterações para o TCC II.
+Dessa forma, podem haver alterações para o TCC II.
 %
 Espera-se para o TCC II projetar, desenvolver, implantar e analisar os dados, conforme o cronograma estipulado.
 
@@ -53,7 +53,7 @@ Elas podem ser enumeradas da seguinte forma:
 
 \begin{itemize}
   \item Preocupação de consumo de recursos e escalabilidade para muitos jogadores, evitando a segregação de jogadores em seu ambiente;
-  \item Preocupação dos autores das arquiteturas acerca do processamento em relação ao escalonador de processos do sistema operacional, cache de dados e/ou requisições e modelo de processamento paralelo das requisições, visando alto desempenho das arquiteturas;
+  \item Preocupação dos autores das arquiteturas acerca do processamento em relação ao escalonador de processos do sistema operacional, cache de dados e/ou requisições e modelo de processamento paralelo das requisições, visando alto desempenho das arquiteturas; e
   \item Preocupação dos desenvolvedores das arquiteturas com o funcionamento independente do cliente, fomentando o desenvolvimento multiplataforma do gênero.
 \end{itemize}
 
@@ -65,14 +65,14 @@ Em específico, as dificuldades encontradas durante a elaboração da primeira p
 
 \begin{itemize}
   \item Dificuldade de encontrar material científico ou acadêmico correlacionando arquiteturas de microsserviços e arquiteturas para jogos \ac{mmorpg}.
-  \item Os autores das arquiteturas especificam com exatidão determinados pontos relevantes ao projeto, mas não existe um aprofundamento para determinados microsserviços da arquitetura. Dessa forma foi necessário realizar buscas na literatura a fim de viabilizar tais projetos, seguindo as especificações das arquiteturas.
+  \item Os autores das arquiteturas especificam com exatidão determinados pontos relevantes ao projeto, mas não foi identificado um aprofundamento para determinados microsserviços da arquitetura. Dessa forma foi necessário realizar buscas na literatura a fim de viabilizar tais projetos, seguindo as especificações das arquiteturas.
 \end{itemize}
 
 Além das dificuldades com relação direta aos objetivos atuais deste trabalho, houve a necessidade de realizar um estudo sobre as tecnologias que permeiam o processo de implantação, desenvolvimento e testes de arquiteturas de microsserviços.
 %
 Dessa forma espera-se utilizar a tecnologia \textit{Docker Swarm} para implantação das arquiteturas, sobre uma nuvem de computadores \textit{OpenStack}.
 %
-A fim de desenvolver de forma ágil as arquiteturas, será utilizada a linguagem de programação \textit{GoLang}, a qual se propõe ser rápida (compilada, fortemente tipada, executado como código nativo), a qual inclui uma ampla biblioteca padrão para conexão com banco de dados e protocolo \ac{tcp}, podendo facilmente ser implantada utilizando a tecnologia \textit{Docker}.
+A fim de desenvolver de forma ágil as arquiteturas, será utilizada a linguagem de programação \textit{GoLang}, a qual se propõe ser rápida (compilada, fortemente tipificada, executado como código nativo), a qual inclui uma ampla biblioteca padrão para conexão com banco de dados e protocolo \ac{tcp}, podendo facilmente ser implantada utilizando a tecnologia \textit{Docker}.
 %
 A resolução destas dificuldades na atual etapa facilitará o desenvolvimento do TCC II.
 
@@ -129,9 +129,9 @@ A etapas presentes nesta seção foram definidas no Plano de TCC para atingir os
 
   \item \textbf{Desenvolvimento da arquitetura:} Desenvolvimento da arquitetura para executar os testes;
 
-  \item \textbf{Aplicação das arquiteturas selecionadas na pesquisa referênciada:} Aplicação das arquiteturas descritas sobre uma nuvem computacional;
+  \item \textbf{Aplicação das arquiteturas selecionadas na pesquisa referenciada:} Aplicação das arquiteturas descritas sobre uma nuvem computacional;
 
-  \item \textbf{Realização dos testes utilizando a simulação elegida na pesquisa referênciada:} Execução de testes da arquitetura desenvolvida sobre a nuvem computacional;
+  \item \textbf{Realização dos testes utilizando a simulação elegida na pesquisa referenciada:} Execução de testes da arquitetura desenvolvida sobre a nuvem computacional;
 
   \item \textbf{Análise das arquiteturas testadas:} Análise das métricas obtidas dos testes e descrever resultados, identificando possíveis gargalos nas arquiteturas;
 

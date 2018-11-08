@@ -21,13 +21,13 @@ Sendo assim, uma análise do consumo de recursos computacionais das arquiteturas
 
 
 
-Neste capítulo é descrito a proposta para análise de consumo de recursos computacionais em arquiteturas \ac{mmorpg}.
+Neste capítulo é descrita a proposta para análise de consumo de recursos computacionais em arquiteturas \ac{mmorpg}.
 %
 Inicialmente, é descrita a proposta em alto nível (Seção~\ref{sec:proposta}), trazendo os objetivos desta análise, quais recursos e métricas serão analisadas (TCC-II).
 %
 Os Critérios de Análise (Seção~\ref{sec:criterios}) exibem como os dados obtidos devem ser interpretados, baseando-se nos objetivos da análise das arquiteturas.
 %
-O Plano de Testes (Seção~\ref{sec:plano}) exibe como será realizada a coleta dos dados, descrevendo o ambiente, cenário, critérios e testes os quais serão realizados para obter os objetivos deste trabalho.
+O Plano de Testes (Seção~\ref{sec:plano}) exibe como será realizada a coleta dos dados, descrevendo o ambiente, cenário, critérios e os testes que serão realizados. %para obter os objetivos deste trabalho.
 %
 
 \section{Proposta}
@@ -35,7 +35,7 @@ O Plano de Testes (Seção~\ref{sec:plano}) exibe como será realizada a coleta 
 
 Tendo analisado os trabalhos relacionados (Seção~\ref{sec:similares}) e as arquiteturas específicas para jogos \ac{mmorpg}, o presente trabalho tem como objetivo analisar as arquiteturas \ac{mmorpg} visando complementar a análise de arquitetura e consumo de recursos computacionais não analisados nos trabalhos relacionados.
 %
-Em específico, serão obtidos os valores referentes aos recursos computacionais das arquiteturas Rudy (Subseção~\ref{rudy}), Salz (Subseção~\ref{salz}) e Willson (Subseção~\ref{willson}),usando os seguintes critérios:
+Em específico, serão obtidos os valores referentes aos uso dos seguintes recursos computacionais nas arquiteturas Rudy (Subseção~\ref{rudy}), Salz (Subseção~\ref{salz}) e Willson (Subseção~\ref{willson}):
 
 \begin{enumerate}
   \item \textbf{\ac{cpu}}: o uso de CPU, com sua representação sendo em relação a porcentagem de processamento nos núcleos utilizados;
@@ -114,6 +114,14 @@ Um conjunto exemplo destes problemas estão listados na Tabela~\ref{tab:problema
 
   Fonte: O próprio autor.
 \end{table}
+
+
+Não foi encontrado trabalhos para guiar a caracterização dos dados sendo atualmente exposto esta caracterização de forma genérica.
+%
+Dessa forma, a linha de base para a caracterização será encontrada na própria análise, executando testes com poucas conexões, visando escalar igualitariamente para os usuários.
+%
+Esta linha de base será uma das contribuições que este trabalho pretende entregar.
+
 
 A Tabela~\ref{tab:problemas} relaciona os recursos conforme dois padrões:
 
@@ -351,7 +359,7 @@ Nesse sentido, a Tabela~\ref{tab:requisitos_funcionais} relaciona a funcionalida
 \begin{tabular}{|l|l|l|}
 \hline
 Requisito                                                       & Descrição                                                                                                                                                                                  & Implementação                                                                                                                                                                             \\ \hline
-Identificação                                                   & \begin{tabular}[c]{@{}l@{}}Gera uma numeração única (token) com base\\ em uma tupla de dados.\end{tabular}                                                                                 & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando algoritmo de hash (MD5),\\ de forma a garantir que este token seja único e diferente a\\ cada implementação.\end{tabular}         \\ \hline
+Identificação                                                   & \begin{tabular}[c]{@{}l@{}}Gera uma numeração única (token) com base\\ em uma tupla de dados.\end{tabular}                                                                                 & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando algoritmo de \textit{hash},\\ de forma a garantir que este token seja único e diferente a\\ cada implementação.\end{tabular}         \\ \hline
 Autenticação                                                    & \begin{tabular}[c]{@{}l@{}}Recebe o token e garante que não existe nenhuma\\ conexão utilizando o mesmo token.\end{tabular}                                                                & \begin{tabular}[c]{@{}l@{}}Será implementado usando um serviço de chave valor,\\ como o Redis.\end{tabular}                                                                               \\ \hline
 \begin{tabular}[c]{@{}l@{}}Seleção de\\ Personagem\end{tabular} & \begin{tabular}[c]{@{}l@{}}Uma conexão deve requirer o controle de um\\ personagem.\end{tabular}                                                                                           & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando uma árvore de cena interna\\ ao serviço, onde o tipo do nó será Personagem e o seu nome\\ será o nome do personagem.\end{tabular} \\ \hline
 Envio de Mensagem                                               & \begin{tabular}[c]{@{}l@{}}Será possível enviar mensagens e receber. Elas serão\\ baseadas na região. Será mantido uma distância fixa\\ para todos os casos de uso.\end{tabular}           & \begin{tabular}[c]{@{}l@{}}Deve existir uma estrutura de busca interna ao serviço para\\ consultar personagens de uma região em relação a um\\ usuário.\end{tabular}                      \\ \hline
@@ -494,8 +502,13 @@ Nesse sentido, foram definidos os seguintes testes:
 
 \begin{enumerate}
   \item Executar as arquiteturas com zero jogadores simultâneos, por 5 minutos;
-  \item Executar as arquiteturas com zero jogadores simultâneos, aumentando a cada minuto 10 jogadores ao serviço, até o serviço obter algum erro interno de microsserviço e terminar a sua execução por erro interno;
+  \item Executar as arquiteturas com um jogador apenas; e
+  \item Executar as arquiteturas com zero jogadores simultâneos, aumentando a cada minuto o número jogadores (\textit{e.g.,} 10) ao serviço, até o serviço obter algum erro interno de microsserviço e terminar a sua execução por erro interno.
 \end{enumerate}
+
+Os dados são capturados ao decorrer do tempo, podendo assim relacionar os recursos consumidos com o número de conexões simultâneas no serviço e com os demais recursos.
+%
+Esta estrutura auxiliará a visualização e interpretação dos dados para posterior análise.
 
 Todos os testes serão executados utilizando a arquitetura Rudy, Salz e Willson.
 %
@@ -523,8 +536,10 @@ Foram projetadas cinco sub-redes no cenário de testes baseado nas regiões defi
 %
 A partir destas sub-redes, foi estipulado valores de recursos computacionais limites e números de instâncias máximas.
 %
-Entretanto, não foi possível definir o limite de instâncias para a sub-rede de estresse.
+Entretanto, não foi possível definir o limite de instâncias para a sub-rede de estresse, visto que não foi encontrado estudos anteriores para ter uma linha base de consumo de recursos.
 %
-Por fim, foi definido regras de negócio básicas para os clientes simulados, baseados em um autômato.
+Dessa forma, o atual trabalho também contribuirá com futuros trabalhos guiando o consumo de recursos para as arquiteturas Rudy, Salz e Willson.
+%
+Por fim, foram definidas as regras de negócio básicas para os clientes simulados, baseados em um autômato.
 
-Os testes que serão executados sobre as redes estão baseados na finalidade de obtenção de valores de recursos mínimos para execução dos serviçõs e crescimento de valores de recursos conforme um número de clientes simultâneos.
+Os testes que serão executados sobre as redes estão baseados na finalidade de obtenção de valores de recursos mínimos para execução dos serviços e crescimento de valores de recursos conforme um número de clientes simultâneos.
