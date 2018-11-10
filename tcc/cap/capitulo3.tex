@@ -40,7 +40,7 @@ Em específico, serão obtidos os valores referentes aos uso dos seguintes recur
 \begin{enumerate}
   \item \textbf{\ac{cpu}}: o uso de CPU, com sua representação sendo em relação a porcentagem de processamento nos núcleos utilizados;
   \item \textbf{Memória}: Quantidade de memória utilizada pelos processos do serviço/arquitetura. A sua representação será como dado absoluto;
-  \item \textbf{Rede}: Banda de rede utilizada nas operações de entrada e saída para cada microsserviço, utilizando valores absolutos. Também será obtido o valor de latência do cliente ao microsserviço, verificando se o congestionamento da rede afeta a latência do microsserviço.
+  \item \textbf{Rede}: Banda de rede utilizada nas operações de entrada e saída para cada microsserviço, utilizando valores absolutos. Juntamente será obtido o valor de latência do cliente ao microsserviço, verificando se o congestionamento da rede afeta a latência do microsserviço.
 \end{enumerate}
 
 Além dos recursos computacionais, esta análise levará em conta valores referentes a outras métricas.
@@ -91,7 +91,7 @@ Um conjunto exemplo destes problemas estão listados na Tabela~\ref{tab:problema
 
 \begin{table}[htb!]
   \centering
-  \caption{Possíveis conjuntos para a análise}
+  \caption{Possíveis conjuntos para a análise.}
   \label{tab:problemas}
   \begin{tabular}{|l|l|l|l|l|l|l|l|}
   \hline
@@ -238,7 +238,7 @@ Esta divisão física em redes facilitará a orquestração dos serviços na red
 Além disso, pode-se garantir que a interface do serviço público para o cliente segue o padrão de um serviço \ac{mmorpg} real.
 
 \begin{figure}[htb!]
-  \caption{Rede de execução dos testes}
+  \caption{Rede de execução dos testes.}
   \label{fig:cenario}
   \includegraphics[height=8cm]{img/cap3/cenario.png}
   \centering
@@ -382,7 +382,7 @@ A lista de comandos públicos é exibida na Tabela~\ref{tab:api_publica}.
 \begin{table}[htb!]
 \centering
 \begin{adjustbox}{max width=\textwidth}
-\caption{Requisitos mínimos para a implementação da simulação descrita}
+\caption{Requisitos mínimos funcionais para a implementação da simulação descrita.}
 \label{tab:api_publica}
 \begin{tabular}{|l|l|l|l|l|}
 \hline
@@ -449,7 +449,7 @@ A movimentação do personagem seguirá o autômato descrito na Figura~\ref{fig:
 
 
 \begin{figure}[htb!]
-  \caption{Autômato de movimentação dos personagens simulados}
+  \caption{Autômato de movimentação dos personagens simulados.}
   \label{fig:movimentacao}
   \includegraphics[height=3.5cm]{img/cap3/movimentacao.png}
   \centering
@@ -538,7 +538,7 @@ A partir destas sub-redes, foi estipulado valores de recursos computacionais lim
 %
 Entretanto, não foi possível definir o limite de instâncias para a sub-rede de estresse, visto que não foi encontrado estudos anteriores para ter uma linha base de consumo de recursos.
 %
-Dessa forma, o atual trabalho também contribuirá com futuros trabalhos guiando o consumo de recursos para as arquiteturas Rudy, Salz e Willson.
+Dessa forma, o atual trabalho contribuirá conjuntamente com futuros trabalhos guiando o consumo de recursos para as arquiteturas Rudy, Salz e Willson.
 %
 Por fim, foram definidas as regras de negócio básicas para os clientes simulados, baseados em um autômato.
 

@@ -108,7 +108,7 @@ Uma breve explicação sobre os principais gêneros (Figura~\ref{fig:generos}):
   \item \ac{mmo}: Preza pela interação com outros jogadores em um mundo compartilhado~\cite{adams_1208533}. SecondLife\footnote{SecondLife: \url{https://www.secondlife.com/}} é um jogo focado na interação social, com artifícios de comércio e relacionamentos em um mundo fictício criado pela comunidade~\cite{tecmundo_secondlife}. Em grande parte, esses jogos utilizam tecnologia \ac{wan} e \ac{cs}.
     \begin{itemize}
       \item \ac{moba}: Coloca um número fixo de jogadores separados em dois times, no qual o time com maior estratégia de posicionamento e gerenciamento de recursos em equipe ganha a partida. Jogos \ac{moba} perdem algumas características breves do gênero \ac{rpg}, deixando de lado a interpretação e contextualização de um mundo, fixando-se somente em um combate estratégico e momentâneo (distribuído em partidas atômicas) entre as equipes, carregando consigo somente as características de comércio e comunidade dos jogos \ac{mmo}~\cite{adams_1208533}. Tal subgênero é popularmente conhecido pelos títulos Blizzard Dota 2\footnote{Blizzard Dota 2: \url{http://br.dota2.com/}} e Riot League of Legends\footnote{Riot League of Legends: \url{https://br.leagueoflegends.com/pt/}}. O jogo League of Legends obteve 100 milhões de usuários ativos em 2016 sendo o jogo mais jogado do mundo neste ano~\cite{lol_statista}, tendo torneios nacionais e internacionais~\cite{lol_sportv}. É popular nesse subgênero utilizar tecnologias como \ac{lan}, \ac{p2p} e \ac{wan}.
-      \item \ac{mmorpg}: Herda características dos gêneros ação e aventura, \ac{rpg}, e \ac{mmo} diretamente. Nesse gênero é permitido interações em um mundo na qual outros jogadores também estão jogando, na qual a interação entre outros jogadores (herdado dos jogos \ac{mmo}), com o mundo (herdado dos jogos de ação e aventura) e com objetivos guiados por \acp{npc} (herdados de jogos \ac{rpg}) se faz como desafio e objetivo do jogo~\cite{adams_1208533}. Um título popular para esse gênero é o jogo Blizzard Word of WarCraft, a qual tem o título de maior comunidade de jogo em um único serviço do mundo\footnote{Blizzard Word of WarCraft: \url{https://worldofwarcraft.com/pt-br/}}. A grande parte dos jogos \ac{mmorpg} utilizam tecnologia \ac{wan} e \ac{cs}.
+      \item \ac{mmorpg}: Herda características dos gêneros ação e aventura, \ac{rpg}, e \ac{mmo} diretamente. Nesse gênero é permitido interações em um mundo na qual outros jogadores conjuntamente jogam, na qual a interação entre outros jogadores (herdado dos jogos \ac{mmo}), com o mundo (herdado dos jogos de ação e aventura) e com objetivos guiados por \acp{npc} (herdados de jogos \ac{rpg}) se faz como desafio e objetivo do jogo~\cite{adams_1208533}. Um título popular para esse gênero é o jogo Blizzard Word of WarCraft, a qual tem o título de maior comunidade de jogo em um único serviço do mundo\footnote{Blizzard Word of WarCraft: \url{https://worldofwarcraft.com/pt-br/}}. A grande parte dos jogos \ac{mmorpg} utilizam tecnologia \ac{wan} e \ac{cs}.
     \end{itemize}
   \item Aventura: Caracterizado por desafios envolvendo ações com diversos \acp{npc} ou com o ambiente para solucionar desafios~\cite{adams_1208533}. A grande parte desses jogos utilizam arquiteturas \ac{wan}, \ac{p2p} ou \ac{lan}.
     \begin{itemize}
@@ -131,7 +131,7 @@ Uma breve explicação sobre os principais gêneros (Figura~\ref{fig:generos}):
 
 A árvore de gêneros guia tanto os usuários finais para classificar jogos que lhe agradem, quanto desenvolvedores a fim de seguir tendências de mercado pelas características do gênero.
 %
-Dessa forma, encontra-se um padrão nos jogos, o qual também orienta o desenvolvimento das arquiteturas de tais jogos~\cite{video_game_technologies}.
+Dessa forma, encontra-se um padrão nos jogos, o qual inclusive orienta o desenvolvimento das arquiteturas de tais jogos~\cite{video_game_technologies}.
 
 Dentre vários gêneros, alguns utilizam popularmente algumas tecnologias de rede.
 %
@@ -259,7 +259,7 @@ Nos jogos \ac{mmorpg} é comum a restrição da visão do personagem (Figura~\re
 Como o jogador não precisa obter dados de regiões que não estão em sua área de interesse, não há necessidade da transmissão de informações dos objetos que estão fora desse contexto~\cite{albion_online_unite}.
 
 \begin{figure}[htb!]
-\caption{Área de interesse com base na proximidade de um jogador}
+\caption{Área de interesse com base na proximidade de um jogador.}
 \label{fig:proximidade}
 \includegraphics[height=8cm]{img/cap2/proximidade.png}
 \centering
@@ -291,7 +291,7 @@ O envio e recepção de mensagens do chat é dado com o contexto do posicionamen
 Somente outros personagens dentro de uma distância podem receber alguma mensagem emitida pelo jogador $P_n$.
 
 \begin{figure}[htb!]
-\caption{Chat baseado em contexto de posicionamento, utilizando Distância Euclidiana}
+\caption{Chat baseado em contexto de posicionamento, utilizando Distância Euclidiana.}
 \label{fig:chat}
 \includegraphics[height=8cm]{img/cap2/chat.png}
 \centering
@@ -316,7 +316,7 @@ Dessa maneira, este é um sistema crítico para um jogo \ac{mmorpg}, visto que o
 
 
 \begin{figure}[htb!]
-\caption{Personagens e os seus pontos de destino}
+\caption{Personagens e os seus pontos de destino.}
 \label{fig:walk}
 \includegraphics[height=4cm]{img/cap2/walk.png}
 \centering
@@ -331,7 +331,7 @@ A interação com o ambiente, itens, \acp{npc} e outros jogadores também são a
 Um exemplo de ambiente com personagens ($P_1$ e $P_2$), objetos ($O_1$) e \acp{npc} (NPC somente) pode ser visualizado na Figura~\ref{fig:obj_e_npc1}~\cite{albion_online_unite}.
 
 \begin{figure}[htb!]
-\caption{Personagens, objetos e \acp{npc} em no ambiente}
+\caption{Personagens, objetos e \acp{npc} em no ambiente.}
 \label{fig:obj_e_npc1}
 \includegraphics[height=4cm]{img/cap2/obj_e_npc1.png}
 \centering
@@ -429,7 +429,7 @@ A Figura~\ref{fig:scene_tree} ilustra um exemplo, na qual exibe a árvore de um 
 
 
 \begin{figure}[htb!]
-\caption{\textit{Scene tree view} no motor gráfico Godot}.
+\caption{\textit{Scene tree view} no motor gráfico Godot.}
 \label{fig:scene_tree}
 \includegraphics[height=5cm]{img/cap2/scene_tree.png}
 \centering
@@ -476,7 +476,7 @@ Na Figura~\ref{fig:gateway} é possível ver o ator \textit{jogador} o qual pode
 %
 Por sua vez, existe uma entrada de dados a mais comparado a esquemas de jogos \textit{offline}.
 %
-Neste caso, o módulo \textit{Network} será também uma entrada de dados, a qual poderá manipular a cena do motor gráfico~\cite{faber}.
+Neste caso, o módulo \textit{Network} será igualmente uma entrada de dados, a qual poderá manipular a cena do motor gráfico~\cite{faber}.
 %
 Para facilitar o desenvolvimento, a aplicação de cliente é dividida em diversos módulos, entretanto são relevantes ao atual trabalho~\cite{albion_online_unite}:
 
@@ -541,7 +541,7 @@ Isso pode ser visualizado na Figura~\ref{fig:microsservicos_tecnologias}.
 
 
 \begin{figure}[htb!]
-\caption{Microsserviços podem ter diferentes tecnologias}
+\caption{Microsserviços podem ter diferentes tecnologias.}
 \label{fig:microsservicos_tecnologias}
 \includegraphics[height=5cm]{img/cap2/microsservicos_tecnologias.png}
 \centering
@@ -559,7 +559,7 @@ Este modelo computacional obtém maior desempenho, principalmente se executar so
 
 
 \begin{figure}[htb!]
-\caption{Microsserviços são escaláveis}
+\caption{Microsserviços são escaláveis.}
 \label{fig:microsservicos_escalabilidade}
 \includegraphics[height=4cm]{img/cap2/microsservicos_escalabilidade.png}
 \centering
@@ -790,7 +790,7 @@ O modelo de processamento do gerente de ambiente pode ser visualizado na Figura~
 
 
 \begin{figure}[htb!]
-  \caption{Modelo de processos \textit{Thread Pool}}
+  \caption{Modelo de processos \textit{Thread Pool}.}
   \label{fig:thread_pool}
   \includegraphics[height=6.5cm]{arquiteturas/thread_pool.png}
   \centering
@@ -806,13 +806,11 @@ Caso o cliente entre em sua vez de processamento, e nenhuma chamada remota estej
 
 
 
-Um serviço que chama atenção na arquitetura Rudy é o Gerenciador de Consultas, um serviço web que implementa uma camada sobre diversos bancos de dados a fim de prover variedade entre vários bancos de forma facilitada por requisições web, utilizando operações \ac{crud}.
+Um serviço que demanda atenção na arquitetura Rudy é o Gerenciador de Consultas, um serviço web que implementa uma camada sobre diversos bancos de dados a fim de prover variedade entre vários bancos de forma facilitada por requisições web, utilizando operações \ac{crud}.
 %
 Implementar esta camada garante uma padronização de acesso ao banco de dados, porém adiciona um possível gargalo a arquitetura~\cite{matthiasrudy2011}.
-
-
-
-Os pontos positivos de utilizar esta camada de consultas na arquitetura são~\cite{matthiasrudy2011}:
+%
+Os pontos positivos de utilizar esta camada de consultas na arquitetura São:
 \begin{enumerate}
   \item Não permite acesso direto ao banco de dados do serviço web e do serviço de jogo.
   \item Permite maior manejo a migrações em tabelas e troca de tecnologias.
@@ -919,7 +917,7 @@ Na arquitetura Salz, são necessárias três conexões \ac{tcp} com o servidor, 
 %
 O custo desta operação é alto, e por isso nem sempre é viável utilizar esta abordagem, principalmente para jogos nos quais a demanda de banda seja menor.
 %
-Para evitar esta decisão, também é notório a abordagem utilizada pela arquitetura Willson.
+Para evitar esta decisão, da mesma forma é notória a abordagem utilizada pela arquitetura Willson.
 
 
 
@@ -931,7 +929,7 @@ A arquitetura elaborada por Clarke-Willson leva como principal característica a
 %
 Essas atualizações são versionadas a todos os microsserviços utilizando sistemas de versionamento de código fonte~\cite{stephenclarkewillson2017, willson}.
 %
-Por este motivo, a sua arquitetura também compreende microsserviços de armazenamento de arquivos sobre protocolo \ac{http} para atualização dos clientes~\cite{stephenclarkewillson2017}.
+Por este motivo, a sua arquitetura inclusive compreende microsserviços de armazenamento de arquivos sobre protocolo \ac{http} para atualização dos clientes~\cite{stephenclarkewillson2017}.
 %
 Uma outra característica do serviço de jogo é a utilização de uma única conexão \ac{tcp} por cliente.
 %
@@ -939,7 +937,7 @@ Essa arquitetura pode ser visualizada na Figura~\ref{full_willson}.
 
 
 \begin{figure}[htb!]
-  \caption{Arquitetura Willson}
+  \caption{Arquitetura Willson.}
   \label{full_willson}
   \includegraphics[height=7.5cm]{arquiteturas/full_willson.png}
   \centering
@@ -1148,7 +1146,7 @@ Para isso, o autor preparou três instâncias de testes com suas configurações
 
 
 \begin{figure}[htb!]
-\caption{Arquitetura monolítica web implementada na \ac{aws}}
+\caption{Arquitetura monolítica web implementada na \ac{aws}.}
 \label{fig:aws_monolitico}
 \includegraphics[height=6.5cm]{img/cap2/aws_monolitico.png}
 \centering
@@ -1167,7 +1165,7 @@ Essa arquitetura foi implementada utilizando \textit{Jax-RS} e \textit{Play Fram
 
 
 \begin{figure}[htb!]
-\caption{Arquitetura de microsserviços web implementada na \ac{aws}}
+\caption{Arquitetura de microsserviços web implementada na \ac{aws}.}
 \label{fig:aws_microsservicos}
 \includegraphics[height=6.5cm]{img/cap2/aws_microsservicos.png}
 \centering
@@ -1182,7 +1180,7 @@ A Figura~\ref{fig:aws_microsservicos} exibe a implantação de uma aplicação d
 
 
 \begin{figure}[htb!]
-\caption{Arquitetura de microsserviços web implementada na \ac{aws} utilizando a tecnologia \textit{lambda}}
+\caption{Arquitetura de microsserviços web implementada na \ac{aws} utilizando a tecnologia \textit{lambda}.}
 \label{fig:aws_lambda}
 \includegraphics[height=6.5cm]{img/cap2/aws_lambda.png}
 \centering
@@ -1197,7 +1195,7 @@ A Figura~\ref{fig:aws_lambda} exibe a implantação de uma aplicação de micros
 
 
 \begin{figure}[htb!]
-\caption{Custo por um milhão de requisições em dólares utilizando diferentes arquiteturas sobre a \ac{aws}}
+\caption{Custo por um milhão de requisições em dólares utilizando diferentes arquiteturas sobre a \ac{aws}.}
 \label{fig:custo_aws}
 \includegraphics[height=6.5cm]{img/cap2/custo_aws.png}
 \centering
@@ -1226,7 +1224,7 @@ Este trabalho usa com base o modelo descrito na Seção~\ref{sec:huang}, um mode
 
 \begin{table}[htb!]
 \centering
-\caption{Complexidade da interação com o ambiente, por contexto da interação}
+\caption{Complexidade da interação com o ambiente, por contexto da interação.}
 \label{tab:complexidade}
 \begin{tabular}{|l|l|l|l|l|}
 \hline
@@ -1258,7 +1256,7 @@ Os contextos analisados nessa tabela são:
 
 
 \begin{figure}[htb!]
-\caption{Regressão levando em conta a complexidade das ações e contexto dos personagens}
+\caption{Regressão levando em conta a complexidade das ações e contexto dos personagens.}
 \label{fig:regressao_complexidade}
 \includegraphics[height=6.0cm]{img/cap2/network_regressao_complexidade.png}
 \centering
@@ -1302,7 +1300,7 @@ Esta relação pode ser visualizada na Tabela~\ref{tab:categoria_trabalhos}.
 
 \begin{table}[htb!]
 \centering
-\caption{Trabalhos relacionados por categoria}
+\caption{Trabalhos relacionados por categoria.}
 \label{tab:categoria_trabalhos}
 \begin{tabular}{l|l}
 \hline
@@ -1325,7 +1323,7 @@ Nenhum trabalho relatou limite de conexões ou latência do sistema.
 \begin{table}[htb!]
 \centering
 \begin{adjustbox}{max width=\textwidth}
-\caption{Trabalhos relacionados por recurso utilizado}
+\caption{Trabalhos relacionados por recurso analisado.}
 \label{tab:recursos_categoria}
 \begin{tabular}{l|l|l|l|l|l|l|l}
 \hline
@@ -1353,7 +1351,7 @@ Além disso, não foi descrito um método de replicação automática dos servi�
 \begin{table}[htb!]
 \centering
 \begin{adjustbox}{max width=\textwidth}
-\caption{Arquiteturas analisadas}
+\caption{Arquiteturas analisadas.}
 \label{tab:arquiteturas_analisadas}
 \begin{tabular}{l|l|l|l}
 \hline
