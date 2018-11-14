@@ -3,7 +3,13 @@
 
 
 
-
+Os avanços tecnológicos de sistemas distribuídos estão permitindo que as pessoas utilizem serviços com volumes massivos de dados para aplicações sensíveis a latência.
+%
+Essa situação é propícia à área de jogos massivos, e tem atraído pesquisadores para essa área de estudo~\cite{mmo_analytic,1417630,6267019,6063041}.
+%
+O principal objetivo destas pesquisas é reduzir a carga e o impacto da latência para o usuário final nesses serviços, aumentando a quantidade de jogadores simultâneos em um único serviço.
+%
+Reduzir a carga e impacto da latência em serviços para jogos massivos resulta em uma melhor experiência de jogabilidade aos usuários finais, sendo este um dos fatores críticos para o sucesso destes serviços~\cite{1417630}.
 
 
 
@@ -24,14 +30,6 @@ Uma ocorrência é qualquer tipo de mal funcionamento em uma aplicação, não n
 Evitar ou eliminar as ocorrências durante o projeto e desenvolvimento das arquiteturas do serviço é um processo crítico para o bom funcionamento desses jogos.
 
 
-Os avanços tecnológicos de sistemas distribuídos estão permitindo que as pessoas utilizem serviços com volumes massivos de dados para aplicações sensíveis a latência.
-%
-Essa situação é propícia à área de jogos massivos, e tem atraído pesquisadores para essa área de estudo~\cite{mmo_analytic,1417630,6267019,6063041}.
-%
-O principal objetivo destas pesquisas é reduzir a carga e o impacto da latência para o usuário final nesses serviços, aumentando a quantidade de jogadores simultâneos em um único serviço.
-%
-Reduzir a carga e impacto da latência em serviços para jogos massivos resulta em uma melhor experiência de jogabilidade aos usuários finais, sendo este um dos fatores críticos para o sucesso destes serviços~\cite{1417630}.
-
 
 Algumas análises/propostas discorrem sobre a escalabilidade dos serviços baseados em microsserviços com o seu foco para desenvolvimento \textit{web}~\cite{photon_engine, mmorpg_culture, DiFrancesco2017Apr}.
 %
@@ -41,7 +39,7 @@ Dessa forma, torna-se interessante a análise de serviços \ac{mmorpg} baseados 
 
 
 
-Deste modo, o problema principal identificado está na análise de consumo de recursos para a manutenção de arquiteturas de microsserviços específicos a jogos \ac{mmorpg} utilizando como base arquiteturas encontradas na literatura.
+Portanto o problema principal identificado é a análise de consumo de recursos para a manutenção de arquiteturas de microsserviços específicos a jogos \ac{mmorpg} utilizando como base arquiteturas encontradas na literatura.
 %
 Adicionalmente a este problema, será necessário o desenvolvimento de tais arquiteturas para submissão a experimentos e análise.
 
@@ -69,13 +67,13 @@ A relevância desta análise contribui, diretamente para que outros trabalhos ci
 
 
 
-A análise é inicialmente realizada através de uma pesquisa referenciada sobre arquiteturas de microsserviços e arquitetura de serviços \ac{mmorpg}.
+A análise será inicialmente realizada através de uma pesquisa referenciada sobre arquiteturas de microsserviços e arquitetura de serviços \ac{mmorpg}.
 %
 Depois, um estudo sobre a intersecção de ambos os temas.
 %
 Também são identificados trabalhos relacionados na presente literatura que foquem tanto em microsserviços tal como serviços \ac{mmorpg}.
 %
-Em seguida é definida a proposta, junto a testes e cenários a fim de analisar tais arquiteturas. 
+Em seguida será definida a proposta, junto a testes e cenários a fim de analisar tais arquiteturas.
 
 
 

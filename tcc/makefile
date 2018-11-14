@@ -16,4 +16,4 @@ clean:
 	rm tccudesc.bbl
 
 sync_dropbox:
-	cp -rf . "/home/marlon/Dropbox/UDESC/BCC/Análise de Gerenciamento de Recursos em MMORPG/TCC"
+	# cp -rf . "/home/marlon/Dropbox/UDESC/BCC/Análise de Gerenciamento de Recursos em MMORPG/TCC"
