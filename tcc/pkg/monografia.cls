@@ -504,7 +504,7 @@
 \par
 \begin{minipage}{\hsize}
 {\rmfamily \centering \setlength{\normallineskip}{1cm}   
-Este Trabalho de Conclus\~{a}o de Curso foi julgado adequado para a obten\c{c}\~{a}o do t\'{i}tulo de Bacharel em Ci\^{e}ncia da Computa\c{c}\~{a}o e aprovado em sua forma final pelo Curso de Ci\^{e}ncia da Computa\c{c}\~{a}o Integral do CCT/UDESC.}
+Este Trabalho de Conclus\~{a}o de Curso foi julgado adequado para a obten\c{c}\~{a}o do t\'{i}tulo de Bacharel em Ci\^{e}ncia da Computa\c{c}\~{a}o e aprovado em sua forma final pelo Curso de Bacharelado Ci\^{e}ncia da Computa\c{c}\~{a}o em turno Integral do CCT/UDESC.}
 \end{minipage}
 \end{center}
 \vfill
