@@ -72,7 +72,7 @@ A proteção do \textit{firewall} é aplicada no serviço de pagamento e no pont
 
 O funcionamento interno do serviço de jogo trabalha em rodadas, visando não penalizar usuários com baixa transferência de dados entre o cliente e o serviço.
 %
-Cada cliente produz requisições para ser consumido pelo ciclo de processamento do gerente de jogo.
+Cada cliente produz requisições para serem consumidas pelo ciclo de processamento do gerente de jogo.
 %
 Entretanto, o serviço irá consumir de forma igualitária uma requisição de um jogador diferente, como uma fila~\cite{albion_online_unite, matthiasrudy2011}.
 %
@@ -100,7 +100,7 @@ Um serviço que demanda atenção na arquitetura Rudy é o Gerenciador de Consul
 %
 Implementar esta camada garante uma padronização de acesso ao banco de dados, porém adiciona um possível gargalo a arquitetura~\cite{matthiasrudy2011}.
 %
-Os pontos positivos de utilizar esta camada de consultas na arquitetura São:
+Os pontos positivos de utilizar esta camada de consultas na arquitetura são:
 \begin{enumerate}
   \item Não permite acesso direto ao banco de dados do serviço web e do serviço de jogo.
   \item Permite maior manejo a migrações em tabelas e troca de tecnologias.
@@ -111,16 +111,16 @@ Os pontos positivos de utilizar esta camada de consultas na arquitetura São:
 
 
 
-Contudo, adicionando uma camada sobre os bancos de dados para gerenciamento tem pontos negativos~\cite{matthiasrudy2011}.
+Contudo, adicionar uma camada sobre os bancos de dados para gerenciamento tem pontos negativos~\cite{matthiasrudy2011}.
 
 \begin{enumerate}
   \item Aumenta a complexidade de implementação, teste, administração e ponto de falha.
   \item Adiciona limites como número de conexões, número de requisições, etc.
 \end{enumerate}
 
-Entretanto, esta arquitetura não permite escalar um único ambiente para um número de jogadores simultâneos maior a qual o hardware que hospeda o serviço é designado.
+Entretanto, esta arquitetura não permite escalar um único ambiente para um número de jogadores simultâneos maior ao designado pelo hardware que hospeda o serviço.
 %
-Para este motivo, as arquiteturas Salz e Willson tomam abordagens para subdividir o ambiente do jogo em mais serviços, podendo assim escalar um único ambiente para mais jogadores simultâneos.
+Por este motivo, as arquiteturas Salz e Willson tomam abordagens para subdividir o ambiente do jogo em mais serviços, podendo assim escalar um único ambiente para mais jogadores simultâneos.
 
 
 \subsection{Arquitetura elaborada por Salz}
@@ -141,9 +141,7 @@ Para o funcionamento adequado, o cliente necessita manter três conexões aberta
 
 
 
-A Figura~\ref{full_salz} exibe a arquitetura Salz de forma completa.
-%
-Na Figura~\ref{full_salz} encontram-se quatro bancos de dados distintos, sendo eles o banco de \textit{Pagamento}, \textit{Negociação}, \textit{Autenticação} e \textit{Jogo}, sendo os bancos de Autenticação e Jogo com tecnologias \ac{nosql}, sendo os demais bancos com tecnologia \ac{sql}.
+A Figura~\ref{full_salz} exibe a arquitetura Salz de forma completa, na qual encontram-se quatro bancos de dados distintos, sendo eles o banco de \textit{Pagamento}, \textit{Negociação}, \textit{Autenticação} e \textit{Jogo}, sendo os bancos de Autenticação e Jogo com tecnologias \ac{nosql}. Os demais bancos utilizam tecnologia \ac{sql}.
 %
 Referente aos microsserviços que compõem a arquitetura, tem-se os seguintes elementos~\cite{salz_albion}:
 
@@ -160,7 +158,7 @@ Referente aos microsserviços que compõem a arquitetura, tem-se os seguintes el
 
 
 
-Os microsserviços que compõem a arquitetura Salz utiliza em grande parte serviços \textit{web}, utilizando somente o protocolo \ac{rpc} para o serviço de jogo.
+Os microsserviços que compõem a arquitetura Salz utilizam em grande parte serviços \textit{web}, utilizando somente o protocolo \ac{rpc} para o serviço de jogo, autenticação e comunicação.
 %
 No serviço de jogo, tanto o cliente quando o serviço podem invocar métodos remotos através do protocolo \ac{rpc}, tendo como padrão métodos com retorno nulo~\cite{salz_albion, photon_serialization}.
 %
@@ -195,7 +193,7 @@ As entradas e saídas de mensagens(\textit{e.g.,} rede, Banco de dados, \textit{
 %
 Todos os demais microsserviços operam sobre múltiplos processos, a partir do processo de conexão \ac{tcp} ao serviço~\cite{salz_albion}.
 %
-Diferente da arquitetura Rudy(Seção ~\ref{rudy}) a qual prioriza a resolução de requisições, evitando a executar métodos consecutivos da mesma conexão, na arquitetura Salz (Figura~\ref{full_salz}) as chamadas de processo remoto são executadas por ordem de chegada~\cite{salz_albion}.
+Diferente da arquitetura Rudy(Seção ~\ref{rudy}) a qual prioriza a resolução de requisições, evitando a executar métodos consecutivos da mesma conexão, na arquitetura Salz (Figura~\ref{full_salz}) as chamadas de processo remoto são executadas em ordem \ac{fifo}~\cite{salz_albion}.
 %
 Desta forma, quanto melhor a conexão com o serviço, mais requisições um cliente poderá executar.
 %
@@ -245,29 +243,29 @@ Os microsserviços que compõem a arquitetura Willson são~\cite{willson, stephe
 \begin{enumerate}
   \item \textbf{Serviço web}: Exibe informações do jogo, oferece operações \ac{crud} para cadastro de usuários e o sistema de pagamento. Opera sobre o protocolo \ac{http}.
   \item \textbf{Serviço de Atualização}: Integrado junto ao processo de desenvolvimento, fornecendo versionamento do cliente por um sistema web. Este microsserviço utiliza serviços internos ao desenvolvimento da aplicação. Opera sobre o protocolo \ac{http}.
-  \item \textbf{Serviço de Autenticação e Social}: Gerencia a autenticação dos jogadores através de um serviço web. Também gerencia ações sociais (\textit{e.g.} sistema de amigos, grupos, nações, comércio, \textit{etc}). Opera sobre o protocolo \ac{http}.
+  \item \textbf{Serviço de Autenticação}: Gerencia a autenticação dos jogadores através de um serviço web. Também gerencia ações sociais (\textit{e.g.} sistema de amigos, grupos, nações, comércio, \textit{etc}). Opera sobre o protocolo \ac{http}.
   \item \textbf{Serviço de Balanceamento de carga}: Gerencia a carga entre os serviços web da arquitetura. Opera sobre o protocolo \ac{http}.
   \item \textbf{Serviço de Jogo}: Processa a lógica de jogo. Cada instância deste microsserviço gerencia um \textit{chunk} do ambiente do jogo. Opera sobre o protocolo \ac{rpc}.
   \item \textbf{Serviços Globais}: Processa rotinas globais do jogo, a qual não dependem do posicionamento do jogador. Opera sobre o serviço \ac{rpc}.
 \end{enumerate}
 
-O serviço de jogo da arquitetura Willson é comparada ao serviço similar na Salz~\ref{salz}, entretanto utiliza a técnica de \textit{thread pool} com valor de processos da fila de processadores fixo conforme o \textit{hardware} hospedeiro do serviço~\cite{stephenclarkewillson2017}.
+O serviço de jogo da arquitetura Willson é comparada ao serviço similar na arquitetura Salz, definido no Subcapítulo~\ref{salz}, entretanto utiliza a técnica de \textit{thread pool} com valor de processos da fila de processadores fixo conforme o \textit{hardware} hospedeiro do serviço~\cite{stephenclarkewillson2017}.
 %
-Para modelos de paralelismo, pode-se utilizar os seguintes números processos paralelos~\cite{willson}:
+Para modelos de paralelismo, pode-se utilizar os seguintes números de processos paralelos~\cite{willson}:
 
 
 \begin{enumerate}
   \item O dobro de número de núcleos: exige maior carga do serviço por troca de contexto entre os processos.
   \item O número exato de núcleos mais n: O serviço perderá tempo de processamento, trocando de contexto para outro processo, porém de forma mais sutil ao dobro do número de núcleos de processamento.
-  \item O número de núcleos, exigindo um número menor de carga de contexto, dividindo somente com o sistema operacional.
-  \item O número de núcleos menos um, liberando um núcleo para o sistema operacional.
+  \item O número de núcleos: exigindo um número menor de carga de contexto, dividindo somente com o sistema operacional.
+  \item O número de núcleos menos um: liberando um núcleo para o sistema operacional.
 \end{enumerate}
 
 O número padrão de processos paralelos para processamento de requisições é o número de núcleos menos um, visando evitar a troca de contexto com o sistema operacional~\cite{willson}.
 %
 Essa troca de contexto trás variação na latência da resposta do serviço, a qual não tem controle pelo próprio serviço.
 %
-Nesse sentido, a melhor escolha é o número de núcleos menos um, escolhido após um teste de \textit{stress}~\ref{willson}.
+Nesse sentido, a melhor escolha é o número de núcleos menos um, escolhido após um teste de \textit{stress}, definido no Subcapítulo~\ref{willson}.
 
 
 
@@ -311,7 +309,7 @@ Fonte: O próprio autor
 
 A arquitetura genérica descrita na Figura~\ref{fig:generica} também precisa corresponder as demandas necessárias do \textit{GameDesign} do próprio jogo.
 %
-Neste caso, só um tipo de microsserviço é visível nesta rede, porém poderiam existir microsserviços responsáveis pela parte social, comércio e estatísticas, aumentando o grau de complexidade da arquitetura.
+Neste caso, só um tipo de microsserviço é visível nesta rede, porém poderiam existir microsserviços responsáveis pela parte social, comercial e estatísticas, aumentando o grau de complexidade da arquitetura.
 %
 Em relação aos recursos utilizados por uma arquitetura, este trabalho foca na análise das arquiteturas de microsserviços descritas na literatura a fim de descrever o seu comportamento e desempenho.
 
@@ -325,7 +323,7 @@ Dentro do cenário de testes espera-se analisar por exemplo a estabilidade, limi
 %
 Além disso, espera-se simular a carga de uma arquitetura utilizada em produção, a fim de possibilitar a quantificação do custo de operação de tal serviço.
 %
-Estas são expectativas gerais do que espera-se analisar, mas conforme a análise dos dados obtidos for realizada, é possível que outras características surjam.
+Estas são expectativas gerais do que pretende-se analisar, mas conforme a análise dos dados obtidos for realizada, é possível que outras características surjam.
 %
 Para guiar a proposta, um dos passos importantes são os trabalhos relacionados com este tema, na qual analisa-se estudos que abordam arquiteturas de jogos \ac{mmorpg} e/ou arquiteturas de microsserviços.
 
@@ -381,7 +379,7 @@ Cada \textit{Proxy Server} é responsável por comunicar com os demais microsser
 %
 O protocolo de comunicação utilizado entre o Cliente e \textit{Proxy Server} é baseado em \ac{rpc}~\cite{faber, borella}, porém não é relatado sobre o o protocolo de comunicação utilizado entre o \textit{Proxy Server} e o \textit{Game Server}.
 %
-A sua arquitetura pode ser observada na Figura \ref{fig:game_with_proxy}, na qual obteve seus dados obtidos durante 100 dias para realizar as análises.
+A sua arquitetura pode ser observada na Figura \ref{fig:game_with_proxy}, na qual obteve seus dados durante 100 dias para realizar as análises.
 %
 A Figura \ref{fig:players_peer_time} demonstra uma amostra do número de conexões pelo tempo no serviço obtido.
 
@@ -555,7 +553,7 @@ Fonte:~\cite{6374456}
 \end{figure}
 
 
-Utilizando as complexidades das ações, o número de conexões e o contexto de cada personagem no ambiente para predizer a banda utilizada.
+A abordagem utilizou as complexidades das ações, o número de conexões e o contexto de cada personagem no ambiente para predizer a banda utilizada.
 %
 Pode-se visualizar uma regressão na Figura~\ref{fig:regressao_complexidade}.
 

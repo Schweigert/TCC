@@ -77,7 +77,7 @@ Neste sentido, a análise dos dados obtidos será guiada pelo esperado dos valor
 
 Em um caso de uso ideal, todos os recursos não são estressáveis, com um número de conexões simultâneas elevado.
 %
-Porém, espera-se para o atual trabalho um possível conjunto de ocorrências, na qual podem ou não ocorrer.
+Porém, espera-se para este trabalho um possível conjunto de ocorrências, na qual podem ou não ocorrer.
 %
 Este conjunto servirá de guia / exemplo de problemas relevantes retirado dos valores obtidos.
 %
@@ -106,7 +106,7 @@ Um conjunto exemplo destes problemas estão listados na Tabela~\ref{tab:problema
   $\downarrow$  &              & $\uparrow$   & $\uparrow$   &              &              &              & \thead{Possível gargalo na rede\\ou protocolo ineficiente} \\ \hline
   $\uparrow$    & $\uparrow$   & $\downarrow$ & $\downarrow$ &              &              &              & \thead{Possível gargalo nos algoritmos\\utilizados no serviço} \\ \hline
                 &              &              &              & $\downarrow$ &              &              & \thead{Bloqueio de novas conexões pelo\\sistema operacional ou\\modelo de paralelismo} \\ \hline
-  $\uparrow$    & $\uparrow$   & $\uparrow$   & $\uparrow$   & $\uparrow$   & $\uparrow$   &  $\uparrow$  & \thead{Limite de processamento da arquitetura} \\ \hline
+  $\uparrow$    & $\uparrow$   & $\uparrow$   & $\uparrow$   & $\uparrow$   & $\downarrow$ &  $\uparrow$  & \thead{Limite de processamento da arquitetura} \\ \hline
   $\downarrow$  & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\uparrow$   & $\downarrow$ &  $\downarrow$& \thead{Teste ideal} \\ \hline
 
 
@@ -136,7 +136,7 @@ Pode ser possível identificar eventuais problemas conforme o tipo de requisiç�
 %
 Estes problemas servirão como guias na análise final das arquiteturas.
 
-Seguindo estes critérios da análise, torna-se necessário definir um plano de testes a fim de obter os dados conforme os cenários e casos de uso definidos no atual trabalho.
+Seguindo estes critérios de análise, torna-se necessário definir um plano de testes a fim de obter os dados conforme os cenários e casos de uso definidos no atual trabalho.
 %
 Tais testes servem para ocasionar situações nos serviços a fim de obter dados para posterior análise.
 
@@ -149,7 +149,7 @@ Tais testes servem para ocasionar situações nos serviços a fim de obter dados
 
 O plano de testes define os cenários que serão aplicados sobre as arquiteturas de microsserviços para jogos \ac{mmorpg} selecionadas.
 %
-O plano de testes serve para descrever formas de estressar as arquiteturas, a fim de obter valores para análise.
+Esta seção serve para descrever formas de estressar as arquiteturas, a fim de obter valores para análise.
 %
 Entretanto, antes de relatar os cenários de teste, é importante descrever o ambiente no qual serão realizados os experimentos.
 %
@@ -190,7 +190,7 @@ Tais regiões da infraestrutura utilizada no ambiente de testes devem manter um 
 %
 Dessa forma, espera-se dividir as aplicações conforme a sua rede, facilitando o seu monitoramento.
 %
-Entretanto, por se tratar de um sistema baseado em serviço, espera-se utilizar uma considerável parte do mesmo sistema de cliente para ambas as arquiteturas, excluindo-se os casos no quais a arquitetura necessite de alterações.
+Entretanto, por se tratar de um sistema baseado em serviço, espera-se utilizar uma considerável parte do mesmo sistema de cliente para as três arquiteturas, excluindo-se os casos no quais a arquitetura necessite de alterações.
 
 
 
@@ -217,7 +217,7 @@ Espera-se obter os valores referente a diferença de consumo de recursos computa
 
 Com o objetivo de obter dados, torna-se claro a necessidade de estresse das arquiteturas em múltiplos casos diversos, garantindo assim a confiabilidade dos dados obtidos.
 %
-Dessa forma, foi desenvolvido um cenário que comporte ambas as arquiteturas de microsserviços propostas a análise.
+Dessa forma, foi desenvolvido um cenário que comporte ambas as arquiteturas de microsserviços propostas na análise.
 %
 Este cenário possibilita a execução do experimento junto a simulação de clientes.
 
@@ -253,7 +253,7 @@ Estas redes são descritas da seguinte forma:
 \begin{enumerate}
   \item \textbf{Dados}: Armazena e processa os dados obtidos da arquitetura. É usado pelas redes \textit{Cliente} e \textit{Serviço de Jogo}.
   \item \textbf{Banco de dados do serviço de jogo}: Armazena dados do jogo. É usado pela rede \textit{Serviço de Jogo}.
-  \item \textbf{Serviço de Jogo}: Executa sistemas \textit{web} e \ac{rpc} do serviço de jogo. Gera métricas para os serviços na rede \textit{Dados} e manipula os bancos de dados na rede \textit{Banco de dados do serviço de jogo}.
+  \item \textbf{Serviço de Jogo}: Executa sistemas \textit{web} e \ac{rpc}, em específico da camada de serviço de jogo. Gera métricas para os serviços na rede \textit{Dados} e manipula os bancos de dados na rede \textit{Banco de dados do serviço de jogo}.
   \item \textbf{Estresse}: Executa múltiplos clientes, a fim de estressar o serviço de Jogo.
   \item \textbf{Clientes}: Executa um número controlado de clientes para obter métricas de tempo de resposta e latência entre as redes \textit{Cliente} e \textit{Serviço de Jogo}.
 \end{enumerate}
@@ -361,7 +361,7 @@ Nesse sentido, a Tabela~\ref{tab:requisitos_funcionais} relaciona a funcionalida
 Requisito                                                       & Descrição                                                                                                                                                                                  & Implementação                                                                                                                                                                             \\ \hline
 Identificação                                                   & \begin{tabular}[c]{@{}l@{}}Gera uma numeração única (token) com base\\ em uma tupla de dados.\end{tabular}                                                                                 & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando algoritmo de \textit{hash},\\ de forma a garantir que este token seja único e diferente a\\ cada implementação.\end{tabular}         \\ \hline
 Autenticação                                                    & \begin{tabular}[c]{@{}l@{}}Recebe o token e garante que não existe nenhuma\\ conexão utilizando o mesmo token.\end{tabular}                                                                & \begin{tabular}[c]{@{}l@{}}Será implementado usando um serviço de chave valor,\\ como o Redis.\end{tabular}                                                                               \\ \hline
-\begin{tabular}[c]{@{}l@{}}Seleção de\\ Personagem\end{tabular} & \begin{tabular}[c]{@{}l@{}}Uma conexão deve requirer o controle de um\\ personagem.\end{tabular}                                                                                           & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando uma árvore de cena interna\\ ao serviço, onde o tipo do nó será Personagem e o seu nome\\ será o nome do personagem.\end{tabular} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Seleção de\\ Personagem\end{tabular} & \begin{tabular}[c]{@{}l@{}}Uma conexão deve requerer o controle de um\\ personagem.\end{tabular}                                                                                           & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando uma árvore de cena interna\\ ao serviço, onde o tipo do nó será Personagem e o seu nome\\ será o nome do personagem.\end{tabular} \\ \hline
 Envio de Mensagem                                               & \begin{tabular}[c]{@{}l@{}}Será possível enviar mensagens e receber. Elas serão\\ baseadas na região. Será mantido uma distância fixa\\ para todos os casos de uso.\end{tabular}           & \begin{tabular}[c]{@{}l@{}}Deve existir uma estrutura de busca interna ao serviço para\\ consultar personagens de uma região em relação a um\\ usuário.\end{tabular}                      \\ \hline
 Movimentação                                                    & \begin{tabular}[c]{@{}l@{}}Será possível movimentar o personagem para as\\ células adjacentes. Isso indica que o\\ posicionamento do personagem será baseado\\ em uma matriz.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Esta ação deve comunicar a atualização para todos os demais\\ jogadores da região de interesse.\end{tabular}                                                   \\ \hline
 Ataque                                                          & \begin{tabular}[c]{@{}l@{}}Ao atacar, o jogador causará um dano aleatório\\ baseado em seu nível em todos os inimigos das\\ células adjacentes.\end{tabular}                               & \begin{tabular}[c]{@{}l@{}}Esta ação irá manipular a árvore de objetos da cena do serviço\\ e deverá notificar todos os jogadores desta área de interesse.\end{tabular}                   \\ \hline
@@ -511,6 +511,8 @@ Os dados são capturados ao decorrer do tempo, podendo assim relacionar os recur
 Esta estrutura auxiliará a visualização e interpretação dos dados para posterior análise.
 
 Todos os testes serão executados utilizando a arquitetura Rudy, Salz e Willson.
+%
+Eles serão executados sequencialmente, aplicando sobre o cenário cada arquitetura e seus devidos clientes sobre o cenário, a fim de obter as métricas para posterior análise.
 %
 A partir desta sequência de testes, são obtidos valores suficientes para a análise das arquiteturas de microsserviços específicas a jogos \ac{mmorpg}.
 %
