@@ -645,16 +645,6 @@ As requisições de métodos remotos são realizadas entre dois processos distin
 %
 Entretanto, a base do protocolo não é legível como em servidores web que utilizam \ac{json} para transmissão de estrutura de dados, mas sim uma codificação binária nomeado \ac{xdr}~\cite{xdr}.
 
-\begin{figure}[htb!]
-\caption{Diagrama de requisições entre serviço e cliente com operações \ac{crud} e \ac{rpc} em uma arquitetura monolítico.}
-\label{fig:network_crud_rpc}
-\includegraphics[height=6.5cm]{img/cap2/network_rpc_crud.png}
-\centering
-
-Fonte: Adaptado de~\cite{LeckyThompson2008Nov}
-\end{figure}
-
-
 
 Uma técnica comum em jogos é a compressão de pacotes utilizando mapeamento \textit{hash} de bytes~\cite{LeckyThompson2008Nov}.
 %
@@ -664,13 +654,27 @@ Dessa forma, é possível trocar o nome das funções solicitadas em \ac{rpc} po
 %
 Já para operações \ac{crud}, pode-se utilizar tanto requisições sobre o protocolo \ac{http} ou sobre um protocolo otimizado sobre \ac{tcp} dependendo da necessidade de desempenho~\cite{LeckyThompson2008Nov}.
 
+Dado um serviço que não é implementado sobre uma arquitetura de microsserviços, a utilização de dois protocolos irá complicar o gerenciamento de threads para responder de duas formas diferentes, entretando o seu esquema de estados ficará simplificado.
+%
+Esta simplificação pode ser visualizada na figura~\ref{fig:network_crud_rpc}.
+
+
+\begin{figure}[htb!]
+\caption{Diagrama de requisições entre serviço e cliente com operações \ac{crud} e \ac{rpc} em uma arquitetura monolítica.}
+\label{fig:network_crud_rpc}
+\includegraphics[height=6.5cm]{img/cap2/network_rpc_crud.png}
+\centering
+
+Fonte: Adaptado de~\cite{LeckyThompson2008Nov}
+\end{figure}
+
+Entretanto, diferente da Figura~\ref{fig:network_crud_rpc}, a fim de simplificar a complexidade da implementação e gerenciamento de concorrência no serviço, pode-se implementar utilizando o paradigma de microsserviços.
+%
 Como relatado na Seção~\ref{sec:microsservicos}, uma arquitetura de microsserviços permite múltiplas tecnologias, pois a comunicação entre todos os elementos de um microsserviço será pela rede.
 %
 Por esse motivo, é possível utilizar um serviço web para realizar operações \ac{crud} e um serviço dedicado para realizar operações \ac{rpc}.
 %
 Essa arquitetura pode ser melhor visualizada na Figura~\ref{fig:network_crud_rpc_micro}.
-
-
 
 \begin{figure}[htb!]
 \caption{Diagrama de requisições entre serviço e cliente com operações \ac{crud} e \ac{rpc} em uma arquitetura de microsserviços.}
