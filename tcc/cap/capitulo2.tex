@@ -36,7 +36,7 @@ Essa criação foi patenteada em janeiro de 1948, datando então o início dos j
 
 
 
-O jogo eletrônico, ou entretenimento interativo, é uma atividade intelectual que integra um sistema de regras, na qual utiliza tal sistema a fim de definir seus objetivos ou pontuação por meio de um computador com o objetivo de despertar alguma emoção ao jogador~\cite{video_game_technologies}.
+O jogo eletrônico, ou entretenimento interativo, é uma atividade intelectual que integra um sistema de regras, na qual utiliza tal sistema a fim de definir seus objetivos ou pontuação por meio de um computador, com o objetivo de despertar alguma emoção ao jogador~\cite{video_game_technologies}.
 %
 Os jogos eletrônicos são aplicações convencionais, que executam sobre algum sistema operacional ou hardware apropriado a este fim.
 %
@@ -54,7 +54,7 @@ Na década de 80, o \textit{videogame} Atari foi uma plataforma popular, vendend
 
 
 
-A crescente de recursos computacionais disponíveis em computadores pessoais e \textit{videogames} após os anos 90 permitiu que desenvolvedores criassem novos estilos de jogos que utilizavam de hardware mais específico~\cite{adams_1208533}.
+A crescente de recursos computacionais disponíveis em computadores pessoais e \textit{videogames} após os anos 90, permitiu que desenvolvedores criassem novos estilos de jogos que utilizavam de hardware mais específico~\cite{adams_1208533}.
 %
 Dentre esses recursos, iniciou-se o uso da rede de computadores para proporcionar a interação entre jogadores em equipamentos distintos~\cite{statisita_consumo_rede}.
 %
@@ -142,7 +142,7 @@ Essa correlação é importante para identificar as características de jogabili
 
 \begin{table}[htb!]
 \centering
-\caption{Tipos de comunicação e quantia de jogadores impactados por ocorrências conforme o seu gênero.}
+\caption{Tipos de comunicação e quantidade de jogadores impactados por ocorrências conforme o seu gênero.}
 \label{tab:comunicacao_genero}
 \begin{tabular}{l|l|l|l|l|l}
 \hline
@@ -306,14 +306,15 @@ Para diminuir a complexidade das comparações, a fim de decidir quais personage
 
 Nesse sentido, a Figura~\ref{fig:chat} mostra a interseção entre o raio de quatro personagens.
 %
-Nesse exemplo, mostra-se visível que a as mensagens de $P_1$ devem ser visíveis a $P_2$ e $P_3$, mas não a $P_4$, caso seja utilizado a Distância Euclidiana como regra de distância.
+Nesse exemplo, mostra-se visível que as mensagens de $P_1$ devem ser visíveis a $P_2$ e $P_3$, mas não a $P_4$, caso seja utilizado a Distância Euclidiana como regra de distância.
 
 
 
 O sistema de movimento pelo ambiente do jogo possibilita que cada jogador movimente seu personagem pelo ambiente a fim de explorá-lo.
 %
 Dessa maneira, este é um sistema crítico para um jogo \ac{mmorpg}, visto que o posicionamento de objetos serão utilizados para diversas consultas de proximidade, além de necessitar uma frequência de atualização constante do posicionamento dos jogadores a fim de manter a integridade de funcionamento do serviço de ambiente do jogo~\cite{albion_online_unite}.
-
+%
+Um exemplo de movimentação no ambiente pode ser visualizado na Figura~\ref{fig:walk}.
 
 \begin{figure}[htb!]
 \caption{Personagens e os seus pontos de destino.}
@@ -325,8 +326,9 @@ Fonte: O próprio autor.
 \end{figure}
 
 
-
-A interação com o ambiente, itens, \acp{npc} e outros jogadores também são afetados pela área de interesse, na qual o personagem terá um raio limitante para cada tipo de interação no ambiente.
+Com a movimentação descrita na Figura~\ref{fig:walk}, o personagem torna-se livre a explorar o ambiente seguindo as regras de negócio do jogo, permitindo a interação com o ambiente, objetos posicionados no cenário ou outros jogadores.
+%
+Dessa forma, a interação com estes elementos também são afetados pela área de interesse, na qual o personagem terá um raio limitante para cada tipo de interação no ambiente.
 %
 Um exemplo de ambiente com personagens ($P_1$ e $P_2$), objetos ($O_1$) e \acp{npc} (NPC somente) pode ser visualizado na Figura~\ref{fig:obj_e_npc1}~\cite{albion_online_unite}.
 
@@ -355,7 +357,7 @@ Nesse sentido, torna-se necessário conhecer os problemas computacionais conheci
 
 Uma métrica popular para mensurar o desempenho de um serviço \ac{mmorpg} é o número de conexões~\cite{1417630} simultâneas suportadas.
 %
-Em geral, caso o serviço ultrapasse o limite para o qual este foi projetado, diversas falhas de conexão, problemas de lentidão ou dessincronização com o cliente podem ocorrer.
+Em geral, caso o serviço ultrapasse o limite para o qual foi projetado, diversas falhas de conexão, problemas de lentidão ou dessincronização com o cliente podem ocorrer.
 %
 Neste contexto, as ocorrências comuns são~\cite{1417630}:
 
