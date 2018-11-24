@@ -30,29 +30,37 @@ O principal objetivo destas pesquisas é reduzir a carga e o impacto da latênci
 Reduzir a carga e impacto da latência em serviços para jogos massivos resulta em uma melhor experiência de jogabilidade aos usuários finais, sendo este um dos fatores críticos para o sucesso destes serviços~\cite{1417630}.
 
 
-Algumas análises/propostas discorrem sobre a escalabilidade dos serviços baseados em microsserviços com o seu foco para desenvolvimento \textit{web}~\cite{photon_engine, mmorpg_culture, DiFrancesco2017Apr}.
+Entende-se por arquitetura de microsserviços uma arquitetura com diversas aplicações menores na qual utilizam troca de mensagens pela rede  para implementar uma regra de negócio complexa, não exibindo necessariamente se este serviço é implementado por um ou mais microsserviços.
 %
-Entretanto, a estrutura de um serviço \ac{mmorpg} baseado em microsserviços é bem mais abrangente, necessitando de maior desempenho comparado a serviços \textit{web}~\cite{photon_engine, mmorpg_culture}.
+Em específico, este paradigma de desenvolvimento de arquiteturas herda características da filosofia UNIX, descrito pelo matemático Malcolm Doug McIlroy em 2003 pela seguinte passagem:
+
+\begin{quotation}
+    \textit{Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.}\\
+    \cite{Raymond2003Oct}
+\end{quotation}
+
+Alguns estudos discorrem sobre a escalabilidade dos serviços baseados em microsserviços a qual em um todo  com o seu foco para desenvolvimento \textit{web}~\cite{photon_engine, mmorpg_culture, DiFrancesco2017Apr}.
+%
+Entretanto, a estrutura de um serviço \ac{mmorpg} baseado em microsserviços é mais abrangente, necessitando de maior desempenho comparado a serviços monolíticos\textit{web}~\cite{photon_engine, mmorpg_culture}.
 %
 Dessa forma, torna-se interessante a análise de serviços \ac{mmorpg} baseados em microsserviços.
-
 
 
 Deste modo, o problema principal identificado está na análise de consumo de recursos para a manutenção de arquiteturas de microsserviços específicos a jogos \ac{mmorpg} utilizando como base arquiteturas encontradas na literatura.
 %
 Adicionalmente a este problema, será necessário o desenvolvimento de tais arquiteturas para submissão a experimentos e análise.
 
-O atual trabalho tem como objetivo analisar o consumo de recurso das três principais arquiteturas propostas na literatura.
+Este trabalho tem como objetivo analisar o consumo de recurso das principais arquiteturas disponíveis na literatura.
 %
 Nesse sentido, os objetivos específicos do atual trabalho são:
 
 \begin{itemize}
-    \item Identificar e definir arquiteturas empregadas na categoria de jogos do presente trabalho.
-    \item Identificar e definir os protocolos utilizados nessas arquiteturas.
-    \item Identificar e definir os microsserviços dessas arquiteturas.
-    \item Identificar e analisar ferramentas de análise de recursos para definir métricas as arquiteturas identificadas e caracterizadas.
+    \item Identificar arquiteturas empregadas na categoria de jogos do presente trabalho.
+    \item Identificar os protocolos utilizados nessas arquiteturas.
+    \item Identificar os microsserviços dessas arquiteturas.
+    \item Identificar e avaliar ferramentas de análise de métricas para armazenar valores dos testes.
     \item Especificar requisitos para a arquitetura estudada.
-    \item Aplicar as arquiteturas descritas na literatura em uma nuvem de computadores \textit{OpenStack}.
+    \item Aplicar as arquiteturas descritas na literatura em uma nuvem de computadores.
     \item Analisar o comportamento das arquiteturas aplicadas, levantando questões de desempenho e recursos utilizados.
     \item Propor alternativas de otimização para os problemas encontrados nas devidas arquiteturas.
 \end{itemize}
