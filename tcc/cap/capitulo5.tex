@@ -1,0 +1,97 @@
+ 
+\chapter{Desenvolvimento das arquiteturas propostas}
+\label{cap5}
+
+
+
+Após o levantamento e fichamento dos requisitos para execução dos testes sobre as arquiteturas Rudy, Salz e Willson,
+é notório a necessidade de exemplificar o funcionamento destas arquiteturas para jogos \ac{mmorpg}.
+Nesse sentido, o capítulo atual irá levantar as devidas considerações sobre o desenvolvimento prático destas arquiteturas.
+
+
+
+A explicação técnica dos projetos estão organizadas da seguinte forma para cada serviço desenvolvido das arquiteturas:
+
+
+
+\begin{enumerate}
+    \item Linguagem de Programação e bibliotecas: Exibe pontos a cerca das linaguagens de programação e quais módulos ou bibliotecas foram utilizados para o seu desenvolvimento.
+    \item Protocolos Utilizados: Mostra quais protocolos estes serviços utilizam para troca de mensagens em seu ecossistema. Será mostrado utilizando uma tabela de adjacência, tal qual utilizado para relação entre nós em um Grafo.
+    \item Processamento ativo interno: Demonstra qual o processamento ativo no serviço independente das requisições de seus microsserviços vizinhos ou cliente.
+\end{enumerate}
+
+
+
+Ao final será levantado o funcionamento do cliente das arquiteturas Rudy (Subseção \ref{rudy}), Salz (Subseção \ref{salz}) e Willson (Subseção \ref{willson}).
+%
+Nesta etapa será exibido o fluxo de mensagens a partir das ações realizadas pelo cliente.
+%
+Nesse sentido este capítulo deve abrangir todos os aspéctos técnicos da aplicação, levando em consideração o seu fluxo de funcionamento e integração entre os microsserviços no ecossistema da arquitetura.
+
+\section{Arquitetura Rudy}
+\label{sec:arc_rudy}
+
+A arquitetura Rudy (Subseção \ref{rudy}), a primeira arquitetura a ser desenvolvida, teve o seu funcionamento reduzido aos microsserviços básicos para o funcionamento do Gerente de Mundo.
+%
+Nesse sentido, os microsserviços implementados para esta arquitetura foram:
+
+\begin{enumerate}
+    \item Serviço de Jogo: Ou \textit{rudygh}.
+    \item Gerenciador de Consultas: Ou \textit{rudydb}.
+    \item Serviço de Autenticação: Ou \textit{rudya}.
+    \item Serviço Web Dinâmico: Ou \textit{rudyweb}.
+\end{enumerate}
+
+
+
+Além destes microsserviços, a arquitetura utiliza os serviços PostgreSQL e Redis, ambas de código aberto.
+%
+Tais serviços são utilizados respectivamente como banco de dados permanente e banco de dados em memória cache para autenticação.
+%
+Este método de autenticação foi replicado para as demais arquiteturas.
+
+
+
+Em relação aos protocolos utilizados na arquitetura Rudy, temos dois serviços RPC e dois serviços HTTP.
+%
+A relação detalhada é exibida na Tabela~\ref{tab:protocolos_rudy}.
+
+
+
+\begin{table}[htb!]
+    \centering
+    \caption{Protocolos dos microsserviços da arquitetura Rudy.}
+    \label{tab:protocolos_rudy}
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    Microsserviço & Linguagem de Programação    & Porta & Protocolo \\ \hline
+    rudygh        & Golang 1.11 / RPC Nativo    & 3000  & TCP       \\ \hline
+    rudydb        & Golang 1.11 / Gin Framework & 3000  & HTTP      \\ \hline
+    rudya         & Golang 1.11 / RPC Nativo    & 3000  & TCP       \\ \hline
+    rudyweb       & Golang 1.11 / Gin Framework & 3000  & HTTP      \\ \hline
+    \end{tabular}
+    
+    Fonte: O próprio autor.
+\end{table}
+
+Além de quais protocolos, a Tabela~\ref{tab:protocolos_rudy} exibe qual tecnologia está utilizando para manter o serviço.
+%
+Tanto nos microsserviços da arquitetura Rudy quanto aos demais microsserviços implementados para este TCC foram escritos na linguagem Go.
+%
+Ambos os serviços compartilham dos mesmos modelos de padrão \ac{mvc} tanto para as aplicações \ac{rpc} e \ac{http}.
+
+Para o desenvolvimento dos microsserviços da arquitetura Rudy, foram utilizados os seguintes pacotes externos da linguagem:
+
+\begin{itemize}
+    \item Gin: Framework focado em desenvolvimentos de \ac{api} para web escrito em Golang.
+    \item Redis: Pacote de conexão sobre \ac{tcp} ou \ac{udp} em um serviço Redis.
+    \item Protofub: Pacote que implementa serialização de dados estruturados de modo mínimo. É utilizado para minimizar custo de chamadas \ac{rpc} em Go.
+    \item Gorm: Golang \ac{orm} que permite a conexão com o banco de dados Postgres sem utilizar \ac{sql}.
+    \item Graphite: Pacote que permite a conexão com o servidor de logs Graphite para enviar métricas.
+    \item Gorequest: Pacote para estruturar requisições Web utilizado para comunicação interna entre serviços Web utilizando assinatura \ac{jwt}.
+    \item Testify: Suíte de testes para manter o funcionamento íntegro durante a implementação da aplicação. Em específico, a aplicação possúi 90\% de convergência de código, a qual garante a integridade de futuras alterações.
+\end{itemize}
+
+Todas as bibliotecas utilizadas são distribuídas com modelo \it{Open Source}, pelas licenças \it{MIT}, \it{BSD} e \it{GPLv3}.
+%
+Estas mesmas bibliotecas são utilizadas nas demais arquiteturas.
