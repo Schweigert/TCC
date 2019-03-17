@@ -102,10 +102,10 @@
 	<path stroke='black'  d='M51.2,8.3 L51.2,282.0 L387.6,282.0 L387.6,8.3 L51.2,8.3 Z  h0.01'/></g>
 	<g id="gnuplot_plot_1" ><title>gnuplot_plot_1</title>
 <g style="fill:none; color:red; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter">
-	<g transform="translate(354.4,19.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
-		<text><tspan>Recebe Mensagens</tspan></text>
+	<g transform="translate(235.6,19.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
+		<text><tspan>Obter Mensagens</tspan></text>
 	</g>
-	<path  d='M358.5,17.3 L379.4,17.3 M51.2,276.6 L52.5,276.2 L53.9,276.4 L55.2,274.6 L56.5,277.8 L57.9,277.2 
+	<path  d='M239.7,17.3 L260.6,17.3 M51.2,276.6 L52.5,276.2 L53.9,276.4 L55.2,274.6 L56.5,277.8 L57.9,277.2 
 		L59.2,276.5 L60.5,276.8 L61.9,277.3 L63.2,274.7 L64.5,276.9 L65.9,276.6 L67.2,276.8 L68.6,273.7 
 		L69.9,276.5 L71.2,275.8 L72.6,276.9 L73.9,275.3 L75.2,277.6 L76.6,277.2 L77.9,276.3 L79.2,276.0 
 		L80.6,278.0 L81.9,276.6 L83.2,276.2 L84.6,261.3 L85.9,277.3 L87.2,275.8 L88.6,276.8 L89.9,270.5 
@@ -140,10 +140,10 @@
 	</g>
 	<g id="gnuplot_plot_2" ><title>gnuplot_plot_2</title>
 <g style="fill:none; color:green; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter">
-	<g transform="translate(354.4,28.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
+	<g transform="translate(235.6,28.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
 		<text><tspan>Enviar Mensagem</tspan></text>
 	</g>
-	<path  d='M358.5,26.3 L379.4,26.3 M51.2,276.2 L52.5,276.6 L53.9,277.0 L55.2,275.3 L56.5,277.2 L57.9,276.0 
+	<path  d='M239.7,26.3 L260.6,26.3 M51.2,276.2 L52.5,276.6 L53.9,277.0 L55.2,275.3 L56.5,277.2 L57.9,276.0 
 		L59.2,277.6 L60.5,276.2 L61.9,276.8 L63.2,276.5 L64.5,276.3 L65.9,276.2 L67.2,277.3 L68.6,276.5 
 		L69.9,276.8 L71.2,276.7 L72.6,275.5 L73.9,276.2 L75.2,277.5 L76.6,275.9 L77.9,273.6 L79.2,275.8 
 		L80.6,276.4 L81.9,277.2 L83.2,274.6 L84.6,276.1 L85.9,277.4 L87.2,272.8 L88.6,276.0 L89.9,277.2 

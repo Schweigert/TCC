@@ -108,10 +108,10 @@
 	<path stroke='black'  d='M51.2,8.3 L51.2,282.0 L387.6,282.0 L387.6,8.3 L51.2,8.3 Z  h0.01'/></g>
 	<g id="gnuplot_plot_1" ><title>gnuplot_plot_1</title>
 <g style="fill:none; color:red; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter">
-	<g transform="translate(354.4,19.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
+	<g transform="translate(274.6,19.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
 		<text><tspan>Região de Interesse do Personagem</tspan></text>
 	</g>
-	<path  d='M358.5,17.3 L379.4,17.3 M51.2,267.5 L52.5,269.5 L53.9,267.8 L55.2,266.2 L56.5,270.0 L57.9,269.4 
+	<path  d='M278.7,17.3 L299.6,17.3 M51.2,267.5 L52.5,269.5 L53.9,267.8 L55.2,266.2 L56.5,270.0 L57.9,269.4 
 		L59.2,263.3 L60.5,269.9 L61.9,265.9 L63.2,269.1 L64.5,269.5 L65.9,270.1 L67.2,268.2 L68.6,265.2 
 		L69.9,269.6 L71.2,263.4 L72.6,264.7 L73.9,269.1 L75.2,267.3 L76.6,269.9 L77.9,269.3 L79.2,261.6 
 		L80.6,254.6 L81.9,272.0 L83.2,244.4 L84.6,266.2 L85.9,268.3 L87.2,260.7 L88.6,270.3 L89.9,259.7 
@@ -146,10 +146,10 @@
 	</g>
 	<g id="gnuplot_plot_2" ><title>gnuplot_plot_2</title>
 <g style="fill:none; color:green; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter">
-	<g transform="translate(354.4,28.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
+	<g transform="translate(274.6,28.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
 		<text><tspan>Movimento do Personagem</tspan></text>
 	</g>
-	<path  d='M358.5,26.3 L379.4,26.3 M51.2,280.2 L52.5,280.3 L53.9,279.8 L55.2,279.9 L56.5,280.2 L57.9,280.3 
+	<path  d='M278.7,26.3 L299.6,26.3 M51.2,280.2 L52.5,280.3 L53.9,279.8 L55.2,279.9 L56.5,280.2 L57.9,280.3 
 		L59.2,280.3 L60.5,280.1 L61.9,280.2 L63.2,280.1 L64.5,280.1 L65.9,279.8 L67.2,279.8 L68.6,280.0 
 		L69.9,280.1 L71.2,280.0 L72.6,279.8 L73.9,280.1 L75.2,280.3 L76.6,280.0 L77.9,280.1 L79.2,279.6 
 		L80.6,278.6 L81.9,280.1 L83.2,276.1 L84.6,280.2 L85.9,280.4 L87.2,277.5 L88.6,275.7 L89.9,276.9 

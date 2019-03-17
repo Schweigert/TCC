@@ -99,7 +99,7 @@
 	<path stroke='black'  d='M51.2,8.3 L51.2,282.0 L387.6,282.0 L387.6,8.3 L51.2,8.3 Z  h0.01'/></g>
 	<g id="gnuplot_plot_1" ><title>gnuplot_plot_1</title>
 <g style="fill:none; color:red; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter">
-	<g transform="translate(354.4,19.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
+	<g transform="translate(245.9,19.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
 		<text><tspan>Criar Conta</tspan></text>
 	</g>
 	<use xlink:href='#gpPt0' transform='translate(83.2,236.5) scale(2.25)'/>
@@ -128,12 +128,12 @@
 	<use xlink:href='#gpPt0' transform='translate(344.9,231.7) scale(2.25)'/>
 	<use xlink:href='#gpPt0' transform='translate(355.6,241.1) scale(2.25)'/>
 	<use xlink:href='#gpPt0' transform='translate(366.2,243.3) scale(2.25)'/>
-	<use xlink:href='#gpPt0' transform='translate(368.9,17.3) scale(2.25)'/>
+	<use xlink:href='#gpPt0' transform='translate(260.4,17.3) scale(2.25)'/>
 </g>
 	</g>
 	<g id="gnuplot_plot_2" ><title>gnuplot_plot_2</title>
 <g style="fill:none; color:green; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter">
-	<g transform="translate(354.4,28.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
+	<g transform="translate(245.9,28.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
 		<text><tspan>Autenticar Conta</tspan></text>
 	</g>
 	<use xlink:href='#gpPt1' transform='translate(83.2,268.2) scale(2.25)'/>
@@ -162,12 +162,12 @@
 	<use xlink:href='#gpPt1' transform='translate(344.9,266.0) scale(2.25)'/>
 	<use xlink:href='#gpPt1' transform='translate(355.6,250.1) scale(2.25)'/>
 	<use xlink:href='#gpPt1' transform='translate(366.2,268.4) scale(2.25)'/>
-	<use xlink:href='#gpPt1' transform='translate(368.9,26.3) scale(2.25)'/>
+	<use xlink:href='#gpPt1' transform='translate(260.4,26.3) scale(2.25)'/>
 </g>
 	</g>
 	<g id="gnuplot_plot_3" ><title>gnuplot_plot_3</title>
 <g style="fill:none; color:blue; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter">
-	<g transform="translate(354.4,37.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
+	<g transform="translate(245.9,37.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
 		<text><tspan>Criar Personagem</tspan></text>
 	</g>
 	<use xlink:href='#gpPt2' transform='translate(83.2,244.8) scale(2.25)'/>
@@ -196,12 +196,12 @@
 	<use xlink:href='#gpPt2' transform='translate(344.9,255.2) scale(2.25)'/>
 	<use xlink:href='#gpPt2' transform='translate(355.6,254.1) scale(2.25)'/>
 	<use xlink:href='#gpPt2' transform='translate(366.2,237.5) scale(2.25)'/>
-	<use xlink:href='#gpPt2' transform='translate(368.9,35.3) scale(2.25)'/>
+	<use xlink:href='#gpPt2' transform='translate(260.4,35.3) scale(2.25)'/>
 </g>
 	</g>
 	<g id="gnuplot_plot_4" ><title>gnuplot_plot_4</title>
 <g style="fill:none; color:cyan; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter">
-	<g transform="translate(354.4,46.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
+	<g transform="translate(245.9,46.5)" style="stroke:none; fill:black; font-family:arial; font-size:6.00pt; text-anchor:end">
 		<text><tspan>Seleciona Personagem</tspan></text>
 	</g>
 	<use xlink:href='#gpPt3' transform='translate(83.2,280.8) scale(2.25)'/>
@@ -230,7 +230,7 @@
 	<use xlink:href='#gpPt3' transform='translate(344.9,280.8) scale(2.25)'/>
 	<use xlink:href='#gpPt3' transform='translate(355.6,276.3) scale(2.25)'/>
 	<use xlink:href='#gpPt3' transform='translate(366.2,280.8) scale(2.25)'/>
-	<use xlink:href='#gpPt3' transform='translate(368.9,44.3) scale(2.25)'/>
+	<use xlink:href='#gpPt3' transform='translate(260.4,44.3) scale(2.25)'/>
 </g>
 	</g>
 <g style="fill:none; color:black; stroke:currentColor; stroke-width:1.00; stroke-linecap:butt; stroke-linejoin:miter">
