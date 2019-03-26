@@ -1,8 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1552865687 "/home/marlon/tcc/tcc/tccudesc.tex" "/home/marlon/tcc/tcc/tccudesc.pdf" "tccudesc" 1552865687
-  "/dev/null" 1552683779 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "/home/marlon/tcc/tcc/tccudesc.aux" 1552865687 8 a94a2480d3289e625eea47cd1b285758 ""
-  "/home/marlon/tcc/tcc/tccudesc.tex" 1552864440 4160 6b48d87ba8f88630fcf97e60b29c2e4e ""
+["pdflatex"] 1553568447 "/home/marlon/tcc/tcc/tccudesc.tex" "/home/marlon/tcc/tcc/tccudesc.pdf" "tccudesc" 1553568447
+  "/dev/null" 1553559906 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "/home/marlon/tcc/tcc/tccudesc.aux" 1553568447 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/home/marlon/tcc/tcc/tccudesc.tex" 1553354387 4160 6b48d87ba8f88630fcf97e60b29c2e4e ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1550406775 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm" 1550406775 3584 f80ddd985bd00e29e9a6047ebd9d4781 ""
   "/usr/share/texmf-dist/fonts/tfm/public/cm/cmr10.tfm" 1550406775 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
@@ -89,9 +89,9 @@
   "abntex2abrev.sty" 1551303433 4717 c5c27dac8dde23d631b541bc466cf743 ""
   "pkg/abntex2cite.sty" 1551303433 44442 1346f0f7270522f5f17baad58ffb5fb5 ""
   "pkg/monografia.cls" 1551303433 41109 c2cc25d88ec5d8399a062bd3f87f3a59 ""
-  "tccudesc.tex" 1552864440 4160 6b48d87ba8f88630fcf97e60b29c2e4e ""
+  "tccudesc.tex" 1553354387 4160 6b48d87ba8f88630fcf97e60b29c2e4e ""
   "xcolor.sty" 1551303433 40164 207eff31427cc765a9311b8f324a83cb ""
   (generated)
   "tccudesc.log"
-  "/home/marlon/tcc/tcc/tccudesc.pdf"
   "/home/marlon/tcc/tcc/tccudesc.log"
+  "/home/marlon/tcc/tcc/tccudesc.pdf"
