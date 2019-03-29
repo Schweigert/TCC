@@ -1,0 +1,20 @@
+
+set terminal svg size 400,300 enhanced fname 'arial'  fsize 6 butt solid
+set output 'out.svg'
+
+set key center top
+
+fps(x) = 1 / 60.0
+
+set xdata time
+set timefmt "%y/%m/%d-%H:%M"
+set xrange ["19/03/21-23:35":"19/03/22-02:10"]
+set yrange [0:]
+set format x "%M min"
+set format y "%fms"
+set timefmt "%y/%m/%d %H:%M:%S"
+
+plot "data.txt" using 1:8 title 'Região de Interesse do Personagem' with lines, \
+     "data.txt" using 1:6 title 'Movimento do Personagem' with lines ,\
+     "data.txt" using 1:7 title 'Obter Mensagens' with lines, \
+     "data.txt" using 1:10 title 'Enviar Mensagem' with lines
