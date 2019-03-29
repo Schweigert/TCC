@@ -5,11 +5,12 @@ set key center top
 
 set xdata time
 set timefmt "%y/%m/%d-%H:%M"
-set xrange ["19/03/21-23:35":"19/03/22-02:10"]
+set xrange ["19/03/29-00:12":"19/03/29-00:30"]
+
 set yrange [0:]
 set format x "%M min"
-set format y "%.0f Mbps"
+set format y "%.2f%%"
 set timefmt "%y/%m/%d %H:%M:%S"
 
-plot "data.txt" using 1:9 title 'Banda Recebida' with lines, \
-     "data.txt" using 1:10 title 'Banda Transmitida' with lines
+plot "rudy.csv.data" using 1:11 title 'Processamento' with lines, \
+     "rudy.csv.data" using 1:17 title 'Carga do Sistema Operacional' with lines
