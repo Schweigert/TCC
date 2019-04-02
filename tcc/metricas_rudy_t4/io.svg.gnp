@@ -1,16 +1,21 @@
-set terminal svg size 400,300 enhanced fname 'arial'  fsize 6 butt solid
-set output 'out.svg'
+#!/usr/bin/gnuplot
+set terminal svg size 1000,500 enhanced fname 'arial'  fsize 6 butt solid
+set output 'io.svg'
 
-set key center top
+set key outside
 
 set xdata time
 set timefmt "%y/%m/%d-%H:%M"
 set xrange ["19/03/29-00:12":"19/03/29-00:30"]
 
-set yrange [0:]
-set format x "%M min"
-set format y "%.2f%%"
+set yrange [0:100]
+set format x "%Mm"
+set format y "%.0f Kbps"
 set timefmt "%y/%m/%d %H:%M:%S"
 
-plot "rudy.csv.data" using 1:11 title 'Processamento' with lines, \
-     "rudy.csv.data" using 1:17 title 'Carga do Sistema Operacional' with lines
+set xlabel "Tempo" font "arial"
+set ylabel "Porcentagem" font "arial"
+
+plot "rudy.csv.data" using 1:9 title 'Banda Recebida' with lines, \
+     "rudy.csv.data" using 1:10 title 'Banda Transmitida' with lines, \
+     "rudyc.csv.data" using 1:($4 * 100000000) title 'Nova conta' with impulses axes x1y1

@@ -1,6 +1,6 @@
 #!/usr/bin/gnuplot
 set terminal svg size 1000,500 enhanced fname 'arial'  fsize 6 butt solid
-set output 'rudyc_http.svg'
+set output 'rudyc.svg'
 
 set key outside
 
@@ -14,9 +14,13 @@ set format y "%fms"
 set timefmt "%y/%m/%d %H:%M:%S"
 
 set xlabel "Tempo" font "arial"
-set ylabel "Porcentagem" font "arial"
+set ylabel "Tempo de Resposta" font "arial"
 
-plot "rudyc.csv.data" using 1:4 title 'Criar Conta' with points, \
+plot "rudyc.csv.data" using 1:8 title 'Região de Interesse do Personagem' with lines, \
+     "rudyc.csv.data" using 1:6 title 'Movimento do Personagem' with lines ,\
+     "rudyc.csv.data" using 1:7 title 'Obter Mensagens' with lines, \
+     "rudyc.csv.data" using 1:10 title 'Enviar Mensagem' with lines, \
+     "rudyc.csv.data" using 1:4 title 'Criar Conta' with points, \
      "rudyc.csv.data" using 1:3 title 'Autenticar Conta' with points, \
      "rudyc.csv.data" using 1:5 title 'Criar Personagem' with points, \
      "rudyc.csv.data" using 1:9 title 'Seleciona Personagem' with points, \
