@@ -2,6 +2,9 @@
 set terminal svg size 1000,500 enhanced fname 'arial'  fsize 6 butt solid
 set output 'cpu.svg'
 
+min(x,y) = (x < y) ? x : y
+max(x,y) = (x > y) ? x : y
+
 set key outside
 
 set xdata time
@@ -18,4 +21,4 @@ set ylabel "Porcentagem" font "arial"
 
 plot "rudy.csv.data" using 1:11 title 'Processamento' with lines axes x1y1, \
      "rudy.csv.data" using 1:17 title 'Carga do Sistema Operacional' with lines axes x1y1, \
-     "rudyc.csv.data" using 1:($4 * 100000000) title 'Nova conta' with impulses axes x1y1
+     "rudyc.csv.data" using 1:(min($4 * 100000000, 100)) title 'Novo cliente escalado' with impulses axes x1y1

@@ -39,7 +39,7 @@
 	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
 	</filter>
 </defs>
-<g fill="none" color="white" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+<g fill="none" color="white" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<path stroke='black'  d='M121.7,442.4 L130.7,442.4 M634.0,442.4 L625.0,442.4  '/>	<g transform="translate(113.4,446.3)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
@@ -136,7 +136,7 @@
 	<path stroke='black'  d='M121.7,18.1 L121.7,442.4 L634.0,442.4 L634.0,18.1 L121.7,18.1 Z  '/></g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(16.3,230.3) rotate(270)" stroke="none" fill="black" font-family="arial" font-size="12.00"  text-anchor="middle">
-		<text><tspan font-family="arial" >Tempo de Requisição</tspan></text>
+		<text><tspan font-family="arial" >Tempo de Resposta</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -234,10 +234,10 @@
 		L567.6,409.8 L572.3,437.4 L577.1,415.9 L581.8,367.3 L586.6,436.9 L591.3,404.6 L596.1,410.2 L600.8,389.9
 		L605.5,394.2 L610.3,360.6 L615.0,438.0 L619.8,415.3 L624.5,427.9 L629.3,419.5 L634.0,442.4  '/></g>
 	</g>
-	<g id="gnuplot_plot_5" ><title>Nova conta</title>
+	<g id="gnuplot_plot_5" ><title>Novo cliente escalado</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(932.8,103.0)" stroke="none" fill="black" font-family="arial" font-size="12.00"  text-anchor="end">
-		<text><tspan font-family="arial" >Nova conta</tspan></text>
+		<text><tspan font-family="arial" >Novo cliente escalado</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -254,10 +254,11 @@
 		M420.5,442.4 L420.5,18.1 M425.3,442.4 M430.0,442.4 M434.8,442.4 M439.5,442.4 L439.5,18.1 M444.3,442.4
 		M449.0,442.4 M453.7,442.4 M458.5,442.4 M463.2,442.4 L463.2,18.1 M468.0,442.4 M472.7,442.4 M477.5,442.4
 		M482.2,442.4 M487.0,442.4 L487.0,18.1 M491.7,442.4 M496.4,442.4 M501.2,442.4 M505.9,442.4 L505.9,18.1
-		M510.7,442.4 M515.4,442.4 M520.2,442.4 M529.6,442.4 M534.4,442.4 M539.1,442.4 M548.6,442.4 M553.4,442.4
-		M558.1,442.4 M567.6,442.4 M572.3,442.4 M577.1,442.4 M581.8,442.4 L581.8,18.1 M586.6,442.4 M591.3,442.4
-		M596.1,442.4 M600.8,442.4 L600.8,18.1 M605.5,442.4 M610.3,442.4 M615.0,442.4 M619.8,442.4 M624.5,442.4
-		M629.3,442.4 M634.0,442.4  '/></g>
+		M510.7,442.4 M515.4,442.4 M520.2,442.4 M524.9,442.4 L524.9,18.1 M529.6,442.4 M534.4,442.4 M539.1,442.4
+		M543.9,442.4 L543.9,18.1 M548.6,442.4 M553.4,442.4 M558.1,442.4 M562.8,442.4 L562.8,18.1 M567.6,442.4
+		M572.3,442.4 M577.1,442.4 M581.8,442.4 L581.8,18.1 M586.6,442.4 M591.3,442.4 M596.1,442.4 M600.8,442.4
+		L600.8,18.1 M605.5,442.4 M610.3,442.4 M615.0,442.4 M619.8,442.4 M624.5,442.4 M629.3,442.4 M634.0,442.4
+		 '/></g>
 	</g>
 <g fill="none" color="white" stroke="rgb(240, 228,  66)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>

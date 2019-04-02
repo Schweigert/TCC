@@ -2,6 +2,9 @@
 set terminal svg size 1000,500 enhanced fname 'arial'  fsize 6 butt solid
 set output 'rudyc_rpc.svg'
 
+min(x,y) = (x < y) ? x : y
+max(x,y) = (x > y) ? x : y
+
 set key outside
 
 set xdata time
@@ -14,10 +17,10 @@ set format y "%fms"
 set timefmt "%y/%m/%d %H:%M:%S"
 
 set xlabel "Tempo" font "arial"
-set ylabel "Tempo de Requisição" font "arial"
+set ylabel "Tempo de Resposta" font "arial"
 
 plot "rudyc.csv.data" using 1:8 title 'Região de Interesse do Personagem' with lines, \
      "rudyc.csv.data" using 1:6 title 'Movimento do Personagem' with lines ,\
      "rudyc.csv.data" using 1:7 title 'Obter Mensagens' with lines, \
      "rudyc.csv.data" using 1:10 title 'Enviar Mensagem' with lines, \
-     "rudyc.csv.data" using 1:($4 * 1000000) title 'Nova conta' with impulses
+     "rudyc.csv.data" using 1:(min($4 * 100000000, 0.1)) title 'Novo cliente escalado' with impulses axes x1y1
