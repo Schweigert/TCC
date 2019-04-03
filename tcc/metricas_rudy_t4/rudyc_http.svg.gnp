@@ -5,6 +5,8 @@ set output 'rudyc_http.svg'
 min(x,y) = (x < y) ? x : y
 max(x,y) = (x > y) ? x : y
 
+notZero(x) = (x == 0) ? -0.2 : x
+
 set key outside
 
 set xdata time
@@ -19,8 +21,8 @@ set timefmt "%y/%m/%d %H:%M:%S"
 set xlabel "Tempo" font "arial"
 set ylabel "Tempo de Resposta" font "arial"
 
-plot "rudyc.csv.data" using 1:4 title 'Criar Conta' with points, \
-     "rudyc.csv.data" using 1:3 title 'Autenticar Conta' with points, \
-     "rudyc.csv.data" using 1:5 title 'Criar Personagem' with points, \
-     "rudyc.csv.data" using 1:9 title 'Seleciona Personagem' with points, \
-     "rudyc.csv.data" using 1:(min($4 * 100000000, 0.2)) title 'Novo cliente escalado' with impulses axes x1y1
+plot "rudyc.csv.data" using 1:(notZero($4)) title 'Criar Conta' with points, \
+     "rudyc.csv.data" using 1:(notZero($3)) title 'Autenticar Conta' with points, \
+     "rudyc.csv.data" using 1:(notZero($5)) title 'Criar Personagem' with points, \
+     "rudyc.csv.data" using 1:(notZero($9)) title 'Seleciona Personagem' with points, \
+     "rudyc.csv.data" using 1:(min($4 * 100000000, 1)) title 'Novo cliente escalado' with impulses axes x1y1

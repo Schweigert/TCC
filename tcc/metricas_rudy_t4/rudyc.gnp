@@ -5,6 +5,8 @@ set output 'rudyc.svg'
 min(x,y) = (x < y) ? x : y
 max(x,y) = (x > y) ? x : y
 
+notZero(x) = (x == 0) ? -0.2 : x
+
 set key outside
 
 set xdata time
@@ -19,12 +21,12 @@ set timefmt "%y/%m/%d %H:%M:%S"
 set xlabel "Tempo" font "arial"
 set ylabel "Tempo de Resposta" font "arial"
 
-plot "rudyc.csv.data" using 1:8 title 'Região de Interesse do Personagem' with lines, \
-     "rudyc.csv.data" using 1:6 title 'Movimento do Personagem' with lines ,\
-     "rudyc.csv.data" using 1:7 title 'Obter Mensagens' with lines, \
-     "rudyc.csv.data" using 1:10 title 'Enviar Mensagem' with lines, \
-     "rudyc.csv.data" using 1:4 title 'Criar Conta' with points, \
-     "rudyc.csv.data" using 1:3 title 'Autenticar Conta' with points, \
-     "rudyc.csv.data" using 1:5 title 'Criar Personagem' with points, \
-     "rudyc.csv.data" using 1:9 title 'Seleciona Personagem' with points, \
-     "rudyc.csv.data" using 1:(min($4 * 100000000, 0.2)) title 'Novo cliente escalado' with impulses axes x1y1
+plot "rudyc.csv.data" using 1:(notZero($8)) title 'Região de Interesse do Personagem' with lines, \
+     "rudyc.csv.data" using 1:(notZero($6)) title 'Movimento do Personagem' with lines ,\
+     "rudyc.csv.data" using 1:(notZero($7)) title 'Obter Mensagens' with lines, \
+     "rudyc.csv.data" using 1:(notZero($10)) title 'Enviar Mensagem' with lines, \
+     "rudyc.csv.data" using 1:(notZero($4)) title 'Criar Conta' with points, \
+     "rudyc.csv.data" using 1:(notZero($3)) title 'Autenticar Conta' with points, \
+     "rudyc.csv.data" using 1:(notZero($5)) title 'Criar Personagem' with points, \
+     "rudyc.csv.data" using 1:(notZero($9)) title 'Seleciona Personagem' with points, \
+     "rudyc.csv.data" using 1:(min($4 * 100000000, 1)) title 'Novo cliente escalado' with impulses axes x1y1
