@@ -13,7 +13,7 @@ set xrange ["19/03/29-00:12":"19/03/29-00:30"]
 
 set yrange [0:100]
 set format x "%Mm"
-set format y "%.0f Kbps"
+set format y "%.0f Mbps"
 set timefmt "%y/%m/%d %H:%M:%S"
 
 set xlabel "Tempo" font "arial"
