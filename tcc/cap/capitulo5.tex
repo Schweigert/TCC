@@ -6,31 +6,31 @@
 
 Após o levantamento e fichamento dos requisitos para execução dos testes sobre as arquiteturas Rudy, Salz e Willson, é notório a necessidade de exemplificar o funcionamento destas arquiteturas para jogos \ac{mmorpg}.
 %
-Nesse sentido, o capítulo atual irá levantar as devidas considerações sobre o desenvolvimento prático destas arquiteturas. %ccm <-38
+Nesse sentido, o capítulo atual levanta as devidas considerações sobre o desenvolvimento prático das arquiteturas específicas a jogos \ac{mmorpg} utilisadas neste trabalho.
 
 
 Em específico, a arquitetura física utilizou o mesmo conjunto de computadores, utilizando a mesma topologia.
 %
-Este tópico será abordado neste capítulo com maior profundidade na Seção~\ref{sec:topologia}. %ccm <-38
+Este tópico é abordado neste capítulo com maior profundidade na Seção~\ref{sec:topologia}.
 %
-Em seguida, é relatado o funcionamento do sistema de coleta de informações de recursos, a qual será abordada a Seção~\ref{sec:informacoes}. %ccm <-19, 38
+É relatado o funcionamento do sistema de coleta de informações de recursos, abordado na Seção~\ref{sec:informacoes}.
 
 A explicação técnica dos projetos estão organizadas da seguinte forma para cada serviço desenvolvido das arquiteturas:
 
 
 \begin{enumerate}
     \item Linguagem de Programação e bibliotecas: Exibe pontos a cerca das linguagens de programação e quais módulos ou bibliotecas foram utilizados para o seu desenvolvimento.
-    \item Protocolos Utilizados: Mostra quais protocolos estes serviços utilizam para troca de mensagens em seu ecossistema. Será mostrado utilizando uma tabela de adjacência, tal qual utilizado para relação entre nós em um Grafo.%ccm <-38 
-    \item Processamento ativo interno: Demonstra qual o processamento ativo no serviço independente das requisições de seus microsserviços vizinhos ou cliente. %ccm <-36
+    \item Protocolos Utilizados: Exibe quais protocolos estes serviços utilizam para troca de mensagens em seu ecossistema. É mostrado utilizando uma tabela de adjacência, tal qual utilizado para relação entre nós em um Grafo. 
+    \item Processamento ativo interno: Exibe qual o processamento ativo no serviço independente das requisições de seus microsserviços vizinhos ou cliente.
 \end{enumerate}
 
 
 
-Ao final será levantado o funcionamento do cliente das arquiteturas Rudy (Subseção~\ref{rudy}), Salz (Subseção~\ref{salz}) e Willson (Subseção~\ref{willson}). %ccm <-38
+Ao final é levantado o funcionamento do cliente das arquiteturas Rudy (Subseção~\ref{rudy}), Salz (Subseção~\ref{salz}) e Willson (Subseção~\ref{willson}).
 %
-Nesta etapa será exibido o fluxo de mensagens a partir das ações realizadas pelo cliente. %ccm <-38
+Nesta etapa é exibido o fluxo de mensagens a partir das ações realizadas pelo cliente.
 %
-Nesse sentido este capítulo deve abrangir todos os aspéctos técnicos da aplicação, levando em consideração o seu fluxo de funcionamento e integração entre os microsserviços no ecossistema da arquitetura. %ccm <-38
+Nesse sentido este capítulo abrange todos os aspéctos técnicos da aplicação, levando em consideração o seu fluxo de funcionamento e integração entre os microsserviços no ecossistema da arquitetura.
 
 
 \section{Topologia da Rede}
@@ -38,53 +38,34 @@ Nesse sentido este capítulo deve abrangir todos os aspéctos técnicos da aplic
 
 A topologia da rede segue o padrão proposto para a coleta de dados.
 %
-O principal objetivo desta topologia é segregar as instâncias na camada de rede, evitando interferências do orquestrador de microsserviços que será utilizado na implantação. %ccm <-38
+O principal objetivo desta topologia é segregar as instâncias na camada de rede, evitando interferências do orquestrador de microsserviços que é utilizado na etapap de implantação.
 %
 Por muitas vezes, a fim de otimizar o transporte de dados, estes orquestradores trocam mensagens na rede utilizando memória, visto que uma conexão pode ser realizada para a máquina do próprio hospedeiro.
 %
-Segregando em regiões, o orquestrador será forçado a realizar a conexão com as instâncias externas, forçando a utilização da pilha completa do protocolo \ac{tcp} e \ac{udp}.%ccm <-38
+Segregando em regiões, o orquestrador é forçado a realizar a conexão com as instâncias externas, forçando a utilização da pilha completa do protocolo \ac{tcp} e \ac{udp}.
 
 Para realizar esta divisão, foi utilizado o gestor da Nuvem Tchê, orquestrada com o OpenStack.
 %
 A topologia utilizada nos testes com as três arquiteturas podem ser visualizada na Figura~\ref{fig:topologia}.
 
-% \begin{figure}[htb!]
-%     \caption{Topologia de rede adotada nos experimentos}
-%     \label{fig:topologia}
-%     \begin{minipage}{.45\textwidth}
-%         \includegraphics[height=5.5cm]{img/cap5/topology_graph.png}
-%       \centering
-%     \end{minipage}
-%     \begin{minipage}{.45\textwidth}
-%         \includegraphics[height=6.5cm]{img/cap5/topology.png}
-%         \centering        
-%     \end{minipage}
-% 
-% 
-%     Fonte: O próprio Autor.
-% \end{figure}
-
 
 \begin{figure}[htb!]
-    \begin{minipage}[c]{0.5\linewidth}
-        \centering
-%          \caption{Grafo OpenStack do experimento.}
-\includegraphics[width=\textwidth]{img/cap5/topology_graph.png}
-
-%Figura 2.16 done 
-\end{minipage}
-\begin{minipage}[c]{0.45\linewidth}
+    \caption{A figure with two subfigures}
     \centering
-        \label{fig:topologia}
-        \caption{Topologia da rede OpenStack.}
-        \includegraphics[width=\textwidth]{img/cap5/topology.png}
-       
-      
-    \end{minipage}
-      \label{fig:topologia}
+    \begin{subfigure}{0.5\textwidth}
+      \centering
+      \includegraphics[width=.8\textwidth]{img/cap5/topology_graph.png}
+      \caption{Grafo OpenStack do experimento.}
+      \label{fig:topologia_a}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+      \centering
+      \includegraphics[width=.8\textwidth]{img/cap5/topology.png}
+      \caption{Topologia da rede OpenStack.}
+      \label{fig:topologia_b}
+    \end{subfigure}
+    \label{fig:topologia}
 \end{figure}
-
-%ccm tentar subfigure:  https://tex.stackexchange.com/questions/37581/latex-figures-side-by-side
 
 
 A Figura~\ref{fig:topologia} mostra a disposição das instâncias em sub-redes exibindo-as em formato de árvore e em barras.
@@ -111,29 +92,39 @@ As características específicas das instâncias estão listadas na Tabela~\ref{
     \label{tab:instancias}
     \begin{tabular}{|l|l|l|l|l|l|}
         \hline
-        Nome                                                              & \ac{os}             &\acs{vcpu}& Memória & Rede ou IP   & Réplicas \\ \hline
-        \begin{tabular}[c]{@{}l@{}}\textit{client\_one}\\ \textit{client\_two}\end{tabular} & Ubuntu Server 16.04 & 1        & 1 GB    & 192.168.2.*  & 5        \\ \hline
-        \textit{game\_service}                                                     & Ubuntu Server 16.04 & 4        & 8 GB    & 192.168.0.8  & 1        \\ \hline
-        \textit{game\_database}                                                    & Ubuntu Server 16.04 & 1        & 1 GB    & 192.168.3.11 & 1        \\ \hline
-        \textit{data\_analisys}                                                    & Ubuntu Server 16.04 & 4        & 4 GB    & 192.168.1.2  & 1        \\ \hline
+        Nome                    & \ac{os}             &\acs{vcpu}& Memória & Rede ou IP   & Réplicas \\ \hline
+        \textit{client\_*}      & Ubuntu Server 16.04 & 1        & 1 GB    & 192.168.2.*  & 5        \\ \hline
+        \textit{game\_service}  & Ubuntu Server 16.04 & 4        & 8 GB    & 192.168.0.8  & 1        \\ \hline
+        \textit{game\_database} & Ubuntu Server 16.04 & 1        & 1 GB    & 192.168.3.11 & 1        \\ \hline
+        \textit{data\_analisys} & Ubuntu Server 16.04 & 4        & 4 GB    & 192.168.1.2  & 1        \\ \hline
     \end{tabular}
 
     Fonte: O próprio autor.
 \end{table}
 
-% A Tabela~\ref{tab:instancias} exibe as configurações exatas utilizadas nos testes.
+A Tabela~\ref{tab:instancias} enumera as máquinas virtuais utilizadas no experimento, descrevendo as suas principais características.
 %
-As instâncias \textit{client\_one} e \textit{client\_two} (Tabela~\ref{tab:instancias}) são responsáveis por executar os clientes a qual realizam o ataque de carga ao serviço.
+É utilizado as seguintes instâncias no experimento:
+
+\begin{itemize}
+    \item \textit{client\_*}: são responsáveis por executar os clientes a qual realizam o ataque de carga ao serviço.
+    \item \textit{game\_service}: é responsável unicamente por executar os microsserviços das arquiteturas Rudy, Salz e/ou Willson.
+    \item \textit{game\_database}: é responsável por executar o banco de dados Postgres e Redis, ambos utilizados em todas as arquiteturas.
+    \item \textit{data\_analisys}: é responsável por executar o banco de métricas e o sistema de monitoramento.
+\end{itemize}
+
+Em especial, a categoria de instância \textit{client\_*}, a qual executa os clientes, foi escalada em 5 instâncias.
 %
-A instância \textit{game\_service} é responsável unicamente por executar os microsserviços das arquiteturas Rudy, Salz e/ou Willson.
+Este número foi definido com base em testes com a arquitetura Rudy, escalando máquinas virtuais dado a instância do serviço pré definido na Tabela~\ref{tab:instancias}.
 %
-A instância \textit{game\_database} é responsável por executar o banco de dados Postgres e Redis, ambos utilizados em todas as arquiteturas.
+O menor valor de instâncias \textit{client\_*} escaladas para alcançar o estresse da instância \textit{game\_service} foi 5.
 %
-Por fim, a instância \textit{data\_analisys} é responsável por executar o banco de métricas e o sistema de monitoramento. %ccm fazer como itemize e justificar porque 5 clientes
+Nesse sentido, será utilizado para todos os testes o valor de 5 instâncias para o ataque de carga de seriço.
+
 
 A gestão das instâncias, dentro de cada sub-rede, foi automatizada com algum sistema de orquestração de microsserviços disponível para o Docker, em nível de aplicação.
 %
-Nesse sentido, a configuração inicial de cada instância foi feita de forma automatizada, com um \textit{script} na linguagem \textit{Bash} o qual configura o ambiente com a plataforma \textit{Docker}.
+Nesse sentido, a configuração inicial de cada instância foi feita de forma automatizada, com um \textit{script} na linguagem \textit{Bash} o qual configura o ambiente com a plataforma \textit{Docker}~\footnote{Docker: \url{https://www.docker.com/}}.
 %
 A Tabela~\ref{tab:docker_versoes} enumera as versões do Docker instaladas na máquina e o orquestrador escolhido para operação.
 
@@ -143,11 +134,11 @@ A Tabela~\ref{tab:docker_versoes} enumera as versões do Docker instaladas na m�
     \label{tab:docker_versoes}
     \begin{tabular}{|l|l|l|l|}
     \hline
-        Nome                                                              & Docker Engine & Docker Compose & Orquestrador   \\ \hline
-        \begin{tabular}[c]{@{}l@{}}client\_one\\ client\_two\end{tabular} & 18.09         & 3.0            & Docker Swarm   \\ \hline
-        game\_service                                                     & 18.09         & 3.0            & Docker Swarm   \\ \hline
-        game\_database                                                    & 18.09         & 3.0            & Docker Compose \\ \hline
-        data\_analisys                                                    & 18.09         & 3.0            & Docker Compose \\ \hline
+        Nome                    & Docker Engine & Docker Compose & Orquestrador   \\ \hline
+        \textit{client\_*}      & 18.09         & 3.0            & Docker Swarm   \\ \hline
+        \textit{game\_service}  & 18.09         & 3.0            & Docker Swarm   \\ \hline
+        \textit{game\_database} & 18.09         & 3.0            & Docker Compose \\ \hline
+        \textit{data\_analisys} & 18.09         & 3.0            & Docker Compose \\ \hline
     \end{tabular}
 
     Fonte: O próprio autor.
@@ -178,21 +169,11 @@ O sistema de coleta de informações tem como principal objetivo receber requisi
 %
 Em específico para esta aplicação, o sistema de métricas relacionará um montante (GBs, MBs, Tempo de Requisição) em relação ao tempo, formando gráficos os quais podem ser comparados entre sí dentro de um período.
 
-Para esta solução, a pilha de monitoramento escolhida é o banco de dados para métricas Graphite e o gestor web para visualização Grafana. %ccm colocar a URL das ferramentas como footnote
+Para esta solução, a pilha de monitoramento escolhida é o banco de dados para métricas Graphite~\footnote{Graphite DB: \url{https://graphiteapp.org/}} e o gestor web para visualização Grafana~\footnote{Grafana: \url{https://grafana.com/}}.
 %
 Estas soluções foram escolhidas por afinidade, facilidade de uso e por serem ferramentas de uso em ambientes reais para este objetivo.
-%
-% A aplicação Grafana pode ser visualizada na Figura~\ref{fig:grafana}.
-% 
-% 
-% \begin{figure}[htb!]
-%     \caption{Captura de recursos utilizando Grafana}
-%     \label{fig:grafana}
-%     \includegraphics[height=7.0cm]{img/cap5/web.png}
-%     \centering
-% 
-%     Fonte: O próprio Autor.
-% \end{figure}
+
+
 
 Utilizando o Grafana, é possível verificar e comparar períodos diretamente por seu sistema web, durante a execução dos testes.
 %
@@ -204,17 +185,19 @@ Este banco de dados é específico para armazenamento de métricas.
 %
 Nesse sentido, este é capaz de otimizar a transferência de informações a qual são enviadas do serviço de jogo e do cliente.
 
-Existem dois tipos de clientes o qual populam os dados automaticamente no sistema de monitoramento.
+Existem dois tipos de monitores o qual populam os dados automaticamente no sistema de monitoramento.
 %
-O cliente de recurso e cliente de tempo. 
+O monitor de recurso e monitor de tempo. 
 %
-O Cliente de recurso é utilizado no \textit{game\_service} na qual enviará métricas do consumo de recursos pela instância. %ccm <-38
+O monitor de recurso é utilizado no \textit{game\_service} na qual envia métricas do consumo de recursos pela instância.
 %
-Além deste, o cliente de tempo é responsável por popular dados referente ao tempo que levará para executar cada requisição ao serviço, executado no \textit{game\_client}. %ccm <-38
+Além deste, o monitor de tempo é responsável por popular com o tempo de execução, do ponto de vista do cliente ao serviço (executado no \textit{game\_client}).
 
-Os dados serão analisados tanto nos gráficos padrões de monitoramento do grafana, quanto utilizando dos dados brutos, na qual são obtidos através da \ac{api} de render do Graphite. %ccm ,-38
+Os dados são analisados tanto nos gráficos padrões de monitoramento do grafana, quanto pós processados por outras ferramentas como o Gnuplot~\footnote{Gnuplot: \url{http://www.gnuplot.info/}}, na qual são alimentados pelos dados obtidos através da \ac{api} de render do Graphite.
 %
-Nesse sentido, também será dado a flexibilidade de obter métricas para estudos estatísticos externos a pilha padrão. %ccm <-38
+Nesse sentido, também existe a flexibilidade de obter métricas para estudos estatísticos externos a pilha padrão do Graphite/Grafana.
+
+
 
 \section{Arquitetura Rudy}
 \label{sec:arc_rudy}
@@ -238,9 +221,7 @@ Tais serviços são utilizados respectivamente como banco de dados permanente e 
 %
 Este método de autenticação foi replicado para as demais arquiteturas.
 
-
-
-Em relação aos protocolos utilizados na arquitetura Rudy, temos dois serviços RPC e dois serviços HTTP. %ccm <1, 14
+Em relação aos protocolos utilizados na arquitetura Rudy, esta arquitetura utiliza serviços com o protocolos \ac{rpc} e \ac{http}.
 %
 A relação detalhada é exibida na Tabela~\ref{tab:protocolos_rudy}.
 
@@ -264,9 +245,9 @@ A relação detalhada é exibida na Tabela~\ref{tab:protocolos_rudy}.
 %ccm justificar a escolha
 
 
-Além de quais protocolos, a Tabela~\ref{tab:protocolos_rudy} exibe qual tecnologia está utilizando para manter o serviço.
+Além dos protocolos utilizados, a Tabela~\ref{tab:protocolos_rudy} relaciona a linguagem / tecnologia utilizados para escrever o serviço.
 %
-Tanto nos microsserviços da arquitetura Rudy quanto aos demais microsserviços implementados para este TCC foram escritos na linguagem Go.
+Tanto nos microsserviços da arquitetura Rudy, quanto aos demais microsserviços implementados, foram escritos na linguagem Go, evitando a repetição de códigos compartilhados entre eles.
 %
 Ambos os serviços compartilham dos mesmos modelos de padrão \ac{mvc} tanto para as aplicações \ac{rpc} e \ac{http}.
 
@@ -282,6 +263,10 @@ Para o desenvolvimento dos microsserviços da arquitetura Rudy, foram utilizados
     \item Testify: Suíte de testes para manter o funcionamento íntegro durante a implementação da aplicação. Em específico, a aplicação possúi 90\% de convergência de código, a qual garante a integridade de futuras alterações.
 \end{itemize}
 
-Todas as bibliotecas utilizadas são distribuídas com modelo \textit{Open Source}, pelas licenças \textit{MIT}, \textit{BSD} e \textit{GPLv3}.
+A pilha de desenvolvimento utilizando Golang 1.11 deve-se pela simplicidade de escrita de código e eficiência (linguagem compilada e tipada).
+%
+Além de sua eficiência computacional, existe uma grande comunidade que apoia o desenvolvimento de microsserviços utilizando Golang, a qual contribui continuamente para desenvolver bibliotecas para suas soluções.
+%
+Nesse sentido, todas as bibliotecas utilizadas são distribuídas no modelo \textit{Open Source}, pelas licenças \textit{MIT}, \textit{BSD} e \textit{GPLv3}.
 %
 Estas mesmas bibliotecas são utilizadas nas demais arquiteturas.
