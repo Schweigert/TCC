@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1554772276 "/home/marlon/tcc/tcc/tccudesc.tex" "/home/marlon/tcc/tcc/tccudesc.pdf" "tccudesc" 1554772276
+["pdflatex"] 1554772276 "/home/marlon/tcc/tcc/tccudesc.tex" "/home/marlon/tcc/tcc/tccudesc.pdf" "tccudesc" 1554812638
   "/dev/null" 1554757756 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/home/marlon/tcc/tcc/tccudesc.aux" 1554772276 8 a94a2480d3289e625eea47cd1b285758 ""
   "/home/marlon/tcc/tcc/tccudesc.tex" 1554667827 4150 004dd7fd552a4a3fb2a4df0072a419e2 ""
@@ -90,6 +90,6 @@
   "tccudesc.tex" 1554667827 4150 004dd7fd552a4a3fb2a4df0072a419e2 ""
   "xcolor.sty" 1551303433 40164 207eff31427cc765a9311b8f324a83cb ""
   (generated)
+  "/home/marlon/tcc/tcc/tccudesc.pdf"
   "tccudesc.log"
   "/home/marlon/tcc/tcc/tccudesc.log"
-  "/home/marlon/tcc/tcc/tccudesc.pdf"

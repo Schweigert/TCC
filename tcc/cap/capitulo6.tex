@@ -234,3 +234,11 @@ A Tabela~\ref{tab:medias_http_rudy} comprova a estabilidade das requisições \a
 Nota-se pela Requisição \ac{http} Selecionar Personagem, na qual realiza a busca dos dados no banco em parapelo a requisição, a maior estabilidade e eficiência dentre as demais citadas.
 %
 Nesse sentido, torna-se visível que a instabilidade, por mais que baixa, esteja relacionada com a busca ou inserção de dados nos bancos da arquitetura.
+
+As requisições \ac{rpc} também podem apresentar caracteristicas similares.
+%
+Entretanto, as requisições \ac{rpc} concorrem com as requisições \ac{http} entre os recursos do serviço.
+%
+Nesse sentido, torna-se interessante obter a média, mediana, máximo e mínimo dos tempos de requisição levando em consideração o número de clientes escalados.
+%
+A Tabela~\ref{tab:medias_rpc_rudy} exibe a média, mediana, máximo e mínimo, segregando conforme o número de conexões do serviço.
