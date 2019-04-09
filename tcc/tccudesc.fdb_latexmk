@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1554680940 "/home/marlon/tcc/tcc/tccudesc.tex" "/home/marlon/tcc/tcc/tccudesc.pdf" "tccudesc" 1554680940
-  "/dev/null" 1554559651 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "/home/marlon/tcc/tcc/tccudesc.aux" 1554680940 8 a94a2480d3289e625eea47cd1b285758 ""
+["pdflatex"] 1554772276 "/home/marlon/tcc/tcc/tccudesc.tex" "/home/marlon/tcc/tcc/tccudesc.pdf" "tccudesc" 1554772276
+  "/dev/null" 1554757756 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "/home/marlon/tcc/tcc/tccudesc.aux" 1554772276 8 a94a2480d3289e625eea47cd1b285758 ""
   "/home/marlon/tcc/tcc/tccudesc.tex" 1554667827 4150 004dd7fd552a4a3fb2a4df0072a419e2 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1550406775 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm" 1550406775 3584 f80ddd985bd00e29e9a6047ebd9d4781 ""
@@ -83,13 +83,13 @@
   "/usr/share/texmf-dist/tex/latex/varwidth/varwidth.sty" 1550406342 10894 d359a13923460b2a73d4312d613554c8 ""
   "/usr/share/texmf-dist/tex/latex/xkeyval/xkeyval.sty" 1550406775 4962 9c1069474ff71dbc47d5006555e352d3 ""
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1550406775 33301 a3134070eacafb10b1f371612ce2650d ""
-  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1551304280 7919196 58c190090f2ec2a9c88377f00df25558 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1554742008 7919195 9ad1fd66fac846879e1a61b1a9b67e3e ""
   "abntex2abrev.sty" 1551303433 4717 c5c27dac8dde23d631b541bc466cf743 ""
   "pkg/abntex2cite.sty" 1551303433 44442 1346f0f7270522f5f17baad58ffb5fb5 ""
   "pkg/monografia.cls" 1551303433 41109 c2cc25d88ec5d8399a062bd3f87f3a59 ""
   "tccudesc.tex" 1554667827 4150 004dd7fd552a4a3fb2a4df0072a419e2 ""
   "xcolor.sty" 1551303433 40164 207eff31427cc765a9311b8f324a83cb ""
   (generated)
+  "tccudesc.log"
   "/home/marlon/tcc/tcc/tccudesc.log"
   "/home/marlon/tcc/tcc/tccudesc.pdf"
-  "tccudesc.log"
