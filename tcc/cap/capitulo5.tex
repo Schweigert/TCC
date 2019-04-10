@@ -4,27 +4,27 @@
 
 
 
-Após o levantamento e fichamento dos requisitos para execução dos testes sobre as arquiteturas Rudy, Salz e Willson, é notório a necessidade de exemplificar o funcionamento destas arquiteturas para jogos \ac{mmorpg}.
+Após o levantamento e fichamento dos requisitos para execução dos experimentos sobre as arquiteturas \ac{mmorpg} Rudy, Salz e Willson, é notório a necessidade de exemplificar o funcionamento de tais arquiteturas.
 %
 Nesse sentido, o capítulo atual levanta as devidas considerações sobre o desenvolvimento prático das arquiteturas específicas a jogos \ac{mmorpg} utilisadas neste trabalho.
 
 
-Em específico, a arquitetura física utilizou o mesmo conjunto de computadores, utilizando a mesma topologia.
+Durante todos os experimentos, o ambiente é composto pelo mesmo conjunto de computadores, utilizando as mesmas topologias.
 %
-Este tópico é abordado neste capítulo com maior profundidade na Seção~\ref{sec:topologia}.
+Este tópico é abordado no capítulo atual com maior profundidade na Seção~\ref{sec:topologia}.
+
+Além da padronização, componentes básicos não foram alterados para as arquiteturas, tais como o conjunto de computadores que hospedaram os bancos de dados e a arquitetura que armazenou as métricas para posterior análise.
 %
-É relatado o funcionamento do sistema de coleta de informações de recursos, abordado na Seção~\ref{sec:informacoes}.
+O sistema de coleta de informações de recursos é abordado na Seção~\ref{sec:informacoes}.
 
 A explicação técnica dos projetos estão organizadas da seguinte forma para cada serviço desenvolvido das arquiteturas:
 
 
 \begin{enumerate}
-    \item Linguagem de Programação e bibliotecas: Exibe pontos a cerca das linguagens de programação e quais módulos ou bibliotecas foram utilizados para o seu desenvolvimento.
-    \item Protocolos Utilizados: Exibe quais protocolos estes serviços utilizam para troca de mensagens em seu ecossistema. É mostrado utilizando uma tabela de adjacência, tal qual utilizado para relação entre nós em um Grafo. 
-    \item Processamento ativo interno: Exibe qual o processamento ativo no serviço independente das requisições de seus microsserviços vizinhos ou cliente.
+    \item Linguagem de Programação e tecnologias: Enumera as linguagens de programação e quais módulos ou bibliotecas foram utilizados para o seu desenvolvimento.
+    \item Protocolos Utilizados: Enumera protocolos utilizados pelos serviços. 
+    \item Modelo de processamento: Enumera o seu modelo de processamento, podendo ser passivo as requisições do ecossistema ou ativamente processar dados da arquitetura.
 \end{enumerate}
-
-
 
 Ao final é levantado o funcionamento do cliente das arquiteturas Rudy (Subseção~\ref{rudy}), Salz (Subseção~\ref{salz}) e Willson (Subseção~\ref{willson}).
 %
@@ -36,21 +36,21 @@ Nesse sentido este capítulo abrange todos os aspéctos técnicos da aplicação
 \section{Topologia da Rede}
 \label{sec:topologia}
 
-A topologia da rede segue o padrão proposto para a coleta de dados.
+A topologia da rede seguiu o padrão proposto para a coleta de dados.
 %
-O principal objetivo desta topologia é segregar as instâncias na camada de rede, evitando interferências do orquestrador de microsserviços que é utilizado na etapap de implantação.
+O principal objetivo desta topologia é segregar as instâncias na camada de rede, evitando interferências do orquestrador de microsserviços que é utilizado na etapa de implantação.
 %
-Por muitas vezes, a fim de otimizar o transporte de dados, estes orquestradores trocam mensagens na rede utilizando memória, visto que uma conexão pode ser realizada para a máquina do próprio hospedeiro.
+A segregação em sub-redes é importante visto que, a fim de otimizar o transporte de dados entre os serviços, tais orquestradores trocam mensagens na rede utilizando memória ou disco, visto que uma conexão pode ser realizada para o próprio hospedeiro.
 %
-Segregando em regiões, o orquestrador é forçado a realizar a conexão com as instâncias externas, forçando a utilização da pilha completa do protocolo \ac{tcp} e \ac{udp}.
+Segregando em sub-redes, o orquestrador é forçado a realizar a conexão com as instâncias externas, forçando a utilização da pilha completa do protocolo \ac{tcp} e \ac{udp}, a qual são eventuais pontos de gargalo em tais arquiteturas.
 
-Para realizar esta divisão, foi utilizado o gestor da Nuvem Tchê, orquestrada com o OpenStack.
+Para gerenciar as sub-redes foi utilizado o gestor da Nuvem Tchê, orquestrada com o OpenStack~\footnote{OpenStack: \url{https://www.openstack.org/}}.
 %
 A topologia utilizada nos testes com as três arquiteturas podem ser visualizada na Figura~\ref{fig:topologia}.
 
 
 \begin{figure}[htb!]
-    \caption{A figure with two subfigures}
+    \caption{Topologia da rede no gestor de redes do OpenStack.}
     \centering
     \begin{subfigure}{0.5\textwidth}
       \centering
@@ -65,6 +65,8 @@ A topologia utilizada nos testes com as três arquiteturas podem ser visualizada
       \label{fig:topologia_b}
     \end{subfigure}
     \label{fig:topologia}
+
+    Fonte: O próprio autor.
 \end{figure}
 
 

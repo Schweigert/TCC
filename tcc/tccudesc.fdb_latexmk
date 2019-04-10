@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1554772276 "/home/marlon/tcc/tcc/tccudesc.tex" "/home/marlon/tcc/tcc/tccudesc.pdf" "tccudesc" 1554812638
-  "/dev/null" 1554757756 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "/home/marlon/tcc/tcc/tccudesc.aux" 1554772276 8 a94a2480d3289e625eea47cd1b285758 ""
+["pdflatex"] 1554859045 "/home/marlon/tcc/tcc/tccudesc.tex" "/home/marlon/tcc/tcc/tccudesc.pdf" "tccudesc" 1554859418
+  "/dev/null" 1554856269 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "/home/marlon/tcc/tcc/tccudesc.aux" 1554859045 8 a94a2480d3289e625eea47cd1b285758 ""
   "/home/marlon/tcc/tcc/tccudesc.tex" 1554667827 4150 004dd7fd552a4a3fb2a4df0072a419e2 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1550406775 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm" 1550406775 3584 f80ddd985bd00e29e9a6047ebd9d4781 ""
@@ -90,6 +90,6 @@
   "tccudesc.tex" 1554667827 4150 004dd7fd552a4a3fb2a4df0072a419e2 ""
   "xcolor.sty" 1551303433 40164 207eff31427cc765a9311b8f324a83cb ""
   (generated)
-  "/home/marlon/tcc/tcc/tccudesc.pdf"
   "tccudesc.log"
+  "/home/marlon/tcc/tcc/tccudesc.pdf"
   "/home/marlon/tcc/tcc/tccudesc.log"
