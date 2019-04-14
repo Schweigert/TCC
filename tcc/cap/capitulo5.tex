@@ -3,50 +3,28 @@
 \label{cap5}
 
 
-
-Após o levantamento e fichamento dos requisitos para execução dos experimentos sobre as arquiteturas \ac{mmorpg} Rudy, Salz e Willson, é notório a necessidade de exemplificar o funcionamento de tais arquiteturas.
-%
-Nesse sentido, o capítulo atual levanta as devidas considerações sobre o desenvolvimento prático das arquiteturas específicas a jogos \ac{mmorpg} utilisadas neste trabalho.
-
-
-Durante todos os experimentos, o ambiente é composto pelo mesmo conjunto de computadores, utilizando as mesmas topologias.
-%
-Este tópico é abordado no capítulo atual com maior profundidade na Seção~\ref{sec:topologia}.
-
-Além da padronização, componentes básicos não foram alterados para as arquiteturas, tais como o conjunto de computadores que hospedaram os bancos de dados e a arquitetura que armazenou as métricas para posterior análise.
-%
-O sistema de coleta de informações de recursos é abordado na Seção~\ref{sec:informacoes}.
-
-A explicação técnica dos projetos estão organizadas da seguinte forma para cada serviço desenvolvido das arquiteturas:
-
-
-\begin{enumerate}
-    \item Linguagem de Programação e tecnologias: Enumera as linguagens de programação e quais módulos ou bibliotecas foram utilizados para o seu desenvolvimento.
-    \item Protocolos Utilizados: Enumera protocolos utilizados pelos serviços. 
-    \item Modelo de processamento: Enumera o seu modelo de processamento, podendo ser passivo as requisições do ecossistema ou ativamente processar dados da arquitetura.
-\end{enumerate}
-
-Ao final é levantado o funcionamento do cliente das arquiteturas Rudy (Subseção~\ref{rudy}), Salz (Subseção~\ref{salz}) e Willson (Subseção~\ref{willson}).
-%
-Nesta etapa é exibido o fluxo de mensagens a partir das ações realizadas pelo cliente.
-%
-Nesse sentido este capítulo abrange todos os aspéctos técnicos da aplicação, levando em consideração o seu fluxo de funcionamento e integração entre os microsserviços no ecossistema da arquitetura.
-
-
 \section{Topologia da Rede}
 \label{sec:topologia}
 
-A topologia da rede seguiu o padrão proposto para a coleta de dados.
+A topologia da rede seguiu o padrão proposto na Seção~\ref{cap3}.
 %
-O principal objetivo desta topologia é segregar as instâncias na camada de rede, evitando interferências do orquestrador de microsserviços que é utilizado na etapa de implantação.
-%
-A segregação em sub-redes é importante visto que, a fim de otimizar o transporte de dados entre os serviços, tais orquestradores trocam mensagens na rede utilizando memória ou disco, visto que uma conexão pode ser realizada para o próprio hospedeiro.
-%
-Segregando em sub-redes, o orquestrador é forçado a realizar a conexão com as instâncias externas, forçando a utilização da pilha completa do protocolo \ac{tcp} e \ac{udp}, a qual são eventuais pontos de gargalo em tais arquiteturas.
+O principal objetivo desta topologia é segregar as instâncias na camada de rede, evitando interferências do orquestrador de microsserviços que é utilizado na etapa de implantação, visto que a implantação dos clientes também é feita com um orquestrador de microsserviços para facilitar a execução dos experimentos.
 
-Para gerenciar as sub-redes foi utilizado o gestor da Nuvem Tchê, orquestrada com o OpenStack~\footnote{OpenStack: \url{https://www.openstack.org/}}.
+A segregação em sub-redes é importante visto que, a fim de otimizar o transporte de dados entre os serviços, tais orquestradores trocam mensagens na rede utilizando memória quando a conexão é realizada para o próprio hospedeiro.
 %
-A topologia utilizada nos testes com as três arquiteturas podem ser visualizada na Figura~\ref{fig:topologia}.
+Segregando em sub-redes, o orquestrador é forçado a realizar a conexão com as instâncias externas utilizando a pilha completa dos protocolos \ac{tcp} e \ac{udp}, a qual são eventuais pontos de gargalo em tais arquiteturas.
+%
+Nesse sentido, espera-se que não exista troca de mensagens entre o cliente e serviço de jogo executando em memória.
+%
+Dessa forma, abre-se espaço para analisar eventuais gargalos na rede.
+
+Para gerenciar as sub-redes da topologia, foi utilizado o gestor de sub-redes da Nuvem Tchê~\footnote{Nuvem Tche: \url{http://www.labp2d.joinville.udesc.br/}}, a qual é um serviço básico do sistema de gestor de nuvens computacionais OpenStack~\footnote{OpenStack: \url{https://www.openstack.org/}}.
+%
+Tal gestor acopla interfaces de rede virtuais a instâncias computacionais selecionadas, a fim de conecta-las a uma sub-rede virtualizada dentro do sistem OpenStack.
+
+Utilizando o gestor do OpenStack, foram criadas 4 sub-redes a fim de isolar a rede do banco de dados, rede do serviço de jogo, rede dos clientes e rede do serviço de métricas.
+%
+Tal topologia utilizada nos experimentos com as arquiteturas Rudy, Salz e Willson podem ser visualizada na Figura~\ref{fig:topologia}.
 
 
 \begin{figure}[htb!]
@@ -70,23 +48,19 @@ A topologia utilizada nos testes com as três arquiteturas podem ser visualizada
 \end{figure}
 
 
-A Figura~\ref{fig:topologia} mostra a disposição das instâncias em sub-redes exibindo-as em formato de árvore e em barras.
+A Figura~\ref{fig:topologia} mostra a disposição das instâncias em sub-redes exibindo-as como um grafo (Subfigura~\ref{fig:topologia_a}) e em forma de barramento (Subfigura~\ref{fig:topologia_b}).
 %
-A visualização com formato árvore ajuda a compreender a conexão entre cada máquina do ambiente de testes.
+A visualização em Grafo ajuda a compreender a disposição das instâncias computacionais e a conectividade entre cada instância do ambiente de experimentos.
 %
-Já a visualização em formato barra, exibe características técnicas como a divisão por \ac{ip} e nome da rede.
+Já a visualização em barramento exibe características técnicas como a faixa de \ac{ip} e nome das sub-redes.
 %
-Ambos os gráficos são complementares para formar as características básicas da interconexão das sub-redes.
+Ambos os gráficos são complementares para informar as características básicas da interconexão das sub-redes.
 
 A Figura~\ref{fig:topologia} também exibe 8 instâncias utilizadas nos testes.
 %
-Cada instância pode ter configurações padrões de \ac{os}, \acs{vcpu}, memória.
+Cada instância tem configurações padrões de \ac{os}, \acs{vcpu} e memória.
 %
-Além disso, o OpenStack permite a criação rápida de réplicas de uma instância.
-%
-Dessa forma facilitando a configuração da rede final.
-%
-As características específicas das instâncias estão listadas na Tabela~\ref{tab:instancias}.
+As características específicas das instâncias criadas estão na Tabela~\ref{tab:instancias}.
 
 \begin{table}[htb!]
     \centering
@@ -106,27 +80,27 @@ As características específicas das instâncias estão listadas na Tabela~\ref{
 
 A Tabela~\ref{tab:instancias} enumera as máquinas virtuais utilizadas no experimento, descrevendo as suas principais características.
 %
-É utilizado as seguintes instâncias no experimento:
+São utilizadas as seguintes instâncias nos experimentos:
 
 \begin{itemize}
-    \item \textit{client\_*}: são responsáveis por executar os clientes a qual realizam o ataque de carga ao serviço.
-    \item \textit{game\_service}: é responsável unicamente por executar os microsserviços das arquiteturas Rudy, Salz e/ou Willson.
-    \item \textit{game\_database}: é responsável por executar o banco de dados Postgres e Redis, ambos utilizados em todas as arquiteturas.
-    \item \textit{data\_analisys}: é responsável por executar o banco de métricas e o sistema de monitoramento.
+    \item \textbf{client\_*}: são responsáveis por executar os clientes a qual realizam o ataque de carga ao serviço.
+    \item \textbf{game\_service}: é responsável unicamente por executar os microsserviços das arquiteturas Rudy, Salz e/ou Willson.
+    \item \textbf{game\_database}: é responsável por executar o banco de dados Postgres e Redis, ambos utilizados em todas as arquiteturas.
+    \item \textbf{data\_analisys}: é responsável por executar o banco de métricas e o sistema de monitoramento.
 \end{itemize}
 
-Em especial, a categoria de instância \textit{client\_*}, a qual executa os clientes, foi escalada em 5 instâncias.
+Em especial, as réplicas de instância \textit{client\_*}, a qual executa os clientes, foi escalada em 5 instâncias.
 %
-Este número foi definido com base em testes com a arquitetura Rudy, escalando máquinas virtuais dado a instância do serviço pré definido na Tabela~\ref{tab:instancias}.
+Este número foi definido com base em testes com a arquitetura Rudy, replicando máquinas virtuais (\textit{client\_*}) a fim de estressar a instância \textit{game\_service}, ambos definidos na Tabela~\ref{tab:instancias}.
 %
 O menor valor de instâncias \textit{client\_*} escaladas para alcançar o estresse da instância \textit{game\_service} foi 5.
 %
 Nesse sentido, será utilizado para todos os testes o valor de 5 instâncias para o ataque de carga de seriço.
 
 
-A gestão das instâncias, dentro de cada sub-rede, foi automatizada com algum sistema de orquestração de microsserviços disponível para o Docker, em nível de aplicação.
+A gestão das aplicações, dentro de cada sub-rede, foi automatizada com um sistema de orquestração de microsserviços em contâineres.
 %
-Nesse sentido, a configuração inicial de cada instância foi feita de forma automatizada, com um \textit{script} na linguagem \textit{Bash} o qual configura o ambiente com a plataforma \textit{Docker}~\footnote{Docker: \url{https://www.docker.com/}}.
+Nesse sentido, a configuração inicial das instâncias foi feita de forma automatizada, com um \textit{script} na linguagem \textit{Bash}, na qual configura o ambiente com a plataforma \textit{Docker}~\footnote{Docker: \url{https://www.docker.com/}}.
 %
 A Tabela~\ref{tab:docker_versoes} enumera as versões do Docker instaladas na máquina e o orquestrador escolhido para operação.
 
@@ -148,9 +122,11 @@ A Tabela~\ref{tab:docker_versoes} enumera as versões do Docker instaladas na m�
 
 Em específico neste projeto, foram utilizados os orquestradores Docker Swarm e Docker Compose (Tabela~\ref{tab:docker_versoes}).
 %
-Estes dois orquestradores facilitam, respectivamente, a implantação de arquiteturas complexas sem relacionamento com o disco rígido e o controle de volumes para armazenamento temporário de dados.
+O gestor do Docker Swarm auxilia na implantação de arquiteturas complexas sem relacionamento com o disco rígido, em múltiplas instâncias.
 %
-Dessa forma, os serviços implantados nas instâncias \textit{game\_service} e \textit{client\_*} são gerenciados pelo Docker Swarm, visto que ambos não necessitam de acesso a disco e podem ser escalados para mais de uma instância.
+Por sua vez, o Docker Compose auxilia na implantação de serviços em uma única instância, permitindo o manejo de volume de dados.
+
+Os serviços implantados nas instâncias \textit{game\_service} e \textit{client\_*} são gerenciados pelo Docker Swarm, visto que ambos não necessitam de acesso a disco e podem ser escalados para mais de uma instância.
 %
 Por sua vez, os serviços restantes precisam de acesso a disco. 
 %
@@ -169,12 +145,11 @@ Assim, faz-se necessário detalhar o funcionamento deste sistema computacional.
 
 O sistema de coleta de informações tem como principal objetivo receber requisições do estado da aplicação ou instância.
 %
-Em específico para esta aplicação, o sistema de métricas relacionará um montante (GBs, MBs, Tempo de Requisição) em relação ao tempo, formando gráficos os quais podem ser comparados entre sí dentro de um período.
+Em específico para o atual experimento, o sistema de métricas relacionará um valor em alguma unidade convencional (\textit{e.g.,} GBs, MBs, MS, \textit{etc}) em relação a data de registro de tal informação, formando gráficos os quais podem ser comparados entre sí dentro de um período de tempo.
 
 Para esta solução, a pilha de monitoramento escolhida é o banco de dados para métricas Graphite~\footnote{Graphite DB: \url{https://graphiteapp.org/}} e o gestor web para visualização Grafana~\footnote{Grafana: \url{https://grafana.com/}}.
 %
-Estas soluções foram escolhidas por afinidade, facilidade de uso e por serem ferramentas de uso em ambientes reais para este objetivo.
-
+Estas soluções foram escolhidas por afinidade, facilidade de uso, uso em ambientes reais profissionais, além de ser distribuídos sobre uma licença \textit{OpenSource}.
 
 
 Utilizando o Grafana, é possível verificar e comparar períodos diretamente por seu sistema web, durante a execução dos testes.
@@ -183,9 +158,9 @@ Isto permite maior flexibilidade e segurança da obtenção de dados, na qual s�
 
 O Grafana exibirá os dados armazenados no banco de dados Graphite, na qual desempenha papel de banco de dados específico para armazenamento de métricas.
 %
-Nesse sentido, este é capaz de otimizar a transferência de informações a qual são enviadas tanto do serviço de jogo e do cliente.
+Nesse sentido, este é capaz de otimizar a transferência de informações a qual são enviadas tanto do serviço de jogo quanto do cliente.
 %
-O fluxo de transferência é exibido na Figura~\ref{fig:fluxo_data}.
+O fluxo de transferência das métricas é exibido na Figura~\ref{fig:fluxo_data}, na qual exibe o processo de envio de métricas a partir do cliente e do serviço de jogo até a sua exibição no \textit{Dashboard} do Grafana.
 
 \begin{figure}[htb!]
     \caption{Fluxo dos valores obtidos no cliente e serviço.}
@@ -198,27 +173,27 @@ O fluxo de transferência é exibido na Figura~\ref{fig:fluxo_data}.
 
 Como exibido na Figura~\ref{fig:fluxo_data}, existem dois tipos de monitores no qual populam os dados automaticamente no sistema de monitoramento.
 %
-São eles o monitor de recurso e  o monitor de tempo de requisição. 
+São eles o monitor de recursos e  o monitor de tempo de requisição. 
 
-O monitor de recurso é utilizado no \textit{game\_service} na qual envia métricas do consumo de recursos pela instância.
+O monitor de recursos é utilizado no \textit{game\_service} na qual envia métricas do consumo de recursos pela instância.
 %
 Este monitor foi implementado para este TCC na linguagem Ruby e é distribuído como uma aplicação completa para monitoramento de sistemas baseados em Debian.
 %
 O mesmo possui a automatização de implantação do servidor Graphite e Grafana utilizando Docker Compose em seu repositório~\footnote{gbeacon.rb: \url{github.com/schweigert/grafana-beacon/} e \url{rubygems.org/gems/gbeacon}}.
 
-Durante os testes é executado o monitor de recurso na arquitetura do \textit{game\_service}, a qual enviará as métricas obtidas do sistema operacional para o servidor Graphite indicado.
+Durante os experimentos é executado o monitor de recursos na arquitetura do \textit{game\_service}, a qual enviará as métricas obtidas do sistema operacional para o servidor Graphite indicado.
 %
-Este monitor obtem os recursos programados da máquina hospedeira, a qual estará hospedando o serviço docker da arquitetura de microsserviços em teste.
+Este monitor obtem os recursos programados da máquina hospedeira, na qual hospeda o serviço de jogo utilizando o orquestrador Docker Swarm.
 %
-Dessa forma temos o monitoramento de recursos em tempo de execução, levando em consideração o custo de gerenciamento do Docker.
+Dessa forma temos o monitoramento de recursos em tempo de execução, levando em consideração o custo de gerenciamento da arquitetura.
 %
-Entretanto, o seu consumo para gestão é despresível para tal experimento.
+Entretanto, após as capturas de métricas, o consumo de recursos para gestão mostrou-se despresível para tal experimento.
 
 Por sua vez, o monitor de tempo de resposta é implementado diretamente no cliente, a qual captura o tempo das requisições do serviço do jogo.
 %
 Ele foi isolado em um pacote na linguagem Golang, na qual pode ser reutilizado em futuros projetos~\footnote{metric package: \url{https://github.com/schweigert/mga/tree/master/libraries/metric}}.
 
-Por sua vez, os dados são analisados tanto nos gráficos padrões de monitoramento do grafana, quanto pós processados por outras ferramentas como o Gnuplot~\footnote{Gnuplot: \url{http://www.gnuplot.info/}}, na qual são obtidos através da \ac{api} de \textit{render}~\footnote{Graphite render API: \url{https://graphite.readthedocs.io/en/latest/render_api.html}} do Graphite.
+Após a coleta de dados durante os experimentos, os dados são analisados tanto nos gráficos padrões de monitoramento do Grafana, quanto pós processados por outras ferramentas como o Gnuplot~\footnote{Gnuplot: \url{http://www.gnuplot.info/}}, na qual são obtidos através da \ac{api} de \textit{render}~\footnote{Graphite render API: \url{https://graphite.readthedocs.io/en/latest/render_api.html}} do Graphite no formato \ac{json} ou \ac{csv}.
 %
 Dessa forma também existe a flexibilidade de obter métricas para estudos estatísticos externos a pilha padrão do Graphite/Grafana.
 
@@ -227,7 +202,11 @@ Dessa forma também existe a flexibilidade de obter métricas para estudos estat
 \section{Arquitetura Rudy}
 \label{sec:arc_rudy}
 
-A arquitetura Rudy (Subseção \ref{rudy}), a primeira arquitetura desenvolvida, teve o seu funcionamento reduzido aos microsserviços básicos para o funcionamento do Gerente de Mundo.
+A arquitetura Rudy (Subseção \ref{rudy}) é a primeira arquitetura desenvolvida.
+%
+Ela teve o seu funcionamento reduzido aos microsserviços básicos da arquitetura para permitir o funcionamento do Gerente de Mundo.
+%
+Os serviços de Pagamento e Web Estático foram removidos, visto que não condizem o escopo do atual trabalho.
 %
 Nesse sentido, os microsserviços implementados para esta arquitetura foram:
 
@@ -238,15 +217,13 @@ Nesse sentido, os microsserviços implementados para esta arquitetura foram:
     \item Serviço Web Dinâmico: Ou \textit{rudyweb}.
 \end{enumerate}
 
-
-
 Além destes microsserviços, a arquitetura utiliza os serviços PostgreSQL e Redis, ambas de código aberto.
 %
-Tais serviços são utilizados respectivamente como banco de dados permanente e banco de dados em memória cache para autenticação.
+Tais serviços são utilizados respectivamente como banco de dados permanente e banco de dados em memória cache para autenticação, e foram implantados na sub-rede de banco de dados do jogo.
 %
 Este método de autenticação foi replicado para as demais arquiteturas.
 
-Em relação aos protocolos utilizados na arquitetura Rudy, esta arquitetura utiliza serviços com o protocolos \ac{rpc} e \ac{http}.
+Em relação aos protocolos utilizados na arquitetura Rudy, a arquitetura utiliza serviços com o protocolos \ac{rpc} e \ac{http}.
 %
 A relação detalhada é exibida na Tabela~\ref{tab:protocolos_rudy}.
 
@@ -258,7 +235,7 @@ A relação detalhada é exibida na Tabela~\ref{tab:protocolos_rudy}.
     \label{tab:protocolos_rudy}
     \begin{tabular}{|l|l|l|l|}
     \hline
-    Microsserviço & Linguagem de Programação    & Porta & Protocolo \\ \hline
+    Microsserviço & Tecnologia utilizada        & Porta & Protocolo \\ \hline
     rudygh        & Golang 1.11 / RPC Nativo    & 3000  & TCP       \\ \hline
     rudydb        & Golang 1.11 / Gin Framework & 3000  & HTTP      \\ \hline
     rudya         & Golang 1.11 / RPC Nativo    & 3000  & TCP       \\ \hline
@@ -270,7 +247,7 @@ A relação detalhada é exibida na Tabela~\ref{tab:protocolos_rudy}.
 %ccm justificar a escolha
 
 
-Além dos protocolos utilizados, a Tabela~\ref{tab:protocolos_rudy} relaciona a linguagem / tecnologia utilizados para escrever o serviço.
+Além dos protocolos utilizados, a Tabela~\ref{tab:protocolos_rudy} relaciona as tecnologias utilizadas para implementar o serviço.
 %
 Tanto nos microsserviços da arquitetura Rudy, quanto aos demais microsserviços implementados, foram escritos na linguagem Go, evitando a repetição de códigos compartilhados entre eles.
 %
@@ -281,16 +258,16 @@ Para o desenvolvimento dos microsserviços da arquitetura Rudy, foram utilizados
 \begin{itemize}
     \item Gin: Framework focado em desenvolvimentos de \ac{api} para web escrito em Golang.
     \item Redis: Pacote de conexão sobre \ac{tcp} ou \ac{udp} em um serviço Redis.
-    \item Protofub: Pacote que implementa serialização de dados estruturados de modo mínimo. É utilizado para minimizar custo de chamadas \ac{rpc} em Go.
+    \item Protofub: Pacote que implementa serialização de dados estruturados de modo compactado. É utilizado para minimizar custo de chamadas \ac{rpc} em Go.
     \item Gorm: Golang \ac{orm} que permite a conexão com o banco de dados Postgres sem utilizar \ac{sql}.
     \item Graphite: Pacote que permite a conexão com o servidor de logs Graphite para enviar métricas.
     \item Gorequest: Pacote para estruturar requisições Web utilizado para comunicação interna entre serviços Web utilizando assinatura \ac{jwt}.
     \item Testify: Suíte de testes para manter o funcionamento íntegro durante a implementação da aplicação. Em específico, a aplicação possúi 90\% de convergência de código, a qual garante a integridade de futuras alterações.
 \end{itemize}
 
-A pilha de desenvolvimento utilizando Golang 1.11 deve-se pela simplicidade de escrita de código e eficiência (linguagem compilada e tipada).
+A pilha de desenvolvimento foi escolhida com base na linguagem Golang 1.11, a qual foca na simplicidade de escrita de código, eficiência computacional (linguagem compilada e tipada) e bibliotecas nativas para sistemas distribuídos.
 %
-Além de sua eficiência computacional, existe uma grande comunidade que apoia o desenvolvimento de microsserviços utilizando Golang, a qual contribui continuamente para desenvolver bibliotecas para suas soluções.
+Além de sua eficiência computacional, existe uma comunidade ativa que apoia o desenvolvimento de microsserviços utilizando Golang, na qual contribui continuamente para desenvolver bibliotecas para problemas comuns em sistemas distribuídos sob licença \textit{OpenSource}.
 %
 Nesse sentido, todas as bibliotecas utilizadas são distribuídas no modelo \textit{Open Source}, pelas licenças \textit{MIT}, \textit{BSD} e \textit{GPLv3}.
 %
@@ -298,7 +275,7 @@ Estas mesmas bibliotecas são utilizadas nas demais arquiteturas.
 
  
 \section{Dados obtidos da arquitetura Rudy}
-
+\label{sec:dados_rudy}
 Para obter os dados da arquitetura Rudy, foram efetuadas 3 testes diferentes.
 %
 Em específico, a diferença entre cada teste é o crescimento de conexões por minuto.
@@ -306,12 +283,12 @@ Em específico, a diferença entre cada teste é o crescimento de conexões por 
 Os testes foram automatizados da seguinte maneira:
 
 \begin{itemize}
- \item Utilizando uma conta nova por minuto.
- \item Utilizando duas contas novas por minuto.
- \item Utilizando cinco contas novas por minuto.
+ \item Escalando um cliente novo por minuto.
+ \item Escalando dois clientes novos por minuto.
+ \item Escalando cinco clientes novos por minuto.
 \end{itemize}
 
-Para cada ítem citado, a cada minuto, é escalonado um novo cliente robô que realizará as seguintes ações:
+Para cada ítem citado, a cada minuto, é escalonado N novos clientes robôs que realizaram as seguintes ações:
 
 \begin{itemize}
  \item Criar uma conta.
@@ -321,33 +298,72 @@ Para cada ítem citado, a cada minuto, é escalonado um novo cliente robô que r
  \item Movimentar-se pelo jogo, enviar mensagens e receber mensagens.
 \end{itemize}
 
-Dentro deste cenário, espera-se estressar a vazão da rede ou \ac{cpu}, visto que são poucos dados para armazenamento em memória do serviço de jogo.
+Dentro deste cenário, esperava-se estressar a vazão da rede ou \ac{cpu}, visto que são poucos dados para armazenamento em memória do serviço de jogo.
+%
+Tal qual, esta especulação foi confirmada devido a fila de processamento de requisições da arquitetura Rudy não escalar para múltiplos usuários em uma única região.
 %
 Vale ressaltar que a latência da rede não foi prejudicada durante o teste, tornando-se constante, como já esperado.
 
 
 \subsection{Consumo de CPU pelo serviço Rudy}
 
-Um dos objetivos da coleta de \ac{cpu} da arquitetura Rudy é analisar pontos de gargalo.
+Um dos objetivos da coleta de \ac{cpu} da arquitetura Rudy é analisar possíveis pontos de gargalo no processamento das requisições.
 %
-Em especial a arquitetura Rudy tem uma abordagem serial das requisições, a qual serve para evitar a concorrência das estruturas de dados entre múltiplos jogadores.
+Em especial a arquitetura Rudy tem uma abordagem serial das requisições, a qual serve para evitar a concorrência das estruturas de dados internas entre múltiplos jogadores.
+%
+Entretanto, espera-se um enfileiramento das requisições para operações na mesma região do ambiente do jogo.
+%
+Neste sentido, espera-se encontrar um ponto limitante de processamento na arquitetura Rudy.
 
-Esta abordagem é comum para jogos onde a frequência de atualizações é menor, visto que seu principal fator limitante é a fila de requisições.
+As variáveis relacionadas a este experimento são o número de conexões e o número de requisições na fila.
 %
-Dessa forma, espera-se obter um teto limite de \ac{cpu} durante a análise, a qual afetará diretamente o consumo da banda e tempo de resposta dos clientes.
-
-As variáveis relacionadas a este teste são o número de conexões.
-%
-Na Figura~\ref{fig:rudy_t4_cpu} exibe a carga da \ac{cpu}.
+Nesse sentido, a Figura~\ref{fig:rudy_t4_cpu} exibe a carga da \ac{cpu} e carga do Sistema Operacional no serviço de jogo.
 
 
 \begin{figure}[htb!]
-    \caption{Consumo de \ac{cpu} no servidor utilizando a arquitetura Rudy}
+    \caption{Consumo de \ac{cpu} no servidor utilizando a arquitetura Rudy ($N=1$)}
     \label{fig:rudy_t4_cpu}
     \includegraphics[width=\textwidth]{metricas_rudy_t4/cpu.png}
     \centering
     
     Fonte: O próprio autor
+\end{figure}
+
+
+Como observado na Figura~\ref{fig:rudy_t4_cpu}, houve um limite do consumo de \ac{cpu} por parte do serviço.
+%
+Este limitante foi causado pela fila de requisições.
+%
+Em específico, o sistema perdeu desempenho no enfileiramento das requisições, em barreiras de processamento.
+%
+A partir de um número determinado de conexões (entre 7 e 10 conexões no experimento da Figura~\ref{fig:rudy_t4_cpu}) na mesma região do ambiente de jogo, a disputa para enfileirar novas requisições é alta o suficiente para o processamento das requisições ser insuficiente sob tal demanda.
+%
+Um dos pontos que provam tal ocorrência é uma barreira na vazão de rede, que correlaciona com a \ac{cpu} e o aumento do tempo de resposta do serviço.
+
+Conforme os dados obtidos do primeiro experimento, é previsto que o mesmo comportamento ocorra, de forma mais agressiva, para os testes com a escalabilidade de $N=2$ e $N=5$.
+%
+O comportamento no Experimento 2 e 3 pode ser visualizado na Figura~\ref{fig:rudy_t56_cpu}.
+
+\begin{figure}[htb!]
+    \caption{Topologia da rede no gestor de redes do OpenStack.}
+    \centering
+    \begin{subfigure}{1.0\textwidth}
+      \centering
+      \includegraphics[width=.9\textwidth]{metricas_rudy_t5/cpu.png}
+      \caption{Consumo de \ac{cpu} no servidor utilizando a arquitetura Rudy ($N=2$)}
+      \label{fig:rudy_t5_cpu}
+    \end{subfigure}
+
+
+    \begin{subfigure}{1.0\textwidth}
+      \centering
+      \includegraphics[width=.9\textwidth]{metricas_rudy_t6/cpu.png}
+      \caption{Consumo de \ac{cpu} no servidor utilizando a arquitetura Rudy ($N=5$)}
+      \label{fig:rudy_t6_cpu}
+    \end{subfigure}
+    \label{fig:rudy_t56_cpu}
+
+    Fonte: O próprio autor.
 \end{figure}
 
 

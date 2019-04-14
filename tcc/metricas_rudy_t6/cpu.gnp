@@ -21,4 +21,4 @@ set ylabel "Porcentagem" font "arial"
 
 plot "rudy.csv.data" using 1:11 title 'Processamento' with lines axes x1y1, \
      "rudy.csv.data" using 1:17 title 'Carga do Sistema Operacional' with lines axes x1y1, \
-     "rudyc.csv.data" using 1:(min($4 * 100000000, 100)) title 'Novo cliente escalado' with impulses axes x1y1
+     "rudyc.csv.data" using 1:(min($4 * 100000000, 100)) title 'Novos clientes escalados' with impulses axes x1y1

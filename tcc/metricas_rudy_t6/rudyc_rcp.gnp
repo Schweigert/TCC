@@ -25,4 +25,4 @@ plot "rudyc.csv.data" using 1:(notZero($8)) title 'Região de Interesse do Perso
      "rudyc.csv.data" using 1:(notZero($6)) title 'Movimento do Personagem' with lines ,\
      "rudyc.csv.data" using 1:(notZero($7)) title 'Obter Mensagens' with lines, \
      "rudyc.csv.data" using 1:(notZero($10)) title 'Enviar Mensagem' with lines, \
-     "rudyc.csv.data" using 1:(min($4 * 100000000, 1)) title 'Novo cliente escalado' with impulses axes x1y1
+     "rudyc.csv.data" using 1:(min($4 * 100000000, 1)) title 'Novos clientes escalados' with impulses axes x1y1

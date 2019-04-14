@@ -21,4 +21,4 @@ set ylabel "Vazão de Rede" font "arial"
 
 plot "rudy.csv.data" using 1:9 title 'Banda Recebida' with lines, \
      "rudy.csv.data" using 1:10 title 'Banda Transmitida' with lines, \
-     "rudyc.csv.data" using 1:(min($4 * 100000000, 100)) title 'Novo cliente escalado' with impulses axes x1y1
+     "rudyc.csv.data" using 1:(min($4 * 100000000, 100)) title 'Novos clientes escalados' with impulses axes x1y1

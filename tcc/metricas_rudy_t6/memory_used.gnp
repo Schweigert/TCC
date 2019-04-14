@@ -20,4 +20,4 @@ set xlabel "Tempo" font "arial"
 set ylabel "Memória" font "arial"
 
 plot "rudy.csv.data" using 1:7 title 'Memória usada' with lines, \
-     "rudyc.csv.data" using 1:(min($4 * 100000000, 210)) title 'Novo cliente escalado' with impulses axes x1y1
+     "rudyc.csv.data" using 1:(min($4 * 100000000, 210)) title 'Novos clientes escalados' with impulses axes x1y1

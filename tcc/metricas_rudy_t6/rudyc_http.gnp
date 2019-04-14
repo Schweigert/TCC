@@ -25,4 +25,4 @@ plot "rudyc.csv.data" using 1:(notZero($4)) title 'Criar Conta' with points, \
      "rudyc.csv.data" using 1:(notZero($3)) title 'Autenticar Conta' with points, \
      "rudyc.csv.data" using 1:(notZero($5)) title 'Criar Personagem' with points, \
      "rudyc.csv.data" using 1:(notZero($9)) title 'Seleciona Personagem' with points, \
-     "rudyc.csv.data" using 1:(min($4 * 100000000, 1)) title 'Novo cliente escalado' with impulses axes x1y1
+     "rudyc.csv.data" using 1:(min($4 * 100000000, 1)) title 'Novos clientes escalados' with impulses axes x1y1
