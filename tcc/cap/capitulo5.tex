@@ -341,7 +341,7 @@ Conforme os dados obtidos do primeiro experimento, é previsto que o mesmo compo
 O comportamento no Experimento 2 e 3 pode ser visualizado na Figura~\ref{fig:rudy_t56_cpu}.
 
 \begin{figure}[htb!]
-    \caption{Topologia da rede no gestor de redes do OpenStack.}
+    \caption{Consumo de \ac{cpu} no servidor utilizando a arquitetura Rudy ($N=2$ e $N=5$)}
     \centering
     \begin{subfigure}{1.0\textwidth}
       \centering
@@ -361,6 +361,11 @@ O comportamento no Experimento 2 e 3 pode ser visualizado na Figura~\ref{fig:rud
 
     Fonte: O próprio autor.
 \end{figure}
+
+A Figura~\ref{fig:rudy_t56_cpu} exibe o mesmo comportamento de enfileiramento de requisições da arquitetura ~\ref{fig:rudy_t4_cpu}.
+%
+Dessa forma, torna-se notório a interferência das barreiras para sereliarizar as requisições ao serviço.
+%
 
 
 \subsection{Consumo de Memória pelo serviço Rudy}
@@ -397,7 +402,7 @@ Porém, esta visualização fica comprometida, visto que não fica perceptível 
 A Figura~\ref{fig:rudy_t4_memory_used} trata a escala e aplica somente os dados da memória utilizada pela arquitetura.
 
 \begin{figure}[htb!]
-    \caption{Memória consumida no servidor utilizando a arquitetura Rudy}
+    \caption{Memória consumida no servidor utilizando a arquitetura Rudy ($N=1$)}
     \label{fig:rudy_t4_memory_used}
     \includegraphics[width=\textwidth]{metricas_rudy_t4/memory_used.png}
     \centering
@@ -408,6 +413,28 @@ A Figura~\ref{fig:rudy_t4_memory_used} trata a escala e aplica somente os dados 
 Após o tratamento, torna-se notório o crescimento da memória conforme o número de conexões, utilizando uma alícoda de valor pequeno, se comparado ao recurso disponível.
 %
 Nesse sentido, não foi possível estressar a memória do serviço como um recurso crítico para os testes, porém isto não invalida estes dados para futura comparação com as demais arquiteturas.
+
+\begin{figure}[htb!]
+    \caption{Memória consumida no servidor utilizando a arquitetura Rudy ($N=2$ e $N=5$)}
+    \centering
+    \begin{subfigure}{1.0\textwidth}
+      \centering
+      \includegraphics[width=.9\textwidth]{metricas_rudy_t5/memory_used.png}
+      \caption{Memória consumida no servidor utilizando a arquitetura Rudy ($N=2$)}
+      \label{fig:rudy_t5_memory_used}
+    \end{subfigure}
+
+
+    \begin{subfigure}{1.0\textwidth}
+      \centering
+      \includegraphics[width=.9\textwidth]{metricas_rudy_t6/memory_used.png}
+      \caption{Memória consumida no servidor utilizando a arquitetura Rudy ($N=5$)}
+      \label{fig:rudy_t6_memory_used}
+    \end{subfigure}
+    \label{fig:rudy_t56_memory_used}
+
+    Fonte: O próprio autor.
+\end{figure}
 
 \subsection{Consumo de Banda pelo serviço Rudy}
 
@@ -424,12 +451,34 @@ Com os dados da banda da arquitetura Rudy obtidos do teste, pode-se observar que
 Os dados podem ser visualizados na Figura~\ref{fig:rudy_t4_io}.
 
 \begin{figure}[htb!]
-    \caption{Consumo de Banda no servidor utilizando a arquitetura Rudy}
+    \caption{Consumo de Banda no servidor utilizando a arquitetura Rudy ($N=1$)}
     \label{fig:rudy_t4_io}
     \includegraphics[width=\textwidth]{metricas_rudy_t4/io.png}
     \centering
     
     Fonte: O próprio autor
+\end{figure}
+
+\begin{figure}[htb!]
+    \caption{Consumo de Banda no servidor utilizando a arquitetura Rudy ($N=2$ e $N=5$)}
+    \centering
+    \begin{subfigure}{1.0\textwidth}
+      \centering
+      \includegraphics[width=.9\textwidth]{metricas_rudy_t5/io.png}
+      \caption{Consumo de Banda no servidor utilizando a arquitetura Rudy ($N=2$)}
+      \label{fig:rudy_t5_io}
+    \end{subfigure}
+
+
+    \begin{subfigure}{1.0\textwidth}
+      \centering
+      \includegraphics[width=.9\textwidth]{metricas_rudy_t6/io.png}
+      \caption{Consumo de Banda no servidor utilizando a arquitetura Rudy ($N=5$)}
+      \label{fig:rudy_t6_io}
+    \end{subfigure}
+    \label{fig:rudy_t56_io}
+
+    Fonte: O próprio autor.
 \end{figure}
 
 Como observado na Figura~\ref{fig:rudy_t4_io}, existe um limite de crescimento da banda.
@@ -439,6 +488,7 @@ Com as configurações do ambiente, este valor tende a 60Mbps.
 Vale ressaltar que este gargalo não é proveniente da rede (a qual ficou limitada em 100Mbps), visto que a métrica de latência ficou constante durante os testes.
 %
 Dessa forma, esta tendência pode ser pela concorrência a fila de processamento, a qual espera-se confirmar com o tempo de resposta do cliente.
+
 
 \subsection{Tempo de Resposta pelo cliente Rudy}
 
@@ -456,12 +506,34 @@ Para comparação entre as requisições \ac{rpc} e web, a Figura~\ref{fig:rudy_
 Espera-se mostrar o crescimento superlinear das requisições \ac{rpc}, a qual chegam a ultrapassar o tempo de resposta das requisições \ac{http} com múltiplas camadas.
 
 \begin{figure}[htb!]
-    \caption{Tempo de Resposta do cliente servidor utilizando a arquitetura Rudy}
+    \caption{Tempo de Resposta do cliente servidor utilizando a arquitetura Rudy ($N=1$)}
     \label{fig:rudy_t4_reqs}
     \includegraphics[width=\textwidth]{metricas_rudy_t4/rudyc.png}
     \centering
     
     Fonte: O próprio autor
+\end{figure}
+
+\begin{figure}[htb!]
+    \caption{Tempo de Resposta do cliente servidor utilizando a arquitetura Rudy ($N=2$ e $N=5$)}
+    \centering
+    \begin{subfigure}{1.0\textwidth}
+      \centering
+      \includegraphics[width=.9\textwidth]{metricas_rudy_t5/rudyc.png}
+      \caption{Tempo de Resposta do cliente servidor utilizando a arquitetura Rudy ($N=2$)}
+      \label{fig:rudy_t5_reqs}
+    \end{subfigure}
+
+
+    \begin{subfigure}{1.0\textwidth}
+      \centering
+      \includegraphics[width=.9\textwidth]{metricas_rudy_t6/rudyc.png}
+      \caption{Tempo de Resposta do cliente servidor utilizando a arquitetura Rudy ($N=5$)}
+      \label{fig:rudy_t6_reqs}
+    \end{subfigure}
+    \label{fig:rudy_t56_reqs}
+
+    Fonte: O próprio autor.
 \end{figure}
 
 A Figura~\ref{fig:rudy_t4_reqs} mostra, dentro de um intervalo de tempo, o tempo de resposta categorizado conforme a ação realizada pelo cliente no serviço.
@@ -474,12 +546,34 @@ Mostra-se na figura a dispersão que ocorre nos tempos de requisições sobre o 
  
 
 \begin{figure}[htb!]
-    \caption{Tempo de Resposta de requisições \textit{Web} do cliente servidor utilizando a arquitetura Rudy}
+    \caption{Tempo de Resposta de requisições \textit{Web} do cliente servidor utilizando a arquitetura Rudy ($N=1$)}
     \label{fig:rudy_t4_reqs_https}
     \includegraphics[width=\textwidth]{metricas_rudy_t4/rudyc_http.png}
     \centering
     
     Fonte: O próprio autor
+\end{figure}
+
+\begin{figure}[htb!]
+    \caption{Tempo de Resposta de requisições \textit{Web} do cliente servidor utilizando a arquitetura Rudy ($N=2$ e $N=5$)}
+    \centering
+    \begin{subfigure}{1.0\textwidth}
+      \centering
+      \includegraphics[width=.9\textwidth]{metricas_rudy_t5/rudyc_http.png}
+      \caption{Tempo de Resposta de requisições \textit{Web} do cliente servidor utilizando a arquitetura Rudy ($N=2$)}
+      \label{fig:rudy_t5_reqs_https}
+    \end{subfigure}
+
+
+    \begin{subfigure}{1.0\textwidth}
+      \centering
+      \includegraphics[width=.9\textwidth]{metricas_rudy_t6/rudyc_http.png}
+      \caption{Tempo de Resposta de requisições \textit{Web} do cliente servidor utilizando a arquitetura Rudy ($N=5$)}
+      \label{fig:rudy_t6_reqs_https}
+    \end{subfigure}
+    \label{fig:rudy_t56_reqs_https}
+
+    Fonte: O próprio autor.
 \end{figure}
 
 A Figura~\ref{fig:rudy_t4_reqs_https} exibe uma dispersão conforme o número de conexões do serviço aumenta.
@@ -497,6 +591,28 @@ Os dados do protocolo \ac{rpc} podem ser visualizados na Figura~\ref{fig:rudy_t4
     \centering
     
     Fonte: O próprio autor
+\end{figure}
+
+\begin{figure}[htb!]
+    \caption{Tempo de Resposta de requisições \textit{rpc} do cliente servidor utilizando a arquitetura Rudy ($N=2$ e $N=5$)}
+    \centering
+    \begin{subfigure}{1.0\textwidth}
+      \centering
+      \includegraphics[width=.9\textwidth]{metricas_rudy_t5/rudyc_rpc.png}
+      \caption{Tempo de Resposta de requisições \textit{rpc} do cliente servidor utilizando a arquitetura Rudy ($N=2$)}
+      \label{fig:rudy_t5_reqs_rpc}
+    \end{subfigure}
+
+
+    \begin{subfigure}{1.0\textwidth}
+      \centering
+      \includegraphics[width=.9\textwidth]{metricas_rudy_t6/rudyc_rpc.png}
+      \caption{Tempo de Resposta de requisições \textit{rpc} do cliente servidor utilizando a arquitetura Rudy ($N=5$)}
+      \label{fig:rudy_t6_reqs_rpc}
+    \end{subfigure}
+    \label{fig:rudy_t56_reqs_rpc}
+
+    Fonte: O próprio autor.
 \end{figure}
 
 A Figura~\ref{fig:rudy_t4_reqs_rpc} exibe o desparelhamento provocado pelo sistema de filas implementado nesta arquitetura nos serviços \ac{rpc}.
