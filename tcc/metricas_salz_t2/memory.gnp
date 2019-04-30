@@ -9,7 +9,7 @@ set key outside
 
 set xdata time
 set timefmt "%y/%m/%d %H:%M:%S"
-set xrange ["19/04/23 02:24:30":"19/04/23 03:24:20"]
+set xrange ["19/04/23 02:58:30":"19/04/23 03:08:20"]
 
 set yrange [0:9000]
 set format x "%Mm"

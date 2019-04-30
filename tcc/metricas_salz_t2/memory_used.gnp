@@ -9,9 +9,9 @@ set key outside
 
 set xdata time
 set timefmt "%y/%m/%d %H:%M:%S"
-set xrange ["19/04/23 02:24:30":"19/04/23 03:24:20"]
+set xrange ["19/04/23 02:58:30":"19/04/23 03:08:20"]
 
-set yrange [170:210]
+set yrange [170:350]
 set format x "%Mm"
 set format y "%.0fMB"
 set timefmt "%y/%m/%d %H:%M:%S"
@@ -20,4 +20,4 @@ set xlabel "Tempo" font "arial"
 set ylabel "Memória" font "arial"
 
 plot "salz.csv.data" using 1:7 title 'Memória usada' with lines, \
-     "salzc.csv.data" using 1:(min($4 * 100000000, 210)) title 'Novos clientes escalados' with impulses axes x1y1
+     "salzc.csv.data" using 1:(min($4 * 100000000, 350)) title 'Novos clientes escalados' with impulses axes x1y1
