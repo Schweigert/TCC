@@ -11,7 +11,7 @@ set key outside
 
 set xdata time
 set timefmt "%y/%m/%d %H:%M:%S"
-set xrange ["19/04/23 02:58:30":"19/04/23 03:08:20"]
+set xrange ["19/04/23 03:13:20":"19/04/23 03:18:20"]
 
 set yrange [0:0.2]
 set format x "%Mm"
@@ -20,17 +20,6 @@ set timefmt "%y/%m/%d %H:%M:%S"
 
 set xlabel "Tempo" font "arial"
 set ylabel "Tempo de Resposta" font "arial"
-
-# 2 go.salzc.auth_account
-# 3 go.salzc.check_account
-# 4 go.salzc.create_account
-# 5 go.salzc.create_character
-# 6 go.salzc.move
-# 7 go.salzc.receive_chat
-# 8 go.salzc.roi
-# 9 go.salzc.select_character
-# 10 go.salzc.send_chat
-
 
 plot "salzc.csv.data" using 1:(notZero($8)) title 'Região de Interesse do Personagem' with lines, \
      "salzc.csv.data" using 1:(notZero($6)) title 'Movimento do Personagem' with lines ,\
