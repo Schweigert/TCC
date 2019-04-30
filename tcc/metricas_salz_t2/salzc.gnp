@@ -1,0 +1,32 @@
+#!/usr/bin/gnuplot
+set terminal svg size 1000,500 enhanced fname 'arial'  fsize 6 butt solid
+set output 'salzc.svg'
+
+min(x,y) = (x < y) ? x : y
+max(x,y) = (x > y) ? x : y
+
+notZero(x) = (x == 0) ? -0.2 : x
+
+set key outside
+
+set xdata time
+set timefmt "%y/%m/%d %H:%M:%S"
+set xrange ["19/04/23 02:24:30":"19/04/23 03:24:20"]
+
+set yrange [0:0.2]
+set format x "%Mm"
+set format y "%fms"
+set timefmt "%y/%m/%d %H:%M:%S"
+
+set xlabel "Tempo" font "arial"
+set ylabel "Tempo de Resposta" font "arial"
+
+plot "salzc.csv.data" using 1:(notZero($8)) title 'Região de Interesse do Personagem' with lines, \
+     "salzc.csv.data" using 1:(notZero($6)) title 'Movimento do Personagem' with lines ,\
+     "salzc.csv.data" using 1:(notZero($7)) title 'Obter Mensagens' with lines, \
+     "salzc.csv.data" using 1:(notZero($10)) title 'Enviar Mensagem' with lines, \
+     "salzc.csv.data" using 1:(notZero($4)) title 'Criar Conta' with points, \
+     "salzc.csv.data" using 1:(notZero($3)) title 'Autenticar Conta' with points, \
+     "salzc.csv.data" using 1:(notZero($5)) title 'Criar Personagem' with points, \
+     "salzc.csv.data" using 1:(notZero($9)) title 'Seleciona Personagem' with points, \
+     "salzc.csv.data" using 1:(min($4 * 100000000, 1)) title 'Novos clientes escalados' with impulses axes x1y1
