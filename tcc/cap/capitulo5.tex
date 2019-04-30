@@ -304,7 +304,7 @@ Tal qual, esta especulação foi confirmada devido a fila de processamento de re
 Vale ressaltar que a latência da rede não foi prejudicada durante o teste, tornando-se constante, como já esperado.
 
 
-\subsection{Consumo de CPU pelo serviço Rudy}
+\subsection{Consumo de CPU}
 
 Um dos objetivos da coleta de \ac{cpu} da arquitetura Rudy é analisar possíveis pontos de gargalo no processamento das requisições.
 %
@@ -369,7 +369,7 @@ Dessa forma, torna-se notório a interferência das barreiras para serializar as
 %
 
 
-\subsection{Consumo de Memória pelo serviço Rudy}
+\subsection{Consumo de Memória}
 
 O principal objetivo da coleta de memória da arquitetura Rudy é analisar possíveis vulnerabilidades a qual podem ser sanadas com a escalabilidade do sistema.
 %
@@ -437,7 +437,7 @@ Nesse sentido, não foi possível estressar a memória do serviço como um recur
     Fonte: O próprio autor.
 \end{figure}
 
-\subsection{Consumo de Banda pelo serviço Rudy}
+\subsection{Consumo de Banda}
 
 O principal objetivo do monitoramento do consumo da banda pelo serviço Rudy é verificar se a rede está enfileirando as requisições nos serviços \ac{rpc} na arquitetura.
 %
@@ -491,7 +491,7 @@ Vale ressaltar que este gargalo não é proveniente da rede (a qual ficou limita
 Dessa forma, esta tendência pode ser pela concorrência a fila de processamento, a qual espera-se confirmar com o tempo de resposta do cliente.
 
 
-\subsection{Tempo de Resposta pelo cliente Rudy}
+\subsection{Tempo de Resposta do cliente}
 
 Para a arquitetura Rudy, o tempo de resposta do cliente irá confirmar se o enfileiramento das requisições \ac{rpc} ocorreram como previsto.
 %
@@ -659,3 +659,110 @@ Entretanto, as requisições \ac{rpc} concorrem com as requisições \ac{http} e
 Nesse sentido, torna-se interessante obter a média, mediana, máximo e mínimo dos tempos de requisição levando em consideração o número de clientes escalados.
 %
 A Tabela~\ref{tab:medias_rpc_rudy} exibe a média, mediana, máximo e mínimo, segregando conforme o número de conexões do serviço.
+
+\section{Arquitetura Salz}
+\label{sec:arc_salz}
+
+\subsection{Consumo de CPU}
+
+\begin{figure}[htb!]
+  \caption{Consumo de \ac{cpu} no servidor utilizando a arquitetura Salz ($N=1$)}
+  \label{fig:salz_t2_cpu}
+  \includegraphics[width=\textwidth]{metricas_salz_t2/cpu.png}
+  \centering
+  
+  Fonte: O próprio autor
+\end{figure}
+
+\begin{figure}[htb!]
+  \caption{Consumo de \ac{cpu} no servidor utilizando a arquitetura Salz ($N=2$ e $N=5$)}
+  \centering
+  \begin{subfigure}{1.0\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{metricas_salz_t2/cpu.png}
+    \caption{Consumo de \ac{cpu} no servidor utilizando a arquitetura Salz ($N=2$)}
+    \label{fig:rudy_t5_cpu}
+  \end{subfigure}
+
+
+  \begin{subfigure}{1.0\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{metricas_salz_t3/cpu.png}
+    \caption{Consumo de \ac{cpu} no servidor utilizando a arquitetura Salz ($N=5$)}
+    \label{fig:rudy_t6_cpu}
+  \end{subfigure}
+  \label{fig:rudy_t56_cpu}
+
+  Fonte: O próprio autor.
+\end{figure}
+
+\subsection{Consumo de Memória}
+
+\begin{figure}[htb!]
+  \caption{Memória consumida no servidor utilizando a arquitetura Salz ($N=1$)}
+  \label{fig:rudy_t4_memory_used}
+  \includegraphics[width=\textwidth]{metricas_salz_t2/memory_used.png}
+  \centering
+  
+  Fonte: O próprio autor
+\end{figure}
+
+
+\begin{figure}[htb!]
+  \caption{Memória consumida no servidor utilizando a arquitetura Salz ($N=2$ e $N=5$)}
+  \centering
+  \begin{subfigure}{1.0\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{metricas_salz_t3/memory_used.png}
+    \caption{Memória consumida no servidor utilizando a arquitetura Salz ($N=2$)}
+    \label{fig:rudy_t5_memory_used}
+  \end{subfigure}
+
+
+  \begin{subfigure}{1.0\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{metricas_salz_t2/memory_used.png}
+    \caption{Memória consumida no servidor utilizando a arquitetura Salz ($N=5$)}
+    \label{fig:rudy_t6_memory_used}
+  \end{subfigure}
+  \label{fig:rudy_t56_memory_used}
+
+  Fonte: O próprio autor.
+\end{figure}
+
+
+\subsection{Consumo de Banda}
+
+\begin{figure}[htb!]
+  \caption{Consumo de Banda no servidor utilizando a arquitetura Salz ($N=1$)}
+  \label{fig:rudy_t4_io}
+  \includegraphics[width=\textwidth]{metricas_salz_t2/io.png}
+  \centering
+  
+  Fonte: O próprio autor
+\end{figure}
+
+\begin{figure}[htb!]
+  \caption{Consumo de Banda no servidor utilizando a arquitetura Salz ($N=2$ e $N=5$)}
+  \centering
+  \begin{subfigure}{1.0\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{metricas_salz_t3/io.png}
+    \caption{Consumo de Banda no servidor utilizando a arquitetura Salz ($N=2$)}
+    \label{fig:rudy_t5_io}
+  \end{subfigure}
+
+
+  \begin{subfigure}{1.0\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{metricas_salz_t2/io.png}
+    \caption{Consumo de Banda no servidor utilizando a arquitetura Salz ($N=5$)}
+    \label{fig:rudy_t6_io}
+  \end{subfigure}
+  \label{fig:rudy_t56_io}
+
+  Fonte: O próprio autor.
+\end{figure}
+
+
+\subsection{Tempo de Resposta do cliente}
