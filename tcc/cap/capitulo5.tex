@@ -1,7 +1,19 @@
 \chapter{Implementação}
 \label{cap5}
 
+Este capítulo visa expressar o funcionamento prático dos microsserviços implementados.
+%
+Isto é necessário, tal que a escolha da linguagem, tecnologias utilizadas e boas práticas adotadas em seu desenvolvimento interferem a qualidade do serviço desenvolvido.
+
+Devido a preocupação das bibliotecas disponíveis para utilização e as linguagens de programação que permitem utilizar tais tecnologias,
+a Seção~\ref{sec:tecnologias} descreve a necessidade tecnológica necessária para o desenvolvimento. A partir desta demanda funcional, mostra-se qual linguagem de programação utilizar e por sua vez, o conjunto de bibliotecas ou serviços externos que derivam de tal escolha.
+%
+Não derivado diretamente da linguagem escolhida, porém tendo uma correlação forte desta escolha, a Seção~\ref{sec:tecnologias} também aborda o conjunto de serviços externos utilizados para facilitar o desenvolvimento e implantação dos microsserviços.
+
+Por fim, para contextualizar o funcionamento dos microsserviços operando em rede, a Seção~\ref{sec:interconexao} visa descrever a interconexão dos microsserviços implementados.
+
 \section{Tecnologias Utilizadas}
+\label{sec:tecnologias}
 
 \subsection{Linguagem de programação}
 
@@ -20,5 +32,4 @@ Docker, Testify
 TravisCI, Coveralls, Dockerhub, Github
 
 \section{Interconexão entre os microsserviços}
-
-Quem se comunica com quem, e como é realizado esta comunicação.
+\label{sec:interconexao}
