@@ -15,21 +15,56 @@ Por fim, para contextualizar o funcionamento dos microsserviços operando em red
 \section{Tecnologias Utilizadas}
 \label{sec:tecnologias}
 
-\subsection{Linguagem de programação}
+A seleção do conjunto de tecnologias que estaram em execução durante o momento dos testes é importante, visto que eles implicam diretamente no desempenho e consumo de recursos das arquiteturas selecionadas.
+%
+Por este motivo, esta sessão definirá qual o conjunto tecnologico utilizado no desenvolvimento das arquiteturas propostas.
 
-Golang
+Inicialmente existe uma preocupação com a linguagem de programação utilizada, visto que ela precisa ter um bom desempenho com programação paralela e, ao mesmo tempo, conter bibliotecas que auxiliem o desenvolvimento rápido de tais serviços.
+%
+Neste sentido, foi levantado um conjunto de linguagens de programação a qual viabilizassem o projeto, seguindo os seguintes critérios:
 
-\subsection{Regra de Negócios}
+\begin{itemize}
+  \item Desempenho de programas paralelos
+  \item Facilidade de escrita de código
+  \item Bibliotecas para conexão com banco de dados, tanto para dados permanentes quanto dados temporários
+  \item Escrita de serviços \ac{rpc}
+  \item Escrita de serviços \ac{web}
+  \item Linguagem compilada ou interpretada
+  \item Linguagem tipada ou dinâmica
+\end{itemize}
 
-\subsection{Bibliotecas}
+A partir destes critérios, a linguagem selecionada foi Golang, por se tratar de uma linguagem a qual possuo domínio e enquadra-se nos critérios definidos.
+%
+Outro critério implícito para o desenvolvimento é a homogenidade da linguagem de programação em todos os microsserviços, na qual utilizar apenas uma única linguagem trás o benefício de escrever o núcleo de regras de negócio somente uma única vez, sem repeti-lo sem diversos pontos dos serviços.
 
-Gin, \ac{rpc}, gorm, metricas, mt coisa aqui
+Desta forma, temos uma linguagem de desempenho compatível a viabilizar o projeto, a qual permite escrever as regras de negócio em um único ponto central reaproveitando trechos de código existentes entre vários microsserviços.
 
-\subsection{Serviços Externos}
+Por fim, utilizando a Linguagem GoLang pode-se utilizar diversas bibliotecas diferentes. Por este motivo, também se faz de interesse definir quais bibliotecas foram utilizadas para o desenvolvimento das arquiteturas de microsserviços para jogos \ac{mmorpg}.
 
-Docker, Testify
+As principais bibliotecas utilizadas foram:
 
-TravisCI, Coveralls, Dockerhub, Github
+\begin{itemize}
+  \item gin: Servidor Web para serviços de alto desempenho. O seu principal foco é servir uma interface de comunicação com \ac{api}, utilizando dados no formato \ac{xml} ou \ac{json}.
+  \item gorm: Trata-se de uma biblioteca de objetos relacionais, a qual suporta conexão direta ao banco PostgreSQL.
+  \item go-redis: Trata-se de uma biblioteca a qual facilita a leitura e escrita de dados em bancos de dados em memória.
+  \item net/rpc: Trata-se de uma biblioteca padrão da linguagem Go para escrita de serviços \ac{rpc}.
+\end{itemize}
+
+Tais bibliotecas descritas foram utilizadas em todas as arquiteturas, seguindo o padrão de interface \ac{rpc} e Web a qual são utilizados para acesso aos serviços de rede.
+
+Não somente a linguagem Go e as bibliotecas utilizadas são importantes para definir o fluxo de implementação das arquiteturas.
+%
+Foi utilizado um fluxo de desenvolvimento contínuo a partir do \textit{Github}, utilizando a ferramenta \textit{TravisCI} para executar testes automatizados. Estes testes executavam chamadas ao serviços, esperando uma resposta coerente ao esperado. O mesmo também obtinha métricas de porcentagem de código coberto, enviando para o Coveralls.
+%
+Ao fim dos testes, as arquiteturas eram automaticamente publicadas no \textit{DockerHub}, como imagens de contâinerer \textit{Docker}.
+
+Este fluxo garantiu a qualidade das aplicações durante a implementação, realizando testes e construindo a aplicação, sendo um papel similar aos serviços de construção e implantação demonstrado na arquitetura Willson.
+
+Após definir o arcabolço tecnológico utilizado, faz-se necessário descrever o ambiente distribuído desenvolvido, a fim de garantir uma melhor visibilidade dos microsserviços implementados.
 
 \section{Interconexão entre os microsserviços}
 \label{sec:interconexao}
+
+Ao todo foram implementados 11 microsserviços, a qual possuem conexão entre sí, com os bancos de dados e os seus respectivos clientes, tal qual a definição das arquiteturas selecionadas descreve.
+%
+Por este motivo, torna-se interessante descrever a interconexão entre os microsserviços e exibir o modelo de comunicação entre estes serviços desenvolvidos.
