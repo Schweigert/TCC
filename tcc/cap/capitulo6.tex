@@ -1,14 +1,39 @@
 \chapter{Implantação}
 \label{cap6}
 
+A implantação refere-se ao modo como os microsserviços foram executados, levando em conta o seu ambiente, caracteristicas da rede, serviços auxiliares e modelo de automatização utilizado.
+%
+Neste modelo pode-se também adicionar o modo de armazenamento e obtenção dos dados da execução dos testes.
+
+A fim de permitir a reprodução do experimento em um ambiente com as mesmas características, a Seção~\ref{sec:ambiente} descreve o ambiente, segregando em sub-redes e suas interconexões.
+%
+Existe uma física e lógica entre as redes utilizadas, visto que a quantidade de recurso computacional para os testes é elevada, faz necessário segregar sub-redes para organizar conjuntos computacionais para serviço (Sessão~\ref{sec:ambiente_mic}) , clientes (Sessão~\ref{sec:ambiente_cli}) e armazenamento de métricas (Sessão~\ref{sec:ambiente_met}).
+
+Devido ao modelo de implantação utilizando contêineres, pode-se utilizar ferramentas adequadas que auxiliam na execução dos testes.
+%
+Neste sentido, a Seção~\ref{sec:servicos_aux} visa descrever os serviços externos utilizados durante a execução dos testes.
+
+Após a execução dos testes, os dados gerados precisam ser extraidos para arquivos fontes, a fim de permitir a análise.
+%
+Nesse sentido, faz-se necessário descrever a implantação do ferramentário para obter tais dados e o local de armazenamento de tais dados após a execução dos testes.
+%
+Este fluxo está descrito na Sessão~\ref{sec:datasets}
+
 \section{Ambiente}
+\label{sec:ambiente}
 
-\section{Microsserviços}
+\section{Ambiente de Microsserviços}
+\label{sec:ambiente_mic}
 
-\section{Clientes}
+\section{Ambiente de Clientes}
+\label{sec:ambiente_cli}
 
-\section{Metricas}
+\section{Ambiente de Metricas}
+\label{sec:ambiente_met}
 
-\section{Serviços Externos}
-
+\section{Serviços Auxiliares}
+\label{sec:servicos_aux}
 DockerHub
+
+\section{Obtenção e Armazenamento de Datasets}
+\label{sec:datasets}
