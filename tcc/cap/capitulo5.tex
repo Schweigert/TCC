@@ -85,3 +85,18 @@ Esta característica especial é visível na Figura~\ref{fig:interconexao_rudy}.
 \end{figure}
 
 Conforme visível na Figura~\ref{fig:interconexao_rudy}, existe uma camada a mais interceptando o acesso ao banco, a qual espera-se aumentar o tempo de resposta de requisições ao acessar dados.
+
+Na arquitetura Salz as conexões com o banco são diretas a partir dos microsserviços, sem a utilização de um microsserviço intermediário.
+%
+Além desta característica, a arquitetura Salz divide o microsserviço de jogo entre o Chat e Jogo. Esta abstração tende a reduzir o consumo de recursos de uma instância, permitindo mais conexões simultâneas sem estressar o serviço de jogo.
+%
+Ela pode ser observada na Figura~\ref{fig:interconexao_salz}
+
+\begin{figure}[htb!]
+  \caption{Interconexões da arquitetura Salz.}
+  \label{fig:interconexao_salz}
+  \includegraphics[width=0.8\textwidth]{figuras/interconexoes/salz.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
