@@ -17,13 +17,27 @@ Neste sentido, a Seção~\ref{sec:servicos_aux} visa descrever os serviços exte
 \section{Ambiente}
 \label{sec:ambiente}
 
-\section{Ambiente de Microsserviços}
+O ambiente de testes foi dividido em dois sub-ambientes, a fim de controlar a conexão entre o cliente e a arquitetura de microsserviços fisicamente. Dessa forma, obriga-se a utilização da rede para a conexão entre ambos.
+
+O ambiente de microsserviços foi implantado em um ambiente virtualizado sobre uma nuvem OpenStack.
+%
+Esta implantação é detalhada na Subseção~\ref{sec:ambiente_mic}.
+
+O ambiente de clientes foi implantado em um laboratório de computadores, sobre o sistema de gestão de contêineres Docker Swarm.
+%
+Esta implantação é detalhada na Subseção~\ref{sec:ambiente_cli}.
+
+Durante a execução dos testes, ambos os ambientes  de microsserviços e enviam dados ao serviço de métricas, a qual foi implantado sobre uma nuvem OpenStack.
+%
+Esta implantação é detalhada na Subseção~\ref{sec:ambiente_mic}.
+
+\subsection{Ambiente de Microsserviços}
 \label{sec:ambiente_mic}
 
-\section{Ambiente de Clientes}
+\subsection{Ambiente de Clientes}
 \label{sec:ambiente_cli}
 
-\section{Ambiente de Metricas}
+\subsection{Ambiente de Metricas}
 \label{sec:ambiente_met}
 
 \section{Serviços Auxiliares}
