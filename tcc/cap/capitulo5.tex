@@ -100,3 +100,26 @@ Ela pode ser observada na Figura~\ref{fig:interconexao_salz}
 
   Fonte: O próprio autor.
 \end{figure}
+
+A interconexão da arquitetura Salz, exibida na Figura~\ref{fig:interconexao_salz}, também contém 3 conexões simultâneas, evitando a necessidade de sincronizar estados dos dados entre os microsserviços.
+%
+Entretanto, alguns dados ainda precisam ser consultados, como a posição dos personagens no mundo para verificação de distância ao envio do chat.
+%
+Por este motivo, espera-se que a transmissão de dados destes serviços seja mais intensa em relação a outros serviços.
+
+A compensação deste aumento de transmissão de dados elevado entre o chat e o serviço de jogo pode ser compensado pela falta do serviço intermediário ao banco.
+%
+Pode-se analisar esta característica para validar se esta escolha é benéfica para o consumo dos recursos da arquitetura.
+
+A arquitetura Willson é detacada pela eliminação de microsserviços intermediários, tentando evitar trocas de dados por serviços intermediários com o objetivo de diminuir o tempo de resposta.
+%
+Ela pode ser observada na Figura~\ref{fig:interconexao_willson}.
+
+\begin{figure}[htb!]
+  \caption{Interconexões da arquitetura Willson.}
+  \label{fig:interconexao_willson}
+  \includegraphics[width=0.8\textwidth]{figuras/interconexoes/willson.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
