@@ -68,3 +68,20 @@ Após definir o arcabolço tecnológico utilizado, faz-se necessário descrever 
 Ao todo foram implementados 11 microsserviços, a qual possuem conexão entre sí, com os bancos de dados e os seus respectivos clientes, tal qual a definição das arquiteturas selecionadas descreve.
 %
 Por este motivo, torna-se interessante descrever a interconexão entre os microsserviços e exibir o modelo de comunicação entre estes serviços desenvolvidos.
+
+A arquitetura Rudy contém um microsserviço especial intermediário para conexão com o banco de dados.
+%
+O seu principal objetivo é concentrar todas as chamadas para o banco de dados, minimizando erros de acesso ao banco de dados.
+%
+Esta característica especial é visível na Figura~\ref{fig:interconexao_rudy}.
+
+\begin{figure}[htb!]
+  \caption{Interconexões da arquitetura Rudy.}
+  \label{fig:interconexao_rudy}
+  \includegraphics[width=0.8\textwidth]{figuras/interconexoes/rudy.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+Conforme visível na Figura~\ref{fig:interconexao_rudy}, existe uma camada a mais interceptando o acesso ao banco, a qual espera-se aumentar o tempo de resposta de requisições ao acessar dados.
