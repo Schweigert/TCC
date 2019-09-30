@@ -34,12 +34,94 @@ Esta implantação é detalhada na Subseção~\ref{sec:ambiente_mic}.
 \subsection{Ambiente de Microsserviços}
 \label{sec:ambiente_mic}
 
+O ambiente de microsserviços foi implantado sobre docker-compose, isto é, sobre uma única máquina virtual.
+%
+Esta escolha foi tomada para economizar recursos da infraestrutura da nuvem computacional, além de que com um recurso computacional menor o estresse dos serviços é realizado com um número de clientes menor, haja vista que o consumo de recursos tende a aumentar conforme o número de conexões simultâneas.
+%
+Os recursos alocados são:
+
+\begin{itemize}
+  \item \ac{cpu}: 4 Núcleos
+  \item Memória: 8 GB
+  \item Disco: 20GB
+\end{itemize}
+
+A cada teste é reiniciado todos os contêineres. Isto garante que todo o consumo de recurso computacional seja desalocado.
+%
+Entretanto isto não garante que o uso de disco seja liberado, porém os microsserviços da arquitetura delegam todo o uso de disco aos bancos de dados, descartando o uso deste recurso por conta dos contêineres neste ambiente.
+
+\subsection{Ambiente de Banco de Dados}
+\label{sec:ambiente_db}
+
+O ambiente de banco de dados é similar ao ambiente de microsserviços.
+%
+Entretanto, a sua principal diferença está na capacidade de armazenamento. Os recursos alocados são:
+
+\begin{itemize}
+  \item \ac{cpu}: 4 Núcleos
+  \item Memória: 8 GB
+  \item Disco: 50GB
+\end{itemize}
+
+Para esta infraestrutura foi alocado um volume do OpenStack.
+%
+Este volume é mapeado para os serviços de banco de dados.
+
+Por sua vez, os bancos de dados são executados como contêineres docker, utilizando a tecnologia Docker Compose.
+%
+A escolha da tecnologia utilizada é dada pela facilidade de gerenciamento de volumes, onde pode-se mapear o volume de armazenamento do banco de dados para o volume gerado pelo OpenStack, garantindo que o banco está armazenando os dados em um local externo, mesmo sendo executado em um contêinerer, seguindo uma boa prática.
+
 \subsection{Ambiente de Clientes}
 \label{sec:ambiente_cli}
+
+O ambiente de clientes foi implantado sobre um laboratório de computadores, utilizando 9 unidades computacionais semelhantes.
+%
+Para realizar a gerência destas máquinas, foi utilizado a tecnologia Docker Swarm.
+%
+Cada unidade computacional deste laboratório é composta por:
+
+\begin{itemize}
+  \item \ac{cpu}: 8 Núcleos
+  \item Memória: 16 GB
+  \item Disco: 1TB
+\end{itemize}
+
+Para cada teste, todos os clientes são encerrados, colocando o parâmetro de escalabilidade para zero.
+%
+O crescimento das conexões é dada de forma automatizada por um script ruby, onde ele entra em um laço de repetição na qual irá incrementar em 1 a escala dos contêineres de teste até que cheguem em 100.
+
+O distribuidor de carga utilizado para a operação de escalabilidade é o Round Robin, a qual incrementará um contêinerer do cliente para cada máquina até que todas as máquinas tenham o mesmo número de cliente.
+%
+Caso a execução do contêinerer termine com um status diferente de 1, ele é realocado novamente para a mesma máquina, porém esta situação não ocorreu durante os testes.
 
 \subsection{Ambiente de Metricas}
 \label{sec:ambiente_met}
 
+O ambiente de métricas foi implantado na nuvem computacional, junto ao banco de dados e as arquiteturas de microsserviços, a fim de garantir um tempo de resposta menor, diminuindo o impácto de existir uma coleta das informações na arquitetura.
+%
+Os recursos computacionais alocados para este serviço foram:
+
+\begin{itemize}
+  \item \ac{cpu}: 4 Núcleos
+  \item Memória: 8 GB
+  \item Disco: 50GB
+\end{itemize}
+
+A arquitetura foi implantada sobre estes recursos utilizando a tecnologia Docker. Em especial, este ambiente era responsável por conter o banco de dados de métricas, serviços de monitoramento de erros e monitoramento de consumo de recursos.
+%
+Também foi implantado o monitoramento de conexões simultâneas, distância média, mínima e máxima dos jogadores conforme a sua região, a fim de monitorar se o teste estava executando como descrito no planejamento.
+%
+Nenhum erro foi obtido nos conjuntos de dados utilizados para as análises.
+
 \section{Serviços Auxiliares}
 \label{sec:servicos_aux}
-DockerHub
+
+Para a implantação, foram utilizados alguns serviços externos foram utilizados.
+%
+Em específico o DockerHub, TravisCI e Github, utilizando a metodologia de integração contínua.
+
+Para a implantação dos contêineres clientes e microsserviços, o serviço TravisCI consumiu o código fonte do Github, realizando testes automatizados e construindo as imagens de contêineres dos microsserviços e clientes.
+%
+Tais imagens foram enviadas ao DockerHub, e estão públicas para utilização.
+
+Tanto os serviços a qual foram executados como Docker Swarm ou Docker Compose consumiram imagens deste fluxo.
