@@ -5,29 +5,52 @@ A implantação refere-se ao modo como os microsserviços foram executados, leva
 %
 Neste modelo pode-se também adicionar o modo de armazenamento e obtenção dos dados da execução dos testes.
 
-A fim de permitir a reprodução do experimento em um ambiente com as mesmas características, a Seção~\ref{sec:ambiente} descreve o ambiente, segregando em sub-redes e suas interconexões.
-%
-Existe uma física e lógica entre as redes utilizadas, visto que a quantidade de recurso computacional para os testes é elevada, faz necessário segregar sub-redes para organizar conjuntos computacionais para serviço (Sessão~\ref{sec:ambiente_mic}) , clientes (Sessão~\ref{sec:ambiente_cli}) e armazenamento de métricas (Sessão~\ref{sec:ambiente_met}).
-
-Devido ao modelo de implantação utilizando contêineres, pode-se utilizar ferramentas adequadas que auxiliam na execução dos testes.
-%
-Neste sentido, a Seção~\ref{sec:servicos_aux} visa descrever os serviços externos utilizados durante a execução dos testes.
+A fim de permitir a reprodução do experimento em um ambiente com as mesmas características, a Seção~\ref{sec:ambiente} descreve o ambiente, segregando em sub-redes, tal qual as sub-redes de microsserviços, clientes, métricas e banco de dados.
 
 
 \section{Ambiente}
 \label{sec:ambiente}
 
-O ambiente de testes foi dividido em dois sub-ambientes, a fim de controlar a conexão entre o cliente e a arquitetura de microsserviços fisicamente. Dessa forma, obriga-se a utilização da rede para a conexão entre ambos.
+O ambiente de testes foi dividido em dois sub-ambientes, a fim de controlar a conexão entre o cliente e a arquitetura de microsserviços fisicamente.
+%
+Dessa forma, obriga-se a utilização da rede para a conexão entre ambos.
+%
+Em especial foram implantados três ambientes distintos na núvem computacional Tchê (UDESC), tendo uma separação física entre os clientes e serviços de acesso.
+%
+O ambiente virtual implantado pode ser visualizado na Figura~\ref{fig:network_open_stack}.
+
+\begin{figure}[htb!]
+  \caption{Rede virtual criada no ambiente OpenStack}
+  \label{fig:network_open_stack}
+  \includegraphics[width=0.8\textwidth]{figuras/network/circles_only_networks.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+Os ambientes implantados, visíveis na Figura~\ref{fig:network_open_stack}, foram:
+
+\begin{itemize}
+  \item \textit{servers}: Ambiente de microsserviços;
+  \item \textit{databases}: Ambiente de dados; e
+  \item \textit{metrics}: Ambiente de métricas.
+\end{itemize}
 
 O ambiente de microsserviços foi implantado em um ambiente virtualizado sobre uma nuvem OpenStack.
 %
 Esta implantação é detalhada na Subseção~\ref{sec:ambiente_mic}.
 
+O ambiente de dados é um ambiente próximo ao ambiente de microsserviços, porém não existe a necessidade de sua reinicialização da máquina virtual a cada teste. Por este motivo, além de ser uma boa prática de segurança para não expor o banco de dados a rede, os serviços de armazenamento de dados foram implantados em uma sub-rede a parte, utilizando Docker Compose.
+%
+Esta implantação é detalhada na Subseção~\ref{sec:ambiente_db}.
+
 O ambiente de clientes foi implantado em um laboratório de computadores, sobre o sistema de gestão de contêineres Docker Swarm.
 %
 Esta implantação é detalhada na Subseção~\ref{sec:ambiente_cli}.
 
-Durante a execução dos testes, ambos os ambientes  de microsserviços e enviam dados ao serviço de métricas, a qual foi implantado sobre uma nuvem OpenStack.
+Durante a execução dos testes, ambos os ambientes  de microsserviços e clientes enviam dados ao serviço de métricas, a qual foi implantado sobre uma nuvem OpenStack.
+%
+Este sistema é implantado junto ao ambiente de microsserviços, com o objetivo de diminuir o tempo de envio de métricas ao serviço.
 %
 Esta implantação é detalhada na Subseção~\ref{sec:ambiente_mic}.
 
@@ -43,7 +66,7 @@ Os recursos alocados são:
 \begin{itemize}
   \item \ac{cpu}: 4 Núcleos
   \item Memória: 8 GB
-  \item Disco: 20GB
+  \item Disco: 40GB
 \end{itemize}
 
 A cada teste é reiniciado todos os contêineres. Isto garante que todo o consumo de recurso computacional seja desalocado.
@@ -60,7 +83,7 @@ Entretanto, a sua principal diferença está na capacidade de armazenamento. Os 
 \begin{itemize}
   \item \ac{cpu}: 4 Núcleos
   \item Memória: 8 GB
-  \item Disco: 50GB
+  \item Disco: 40GB
 \end{itemize}
 
 Para esta infraestrutura foi alocado um volume do OpenStack.
@@ -74,11 +97,22 @@ A escolha da tecnologia utilizada é dada pela facilidade de gerenciamento de vo
 \subsection{Ambiente de Clientes}
 \label{sec:ambiente_cli}
 
-O ambiente de clientes foi implantado sobre um laboratório de computadores, utilizando 9 unidades computacionais semelhantes.
+O ambiente de clientes foi implantado sobre um laboratório de computadores, utilizando 8 unidades computacionais semelhantes.
 %
 Para realizar a gerência destas máquinas, foi utilizado a tecnologia Docker Swarm.
 %
-Cada unidade computacional deste laboratório é composta por:
+O laboratório de execução de testes utilizado pode ser visualizado na Figura~\ref{fig:laboratorio}.
+
+\begin{figure}[htb!]
+  \caption{Laboratório durante a execução dos testes.}
+  \label{fig:laboratorio}
+  \includegraphics[width=0.8\textwidth]{figuras/network/lab.jpg}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+As unidades computacionais visíveis na Figura~\ref{fig:laboratorio} são compostas por:
 
 \begin{itemize}
   \item \ac{cpu}: 8 Núcleos
@@ -104,24 +138,27 @@ Os recursos computacionais alocados para este serviço foram:
 \begin{itemize}
   \item \ac{cpu}: 4 Núcleos
   \item Memória: 8 GB
-  \item Disco: 50GB
+  \item Disco: 40GB
 \end{itemize}
 
 A arquitetura foi implantada sobre estes recursos utilizando a tecnologia Docker. Em especial, este ambiente era responsável por conter o banco de dados de métricas, serviços de monitoramento de erros e monitoramento de consumo de recursos.
 %
-Também foi implantado o monitoramento de conexões simultâneas, distância média, mínima e máxima dos jogadores conforme a sua região, a fim de monitorar se o teste estava executando como descrito no planejamento.
+Também foi implantado o monitoramento de conexões simultâneas, distância média, mínima e máxima dos jogadores conforme a sua região, a fim de monitorar se o teste estava executando como descrito no planejamento, visível na Figura~\ref{fig:lab_monitor}
+
+\begin{figure}[htb!]
+  \caption{Monitoramento de conexões simultâneas.}
+  \label{fig:lab_monitor}
+  \includegraphics[width=0.8\textwidth]{figuras/network/metrics.jpg}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+Durante os testes, utilizando o sistema de monitoramento das arquiteturas (visível nas Figuras~\ref{fig:lab_monitor, fig:laboratorio}),nenhum erro foi obtido nos conjuntos de dados utilizados para as análises.
+
+\subsection{Interconexão entre Nuvem e Laboratório}
+\label{sec:nuvem_lab}
+
+A interconexão entre o laboratório e a nuvem computacional é um ponto de critério para a execução dos testes, visto que dada a capacidade e eficiência do tráfego de dados entre as duas redes, pode-se existir um gargalo limitador para os testes.
 %
-Nenhum erro foi obtido nos conjuntos de dados utilizados para as análises.
-
-\section{Serviços Auxiliares}
-\label{sec:servicos_aux}
-
-Para a implantação, foram utilizados alguns serviços externos foram utilizados.
-%
-Em específico o DockerHub, TravisCI e Github, utilizando a metodologia de integração contínua.
-
-Para a implantação dos contêineres clientes e microsserviços, o serviço TravisCI consumiu o código fonte do Github, realizando testes automatizados e construindo as imagens de contêineres dos microsserviços e clientes.
-%
-Tais imagens foram enviadas ao DockerHub, e estão públicas para utilização.
-
-Tanto os serviços a qual foram executados como Docker Swarm ou Docker Compose consumiram imagens deste fluxo.
+Este ponto deverá ser analisado, validando a vasão máxima entre as arquiteturas de microsserviços e os clientes.
