@@ -5,7 +5,9 @@
 
 Este capítulo visa expressar o funcionamento prático dos microsserviços implementados.
 %
-Isto é necessário pois as escolhas técnicas, envolvendo estas a linguagem adotada, as tecnologias utilizadas e boas práticas aplicadas no desenvolvimento das aplicações, interferem na qualidade dos microsserviços, denotando-se qualidade como o consumo de recursos e desempenho das aplicações.
+Isto é necessário pois as escolhas técnicas, envolvendo as linguagens adotadas, as tecnologias utilizadas e boas práticas aplicadas no desenvolvimento das aplicações, interferem na qualidade dos microsserviços.
+%
+Denotando-se qualidade como o consumo de recursos e desempenho das aplicações.
 
 
 
@@ -13,7 +15,9 @@ Isto é necessário pois as escolhas técnicas, envolvendo estas a linguagem ado
 
 Devido as diversas possibilidades de linguagens de programação e bibliotecas disponíveis, a Seção~\ref{sec:tecnologias} tem o objetivo de descrever as tecnologias utilizadas para o desenvolvimento das aplicações e justificar tais escolhas.
 %
-Além disso, a Seção~\ref{sec:tecnologias} apresenta o conjunto de serviços externos utilizados para facilitar o desenvolvimento dos microsserviços, que apesar de não estarem diretamente implementados na arquitetura das soluções, foram utilizados durante o processo e devem ser evidenciados.
+Além disso, a Seção~\ref{sec:tecnologias} apresenta o conjunto de serviços externos utilizados para facilitar o desenvolvimento dos microsserviços.
+%
+O serviços externos apesar de não estarem diretamente implementados na arquitetura das soluções, foram utilizados durante o processo e devem ser evidenciados.
 
 
 
@@ -28,21 +32,22 @@ Para este fim, a Seção~\ref{sec:interconexao} contextualiza a interconexão do
 
 
 
-A seleção do arcabolço tecnológico que é executado durante os testes é importante, visto que eles implicam diretamente no desempenho e consumo de recursos das arquiteturas selecionadas.
+A seleção das tecnologias e bibliotecas que são executadas nas aplicações é importante, visto que elas implicam diretamente no desempenho e consumo de recursos das arquiteturas selecionadas.
 %
-Entretanto, o arcabolço tecnológico precisa condizer com a necessidade das regras de negócio impostas para os testes.
+Entretanto, essa seleção precisa estar de acordo com as regras de negócio impostas para os testes.
 
 
 
-Inicialmente existe uma preocupação com a linguagem de programação utilizada, visto que ela precisa ter um bom desempenho, suporte a programação paralela e, ao mesmo tempo, conter bibliotecas que auxiliem o desenvolvimento rápido de tais serviços.
+Inicialmente, existe uma preocupação com a linguagem de programação utilizada, visto que ela precisa ter um bom desempenho, um suporte a programação paralela e, ao mesmo tempo, conter bibliotecas que auxiliem no desenvolvimento ágil de tais serviços.
 %
-Neste sentido, foi levantado um conjunto de linguagens de programação a qual viabilizassem o projeto, seguindo os seguintes critérios:
+Neste sentido, foi levantado um conjunto de linguagens de programação, o qual viabilize o projeto de acordo com os seguintes critérios:
 
 
 
 \begin{itemize}
   \item Alto desempenho para programas paralelos;
-  \item Bibliotecas para conexão com banco de dados e cache (Postgres e Redis);
+  \item Biblioteca para conexão com banco de dados PostgreSql;
+  \item Biblioteca para uso de cache (Redis);
   \item Biblioteca para escrita de serviços \ac{rpc}, sobre o protocolo \ac{tcp};
   \item Biblioteca para escrita de serviços \textit{web}, com \ac{api} no formato \ac{json};
   \item Linguagem compilada;
@@ -52,63 +57,79 @@ Neste sentido, foi levantado um conjunto de linguagens de programação a qual v
 
 
 
-A partir destes critérios, a linguagem selecionada foi GoLang, por se tratar de uma linguagem a qual possuo domínio e enquadra-se nos critérios definidos.
+A partir destes critérios, a linguagem selecionada foi a linguagem GoLang, por se tratar de uma linguagem a qual o autor possui domínio e satisfaz os critérios definidos anteriormente.
+
+
+
+Outro critério, o qual é implícito para o desenvolvimento, é a homogenidade da linguagem de programação em todos os microsserviços.
 %
-Outro critério implícito para o desenvolvimento é a homogenidade da linguagem de programação em todos os microsserviços, na qual utilizar apenas uma única linguagem trás o benefício de escrever o núcleo de regras de negócio somente uma única vez, sem repeti-lo sem diversos pontos dos serviços.
+Tal necessidade gera o benefício da escrita de código reutilizável, como o núcleo de regras de negócio que pode ser aplicado a todas as arquiteturas desenvolvidas.
 
 
 
-Desta forma, temos uma linguagem de desempenho compatível a viabilizar o projeto, a qual permite escrever as regras de negócio em um único ponto central reaproveitando trechos de código existentes entre vários microsserviços.
-
-Por fim, utilizando a Linguagem GoLang pode-se utilizar diversas bibliotecas diferentes. Por este motivo, também se faz de interesse definir quais bibliotecas foram utilizadas para o desenvolvimento das arquiteturas de microsserviços para jogos \ac{mmorpg}.
-
-
-
-As principais bibliotecas utilizadas foram:
+Desta forma, foi selecionada uma única linguagem de desempenho compatível com a viabilização do projeto.
+%
+Em função da diversidade de bibliotecas disponíveis, também é necessário definir quais bibliotecas foram utilizadas para o desenvolvimento das arquiteturas dos microsserviços.
+%
+Dentre as bibliotecas utilizadas, destacam-se:
 
 
 
 \begin{itemize}
-  \item gin: Servidor Web para serviços de alto desempenho. O seu principal foco é servir uma interface de comunicação com \ac{api}, utilizando dados no formato \ac{xml} ou \ac{json}.
-  \item gorm: Trata-se de uma biblioteca de objetos relacionais, a qual suporta conexão direta ao banco PostgreSQL.
-  \item go-redis: Trata-se de uma biblioteca a qual facilita a leitura e escrita de dados em bancos de dados em memória.
-  \item net/rpc: Trata-se de uma biblioteca padrão da linguagem Go para escrita de serviços \ac{rpc}.
+  \item gin: Servidor Web para serviços de alto desempenho;
+  \item gorm: Biblioteca de objetos relacionais, a qual suporta conexão direta ao banco PostgreSQL;
+  \item go-redis: Biblioteca para conexão ao serviço Redis;
+  \item net/rpc: Biblioteca nativa da linguagem GoLang para escrita de serviços \ac{rpc} sobre o protocolo \ac{tcp};
+  \item graphite: Biblioteca de conexão ao banco de métricas;
+  \item testify: Biblioteca auxiliar a suíte nativa de testes da linguagem.
 \end{itemize}
 
 
 
-Tais bibliotecas descritas foram utilizadas em todas as arquiteturas, seguindo o padrão de interface \ac{rpc} e Web a qual são utilizados para acesso aos serviços de rede.
-
-
-
-Não somente a linguagem Go e as bibliotecas utilizadas são importantes para definir o fluxo de implementação das arquiteturas.
+Tais bibliotecas foram utilizadas na camada de infraestrutura, sendo seu uso aplicado a todas as arquiteturas.
 %
-Foi utilizado um fluxo de desenvolvimento contínuo a partir do \textit{Github}, utilizando a ferramenta \textit{TravisCI} para executar testes automatizados. Estes testes executavam chamadas ao serviços, esperando uma resposta coerente ao esperado. O mesmo também obtinha métricas de porcentagem de código coberto, enviando para o Coveralls.
+A camada de infraestrutura é responsável pela realização da interação entre a rede e as regras de negócio dos microsserviços.
+
+
+Destaca-se, dentre as bibliotecas citadas, a biblioteca testify.
 %
-Ao fim dos testes, as arquiteturas eram automaticamente publicadas no \textit{DockerHub}, como imagens de contâinerer \textit{Docker}.
+Tal biblioteca foi utilizada na garantia de integridade das aplicações desenvolvidas.
+%
+Sua finalidade é realizar a inspeção automatizada do funcionamento da aplicação.
+%
+Entretanto, a biblioteca não é utilizada durante a execução da aplicação, denotando-se como uma biblioteca auxiliar.
 
 
 
-Este fluxo garantiu a qualidade das aplicações durante a implementação, realizando testes e construindo a aplicação, sendo um papel similar aos serviços de construção e implantação demonstrado na arquitetura Willson.
+As bibliotecas auxiliares foram utilizadas no processo de integração contínua.
+%
+O processo de integração contínua foi implantado utilizando os serviços externos Github e TravisCI.
+%
+Este processo é descrito como processo de construção na arquitetura Willson, sendo responsável pelo teste e envio de imagens de contêineres a um serviço de resgistro na nuvem.
 
 
 
-Após definir o arcabolço tecnológico utilizado, faz-se necessário descrever o ambiente distribuído desenvolvido, a fim de garantir uma melhor visibilidade dos microsserviços implementados.
+
+Após descrever as tecnologias utilizadas, faz-se necessário descrever o ambiente distribuído desenvolvido, a fim de garantir uma melhor visibilidade dos microsserviços implementados.
 
 
 
 \section{Interconexão entre os microsserviços}
 \label{sec:interconexao}
 
-Ao todo foram implementados 11 microsserviços, a qual possuem conexão entre sí, com os bancos de dados e os seus respectivos clientes, tal qual a definição das arquiteturas selecionadas descreve.
+A interconexão entre os microsserviços refere-se ao projeto de rede de uma arquitetura qualquer, disponilizando visualmente a camada de rede.
 %
-Por este motivo, torna-se interessante descrever a interconexão entre os microsserviços e exibir o modelo de comunicação entre estes serviços desenvolvidos.
+Ao todo foram implementados onze microsserviços, os quais possuem conexões.
+%
+Essas conexões podem ser entre sí, com os bancos de dados e com os seus respectivos clientes, tais conexões foram definidas pelos autores das arquiteturas.
+%
+Consequentemente, torna-se interessante descrever a interconexão entre os microsserviços, exibindo assim seus protocolos de comunicação de rede.
 
 
 
 A arquitetura Rudy contém um microsserviço especial intermediário para conexão com o banco de dados.
 %
-O seu principal objetivo é concentrar todas as chamadas para o banco de dados, minimizando erros de acesso ao banco de dados.
+O seu principal objetivo é concentrar todas as chamadas para o banco de dados, minimizando erros ao acessar os dados.
 %
 Esta característica especial é visível na Figura~\ref{fig:interconexao_rudy}.
 
@@ -125,15 +146,19 @@ Esta característica especial é visível na Figura~\ref{fig:interconexao_rudy}.
 
 
 
-Conforme visível na Figura~\ref{fig:interconexao_rudy}, existe uma camada a mais interceptando o acesso ao banco, a qual espera-se aumentar o tempo de resposta de requisições ao acessar dados.
-
-
-
-Na arquitetura Salz as conexões com o banco são diretas a partir dos microsserviços, sem a utilização de um microsserviço intermediário.
+Conforme exibido na Figura~\ref{fig:interconexao_rudy}, existe uma camada sobressalente interceptando o acesso ao banco.
 %
-Além desta característica, a arquitetura Salz divide o microsserviço de jogo entre o Chat e Jogo. Esta abstração tende a reduzir o consumo de recursos de uma instância, permitindo mais conexões simultâneas sem estressar o serviço de jogo.
+Esta camada tende a aumentar o tempo de resposta de requisições ao acessar os dados, no entanto, permite também o controle refinado de acesso.
+
+
+
+Na arquitetura Salz, as conexões com o banco de dados são feitas sem interceptores, ou seja, sem a utilização de um microsserviço intermediário.
 %
-Ela pode ser observada na Figura~\ref{fig:interconexao_salz}
+Além disso, esta arquitetura divide o microsserviço de jogo entre os microsserviços de Chat e Jogo.
+%
+Esta abstração tende a reduzir o consumo de recursos de uma instância, permitindo mais conexões simultâneas sem estressar o serviço de jogo.
+%
+A arquitetura Salz pode ser observada na Figura~\ref{fig:interconexao_salz}.
 
 
 
@@ -148,23 +173,27 @@ Ela pode ser observada na Figura~\ref{fig:interconexao_salz}
 
 
 
-A interconexão da arquitetura Salz, exibida na Figura~\ref{fig:interconexao_salz}, também contém 3 conexões simultâneas, evitando a necessidade de sincronizar estados dos dados entre os microsserviços.
+A interconexão da arquitetura Salz, exibida na Figura~\ref{fig:interconexao_salz}, contém três conexões simultâneas.
 %
-Entretanto, alguns dados ainda precisam ser consultados, como a posição dos personagens no mundo para verificação de distância ao envio do chat.
+As triplicidade de conexões evita a necessidade de sincronização dos estados de jogo entre os microsserviços.
+%
+Entretanto, alguns dados ainda precisam ser consultados, como a posição dos personagens no mundo, para verificação de distância ao envio do chat.
 %
 Por este motivo, espera-se que a transmissão de dados destes serviços seja mais intensa em relação a outros serviços.
 
 
 
-A compensação deste aumento de transmissão de dados elevado entre o chat e o serviço de jogo pode ser compensado pela falta do serviço intermediário ao banco.
+A compensação deste aumento de transmissão de dados elevado entre o chat e o serviço de jogo pode ser executada pela falta de um serviço intermediário ao banco.
 %
-Pode-se analisar esta característica para validar se esta escolha é benéfica para o consumo dos recursos da arquitetura.
+Diante desses fatos, torna-se interessante a análise desta característica, visto que tal característica pode ter um impacto positivo para o consumo dos recursos da arquitetura.
 
 
 
-A arquitetura Willson é detacada pela eliminação de microsserviços intermediários, tentando evitar trocas de dados por serviços intermediários com o objetivo de diminuir o tempo de resposta.
+A arquitetura Willson é destacada pela eliminação de microsserviços intermediários.
 %
-Ela pode ser observada na Figura~\ref{fig:interconexao_willson}.
+Essa abordagem evita a troca de mensagens entre serviços intermediários, tendo seu objetivo a diminuição do tempo de resposta.
+%
+A arquitetura Willson pode ser observada na Figura~\ref{fig:interconexao_willson}.
 
 
 
@@ -179,8 +208,6 @@ Ela pode ser observada na Figura~\ref{fig:interconexao_willson}.
 
 
 
-A interconexão da arquitetura Willson, exibida na Figura~\ref{fig:interconexao_willson}, é projetada para reduzir o número de trocas de mensagem.
+A interconexão da arquitetura Willson, exibida na Figura~\ref{fig:interconexao_willson}, é projetada para reduzir o número de trocas de mensagens.
 %
-
-
-Desta forma, espera-se ter um consumo da rede inferior as demais arquiteturas. Este ponto também deve ser analisado.
+Desta forma, espera-se ter um consumo da rede inferior em relação as demais arquiteturas. Este ponto também deve ser analisado.
