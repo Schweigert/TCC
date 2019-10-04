@@ -117,14 +117,63 @@ Após descrever as tecnologias utilizadas, faz-se necessário descrever o ambien
 \section{Interconexão entre os microsserviços}
 \label{sec:interconexao}
 
+
+
 A interconexão entre os microsserviços refere-se ao projeto de rede de uma arquitetura qualquer, disponilizando visualmente a camada de rede.
 %
-Ao todo foram implementados onze microsserviços, os quais possuem conexões.
+Ao todo foram implementados onze microsserviços, os quais possuem a qual comunicam-se por troca de mensagens.
 %
-Essas conexões podem ser entre sí, com os bancos de dados e com os seus respectivos clientes, tais conexões foram definidas pelos autores das arquiteturas.
+Tais conexões entre sí, com os bancos de dados e com os seus respectivos clientes foram definidas pelos autores das arquiteturas.
 %
 Consequentemente, torna-se interessante descrever a interconexão entre os microsserviços, exibindo assim seus protocolos de comunicação de rede.
 
+
+
+A arquitetura Rudy contém um microsserviço intermediário para conexão com o banco de dados.
+%
+Esta disposição de microsserviços está exposto na Subseção~\ref{sec:inter_rudy}.
+
+
+
+A arquitetura Salz remove a responsabilidade de mensageria do jogo do microsserviço de jogo.
+%
+Outra alteração é a exposição do microsserviço de autenticação como uma interface pública na rede, permitindo a conexão a partir dos clientes.
+%
+Esta disposição de microsserviços da arquitetura Salz é descrito na Subseção~\ref{sec:inter_salz}.
+
+
+
+A arquitetura Willson tem o funcionamento semelhante a arquitetura Rudy, porém não utiliza um microsserviço intermediário para organização de consultas ao banco de dados.
+%
+A disposição dos microsserviços nesta arquitetura é visível na Subseção~\ref{sec:inter_willson}.
+
+
+
+\subsection{Rudy}
+\label{sec:inter_rudy}
+
+
+A arquitetura Rudy em versão reduzida para o escopo dos testes contém quatro microsserviços e dois banco de dados, sendo um para dados permanentes (PostgreSQL) e um para cache (Redis).
+%
+Os seus microsserviços estão listados na Tabela~\ref{tab:inter_rudy}.
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Microsserviços da arquitetura Rudy.}
+\label{tab:inter_rudy}
+\begin{tabular}{l|l|l}
+\hline
+Nome            & Protocolo            & Público a Rede \\ \hline
+ rgame          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
+ rweb           & \ac{http}/\ac{json}  & \checkmark     \\ \hline
+ rauth          & \ac{rpc}/\ac{tcp}    &                \\ \hline
+ rcrud          & \ac{rpc}/\ac{tcp}    &                \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
 
 
 A arquitetura Rudy contém um microsserviço especial intermediário para conexão com o banco de dados.
@@ -150,6 +199,9 @@ Conforme exibido na Figura~\ref{fig:interconexao_rudy}, existe uma camada sobres
 %
 Esta camada tende a aumentar o tempo de resposta de requisições ao acessar os dados, no entanto, permite também o controle refinado de acesso.
 
+
+\subsection{Salz}
+\label{sec:inter_salz}
 
 
 Na arquitetura Salz, as conexões com o banco de dados são feitas sem interceptores, ou seja, sem a utilização de um microsserviço intermediário.
@@ -182,11 +234,13 @@ Entretanto, alguns dados ainda precisam ser consultados, como a posição dos pe
 Por este motivo, espera-se que a transmissão de dados destes serviços seja mais intensa em relação a outros serviços.
 
 
-
 A compensação deste aumento de transmissão de dados elevado entre o chat e o serviço de jogo pode ser executada pela falta de um serviço intermediário ao banco.
 %
 Diante desses fatos, torna-se interessante a análise desta característica, visto que tal característica pode ter um impacto positivo para o consumo dos recursos da arquitetura.
 
+
+\subsection{Willson}
+\label{sec:inter_willson}
 
 
 A arquitetura Willson é destacada pela eliminação de microsserviços intermediários.
