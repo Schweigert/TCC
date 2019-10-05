@@ -338,6 +338,50 @@ Dessa forma, a arquitetura Willson propõe um ponto intermediário entre as arqu
 \label{sec:inter_willson}
 
 
+A arquitetura Willson em versão reduzida para o escopo dos testes contém três microsserviços e dois banco de dados, sendo um para dados permanentes (PostgreSQL) e um para cache (Redis).
+%
+Os seus microsserviços estão listados na Tabela~\ref{tab:inter_willson}.
+
+
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Microsserviços da arquitetura Willson.}
+\label{tab:inter_willson}
+\begin{tabular}{l|l|l}
+\hline
+Nome            & Protocolo            & Público a Rede \\ \hline
+ wweb           & \ac{http}/\ac{json}  & \checkmark     \\ \hline
+ wgame          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
+ wauth          & \ac{rpc}/\ac{tcp}    &                \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+
+Os microsserviços da arquitetura Willson, descritos na Tabela~\ref{tab:inter_willson}, possuem funcionalidades próprias.
+%
+A funcionalidade de cada microsserviço é:
+
+
+
+\begin{itemize}
+  \item \textit{wgame}: Este microsserviço é responsável por gerenciar o posicionamento dos personagens, execução das operações do mundo e troca de mensagens do chat do jogo. Ele também gerencia a sessão do jogador, tendo um forte aclopamento com o microsserviço \textit{wauth}.
+  \item \textit{wweb}: Este microsserviço é responsável por receber requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
+  \item \textit{wauth}: Este microsserviço é responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
+\end{itemize}
+
+
+
+Dado os microsserviços da arquitetura Willson, listados na Tabela~\ref{tab:inter_willson}, uma característica interessante é a auxência de um microsserviço de gerencia de mensagens de chat e um intermediário para gestão de dados do banco.
+%
+Estas características tornam a arquitetura mais simples, dividindo os microsserviços em domínios específicos em pontos que necessitam de escalabilidade.
+%
+A interconexão da arquitetura Willson pode ser visualizada na Figura~\ref{fig:interconexao_willson}.
+
 
 \begin{figure}[htb!]
   \caption{Interconexões da arquitetura Willson.}
