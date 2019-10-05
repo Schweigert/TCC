@@ -175,13 +175,26 @@ Nome            & Protocolo            & Público a Rede \\ \hline
 Fonte: O próprio autor.
 \end{table}
 
-
-A arquitetura Rudy contém um microsserviço especial intermediário para conexão com o banco de dados.
+Os microsserviços da arquitetura Rudy, descritos na Tabela~\ref{tab:inter_rudy}, possuem funcionalidades próprias.
 %
-O seu principal objetivo é concentrar todas as chamadas para o banco de dados, minimizando erros ao acessar os dados.
-%
-Esta característica especial é visível na Figura~\ref{fig:interconexao_rudy}.
+A funcionalidade de cada microsserviço é:
 
+\begin{itemize}
+  \item \textit{rgame}: Este microsserviço é responsável por gerenciar o posicionamento dos personagens, execução das operações do mundo e troca de mensagens do chat do jogo. Ele também é responsável por autenticar contas ao mundo do jogo.
+  \item \textit{rweb}: Este microsserviço é responsável por receber requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
+  \item \textit{rauth}: Este microsserviço é responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
+  \item \textit{rcrud}: Este microsserviço é responsável por realizar o acesso ao banco de dados, retornando os dados da consulta a qual é requisitada.
+\end{itemize}
+
+Dado tais características, temos um ponto de atenção no microsserviço \textit{rcrud} a qual cria uma barreira de acesso ao banco de dados.
+%
+Este padrão de projeto tende a facilitar a manutenção do banco de dados, centralizando tipos de requisições.
+%
+O seu objetivo é mover o escopo de consulta a dados em um ponto centralizado, evitando falhas ao armazenar e obter tais dados.
+%
+Este processo é escalável, entretanto adiciona uma camada maior ao obter os dados, na qual tende a aumentar o tempo de resposta para as operações ao banco.
+%
+A disposição da arquitetura Rudy está visível na Figura~\ref{fig:interconexao_rudy}.
 
 
 \begin{figure}[htb!]
@@ -195,23 +208,66 @@ Esta característica especial é visível na Figura~\ref{fig:interconexao_rudy}.
 
 
 
-Conforme exibido na Figura~\ref{fig:interconexao_rudy}, existe uma camada sobressalente interceptando o acesso ao banco.
+Outro ponto de atenção é o acesso ao microsserviço de autenticação \textit{rauth}, a qual pode ser visualizado na Figura~\ref{fig:interconexao_rudy}.
 %
-Esta camada tende a aumentar o tempo de resposta de requisições ao acessar os dados, no entanto, permite também o controle refinado de acesso.
+Tal microsserviço é privado, dessa forma o microsserviço de mundo fica responsável em ser um ponto intermediário de comunicação entre o cliente e o serviço que realmente realiza a autenticação.
+%
+Este padrão de projeto é comum em aplicações Web, entretanto não recomendado pelo padrão sujerido a utilização do \ac{jwt}.
 
+
+O padrão \ac{jwt} recomenda tornar o microsserviço de autenticação público, na qual o cliente realiza a autenticação direta com o microsserviço de autenticação, reduzindo tráfego interno de rede.
+%
+Mesmo não sendo um padrão recomendado, tal característica não deve ter um impácto significativo para arquiteturas de jogos \ac{mmorpg}, visto que esta operação é realizada poucas vezes no serviço.
+
+Entretanto, a arquitetura Salz realiza alterações compatíveis com o padrão \ac{jwt} e remove microsserviços privados, usando uma interconexão de microsserviços plana.
+%
+Dessa forma, torna-se de interesse descrever tais características a fim de permitir comparações na arquitetura.
 
 \subsection{Salz}
 \label{sec:inter_salz}
 
+A arquitetura Salz em versão reduzida para o escopo dos testes contém quatro microsserviços e dois banco de dados, sendo um para dados permanentes (PostgreSQL) e um para cache (Redis).
+%
+Os seus microsserviços estão listados na Tabela~\ref{tab:inter_salz}.
 
-Na arquitetura Salz, as conexões com o banco de dados são feitas sem interceptores, ou seja, sem a utilização de um microsserviço intermediário.
-%
-Além disso, esta arquitetura divide o microsserviço de jogo entre os microsserviços de Chat e Jogo.
-%
-Esta abstração tende a reduzir o consumo de recursos de uma instância, permitindo mais conexões simultâneas sem estressar o serviço de jogo.
-%
-A arquitetura Salz pode ser observada na Figura~\ref{fig:interconexao_salz}.
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Microsserviços da arquitetura Salz.}
+\label{tab:inter_salz}
+\begin{tabular}{l|l|l}
+\hline
+Nome            & Protocolo            & Público a Rede \\ \hline
+ sgame          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
+ schat          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
+ sweb           & \ac{http}/\ac{json}  & \checkmark     \\ \hline
+ sauth          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
+\end{tabular}
+\end{adjustbox}
 
+Fonte: O próprio autor.
+\end{table}
+
+Os microsserviços da arquitetura Salz, descritos na Tabela~\ref{tab:inter_salz}, possuem funcionalidades próprias.
+%
+A funcionalidade de cada microsserviço é:
+
+\begin{itemize}
+  \item \textit{sgame}: Este microsserviço é responsável por gerenciar o posicionamento dos personagens, execução das operações do mundo e troca de mensagens do chat do jogo.
+  \item \textit{schat}: Este microsserviço é responsável por gerenciar mensagens entre jogadores, porém possui um forte aclopamento com o microsserviço \textit{sgame}.
+  \item \textit{sweb}: Este microsserviço é responsável por receber requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
+  \item \textit{sauth}: Este microsserviço é responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
+\end{itemize}
+
+Dado tais características, damos atenção ao microsserviço \textit{schat}.
+%
+Tal microsserviço é responsável por gerenciar todo o serviço de chat da arquitetura, seja baseado em região de interesse ou global.
+%
+Entretanto a informação de posicionamento não está armazenada neste microsserviço.
+%
+Nesse sentido, esta característica obriga um custo de sincronização destes dados, que implica diretamente em custo de recurso ou tempo de resposta para o cliente.
+%
+A topologia pode ser visualizada na Figura~\ref{fig:interconexao_salz}.
 
 
 \begin{figure}[htb!]
@@ -223,31 +279,31 @@ A arquitetura Salz pode ser observada na Figura~\ref{fig:interconexao_salz}.
   Fonte: O próprio autor.
 \end{figure}
 
-
-
-A interconexão da arquitetura Salz, exibida na Figura~\ref{fig:interconexao_salz}, contém três conexões simultâneas.
+Outra característica desta arquitetura é a comunicação direta entre o microsserviço de autenticação \textit{sauth} e o cliente.
 %
-As triplicidade de conexões evita a necessidade de sincronização dos estados de jogo entre os microsserviços.
+Isto evita uma conexão intermediária utilizando o microsserviço \textit{sgame}, na qual permite maior vasão de dados sobre autenticação e sessão.
 %
-Entretanto, alguns dados ainda precisam ser consultados, como a posição dos personagens no mundo, para verificação de distância ao envio do chat.
+Outro ponto a ser ressaltado é a possibilidade de utilizar \ac{jwt} para autenticação, sem a necessidade de verificação pelo próprio microsserviço de autenticação.
+
+Tal característica da interconexão da arquitetura Salz torna o sistema de autenticação independente, permitindo adicionar novos serviços de forma flexível.
 %
-Por este motivo, espera-se que a transmissão de dados destes serviços seja mais intensa em relação a outros serviços.
+Também pode-se notar uma possível utilização de verificação de sessão por assinatura digital, validando uma assinatura do microsserviço de autenticação, diminuindo o consumo da rede para mensagens de verificação pelo serviço de autenticação.
+
+Entretanto, não foi utilizado tal método de validação de sessão.
+%
+O método atual consiste em validação de assinatura utilizando o banco de dados de cache.
+%
+De tal forma, obriga-se a comunicação entre os microsserviços \textit{schat} e \textit{sgame} com o microsserviço \textit{sauth}.
+%
+Esta escolha foi realizada para manter os mesmos métodos de autenticação em todas as arquiteturas, evitando variação por algoritmos ou tecnologia.
 
 
-A compensação deste aumento de transmissão de dados elevado entre o chat e o serviço de jogo pode ser executada pela falta de um serviço intermediário ao banco.
+Dado tais características da arquitetura Salz, a sincronização de posições entre o microsserviço \textit{schat} e \textit{sgame} pode ser um problema conforme a frequência da sincronização necessária pela regra de negócio do jogo implementado.
 %
-Diante desses fatos, torna-se interessante a análise desta característica, visto que tal característica pode ter um impacto positivo para o consumo dos recursos da arquitetura.
-
+Dessa forma, a arquitetura Willson propõe um ponto intermediário entre as arquiteturas Salz e Rudy, tornando-se interessante descrever suas alterações.
 
 \subsection{Willson}
 \label{sec:inter_willson}
-
-
-A arquitetura Willson é destacada pela eliminação de microsserviços intermediários.
-%
-Essa abordagem evita a troca de mensagens entre serviços intermediários, tendo seu objetivo a diminuição do tempo de resposta.
-%
-A arquitetura Willson pode ser observada na Figura~\ref{fig:interconexao_willson}.
 
 
 
@@ -259,9 +315,3 @@ A arquitetura Willson pode ser observada na Figura~\ref{fig:interconexao_willson
 
   Fonte: O próprio autor.
 \end{figure}
-
-
-
-A interconexão da arquitetura Willson, exibida na Figura~\ref{fig:interconexao_willson}, é projetada para reduzir o número de trocas de mensagens.
-%
-Desta forma, espera-se ter um consumo da rede inferior em relação as demais arquiteturas. Este ponto também deve ser analisado.
