@@ -121,7 +121,7 @@ Após descrever as tecnologias utilizadas, faz-se necessário descrever o ambien
 
 A interconexão entre os microsserviços refere-se ao projeto de rede de uma arquitetura qualquer, disponilizando visualmente a camada de rede.
 %
-Ao todo foram implementados onze microsserviços, os quais possuem a qual comunicam-se por troca de mensagens.
+Ao todo foram implementados onze microsserviços, os quais possuem a comunicação através de troca de mensagens.
 %
 Tais conexões entre sí, com os bancos de dados e com os seus respectivos clientes foram definidas pelos autores das arquiteturas.
 %
@@ -139,7 +139,7 @@ A arquitetura Salz remove a responsabilidade de mensageria do jogo do microsserv
 %
 Outra alteração é a exposição do microsserviço de autenticação como uma interface pública na rede, permitindo a conexão a partir dos clientes.
 %
-Esta disposição de microsserviços da arquitetura Salz é descrito na Subseção~\ref{sec:inter_salz}.
+Esta disposição de microsserviços da arquitetura Salz é exposta na Subseção~\ref{sec:inter_salz}.
 
 
 
@@ -153,7 +153,9 @@ A disposição dos microsserviços nesta arquitetura é visível na Subseção~\
 \label{sec:inter_rudy}
 
 
-A arquitetura Rudy em versão reduzida para o escopo dos testes contém quatro microsserviços e dois banco de dados, sendo um para dados permanentes (PostgreSQL) e um para cache (Redis).
+A arquitetura Rudy, foi implementada em versão reduzida para o escopo dos testes.
+%
+A arquitetura Rudy implementada contém quatro microsserviços e dois banco de dados, sendo um para dados permanentes (PostgreSQL) e um para cache (Redis).
 %
 Os seus microsserviços estão listados na Tabela~\ref{tab:inter_rudy}.
 
@@ -179,13 +181,13 @@ Fonte: O próprio autor.
 
 Os microsserviços da arquitetura Rudy, descritos na Tabela~\ref{tab:inter_rudy}, possuem funcionalidades próprias.
 %
-A funcionalidade de cada microsserviço é:
+As funcionalidades de cada microsserviço são:
 
 
 
 \begin{itemize}
-  \item \textit{rgame}: Este microsserviço é responsável por gerenciar o posicionamento dos personagens, execução das operações do mundo e troca de mensagens do chat do jogo. Ele também é responsável por autenticar contas ao mundo do jogo.
-  \item \textit{rweb}: Este microsserviço é responsável por receber requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
+  \item \textit{rgame}: Este microsserviço é responsável por gerenciar o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do chat do jogo. Ele também é responsável por autenticar contas ao mundo do jogo.
+  \item \textit{rweb}: Este microsserviço é responsável por receber requisições web como uma \ac{api}, essas requisições podem ser referentes a criação de novas contas ou personagens para o jogo.
   \item \textit{rauth}: Este microsserviço é responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
   \item \textit{rcrud}: Este microsserviço é responsável por realizar o acesso ao banco de dados, retornando os dados da consulta a qual é requisitada.
 \end{itemize}
@@ -215,23 +217,23 @@ A disposição da arquitetura Rudy está visível na Figura~\ref{fig:interconexa
 
 
 
-Outro ponto de atenção é o acesso ao microsserviço de autenticação \textit{rauth}, a qual pode ser visualizado na Figura~\ref{fig:interconexao_rudy}.
+Outro ponto de atenção é o acesso ao microsserviço de autenticação \textit{rauth}, o qual pode ser visualizado na Figura~\ref{fig:interconexao_rudy}.
 %
-Tal microsserviço é privado, dessa forma o microsserviço de mundo fica responsável em ser um ponto intermediário de comunicação entre o cliente e o serviço que realmente realiza a autenticação.
+Tal microsserviço é privado, dessa forma o microsserviço de mundo fica responsável por ser um ponto intermediário de comunicação entre o cliente e o serviço que realiza a autenticação.
 %
 Este padrão de projeto é comum em aplicações Web, entretanto não recomendado pelo padrão sujerido a utilização do \ac{jwt}.
 
 
 
-O padrão \ac{jwt} recomenda tornar o microsserviço de autenticação público, na qual o cliente realiza a autenticação direta com o microsserviço de autenticação, reduzindo tráfego interno de rede.
+O padrão \ac{jwt} recomenda tornar o microsserviço de autenticação público, na qual o cliente realiza a autenticação diretamente com o microsserviço de autenticação, reduzindo o tráfego interno de rede.
 %
-Mesmo não sendo um padrão recomendado, tal característica não deve ter um impácto significativo para arquiteturas de jogos \ac{mmorpg}, visto que esta operação é realizada poucas vezes no serviço.
+Mesmo não sendo um padrão recomendado, tal característica não deve ter um impacto significativo para arquiteturas de jogos \ac{mmorpg}, visto que esta operação é realizada poucas vezes no serviço.
 
 
 
 Entretanto, a arquitetura Salz realiza alterações compatíveis com o padrão \ac{jwt} e remove microsserviços privados, usando uma interconexão de microsserviços plana.
 %
-Dessa forma, torna-se de interesse descrever tais características a fim de permitir comparações na arquitetura.
+Dessa forma, torna-se interessante descrever tais características a fim de permitir comparações na arquitetura.
 
 
 
@@ -281,13 +283,13 @@ A funcionalidade de cada microsserviço é:
 
 
 
-Dado tais características, damos atenção ao microsserviço \textit{schat}.
+Ao explanar as funcionalidades dos microsserviços da arquitetura Salz, nota-se que o microsserviço \textit{schat} possui algumas particularidades.
 %
 Tal microsserviço é responsável por gerenciar todo o serviço de chat da arquitetura, seja baseado em região de interesse ou global.
 %
-Entretanto a informação de posicionamento não está armazenada neste microsserviço.
+Entretanto, a informação de posicionamento não está armazenada neste microsserviço.
 %
-Nesse sentido, esta característica obriga um custo de sincronização destes dados, que implica diretamente em custo de recurso ou tempo de resposta para o cliente.
+Nesse sentido, esta característica necessita de uma sincronização destes dados, essa sinconização implica diretamente em custo de recurso ou tempo de resposta para o cliente.
 %
 A topologia pode ser visualizada na Figura~\ref{fig:interconexao_salz}.
 
@@ -306,29 +308,34 @@ A topologia pode ser visualizada na Figura~\ref{fig:interconexao_salz}.
 
 Outra característica desta arquitetura é a comunicação direta entre o microsserviço de autenticação \textit{sauth} e o cliente.
 %
-Isto evita uma conexão intermediária utilizando o microsserviço \textit{sgame}, na qual permite maior vasão de dados sobre autenticação e sessão.
+Isto evita uma conexão intermediária, a qual utilizaria o microsserviço \textit{sgame}.
+%
+A comunicação direta realizada permite que exista uma maior vazão de dados sobre autenticação e sessão.
 %
 Outro ponto a ser ressaltado é a possibilidade de utilizar \ac{jwt} para autenticação, sem a necessidade de verificação pelo próprio microsserviço de autenticação.
 
 
 
-Tal característica da interconexão da arquitetura Salz torna o sistema de autenticação independente, permitindo adicionar novos serviços de forma flexível.
+Com a interconexão da arquitetura Salz sendo feita de forma direta, o sistema de autenticação torna-se independente, permitindo assim adicionar novos serviços de forma flexível.
 %
-Também pode-se notar uma possível utilização de verificação de sessão por assinatura digital, validando uma assinatura do microsserviço de autenticação, diminuindo o consumo da rede para mensagens de verificação pelo serviço de autenticação.
-
-
-
+Também nota-se uma possível utilização de verificação de sessão por assinatura digital.
+%
+Essa assinatura digital é utilizada no microsserviço de autenticação, diminuindo o consumo da rede para mensagens de verificação pelo serviço de autenticação.
+%
 Entretanto, não foi utilizado tal método de validação de sessão.
-%
-O método atual consiste em validação de assinatura utilizando o banco de dados de cache.
-%
-De tal forma, obriga-se a comunicação entre os microsserviços \textit{schat} e \textit{sgame} com o microsserviço \textit{sauth}.
-%
-Esta escolha foi realizada para manter os mesmos métodos de autenticação em todas as arquiteturas, evitando variação por algoritmos ou tecnologia.
 
 
 
-Dado tais características da arquitetura Salz, a sincronização de posições entre o microsserviço \textit{schat} e \textit{sgame} pode ser um problema conforme a frequência da sincronização necessária pela regra de negócio do jogo implementado.
+
+O método de autenticação atual consiste na validação de assinatura utilizando o banco de dados de cache.
+%
+Esse método utiliza uma comunicação entre os microsserviços \textit{schat} e \textit{sgame} com o microsserviço \textit{sauth}.
+%
+Esta escolha foi realizada para manter os mesmos métodos de autenticação em todas as arquiteturas, evitando variação de algoritmo ou tecnologia.
+
+
+
+Explanadas as características da arquitetura Salz, a sincronização de posições entre o microsserviço \textit{schat} e \textit{sgame} pode ser um ponto de atenção, deve atentar-se a frequência da sincronização necessária pela regra de negócio do jogo implementado.
 %
 Dessa forma, a arquitetura Willson propõe um ponto intermediário entre as arquiteturas Salz e Rudy, tornando-se interessante descrever suas alterações.
 
@@ -338,9 +345,11 @@ Dessa forma, a arquitetura Willson propõe um ponto intermediário entre as arqu
 \label{sec:inter_willson}
 
 
-A arquitetura Willson em versão reduzida para o escopo dos testes contém três microsserviços e dois banco de dados, sendo um para dados permanentes (PostgreSQL) e um para cache (Redis).
+A arquitetura Willson, em versão reduzida para o escopo dos testes, contém três microsserviços e dois banco de dados.
 %
-Os seus microsserviços estão listados na Tabela~\ref{tab:inter_willson}.
+Os microsserviços de banco de dados são um para dados permanentes (PostgreSQL) e um para cache (Redis).
+%
+Os microsserviços da arquitetura Willson estão listados na Tabela~\ref{tab:inter_willson}.
 
 
 
@@ -364,19 +373,19 @@ Fonte: O próprio autor.
 
 Os microsserviços da arquitetura Willson, descritos na Tabela~\ref{tab:inter_willson}, possuem funcionalidades próprias.
 %
-A funcionalidade de cada microsserviço é:
+As funcionalidades de cada microsserviço são:
 
 
 
 \begin{itemize}
-  \item \textit{wgame}: Este microsserviço é responsável por gerenciar o posicionamento dos personagens, execução das operações do mundo e troca de mensagens do chat do jogo. Ele também gerencia a sessão do jogador, tendo um forte aclopamento com o microsserviço \textit{wauth}.
+  \item \textit{wgame}: Este microsserviço é responsável por gerenciar o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do chat do jogo. Ele também gerencia a sessão do jogador, que têm um forte aclopamento com o microsserviço \textit{wauth}.
   \item \textit{wweb}: Este microsserviço é responsável por receber requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
   \item \textit{wauth}: Este microsserviço é responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
 \end{itemize}
 
 
 
-Dado os microsserviços da arquitetura Willson, listados na Tabela~\ref{tab:inter_willson}, uma característica interessante é a auxência de um microsserviço de gerencia de mensagens de chat e um intermediário para gestão de dados do banco.
+Explanados os microsserviços da arquitetura Willson, na Tabela~\ref{tab:inter_willson}, uma característica interessante é a ausência de um microsserviço de gerência de mensagens de chat e um intermediário para gestão de dados do banco.
 %
 Estas características tornam a arquitetura mais simples, dividindo os microsserviços em domínios específicos em pontos que necessitam de escalabilidade.
 %
@@ -397,7 +406,7 @@ A interconexão da arquitetura Willson pode ser visualizada na Figura~\ref{fig:i
 
 A Arquitetura Willson, conforme visualizado na Figura~\ref{fig:interconexao_willson}, simplifica a interconexão dos microsserviços e reduz um microsserviço de sua topologia.
 %
-Dessa forma, espera-se que reduza o consumo de rede e tempo de resposta, comparado as demais arquiteturas.
+Dessa forma, espera-se que reduza o consumo de rede e tempo de resposta quando comparado as demais arquiteturas.
 
 
 
