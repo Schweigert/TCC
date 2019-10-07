@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="www.draw.io" modified="2019-10-07T01:22:05.482Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:69.0) Gecko/20100101 Firefox/69.0" etag="7aVKKCy1rS0mUPohZZ4q" version="12.0.2" type="device" pages="1">
+  <diagram name="Page-1" id="aaaa8250-4180-3840-79b5-4cada1eebb92">
+    <mxGraphModel dx="766" dy="470" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="a2jNcyZX2xG3yTlNF-iE-1" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.dashedArrowlessEdge;fillColor=#000000;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="300" y="273" width="188" height="107" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2jNcyZX2xG3yTlNF-iE-2" value="Cliente" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.client;aspect=fixed;strokeColor=none;fillColor=#777777;" vertex="1" parent="1">
+          <mxGeometry x="245.5" y="296" width="60" height="104" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2jNcyZX2xG3yTlNF-iE-4" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.end_user;strokeColor=none;fillColor=#777777;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="186.5" y="300" width="49" height="100.46" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2jNcyZX2xG3yTlNF-iE-5" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.instance;fillColor=#ECECEC;strokeColor=#5E5E5E;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="469" y="159" width="123" height="97" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2jNcyZX2xG3yTlNF-iE-6" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.instance;fillColor=#ECECEC;strokeColor=#5E5E5E;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="550" y="199" width="123" height="97" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2jNcyZX2xG3yTlNF-iE-7" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.instance;fillColor=#ECECEC;strokeColor=#5E5E5E;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="390" y="204" width="123" height="97" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2jNcyZX2xG3yTlNF-iE-8" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.instance;fillColor=#ECECEC;strokeColor=#5E5E5E;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="471" y="244" width="123" height="97" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2jNcyZX2xG3yTlNF-iE-9" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.secureConnection;fillColor=#000000;strokeColor=#ffffff;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="400" y="301" width="56.99999999999999" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2jNcyZX2xG3yTlNF-iE-10" value="N" style="edgeStyle=isometricEdgeStyle;endArrow=none;html=1;" edge="1" parent="1" source="a2jNcyZX2xG3yTlNF-iE-2" target="a2jNcyZX2xG3yTlNF-iE-9">
+          <mxGeometry width="50" height="100" relative="1" as="geometry">
+            <mxPoint x="390" y="500" as="sourcePoint"/>
+            <mxPoint x="440" y="400" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a2jNcyZX2xG3yTlNF-iE-11" value="" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="376.5" y="315" width="47" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2jNcyZX2xG3yTlNF-iE-12" value="Servidor" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="513" y="348" width="40" height="20" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

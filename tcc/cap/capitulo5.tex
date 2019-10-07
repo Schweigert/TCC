@@ -410,5 +410,83 @@ Dessa forma, espera-se que reduza o consumo de rede e tempo de resposta quando c
 
 
 
-\section{Implantação}
-\label{sec:implantacao}
+\section{Ambiente de Testes}
+\label{sec:ambiente_de_testes}
+
+O ambiente de testes refere-se ao ambiente físico ou virtual a qual as arquiteturas e clientes foram implantados.
+%
+Este ponto é importante para permitir a reproduzão dos experimentos executados.
+
+Em um cenário de jogos massivos, encontra-se duas regiões distintas.
+%
+Em uma visão superficial, estas regiões provém do paradigma Cliente-Servidor, como visível na Figura~\ref{fig:cenario_cliente_servidor}.
+
+
+\begin{figure}[htb!]
+  \caption{Cenário Cliente Servidor Genérico.}
+  \label{fig:cenario_cliente_servidor}
+  \includegraphics[width=0.8\textwidth]{figuras/ambiente/cs.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+A Figura~\ref{fig:cenario_cliente_servidor} exibe um usuário a qual utiliza um cliente para conectar em um servidor.
+%
+Este servidor pode ser uma ou mais máquinas físicas ou virtuais.
+%
+Em específico, para jogos \ac{mmorpg}, o cliente estará em uma rede diferente do servidor.
+
+Entretanto, como exibido na Seção~\ref{sec:interconexao}, os serviços para jogos \ac{mmorpg} são compostos por múltiplos processos implementando uma arquitetura de microsserviços.
+%
+Por este motivo, torna-se interessante dividir o ambiente do servidor em sub-redes.
+%
+Esta divisão pode ser visualizada na Figura~\ref{fig:network_server}
+
+\begin{figure}[htb!]
+  \caption{Subredes do servidor}
+  \label{fig:network_server}
+  \includegraphics[width=0.8\textwidth]{figuras/network/circles_only_networks.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+Como exibido na Figura~\ref{fig:network_server}, para o contexto deste trabalho, faz sentido dividir em redes para os seguintes contextos:
+
+\begin{itemize}
+  \item Microsserviços: Contém os processos das arquiteturas Rudy, Salz e Willson;
+  \item Banco de Dados: Contém os processos de banco de dados permanente e cache; e
+  \item Métricas: Contém serviços para armazenamento de dados em ordem temporal.
+\end{itemize}
+
+Neste contexto, temos duas redes a qual separam os ambientes de microsserviços e serviços satélites destas aplicações.
+%
+Esta separação física é necessária nos testes para adicionar um limitador de transporte de dados e latência, tal qual ocorre em aplicações que executam em produção para a categoria de jogos \ac{mmorpg}.
+
+Entretanto, a rede do cliente e servidor são implantadas em plataformas diferentes.
+%
+Desta forma, faz-se necessário descrever as suas características próprias.
+
+\subsection{OpenStack}
+\ref{sec:open_stack}
+
+O ambiente OpenStack refere-se ao Servidor do paradigma cliente servidor.
+%
+Tal ambiente foi implantado sobre a nuvem Tchê, na qual encontra-se no Centro de Ciências Tecnológicas da UDESC, em Joinville.
+
+O OpenStack é um orquestrador de núvens computacionais \textit{open source} a qual permite gerenciar recursos de computação, armazenamento e comunicação.
+%
+Este gerenciamento é provido por \ac{api} com um sistema de autenticação padrão~\cite{open_stack_bib}.
+
+\begin{figure}[htb!]
+  \caption{Arquitetura abstraída do OpenStack}
+  \label{fig:arch_open_stack}
+  \includegraphics[width=0.8\textwidth]{figuras/ambiente/openstack.png}
+  \centering
+
+  Fonte: ~\cite{open_stack_bib}.
+\end{figure}
+
+\subsection{Cliente}
+\ref{sec:cliente}
