@@ -437,6 +437,10 @@ Este servidor pode ser uma ou mais máquinas físicas ou virtuais.
 %
 Em específico, para jogos \ac{mmorpg}, o cliente estará em uma rede diferente do servidor.
 
+A rede utilizada pelo cliente usualmente é uma rede \ac{lan}, a qual conecta-se pela Internet na rede do servidor.
+%
+Para os testes, tal rede possui características peculiares para gerenciar o deploy dos clientes de forma automatizada, a qual será abordado na Subseção~\ref{sec:net_cliente}.
+
 Entretanto, como exibido na Seção~\ref{sec:interconexao}, os serviços para jogos \ac{mmorpg} são compostos por múltiplos processos implementando uma arquitetura de microsserviços.
 %
 Por este motivo, torna-se interessante dividir o ambiente do servidor em sub-redes.
@@ -452,7 +456,7 @@ Esta divisão pode ser visualizada na Figura~\ref{fig:network_server}
   Fonte: O próprio autor.
 \end{figure}
 
-Como exibido na Figura~\ref{fig:network_server}, para o contexto deste trabalho, faz sentido dividir em redes para os seguintes contextos:
+Como exibido na Figura~\ref{fig:network_server}, para o contexto deste trabalho, faz sentido dividir em sub redes para os seguintes contextos:
 
 \begin{itemize}
   \item Microsserviços: Contém os processos das arquiteturas Rudy, Salz e Willson;
@@ -460,24 +464,28 @@ Como exibido na Figura~\ref{fig:network_server}, para o contexto deste trabalho,
   \item Métricas: Contém serviços para armazenamento de dados em ordem temporal.
 \end{itemize}
 
+Tal divisão garente o isolamento apropriado para gerenciamento dos projetos na rede, facilitando a implantação dos microsserviços.
+%
+Tal rede tem suas características abordadas na Subseção~\ref{sec:net_server}.
+
 Neste contexto, temos duas redes a qual separam os ambientes de microsserviços e serviços satélites destas aplicações.
 %
 Esta separação física é necessária nos testes para adicionar um limitador de transporte de dados e latência, tal qual ocorre em aplicações que executam em produção para a categoria de jogos \ac{mmorpg}.
 
 Entretanto, a rede do cliente e servidor são implantadas em plataformas diferentes.
 %
-Desta forma, faz-se necessário descrever as suas características próprias.
+Desta forma, faz-se necessário descrever principais características dos ambientes.
 
-\subsection{OpenStack}
-\ref{sec:open_stack}
+\subsection{Rede do Servidor}
+\label{sec:net_server}
 
-O ambiente OpenStack refere-se ao Servidor do paradigma cliente servidor.
+A rede do servidor é implantada sobre uma infraestrutura virtualizada, gerenciada pelo OpenStack na versão Rocky.
 %
-Tal ambiente foi implantado sobre a nuvem Tchê, na qual encontra-se no Centro de Ciências Tecnológicas da UDESC, em Joinville.
+Tal estrutura garante um ambiente próximo ao utilizado em produção para jogos \ac{mmorpg}.
 
-O OpenStack é um orquestrador de núvens computacionais \textit{open source} a qual permite gerenciar recursos de computação, armazenamento e comunicação.
+OpenStack é um sistema de gerenciamento de unidades de computação, armazenamento e comunicação sobre um aglomerado computacional~\cite{open_stack_bib}.
 %
-Este gerenciamento é provido por \ac{api} com um sistema de autenticação padrão~\cite{open_stack_bib}.
+O escopo geral do OpenStack é visualizado na Figura~\ref{fig:arch_open_stack}.
 
 \begin{figure}[htb!]
   \caption{Arquitetura abstraída do OpenStack}
@@ -488,5 +496,12 @@ Este gerenciamento é provido por \ac{api} com um sistema de autenticação padr
   Fonte: ~\cite{open_stack_bib}.
 \end{figure}
 
-\subsection{Cliente}
-\ref{sec:cliente}
+Como visualizado na Figura~\ref{fig:arch_open_stack}, o ambiente virtual é gerado sobre máquinas servidoras, na qual são gerenciadas pelo OpenStack.
+%
+O ambiente virtual pode conter serviços tal qual bancos de dados, armazenamento de arquivos, máquinas virtuais ou contêineres~\cite{open_stack_bib}.
+
+Entretanto no contexto dos testes faz sentido utilizar máquinas virtuais, de tal forma que pode-se executar scripts para acessar dados da máquina virtual e métricas do gestor de contêineres.
+
+
+\subsection{Rede do Cliente}
+\label{sec:net_cliente}
