@@ -413,13 +413,18 @@ Dessa forma, espera-se que reduza o consumo de rede e tempo de resposta quando c
 \section{Ambiente de Testes}
 \label{sec:ambiente_de_testes}
 
+
+
 O ambiente de testes refere-se ao ambiente físico ou virtual a qual as arquiteturas e clientes foram implantados.
 %
 Este ponto é importante para permitir a reproduzão dos experimentos executados.
 
+
+
 Em um cenário de jogos massivos, encontra-se duas regiões distintas.
 %
 Em uma visão superficial, estas regiões provém do paradigma Cliente-Servidor, como visível na Figura~\ref{fig:cenario_cliente_servidor}.
+
 
 
 \begin{figure}[htb!]
@@ -431,15 +436,21 @@ Em uma visão superficial, estas regiões provém do paradigma Cliente-Servidor,
   Fonte: O próprio autor.
 \end{figure}
 
+
+
 A Figura~\ref{fig:cenario_cliente_servidor} exibe um usuário a qual utiliza um cliente para conectar em um servidor.
 %
 Este servidor pode ser uma ou mais máquinas físicas ou virtuais.
 %
 Em específico, para jogos \ac{mmorpg}, o cliente estará em uma rede diferente do servidor.
 
+
+
 A rede utilizada pelo cliente usualmente é uma rede \ac{lan}, a qual conecta-se pela Internet na rede do servidor.
 %
 Para os testes, tal rede possui características peculiares para gerenciar o deploy dos clientes de forma automatizada, a qual será abordado na Subseção~\ref{sec:net_cliente}.
+
+
 
 Entretanto, como exibido na Seção~\ref{sec:interconexao}, os serviços para jogos \ac{mmorpg} são compostos por múltiplos processos implementando uma arquitetura de microsserviços.
 %
@@ -447,8 +458,10 @@ Por este motivo, torna-se interessante dividir o ambiente do servidor em sub-red
 %
 Esta divisão pode ser visualizada na Figura~\ref{fig:network_server}
 
+
+
 \begin{figure}[htb!]
-  \caption{Subredes do servidor}
+  \caption{Sub-redes do servidor}
   \label{fig:network_server}
   \includegraphics[width=0.8\textwidth]{figuras/network/circles_only_networks.png}
   \centering
@@ -456,7 +469,11 @@ Esta divisão pode ser visualizada na Figura~\ref{fig:network_server}
   Fonte: O próprio autor.
 \end{figure}
 
-Como exibido na Figura~\ref{fig:network_server}, para o contexto deste trabalho, faz sentido dividir em sub redes para os seguintes contextos:
+
+
+Como exibido na Figura~\ref{fig:network_server}, para o contexto deste trabalho, faz sentido dividir em sub-redes para os seguintes contextos:
+
+
 
 \begin{itemize}
   \item Microsserviços: Contém os processos das arquiteturas Rudy, Salz e Willson;
@@ -464,28 +481,42 @@ Como exibido na Figura~\ref{fig:network_server}, para o contexto deste trabalho,
   \item Métricas: Contém serviços para armazenamento de dados em ordem temporal.
 \end{itemize}
 
+
+
 Tal divisão garente o isolamento apropriado para gerenciamento dos projetos na rede, facilitando a implantação dos microsserviços.
 %
 Tal rede tem suas características abordadas na Subseção~\ref{sec:net_server}.
+
+
 
 Neste contexto, temos duas redes a qual separam os ambientes de microsserviços e serviços satélites destas aplicações.
 %
 Esta separação física é necessária nos testes para adicionar um limitador de transporte de dados e latência, tal qual ocorre em aplicações que executam em produção para a categoria de jogos \ac{mmorpg}.
 
+
+
 Entretanto, a rede do cliente e servidor são implantadas em plataformas diferentes.
 %
 Desta forma, faz-se necessário descrever principais características dos ambientes.
 
+
+
 \subsection{Rede do Servidor}
 \label{sec:net_server}
+
+
 
 A rede do servidor é implantada sobre uma infraestrutura virtualizada, gerenciada pelo OpenStack na versão Rocky.
 %
 Tal estrutura garante um ambiente próximo ao utilizado em produção para jogos \ac{mmorpg}.
 
+
+
 OpenStack é um sistema de gerenciamento de unidades de computação, armazenamento e comunicação sobre um aglomerado computacional~\cite{open_stack_bib}.
 %
 O escopo geral do OpenStack é visualizado na Figura~\ref{fig:arch_open_stack}.
+
+
 
 \begin{figure}[htb!]
   \caption{Arquitetura abstraída do OpenStack}
@@ -496,12 +527,115 @@ O escopo geral do OpenStack é visualizado na Figura~\ref{fig:arch_open_stack}.
   Fonte: ~\cite{open_stack_bib}.
 \end{figure}
 
+
+
 Como visualizado na Figura~\ref{fig:arch_open_stack}, o ambiente virtual é gerado sobre máquinas servidoras, na qual são gerenciadas pelo OpenStack.
 %
 O ambiente virtual pode conter serviços tal qual bancos de dados, armazenamento de arquivos, máquinas virtuais ou contêineres~\cite{open_stack_bib}.
 
-Entretanto no contexto dos testes faz sentido utilizar máquinas virtuais, de tal forma que pode-se executar scripts para acessar dados da máquina virtual e métricas do gestor de contêineres.
 
+
+Entretanto no contexto dos testes faz sentido utilizar máquinas virtuais, de tal forma que pode-se executar scripts para acessar dados da máquina virtual e métricas do gestor de contêineres.
+%
+Essa forma tornamos o independente do ambiente físico real que está executando as aplicações.
+
+
+
+Conforme a escolha de execução do servidor sobre máquinas virtuais, obriga a configuração de sub-redes no ambiente do servidor.
+%
+Certamente é possível construir um ambiente com uma única sub-rede realizando esta divisão por redes do gestor de contêineres, porém tal escolha não é uma boa prática para organização do projeto, visto que existem partes do serviço que possuem contextos diferentes.
+%
+De tal forma, foram criadas sub-redes tal qual os contextos levantados na Figura~\ref{fig:network_server}.
+%
+A Tabela~\ref{tab:subredes} mostra a divisão de tais sub-redes, conforme a faixa de \ac{ip} aplicada.
+
+
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Subredes da rede do servidor.}
+\label{tab:subredes}
+\begin{tabular}{|l|l|}
+\hline
+Nome da subrede & Faixa          \\ \hline
+metrics         & 192.168.0.0/24 \\ \hline
+databases       & 192.168.1.0/24 \\ \hline
+servers         & 192.168.2.0/24 \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+
+
+As sub-redes, descritas na Tabela~\ref{tab:subredes}, foram criadas seguindo um padrão de faixa de \ac{ip} conforme a configuração exigida pela nuvem Tchê.
+%
+As faixas de \ac{ip} dependem das redes externas a nuvem computacional gerenciada pelo Open Stack.
+%
+Entretanto, tal configuração não implica na performance da aplicação, somente em sua organização.
+
+Cada subrede possui uma máquina virtual para execução dos serviços.
+%
+O esquema das máquinas virtuais está visível na Figura~\ref{fig:virtual_machines}.
+
+
+
+
+\begin{figure}[htb!]
+  \caption{Sub-redes do servidor com as máquinas virtuais}
+  \label{fig:virtual_machines}
+  \includegraphics[width=0.5\textwidth]{figuras/network/bars.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+
+
+Conforme visível na Figura~\ref{fig:virtual_machines}, cada sub-rede possui uma única máquina virtual, na qual executará um gerenciador de contêineres com os serviços necessários para a execução do servidor.
+%
+As máquinas virtuais por sua vez possuem configurações distintas, na qual são exibidas na Tabela~\ref{tab:configuracao_das_maquinas}.
+
+
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Configurações das máquinas virtuais do servidor.}
+\label{tab:configuracao_das_maquinas}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Nome              & Sistema Operacional            & IP          & vCPU    & Memória & Armazenamento \\ \hline
+server\_machine   & Ubuntu LTS 18.04 Bionic Beaver & 192.168.2.* & 4 Cores & 8 GB    & 40GB          \\ \hline
+database\_machine & Ubuntu LTS 18.04 Bionic Beaver & 192.168.1.* & 4 Cores & 8 GB    & 40GB          \\ \hline
+metric\_machine   & Ubuntu LTS 18.04 Bionic Beaver & 192.168.0.* & 4 Cores & 8 GB    & 120GB         \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+
+
+Conforme exibido na Tabela~\ref{tab:configuracao_das_maquinas}, a única variação é o armazenamento da máquina virtual \textit{metric\_machine}.
+%
+Tal característica é dada pela necessidade de armazenamento de métricas, na qual precisam de volumes de dados dedicados a este serviço.
+
+
+
+Em todas as sub-redes, por padrão, foi utilizado o gestor de contêineres Docker Compose.
+%
+Este gestor de contêineres permite executar aplicações de multicontêineres usando como entrada um arquivo \ac{yaml}.
+%
+Este formato é específico para notação de dados legíveis a humanos.
+
+
+
+Entretanto a rede do cliente interfere diretamente na execução dos experimentos, visto que possui características próprias.
+%
+Nesse sentido, faz sentido descrever a rede do cliente.
 
 \subsection{Rede do Cliente}
 \label{sec:net_cliente}
