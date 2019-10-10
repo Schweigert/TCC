@@ -61,7 +61,7 @@ A partir destes critérios, a linguagem selecionada foi a linguagem GoLang, por 
 
 
 
-Outro critério, o qual é implícito para o desenvolvimento, é a homogenidade da linguagem de programação em todos os microsserviços.
+Outro critério, o qual é implícito para o desenvolvimento, é a homogeneidade da linguagem de programação em todos os microsserviços.
 %
 Tal necessidade gera o benefício da escrita de código reutilizável, como o núcleo de regras de negócio que pode ser aplicado a todas as arquiteturas desenvolvidas.
 
@@ -80,7 +80,7 @@ Dentre as bibliotecas utilizadas, destacam-se:
   \item gorm: Biblioteca de objetos relacionais, a qual suporta conexão direta ao banco PostgreSQL;
   \item go-redis: Biblioteca para conexão ao serviço Redis;
   \item net/rpc: Biblioteca nativa da linguagem GoLang para escrita de serviços \ac{rpc} sobre o protocolo \ac{tcp};
-  \item graphite: Biblioteca de conexão ao banco de métricas;
+  \item graphite: Biblioteca de conexão ao banco de métricas; e
   \item testify: Biblioteca auxiliar a suíte nativa de testes da linguagem.
 \end{itemize}
 
@@ -105,7 +105,7 @@ As bibliotecas auxiliares foram utilizadas no processo de integração contínua
 %
 O processo de integração contínua foi implantado utilizando os serviços externos Github e TravisCI.
 %
-Este processo é descrito como processo de construção na arquitetura Willson, sendo responsável pelo teste e envio de imagens de contêineres a um serviço de resgistro na nuvem.
+Este processo é descrito como processo de construção na arquitetura Willson, sendo responsável pelo teste e envio de imagens de contêineres a um serviço de registro na nuvem.
 
 
 
@@ -119,35 +119,34 @@ Após descrever as tecnologias utilizadas, faz-se necessário descrever o ambien
 
 
 
-A interconexão entre os microsserviços refere-se ao projeto de rede de uma arquitetura qualquer, disponilizando visualmente a camada de rede.
+A interconexão entre os microsserviços refere-se ao projeto de rede de uma arquitetura qualquer, disponibilizando visualmente a camada de rede.
 %
 Ao todo foram implementados onze microsserviços, os quais possuem a comunicação através de troca de mensagens.
 %
-Tais conexões entre sí, com os bancos de dados e com os seus respectivos clientes foram definidas pelos autores das arquiteturas.
+Tais conexões entre si, com os bancos de dados e com os seus respectivos clientes foram definidas pelos autores das arquiteturas.
 %
-Consequentemente, torna-se interessante descrever a interconexão entre os microsserviços, exibindo assim seus protocolos de comunicação de rede.
+Consequentemente, torna-se interessante descrever a interconexão entre os microsserviços, exibindo assim seus protocolos de comunicação de rede:
 
 
-
-A arquitetura Rudy contém um microsserviço intermediário para conexão com o banco de dados.
+\begin{itemize}
+ \item A arquitetura Rudy contém um microsserviço intermediário para conexão com o banco de dados.
 %
 Esta disposição de microsserviços está exposto na Subseção~\ref{sec:inter_rudy}.
 
-
-
-A arquitetura Salz remove a responsabilidade de mensageria do jogo do microsserviço de jogo.
+ \item A arquitetura Salz remove a responsabilidade de mensageria do jogo do microsserviço de jogo.
 %
 Outra alteração é a exposição do microsserviço de autenticação como uma interface pública na rede, permitindo a conexão a partir dos clientes.
 %
 Esta disposição de microsserviços da arquitetura Salz é exposta na Subseção~\ref{sec:inter_salz}.
 
-
-
-A arquitetura Willson tem o funcionamento semelhante a arquitetura Rudy, porém não utiliza um microsserviço intermediário para organização de consultas ao banco de dados.
+\item A arquitetura Willson tem o funcionamento semelhante a arquitetura Rudy, porém não utiliza um microsserviço intermediário para organização de consultas ao banco de dados.
 %
 A disposição dos microsserviços nesta arquitetura é visível na Subseção~\ref{sec:inter_willson}.
 
+\end{itemize}
 
+
+%ccm Informar que está sendo implemetada apenas a parte do jogo, que já foi definido na Seção 3.X (verificar)
 
 \subsection{Rudy}
 \label{sec:inter_rudy}
@@ -186,10 +185,10 @@ As funcionalidades de cada microsserviço são:
 
 
 \begin{itemize}
-  \item \textit{rgame}: Este microsserviço é responsável por gerenciar o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do chat do jogo. Ele também é responsável por autenticar contas ao mundo do jogo.
-  \item \textit{rweb}: Este microsserviço é responsável por receber requisições web como uma \ac{api}, essas requisições podem ser referentes a criação de novas contas ou personagens para o jogo.
-  \item \textit{rauth}: Este microsserviço é responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
-  \item \textit{rcrud}: Este microsserviço é responsável por realizar o acesso ao banco de dados, retornando os dados da consulta a qual é requisitada.
+  \item \textit{rgame}: Responsável por gerenciar o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do \textit{chat} do jogo. Ele também é responsável por autenticar contas ao mundo do jogo.
+  \item \textit{rweb}: Responsável por receber requisições web como uma \ac{api}, essas requisições podem ser referentes a criação de novas contas ou personagens para o jogo.
+  \item \textit{rauth}: Responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
+  \item \textit{rcrud}: Responsável por realizar o acesso ao banco de dados, retornando os dados da consulta a qual é requisitada.
 \end{itemize}
 
 
@@ -275,10 +274,10 @@ A funcionalidade de cada microsserviço é:
 
 
 \begin{itemize}
-  \item \textit{sgame}: Este microsserviço é responsável por gerenciar o posicionamento dos personagens, execução das operações do mundo e troca de mensagens do chat do jogo.
-  \item \textit{schat}: Este microsserviço é responsável por gerenciar mensagens entre jogadores, porém possui um forte aclopamento com o microsserviço \textit{sgame}.
-  \item \textit{sweb}: Este microsserviço é responsável por receber requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
-  \item \textit{sauth}: Este microsserviço é responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
+  \item \textit{sgame}: Responsável por gerenciar o posicionamento dos personagens, execução das operações do mundo e troca de mensagens do chat do jogo.
+  \item \textit{schat}: Responsável por gerenciar mensagens entre jogadores, porém possui um forte acoplamento com o microsserviço \textit{sgame}.
+  \item \textit{sweb}: Responsável por receber requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
+  \item \textit{sauth}: Responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
 \end{itemize}
 
 
@@ -289,7 +288,7 @@ Tal microsserviço é responsável por gerenciar todo o serviço de chat da arqu
 %
 Entretanto, a informação de posicionamento não está armazenada neste microsserviço.
 %
-Nesse sentido, esta característica necessita de uma sincronização destes dados, essa sinconização implica diretamente em custo de recurso ou tempo de resposta para o cliente.
+Nesse sentido, esta característica necessita de uma sincronização destes dados, essa sincronização implica diretamente em custo de recurso ou tempo de resposta para o cliente.
 %
 A topologia pode ser visualizada na Figura~\ref{fig:interconexao_salz}.
 
@@ -378,9 +377,9 @@ As funcionalidades de cada microsserviço são:
 
 
 \begin{itemize}
-  \item \textit{wgame}: Este microsserviço é responsável por gerenciar o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do chat do jogo. Ele também gerencia a sessão do jogador, que têm um forte aclopamento com o microsserviço \textit{wauth}.
-  \item \textit{wweb}: Este microsserviço é responsável por receber requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
-  \item \textit{wauth}: Este microsserviço é responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
+  \item \textit{wgame}: Responsável por gerenciar o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do chat do jogo. Ele também gerencia a sessão do jogador, que têm um forte acoplamento com o microsserviço \textit{wauth}.
+  \item \textit{wweb}: Responsável por receber requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
+  \item \textit{wauth}: Responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
 \end{itemize}
 
 
@@ -417,7 +416,7 @@ Dessa forma, espera-se que reduza o consumo de rede e tempo de resposta quando c
 
 O ambiente de testes refere-se ao ambiente físico ou virtual a qual as arquiteturas e clientes foram implantados.
 %
-Este ponto é importante para permitir a reproduzão dos experimentos executados.
+Este ponto é importante para permitir a reprodução dos experimentos executados.
 
 
 
@@ -426,7 +425,7 @@ Em um cenário de jogos massivos, encontra-se duas regiões distintas.
 Em uma visão superficial, estas regiões provém do paradigma Cliente-Servidor, como visível na Figura~\ref{fig:cenario_cliente_servidor}.
 
 
-
+%ccm Essa figura é do OpenStack, naõ deve estar aqui
 \begin{figure}[htb!]
   \caption{Cenário Cliente Servidor Genérico.}
   \label{fig:cenario_cliente_servidor}
@@ -535,9 +534,9 @@ O ambiente virtual pode conter serviços tal qual bancos de dados, armazenamento
 
 
 
-Entretanto no contexto dos testes faz sentido utilizar máquinas virtuais, de tal forma que pode-se executar scripts para acessar dados da máquina virtual e métricas do gestor de contêineres.
+Entretanto no contexto dos testes faz sentido utilizar máquinas virtuais, de tal forma que pode-se executar \textit{scripts} para acessar dados da máquina virtual e métricas do gestor de contêineres.
 %
-Essa forma tornamos o independente do ambiente físico real que está executando as aplicações.
+Desta forma torna-se independente do ambiente físico real que está executando as aplicações.
 
 
 

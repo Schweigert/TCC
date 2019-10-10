@@ -1,0 +1,16 @@
+
+set terminal svg size 400,300 enhanced fname 'arial'  fsize 6 butt solid
+set output 'out.svg'
+
+set key center top
+
+set xdata time
+set timefmt "%y/%m/%d-%H:%M"
+set xrange ["19/03/14-23:53":"19/03/15-00:35"]
+set yrange [0:]
+set format x "%M min"
+set format y "%.2f%%"
+set timefmt "%y/%m/%d %H:%M:%S"
+
+plot "data.txt" using 1:11 title 'Processamento' with lines, \
+     "data.txt" using 1:17 title 'Carga do Sistema Operacional' with lines
