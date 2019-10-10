@@ -220,7 +220,7 @@ Outro ponto de atenção é o acesso ao microsserviço de autenticação \textit
 %
 Tal microsserviço é privado, dessa forma o microsserviço de mundo fica responsável por ser um ponto intermediário de comunicação entre o cliente e o serviço que realiza a autenticação.
 %
-Este padrão de projeto é comum em aplicações Web, entretanto não recomendado pelo padrão sujerido a utilização do \ac{jwt}.
+Este padrão de projeto é comum em aplicações Web, entretanto não recomendado pelo padrão sugerido a utilização do \ac{jwt}.
 
 
 
@@ -384,7 +384,7 @@ As funcionalidades de cada microsserviço são:
 
 
 
-Explanados os microsserviços da arquitetura Willson, na Tabela~\ref{tab:inter_willson}, uma característica interessante é a ausência de um microsserviço de gerência de mensagens de chat e um intermediário para gestão de dados do banco.
+Explanados os microsserviços da arquitetura Willson, na Tabela~\ref{tab:inter_willson}, uma característica interessante é a ausência de um microsserviço de gerência de mensagens de \textit{chat} e um intermediário para gestão de dados do banco.
 %
 Estas características tornam a arquitetura mais simples, dividindo os microsserviços em domínios específicos em pontos que necessitam de escalabilidade.
 %
@@ -424,8 +424,6 @@ Em um cenário de jogos massivos, encontra-se duas regiões distintas.
 %
 Em uma visão superficial, estas regiões provém do paradigma Cliente-Servidor, como visível na Figura~\ref{fig:cenario_cliente_servidor}.
 
-
-%ccm Essa figura é do OpenStack, naõ deve estar aqui
 \begin{figure}[htb!]
   \caption{Cenário Cliente Servidor Genérico.}
   \label{fig:cenario_cliente_servidor}
@@ -437,18 +435,52 @@ Em uma visão superficial, estas regiões provém do paradigma Cliente-Servidor,
 
 
 
-A Figura~\ref{fig:cenario_cliente_servidor} exibe um usuário a qual utiliza um cliente para conectar em um servidor.
+A Figura~\ref{fig:cenario_cliente_servidor} exibe um usuário a qual utiliza um cliente genérico para conectar em um servidor genérico.
 %
-Este servidor pode ser uma ou mais máquinas físicas ou virtuais.
+Este servidor pode ser uma ou mais máquinas físicas ou virtuais, utilizando múltiplos processos.
 %
-Em específico, para jogos \ac{mmorpg}, o cliente estará em uma rede diferente do servidor.
+Em específico, para jogos \ac{mmorpg}, o cliente estará em uma rede diferente do servidor, visto que o objetivo do jogo é prover um mundo compartilhado.
 
 
 
 A rede utilizada pelo cliente usualmente é uma rede \ac{lan}, a qual conecta-se pela Internet na rede do servidor.
 %
-Para os testes, tal rede possui características peculiares para gerenciar o deploy dos clientes de forma automatizada, a qual será abordado na Subseção~\ref{sec:net_cliente}.
+Para os testes, tal rede possui características peculiares para gerenciar a implantação dos clientes de forma automatizada, a qual será abordado na Subseção~\ref{sec:net_cliente}.
 
+
+
+
+Neste contexto, temos duas redes a qual separam os ambientes de microsserviços e serviços satélites destas aplicações.
+%
+Esta separação física é necessária nos testes para adicionar um limitador de transporte de dados e latência, tal qual ocorre em aplicações que executam em produção para a categoria de jogos \ac{mmorpg}.
+%
+Esta separação é visível na Figura~\ref{fig:net_completa}.
+
+\begin{figure}[htb!]
+  \caption{Cenário Cliente Servidor Genérico.}
+  \label{fig:net_completa}
+  \includegraphics[width=\textwidth]{figuras/ambiente/full.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+
+A rede do cliente e servidor, visíveis na Figura~\ref{fig:net_completa}, são implantadas em plataformas diferentes.
+%
+Desta forma, faz-se necessário descrever principais características dos ambientes.
+
+
+
+
+\subsection{Rede do Servidor}
+\label{sec:net_server}
+
+
+
+A rede do servidor é implantada sobre uma infraestrutura virtualizada, gerenciada pelo OpenStack na versão \textit{Rocky}.
+%
+Tal estrutura garante um ambiente próximo ao utilizado em produção para serviços \ac{mmorpg}.
 
 
 Entretanto, como exibido na Seção~\ref{sec:interconexao}, os serviços para jogos \ac{mmorpg} são compostos por múltiplos processos implementando uma arquitetura de microsserviços.
@@ -482,36 +514,9 @@ Como exibido na Figura~\ref{fig:network_server}, para o contexto deste trabalho,
 
 
 
-Tal divisão garente o isolamento apropriado para gerenciamento dos projetos na rede, facilitando a implantação dos microsserviços.
+Tal divisão garante o isolamento apropriado para gerenciamento dos projetos na rede, facilitando a implantação dos microsserviços.
 %
-Tal rede tem suas características abordadas na Subseção~\ref{sec:net_server}.
-
-
-
-Neste contexto, temos duas redes a qual separam os ambientes de microsserviços e serviços satélites destas aplicações.
-%
-Esta separação física é necessária nos testes para adicionar um limitador de transporte de dados e latência, tal qual ocorre em aplicações que executam em produção para a categoria de jogos \ac{mmorpg}.
-
-
-
-Entretanto, a rede do cliente e servidor são implantadas em plataformas diferentes.
-%
-Desta forma, faz-se necessário descrever principais características dos ambientes.
-
-
-
-\subsection{Rede do Servidor}
-\label{sec:net_server}
-
-
-
-A rede do servidor é implantada sobre uma infraestrutura virtualizada, gerenciada pelo OpenStack na versão Rocky.
-%
-Tal estrutura garante um ambiente próximo ao utilizado em produção para jogos \ac{mmorpg}.
-
-
-
-OpenStack é um sistema de gerenciamento de unidades de computação, armazenamento e comunicação sobre um aglomerado computacional~\cite{open_stack_bib}.
+Esta divisão foi realizada utilizando sub redes no sistema OpenStack, no qual é definido como um sistema de gerenciamento de unidades de computação, armazenamento e comunicação sobre um aglomerado computacional~\cite{open_stack_bib}.
 %
 O escopo geral do OpenStack é visualizado na Figura~\ref{fig:arch_open_stack}.
 
