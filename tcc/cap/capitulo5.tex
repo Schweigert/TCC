@@ -688,10 +688,38 @@ Tal crescimento está diretamente relacionado ao número de contêineres escalad
 %
 Cada jogador realiza as operações descritas na Figura~\ref{fig:movimentacao}.
 
-Entretanto, existem considerações que podem pertencer além da rede de clientes.
+É notório que o número de jogadores simultâneos é exatamente igual ao número de contêineres na rede de clientes.
 %
-Tais considerações são sobre a coleção de métricas e quais métricas são obtidas.
+Dessa forma, garantimos o isolamento entre contêineres, evitando multiplexação de conexões entre múltiplos contêineres diferentes.
+
+
+A partir do comportamento definido na Figura~\ref{fig:cliente_linear}, espera-se que o consumo dos recursos e tempo de resposta corresponda ao seu crescimento, tendendo a uma complexidade linear mínima.
+%
+Dessa forma, podemos analisar o comportamento do consumo de recurso, dado o número de jogadores simultâneos.
+
 
 \section{Considerações Parciais}
 
-A rede de experimento é
+Este capítulo descreve a implementação e implantação das arquiteturas, levando em consideração o meio físico na qual foi implantado.
+%
+Para realizar tal descrição, é necessário citar tecnologias utilizadas e como são conectados.
+
+Durante o desenvolvimento da implentação, é utilizado a linguagem Golang, na qual ajudou a desenvolver de forma rápida e eficiente as aplicações para este trabalho.
+
+Esta escolha implica diretamente nas tecnologias utilizadas.
+%
+Dessa forma, faz sentido escolher tecnologias que combinem com os objetivos das arquitetura.
+
+Nesse sentido foram utilizados serviços de armazenamento de dados permanentes e temporários \textit{OpenSource}.
+%
+Redis e PostgreSQL são os bancos de dados utilizados.
+%
+Esta escolha é dada pela fácil integração com a linguagem e  bibliotecas selecionadas para o desenvolvimento.
+
+Durante o processo de desenvolvimento foi utilizado o processo de integração contínua.
+%
+Dessa forma, é utilizado o serviço TravisCI para realização de testes e build de imagens Docker.
+%
+Por sua vez, o TravisCI utiliza o DockerHub para armazenamento das imagens, a qual são utilizadas para implantar sobre a infraestrutura descrita como ambiente de testes.
+
+
