@@ -13,11 +13,11 @@ Denotando-se qualidade como o consumo de recursos e desempenho das aplicações.
 
 
 
-Devido as diversas possibilidades de linguagens de programação e bibliotecas disponíveis, a Seção~\ref{sec:tecnologias} tem o objetivo de descrever as tecnologias utilizadas para o desenvolvimento das aplicações e justificar tais escolhas.
+Devido às diversas possibilidades de linguagens de programação e bibliotecas disponíveis, a Seção~\ref{sec:tecnologias} tem o objetivo de descrever as tecnologias utilizadas para o desenvolvimento das aplicações e justificar tais escolhas.
 %
 Além disso, a Seção~\ref{sec:tecnologias} apresenta o conjunto de serviços externos utilizados para facilitar o desenvolvimento dos microsserviços.
 %
-O serviços externos apesar de não estarem diretamente implementados na arquitetura das soluções, foram utilizados durante o processo e devem ser evidenciados.
+Os serviços externos apesar de não estarem diretamente implementados na arquitetura das soluções, foram utilizados durante o processo e devem ser evidenciados.
 
 
 
@@ -58,16 +58,14 @@ Neste sentido, foi levantado um conjunto de linguagens de programação, o qual 
 
 
 A partir destes critérios, a linguagem selecionada foi a linguagem GoLang, por se tratar de uma linguagem a qual o autor possui domínio e satisfaz os critérios definidos anteriormente.
-
-
-
+%
 Outro critério, o qual é implícito para o desenvolvimento, é a homogeneidade da linguagem de programação em todos os microsserviços.
 %
 Tal necessidade gera o benefício da escrita de código reutilizável, como o núcleo de regras de negócio que pode ser aplicado a todas as arquiteturas desenvolvidas.
 
 
 
-Desta forma, foi selecionada uma única linguagem de desempenho compatível com a viabilização do projeto.
+Assim, foi selecionada uma única linguagem de desempenho compatível com a viabilização do projeto.
 %
 Em função da diversidade de bibliotecas disponíveis, também é necessário definir quais bibliotecas foram utilizadas para o desenvolvimento das arquiteturas dos microsserviços.
 %
@@ -110,7 +108,7 @@ Este processo é descrito como processo de construção na arquitetura Willson, 
 
 
 
-Após descrever as tecnologias utilizadas, faz-se necessário descrever o ambiente distribuído desenvolvido, a fim de garantir uma melhor visibilidade dos microsserviços implementados.
+Após descrever as tecnologias utilizadas, faz-se necessário descrever o ambiente distribuído desenvolvido, a fim de garantir uma melhor visibilidade dos microsserviços implementados. %ccm <-11
 
 
 
@@ -131,7 +129,7 @@ Consequentemente, torna-se interessante descrever a interconexão entre os micro
 \begin{itemize}
  \item A arquitetura Rudy contém um microsserviço intermediário para conexão com o banco de dados.
 %
-Esta disposição de microsserviços está exposto na Subseção~\ref{sec:inter_rudy}.
+Esta disposição de microsserviços está exposta na Subseção~\ref{sec:inter_rudy}.
 
  \item A arquitetura Salz remove a responsabilidade de mensageria do jogo do microsserviço de jogo.
 %
@@ -146,7 +144,7 @@ A disposição dos microsserviços nesta arquitetura é visível na Subseção~\
 \end{itemize}
 
 
-%ccm Informar que está sendo implemetada apenas a parte do jogo, que já foi definido na Seção 3.X (verificar)
+%ccm Informar que está sendo implementada apenas a parte do jogo, que já foi definido na Seção 3.X (verificar)
 
 \subsection{Rudy}
 \label{sec:inter_rudy}
@@ -213,7 +211,7 @@ A disposição da arquitetura Rudy está visível na Figura~\ref{fig:interconexa
 
   Fonte: O próprio autor.
 \end{figure}
-
+%ccm Informar o nome dos protocolos Postgres/TCP, HTTP/TCP, RPC/TCP. Fazer nas outras arquiteturas o mesmo.
 
 
 Outro ponto de atenção é o acesso ao microsserviço de autenticação \textit{rauth}, o qual pode ser visualizado na Figura~\ref{fig:interconexao_rudy}.
@@ -464,7 +462,8 @@ Esta separação é visível na Figura~\ref{fig:net_completa}.
 
   Fonte: O próprio autor.
 \end{figure}
-
+%ccm Rede DCC no meio é Rede CINF/CCT
+%ccm labp2d -> LabP2D
 
 A rede do cliente e servidor, visíveis na Figura~\ref{fig:net_completa}, são implantadas em plataformas diferentes.
 %
@@ -542,9 +541,9 @@ O ambiente virtual pode conter serviços tal qual bancos de dados, armazenamento
 
 
 
-Entretanto no contexto dos testes faz sentido utilizar máquinas virtuais, de tal forma que pode-se executar \textit{scripts} para acessar dados da máquina virtual e métricas do gestor de contêineres.
+Entretanto, no contexto dos testes, faz sentido utilizar máquinas virtuais de tal forma que pode-se executar \textit{scripts} para acessar dados da máquina virtual e métricas do gestor de contêineres.
 %
-Desta forma torna-se independente do ambiente físico real que está executando as aplicações.
+Desta forma, torna-se independente do ambiente físico real que está executando as aplicações.
 
 
 
@@ -552,9 +551,9 @@ Conforme a escolha de execução do servidor sobre máquinas virtuais, obriga a 
 %
 Certamente é possível construir um ambiente com uma única sub-rede realizando esta divisão por redes do gestor de contêineres, porém tal escolha não é uma boa prática para organização do projeto, visto que existem partes do serviço que possuem contextos diferentes.
 %
-De tal forma, foram criadas sub-redes tal qual os contextos levantados na Figura~\ref{fig:network_server}.
+Deste modo, foram criadas sub-redes tal qual os contextos levantados na Figura~\ref{fig:network_server}.
 %
-A Tabela~\ref{tab:subredes} mostra a divisão de tais sub-redes, conforme a faixa de \ac{ip} aplicada.
+A Tabela~\ref{tab:subredes} mostra a divisão de tais subredes, conforme a faixa de \ac{ip} aplicada.
 
 
 
@@ -577,9 +576,9 @@ Fonte: O próprio autor.
 
 
 
-As sub-redes, descritas na Tabela~\ref{tab:subredes}, foram criadas seguindo um padrão de faixa de \ac{ip} conforme a configuração exigida pela nuvem Tchê.
+As subredes, descritas na Tabela~\ref{tab:subredes}, foram criadas seguindo um padrão de faixa de \ac{ip} conforme a configuração exigida pela nuvem Tchê.
 %
-As faixas de \ac{ip} dependem das redes externas a nuvem computacional gerenciada pelo Open Stack.
+As faixas de \ac{ip} dependem das redes externas a nuvem computacional gerenciada pelo OpenStack.
 %
 Entretanto, tal configuração não implica na performance da aplicação, somente em sua organização.
 
@@ -640,7 +639,7 @@ Este formato é específico para notação de dados legíveis a humanos.
 
 
 
-Entretanto a rede do cliente interfere diretamente na execução dos experimentos, visto que possui características próprias.
+Entretanto, a rede do cliente interfere diretamente na execução dos experimentos, visto que possui características próprias.
 %
 Nesse sentido, faz sentido descrever a rede do cliente.
 
@@ -650,7 +649,7 @@ Nesse sentido, faz sentido descrever a rede do cliente.
 
 Os clientes executaram sobre uma rede \ac{lan}.
 %
-Estes computadores formaram um aglomerado de contêineres para realizar o acesso as arquiteturas na rede do servidor (Subseção~\ref{sec:net_server}).
+Estes computadores formam um aglomerado de contêineres para realizar o acesso as arquiteturas na rede do servidor (Subseção~\ref{sec:net_server}).
 
 Os computadores utilizados possuem características próprias, as quais devem ser citadas para melhor compreendimento das características da rede de clientes.
 %
@@ -678,6 +677,7 @@ As características das máquinas podem ser visualizadas na Tabela~\ref{tab:conf
 
     Fonte: O próprio autor.
 \end{table}
+%ccm Não precisa de tabela, pode ser textual em um parágrafo. 
 
 A Tabela~\ref{tab:configuracao_das_maquinas_cliente} mostra o aglomerado computacional.
 %
@@ -685,3 +685,6 @@ Em especial percebe-se que este aglomerado é composto por características homo
 %
 Este ambiente foi montado com tais características para remover complexidade, evitando possíveis problemas de diferença de sistema operacional ou hardware.
 
+%ccm falar do scripts
+
+\section{Considerações Parciais}
