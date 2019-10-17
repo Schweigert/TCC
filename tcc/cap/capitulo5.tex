@@ -652,39 +652,46 @@ Os clientes executaram sobre uma rede \ac{lan}.
 Estes computadores formam um aglomerado de contêineres para realizar o acesso as arquiteturas na rede do servidor (Subseção~\ref{sec:net_server}).
 
 Os computadores utilizados possuem características próprias, as quais devem ser citadas para melhor compreendimento das características da rede de clientes.
+
+O aglomerado computacional é composto por nove computadores.
 %
-As características das máquinas podem ser visualizadas na Tabela~\ref{tab:configuracao_das_maquinas_cliente}.
+Todos os computadores possuem 8 \textit{cores}, 16 GB de memória e 1TB de armazenamento.
 
-\begin{table}[htb!]
-    \centering
-    \begin{adjustbox}{max width=\textwidth}
-        \caption{Configurações das máquinas virtuais do cliente.}
-        \label{tab:configuracao_das_maquinas_cliente}
-        \begin{tabular}{|l|l|l|l|}
-        \hline
-        Sistema Operacional            & \ac{cpu} & Memória  & Armazenamento \\ \hline
-        Ubuntu LTS 18.04 Bionic Beaver & 8 Cores & 16 GB    & 1TB          \\ \hline
-        Ubuntu LTS 18.04 Bionic Beaver & 8 Cores & 16 GB    & 1TB          \\ \hline
-        Ubuntu LTS 18.04 Bionic Beaver & 8 Cores & 16 GB    & 1TB         \\ \hline
-        Ubuntu LTS 18.04 Bionic Beaver & 8 Cores & 16 GB    & 1TB         \\ \hline
-        Ubuntu LTS 18.04 Bionic Beaver & 8 Cores & 16 GB    & 1TB         \\ \hline
-        Ubuntu LTS 18.04 Bionic Beaver & 8 Cores & 16 GB    & 1TB         \\ \hline
-        Ubuntu LTS 18.04 Bionic Beaver & 8 Cores & 16 GB    & 1TB         \\ \hline
-        Ubuntu LTS 18.04 Bionic Beaver & 8 Cores & 16 GB    & 1TB         \\ \hline
-        Ubuntu LTS 18.04 Bionic Beaver & 8 Cores & 16 GB    & 1TB         \\ \hline
-        \end{tabular}
-    \end{adjustbox}
-
-    Fonte: O próprio autor.
-\end{table}
-%ccm Não precisa de tabela, pode ser textual em um parágrafo. 
-
-A Tabela~\ref{tab:configuracao_das_maquinas_cliente} mostra o aglomerado computacional.
-%
 Em especial percebe-se que este aglomerado é composto por características homogênias.
 %
 Este ambiente foi montado com tais características para remover complexidade, evitando possíveis problemas de diferença de sistema operacional ou hardware.
 
-%ccm falar do scripts
+Para formar o aglomerado de contêineres foi utilizado a tecnologia \textit{Docker Swarm}.
+%
+Tal tecnologia permite o controle da infraestrutura pelo \textit{Docker Engine} (Serviço de controle de contêineres) de forma remota, podendo-se definir os serviços em arquivos \ac{yaml}, a partir das máquinas administradoras do aglomerado.
+
+Outra característica importante do \textit{Docker Swarm} é que, pelo fato de ser uma interface de gerenciamento do \textit{Docker Engine}, podemos obter dados de consumo de recursos individuais por contêinerer.
+%
+Nesse sentido, permite-se obter os recursos consumidos por contêinerer registrado no serviço Docker.
+
+Na máquina administradora é executado um script na qual escala automaticamente um novo contêinerer do cliente a cada 30 segundos.
+%
+Este comportamento produz uma progressão de carga linear, na qual é visível na Figura~\ref{fig:cliente_linear}.
+
+\begin{figure}[htb!]
+  \caption{Quantidade de jogadores simultâneos cresce linearmente.}
+  \label{fig:cliente_linear}
+  \includegraphics[width=0.8\textwidth]{figuras/network/clientes_script.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+A Figura~\ref{fig:cliente_linear} exibe o crescimento linear de jogadores simultâneos.
+%
+Tal crescimento está diretamente relacionado ao número de contêineres escalados no aglomerado.
+%
+Cada jogador realiza as operações descritas na Figura~\ref{fig:movimentacao}.
+
+Entretanto, existem considerações que podem pertencer além da rede de clientes.
+%
+Tais considerações são sobre a coleção de métricas e quais métricas são obtidas.
 
 \section{Considerações Parciais}
+
+A rede de experimento é
