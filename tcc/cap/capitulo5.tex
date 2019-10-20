@@ -633,7 +633,7 @@ Tal característica é dada pela necessidade de armazenamento de métricas, na q
 
 Em todas as sub-redes, por padrão, foi utilizado o gestor de contêineres Docker Compose.
 %
-Este gestor de contêineres permite executar aplicações de multicontêineres usando como entrada um arquivo \ac{yaml}.
+Este gestor de contêineres permite executar aplicações de multi-contêineres usando como entrada um arquivo \ac{yaml}.
 %
 Este formato é específico para notação de dados legíveis a humanos.
 
@@ -704,7 +704,7 @@ Este capítulo descreve a implementação e implantação das arquiteturas, leva
 %
 Para realizar tal descrição, é necessário citar tecnologias utilizadas e como são conectados.
 
-Durante o desenvolvimento da implentação, é utilizado a linguagem Golang, na qual ajudou a desenvolver de forma rápida e eficiente as aplicações para este trabalho.
+Durante o desenvolvimento da implantação, é utilizado a linguagem Golang, na qual ajudou a desenvolver de forma rápida e eficiente as aplicações para este trabalho.
 
 Esta escolha implica diretamente nas tecnologias utilizadas.
 %
@@ -718,8 +718,6 @@ Esta escolha é dada pela fácil integração com a linguagem e  bibliotecas sel
 
 Durante o processo de desenvolvimento foi utilizado o processo de integração contínua.
 %
-Dessa forma, é utilizado o serviço TravisCI para realização de testes e build de imagens Docker.
+Dessa forma, é utilizado o serviço TravisCI para realização de testes e construção de imagens Docker.
 %
 Por sua vez, o TravisCI utiliza o DockerHub para armazenamento das imagens, a qual são utilizadas para implantar sobre a infraestrutura descrita como ambiente de testes.
-
-
