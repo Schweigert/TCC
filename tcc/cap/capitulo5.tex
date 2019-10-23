@@ -223,14 +223,12 @@ Outro ponto de atenção é o acesso ao microsserviço de autenticação \textit
 %
 Tal microsserviço é privado, dessa forma o microsserviço de mundo fica responsável por ser um ponto intermediário de comunicação entre o cliente e o serviço que realiza a autenticação.
 %
-Este padrão de projeto é comum em aplicações Web, entretanto não recomendado pelo padrão sugerido a utilização do \ac{jwt}.
+Este padrão de projeto é comum em aplicações Web, entretanto não recomendado pelo padrão sugerido  \ac{jwt}.
 
-
-
-O padrão \ac{jwt} recomenda tornar o microsserviço de autenticação público, na qual o cliente realiza a autenticação diretamente com o microsserviço de autenticação, reduzindo o tráfego interno de rede.
 %
 Mesmo não sendo um padrão recomendado, tal característica não deve ter um impacto significativo para arquiteturas de jogos \ac{mmorpg}, visto que esta operação é realizada poucas vezes no serviço.
-
+%
+O padrão \ac{jwt} recomenda tornar o microsserviço de autenticação público, na qual o cliente realiza a autenticação diretamente com o microsserviço de autenticação, reduzindo o tráfego interno de rede.
 
 
 Entretanto, a arquitetura Salz realiza alterações compatíveis com o padrão \ac{jwt} e remove microsserviços privados, usando uma interconexão de microsserviços plana.
@@ -244,7 +242,7 @@ Dessa forma, torna-se interessante descrever tais características a fim de perm
 
 
 
-A arquitetura Salz em versão reduzida para o escopo dos testes contém quatro microsserviços e dois banco de dados, sendo um para dados permanentes (PostgreSQL) e um para cache (Redis).
+A arquitetura Salz, em versão reduzida para o escopo dos testes, contém quatro microsserviços e dois bancos de dados, sendo um para dados permanentes (PostgreSQL) e um para dados temporários (Redis).
 %
 Os seus microsserviços estão listados na Tabela~\ref{tab:inter_salz}.
 
@@ -277,23 +275,23 @@ A funcionalidade de cada microsserviço é:
 
 
 \begin{itemize}
-  \item \textit{sgame}: Responsável por gerenciar o posicionamento dos personagens, execução das operações do mundo e troca de mensagens do chat do jogo.
-  \item \textit{schat}: Responsável por gerenciar mensagens entre jogadores, porém possui um forte acoplamento com o microsserviço \textit{sgame}.
-  \item \textit{sweb}: Responsável por receber requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
-  \item \textit{sauth}: Responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
+  \item \textit{sgame}: Gerencia o posicionamento dos personagens, execução das operações do mundo e troca de mensagens do chat do jogo.
+  \item \textit{schat}: Gerencia mensagens entre jogadores e possui um forte acoplamento com o microsserviço \textit{sgame}.
+  \item \textit{sweb}: Recebe requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
+  \item \textit{sauth}: Autentica e garante uma única conexão por conta em determinada arquitetura.
 \end{itemize}
 
 
 
-Ao explanar as funcionalidades dos microsserviços da arquitetura Salz, nota-se que o microsserviço \textit{schat} possui algumas particularidades.
+Ao definir as funcionalidades dos microsserviços da arquitetura Salz, nota-se que o microsserviço \textit{schat} possui algumas particularidades.
 %
 Tal microsserviço é responsável por gerenciar todo o serviço de chat da arquitetura, seja baseado em região de interesse ou global.
 %
 Entretanto, a informação de posicionamento não está armazenada neste microsserviço.
 %
-Nesse sentido, esta característica necessita de uma sincronização destes dados, essa sincronização implica diretamente em custo de recurso ou tempo de resposta para o cliente.
+Nesse sentido, esta característica necessita de uma sincronização de dados, a qual implica diretamente em custo de recurso ou tempo de resposta para o cliente.
 %
-A topologia pode ser visualizada na Figura~\ref{fig:interconexao_salz}.
+A topologia de rede da arquitetura Salz pode ser visualizada na Figura~\ref{fig:interconexao_salz}.
 
 
 
@@ -329,7 +327,7 @@ Entretanto, não foi utilizado tal método de validação de sessão.
 
 
 
-O método de autenticação atual consiste na validação de assinatura utilizando o banco de dados de cache.
+O método de autenticação atual consiste na validação de assinatura utilizando o banco de dados de dados temporários (cache).
 %
 Esse método utiliza uma comunicação entre os microsserviços \textit{schat} e \textit{sgame} com o microsserviço \textit{sauth}.
 %
@@ -337,7 +335,7 @@ Esta escolha foi realizada para manter os mesmos métodos de autenticação em t
 
 
 
-Explanadas as características da arquitetura Salz, a sincronização de posições entre o microsserviço \textit{schat} e \textit{sgame} pode ser um ponto de atenção, deve atentar-se a frequência da sincronização necessária pela regra de negócio do jogo implementado.
+Definidas as características da arquitetura Salz, a sincronização de posições entre o microsserviço \textit{schat} e \textit{sgame} pode ser um ponto de atenção, logo deve-se atentar a frequência da sincronização necessária pela regra de negócio do jogo implementado.
 %
 Dessa forma, a arquitetura Willson propõe um ponto intermediário entre as arquiteturas Salz e Rudy, tornando-se interessante descrever suas alterações.
 
@@ -347,9 +345,9 @@ Dessa forma, a arquitetura Willson propõe um ponto intermediário entre as arqu
 \label{sec:inter_willson}
 
 
-A arquitetura Willson, em versão reduzida para o escopo dos testes, contém três microsserviços e dois banco de dados.
+A arquitetura Willson, em versão reduzida para o escopo dos testes, contém três microsserviços e dois bancos de dados.
 %
-Os microsserviços de banco de dados são um para dados permanentes (PostgreSQL) e um para cache (Redis).
+Os microsserviços de banco de dados são um para dados permanentes (PostgreSQL) e um para dados temporários (Redis).
 %
 Os microsserviços da arquitetura Willson estão listados na Tabela~\ref{tab:inter_willson}.
 
@@ -380,16 +378,16 @@ As funcionalidades de cada microsserviço são:
 
 
 \begin{itemize}
-  \item \textit{wgame}: Responsável por gerenciar o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do chat do jogo. Ele também gerencia a sessão do jogador, que têm um forte acoplamento com o microsserviço \textit{wauth}.
-  \item \textit{wweb}: Responsável por receber requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
-  \item \textit{wauth}: Responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
+  \item \textit{wgame}: Gerencia o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do chat do jogo e também gerencia a sessão do jogador, que têm um forte acoplamento com o microsserviço \textit{wauth}.
+  \item \textit{wweb}: Recebe requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
+  \item \textit{wauth}: Autentica e garante uma única conexão por conta em determinada arquitetura.
 \end{itemize}
 
 
 
-Explanados os microsserviços da arquitetura Willson, na Tabela~\ref{tab:inter_willson}, uma característica interessante é a ausência de um microsserviço de gerência de mensagens de \textit{chat} e um intermediário para gestão de dados do banco.
+Definidos os microsserviços da arquitetura Willson, na Tabela~\ref{tab:inter_willson}, uma característica interessante é a ausência de um microsserviço de gerência de mensagens de \textit{chat} e um intermediário para gestão de dados do banco.
 %
-Estas características tornam a arquitetura mais simples, dividindo os microsserviços em domínios específicos em pontos que necessitam de escalabilidade.
+Estas características tornam a arquitetura mais simples, dividindo os microsserviços em domínios específicos, os quais têm foco em escalabilidade.
 %
 A interconexão da arquitetura Willson pode ser visualizada na Figura~\ref{fig:interconexao_willson}.
 
@@ -408,7 +406,7 @@ A interconexão da arquitetura Willson pode ser visualizada na Figura~\ref{fig:i
 
 A Arquitetura Willson, conforme visualizado na Figura~\ref{fig:interconexao_willson}, simplifica a interconexão dos microsserviços e reduz um microsserviço de sua topologia.
 %
-Dessa forma, espera-se que reduza o consumo de rede e tempo de resposta quando comparado as demais arquiteturas.
+Dessa forma, espera-se que ocorra uma diminuição no consumo de rede e no tempo de resposta quando comparado as demais arquiteturas.
 
 
 
@@ -423,7 +421,7 @@ Este ponto é importante para permitir a reprodução dos experimentos executado
 
 
 
-Em um cenário de jogos massivos, encontra-se duas regiões distintas.
+Em um cenário de jogos massivos, encontram-se duas regiões distintas.
 %
 Em uma visão superficial, estas regiões provém do paradigma Cliente-Servidor, como visível na Figura~\ref{fig:cenario_cliente_servidor}.
 
@@ -438,7 +436,7 @@ Em uma visão superficial, estas regiões provém do paradigma Cliente-Servidor,
 
 
 
-A Figura~\ref{fig:cenario_cliente_servidor} exibe um usuário a qual utiliza um cliente genérico para conectar em um servidor genérico.
+A Figura~\ref{fig:cenario_cliente_servidor} exibe um usuário que utiliza um cliente genérico para conectar em um servidor genérico.
 %
 Este servidor pode ser uma ou mais máquinas físicas ou virtuais, utilizando múltiplos processos.
 %
@@ -448,12 +446,12 @@ Em específico, para jogos \ac{mmorpg}, o cliente estará em uma rede diferente 
 
 A rede utilizada pelo cliente usualmente é uma rede \ac{lan}, a qual conecta-se pela Internet na rede do servidor.
 %
-Para os testes, tal rede possui características peculiares para gerenciar a implantação dos clientes de forma automatizada, a qual será abordado na Subseção~\ref{sec:net_cliente}.
+Para os testes, tal rede possui características específicas para gerenciar a implantação dos clientes de forma automatizada, a qual será abordado na Subseção~\ref{sec:net_cliente}.
 
 
 
 
-Neste contexto, temos duas redes a qual separam os ambientes de microsserviços e serviços satélites destas aplicações.
+Neste contexto, temos duas redes que separam os ambientes de microsserviços e serviços satélites destas aplicações.
 %
 Esta separação física é necessária nos testes para adicionar um limitador de transporte de dados e latência, tal qual ocorre em aplicações que executam em produção para a categoria de jogos \ac{mmorpg}.
 %
@@ -468,13 +466,13 @@ Esta separação é visível na Figura~\ref{fig:net_completa}.
   Fonte: O próprio autor.
 \end{figure}
 
-A rede do cliente e servidor, visíveis na Figura~\ref{fig:net_completa}, são implantadas em plataformas diferentes.
+As redes do cliente e servidor, visíveis na Figura~\ref{fig:net_completa}, são implantadas em plataformas diferentes.
 %
-Os dados técnicos de cada rede é descrito nas Subseções~\ref{sec:net_server} e~\ref{sec:net_cliente}.
+Os dados técnicos de cada rede são descritos nas Subseções~\ref{sec:net_server} e~\ref{sec:net_cliente}.
 
 
 
-Nota-se que existe uma rede intermediária desempenhando o papel de separação física entre servidor e cliente.
+Nota-se que existe uma rede intermediária desempenhando o papel da separação física entre servidor e cliente.
 %
 No atual trabalho esta rede pertence ao \ac{dcc}.
 
@@ -513,15 +511,15 @@ Como exibido na Figura~\ref{fig:network_server}, para o contexto deste trabalho,
 
 \begin{itemize}
   \item Microsserviços: Contém os processos das arquiteturas Rudy, Salz e Willson;
-  \item Banco de Dados: Contém os processos de banco de dados permanente e cache; e
+  \item Banco de Dados: Contém os processos de banco de dados permanente e temporário; e
   \item Métricas: Contém serviços para armazenamento de dados em ordem temporal.
 \end{itemize}
 
 
 
-Tal divisão garante o isolamento apropriado para gerenciamento dos projetos na rede, facilitando a implantação dos microsserviços.
+Esta divisão garante o isolamento apropriado para gerenciamento dos projetos na rede, facilitando a implantação dos microsserviços.
 %
-Esta divisão foi realizada utilizando sub redes no sistema OpenStack, no qual é definido como um sistema de gerenciamento de unidades de computação, armazenamento e comunicação sobre um aglomerado computacional~\cite{open_stack_bib}.
+Sua realização ocorreu utilizando sub redes no sistema OpenStack, no qual é definido como um sistema de gerenciamento de unidades de computação, armazenamento e comunicação sobre um aglomerado computacional~\cite{open_stack_bib}.
 %
 O escopo geral do OpenStack é visualizado na Figura~\ref{fig:arch_open_stack}.
 
@@ -538,9 +536,9 @@ O escopo geral do OpenStack é visualizado na Figura~\ref{fig:arch_open_stack}.
 
 
 
-Como visualizado na Figura~\ref{fig:arch_open_stack}, o ambiente virtual é gerado sobre máquinas servidoras, na qual são gerenciadas pelo OpenStack.
+Como visualizado na Figura~\ref{fig:arch_open_stack}, o ambiente virtual é gerado sobre máquinas servidoras, nas quais são gerenciadas pelo OpenStack.
 %
-O ambiente virtual pode conter serviços tal qual bancos de dados, armazenamento de arquivos, máquinas virtuais ou contêineres~\cite{open_stack_bib}.
+O ambiente virtual pode conter serviços, como por exemplo bancos de dados, armazenamento de arquivos, máquinas virtuais ou contêineres~\cite{open_stack_bib}.
 
 
 
@@ -550,11 +548,11 @@ Desta forma, torna-se independente do ambiente físico real que está executando
 
 
 
-Conforme a escolha de execução do servidor sobre máquinas virtuais, obriga a configuração de sub-redes no ambiente do servidor.
+Conforme a escolha de execução do servidor sobre máquinas virtuais, surge a necessidade da configuração de sub-redes no ambiente do servidor.
 %
 Certamente é possível construir um ambiente com uma única sub-rede realizando esta divisão por redes do gestor de contêineres, porém tal escolha não é uma boa prática para organização do projeto, visto que existem partes do serviço que possuem contextos diferentes.
 %
-Deste modo, foram criadas sub-redes tal qual os contextos levantados na Figura~\ref{fig:network_server}.
+Deste modo, foram criadas sub-redes de acordo com os contextos levantados na Figura~\ref{fig:network_server}.
 %
 A Tabela~\ref{tab:subredes} mostra a divisão de tais subredes, conforme a faixa de \ac{ip} aplicada.
 
@@ -603,9 +601,9 @@ O esquema das máquinas virtuais está visível na Figura~\ref{fig:virtual_machi
 
 
 
-Conforme visível na Figura~\ref{fig:virtual_machines}, cada sub-rede possui uma única máquina virtual, na qual executará um gerenciador de contêineres com os serviços necessários para a execução do servidor.
+Conforme visível na Figura~\ref{fig:virtual_machines}, cada sub-rede possui uma única máquina virtual, sendo que esta executará um gerenciador de contêineres com os serviços necessários para a execução do servidor.
 %
-As máquinas virtuais por sua vez possuem configurações distintas, na qual são exibidas na Tabela~\ref{tab:configuracao_das_maquinas}.
+As máquinas virtuais por sua vez possuem configurações distintas e essas configurações são exibidas na Tabela~\ref{tab:configuracao_das_maquinas}.
 
 
 
@@ -628,9 +626,9 @@ Fonte: O próprio autor.
 
 
 
-Conforme exibido na Tabela~\ref{tab:configuracao_das_maquinas}, a única variação é o armazenamento da máquina virtual \textit{metric\_machine}.
+Conforme exibido na Tabela~\ref{tab:configuracao_das_maquinas}, a única variação entre as configurações das máquinasa virtuais do servidor é o armazenamento da máquina virtual \textit{metric\_machine}.
 %
-Tal característica é dada pela necessidade de armazenamento de métricas, na qual precisam de volumes de dados dedicados a este serviço.
+Tal característica é dada pela necessidade de armazenamento de métricas, nas quais precisam de volumes de dados dedicados a este serviço.
 
 
 
@@ -644,7 +642,7 @@ Este formato é específico para notação de dados legíveis a humanos.
 
 Entretanto, a rede do cliente interfere diretamente na execução dos experimentos, visto que possui características próprias.
 %
-Nesse sentido, faz sentido descrever a rede do cliente.
+Nesse sentido, torna-se necessário a descrição da rede do cliente.
 
 \subsection{Rede do Cliente}
 \label{sec:net_cliente}
@@ -660,7 +658,7 @@ O aglomerado computacional é composto por nove computadores.
 %
 Todos os computadores possuem 8 \textit{cores}, 16 GB de memória e 1TB de armazenamento.
 
-Em especial percebe-se que este aglomerado é composto por características homogênias.
+Em especial, percebe-se que este aglomerado é composto por características homogênias.
 %
 Este ambiente foi montado com tais características para remover complexidade, evitando possíveis problemas de diferença de sistema operacional ou hardware.
 
@@ -674,7 +672,7 @@ Nesse sentido, permite-se obter os recursos consumidos por contêinerer registra
 
 Na máquina administradora é executado um script na qual escala automaticamente um novo contêinerer do cliente a cada 30 segundos.
 %
-Este comportamento produz uma progressão de carga linear, na qual é visível na Figura~\ref{fig:cliente_linear}.
+Este comportamento produz uma progressão de carga linear que é visível na Figura~\ref{fig:cliente_linear}.
 
 \begin{figure}[htb!]
   \caption{Quantidade de jogadores simultâneos cresce linearmente.}
@@ -707,20 +705,20 @@ Este capítulo descreve a implementação e implantação das arquiteturas, leva
 %
 Para realizar tal descrição, é necessário citar tecnologias utilizadas e como são conectados.
 
-Durante o desenvolvimento da implantação, é utilizado a linguagem Golang, na qual ajudou a desenvolver de forma rápida e eficiente as aplicações para este trabalho.
+Durante o desenvolvimento da implantação, é utilizado a linguagem Golang, a qual permitiu o desenvolvimento de forma rápida e eficiente nas aplicações para este trabalho.
 
 Esta escolha implica diretamente nas tecnologias utilizadas.
 %
-Dessa forma, faz sentido escolher tecnologias que combinem com os objetivos das arquitetura.
+Dessa forma, faz sentido escolher tecnologias que combinem com os objetivos das arquiteturas.
 
 Nesse sentido foram utilizados serviços de armazenamento de dados permanentes e temporários \textit{OpenSource}.
 %
 Redis e PostgreSQL são os bancos de dados utilizados.
 %
-Esta escolha é dada pela fácil integração com a linguagem e  bibliotecas selecionadas para o desenvolvimento.
+Esta escolha é dada pela fácil integração com a linguagem e bibliotecas selecionadas para o desenvolvimento.
 
 Durante o processo de desenvolvimento foi utilizado o processo de integração contínua.
 %
 Dessa forma, é utilizado o serviço TravisCI para realização de testes e construção de imagens Docker.
 %
-Por sua vez, o TravisCI utiliza o DockerHub para armazenamento das imagens, a qual são utilizadas para implantar sobre a infraestrutura descrita como ambiente de testes.
+Por sua vez, o TravisCI utiliza o DockerHub para armazenamento das imagens, as quais são utilizadas para implantar sobre a infraestrutura descrita como ambiente de testes.
