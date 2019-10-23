@@ -5,9 +5,9 @@
 
 Este capítulo visa expressar o funcionamento prático dos microsserviços implementados.
 %
-Isto é necessário pois as escolhas técnicas, envolvendo as linguagens adotadas, as tecnologias utilizadas e boas práticas aplicadas no desenvolvimento das aplicações, interferem na qualidade dos microsserviços.
+Isto é necessário pois as escolhas técnicas, envolvendo as linguagens adotadas, as tecnologias utilizadas e as boas práticas aplicadas no desenvolvimento das aplicações, interferem na qualidade dos microsserviços.
 %
-Denotando-se qualidade como o consumo de recursos e desempenho das aplicações.
+Denotando-se qualidade como o consumo de recursos e o desempenho das aplicações.
 
 
 
@@ -17,7 +17,7 @@ Devido às diversas possibilidades de linguagens de programação e bibliotecas 
 %
 Além disso, a Seção~\ref{sec:tecnologias} apresenta o conjunto de serviços externos utilizados para facilitar o desenvolvimento dos microsserviços.
 %
-Os serviços externos apesar de não estarem diretamente implementados na arquitetura das soluções, foram utilizados durante o processo e devem ser evidenciados.
+Os serviços externos, apesar de não estarem diretamente implementados na arquitetura das soluções, foram utilizados durante o processo e por tal motivo devem ser evidenciados.
 
 
 
@@ -38,9 +38,9 @@ Entretanto, essa seleção precisa estar de acordo com as regras de negócio imp
 
 
 
-Inicialmente, existe uma preocupação com a linguagem de programação utilizada, visto que ela precisa ter um bom desempenho, um suporte a programação paralela e, ao mesmo tempo, conter bibliotecas que auxiliem no desenvolvimento ágil de tais serviços.
+Inicialmente, existe uma preocupação com a linguagem de programação utilizada, visto que ela precisa ter um bom desempenho, um suporte a programação paralela e, ao mesmo tempo, conter bibliotecas que auxiliem no desenvolvimento ágil dos serviços.
 %
-Neste sentido, foi levantado um conjunto de linguagens de programação, o qual viabilize o projeto de acordo com os seguintes critérios:
+Neste sentido, foi levantado um conjunto de linguagens de programação, o qual viabiliza o projeto de acordo com os seguintes critérios:
 
 
 
@@ -65,7 +65,7 @@ Tal necessidade gera o benefício da escrita de código reutilizável, como o n�
 
 
 
-Assim, foi selecionada uma única linguagem de desempenho compatível com a viabilização do projeto.
+Assim, foi selecionada uma única linguagem de programação compatível com a viabilização do projeto.
 %
 Em função da diversidade de bibliotecas disponíveis, também é necessário definir quais bibliotecas foram utilizadas para o desenvolvimento das arquiteturas dos microsserviços.
 %
@@ -121,7 +121,7 @@ A interconexão entre os microsserviços refere-se ao projeto de rede de uma arq
 %
 Ao todo foram implementados onze microsserviços, os quais possuem a comunicação através de troca de mensagens.
 %
-Tais conexões entre si, com os bancos de dados e com os seus respectivos clientes foram definidas pelos autores das arquiteturas.
+Tais conexões entre si, com os bancos de dados e com os seus respectivos clientes, foram definidas pelos autores das arquiteturas.
 %
 Consequentemente, torna-se interessante descrever a interconexão entre os microsserviços, exibindo assim seus protocolos de comunicação de rede:
 
@@ -143,16 +143,21 @@ A disposição dos microsserviços nesta arquitetura é visível na Subseção~\
 
 \end{itemize}
 
+As arquiteturas foram desenvolvidas com escopo limitado.
+%
+Esta limitação é descrita na Subseção~\ref{sec:SimulaCliente}, onde evidenciam-se quais ações os clientes realizam no serviço.
+%
+Tal redução de escopo visa analisar as funcionalidades básicas de um serviço \ac{mmorpg} evitando regras de negócio específicas.
 
-%ccm Informar que está sendo implementada apenas a parte do jogo, que já foi definido na Seção 3.X (verificar)
+
 
 \subsection{Rudy}
 \label{sec:inter_rudy}
 
 
-A arquitetura Rudy, foi implementada em versão reduzida para o escopo dos testes.
+A arquitetura Rudy foi implementada em versão reduzida para o escopo dos testes.
 %
-A arquitetura Rudy implementada contém quatro microsserviços e dois banco de dados, sendo um para dados permanentes (PostgreSQL) e um para cache (Redis).
+A arquitetura Rudy implementada contém quatro microsserviços e dois banco de dados, sendo um para dados permanentes (PostgreSQL) e um para temporários (Redis).
 %
 Os seus microsserviços estão listados na Tabela~\ref{tab:inter_rudy}.
 
@@ -183,19 +188,19 @@ As funcionalidades de cada microsserviço são:
 
 
 \begin{itemize}
-  \item \textit{rgame}: Responsável por gerenciar o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do \textit{chat} do jogo. Ele também é responsável por autenticar contas ao mundo do jogo.
-  \item \textit{rweb}: Responsável por receber requisições web como uma \ac{api}, essas requisições podem ser referentes a criação de novas contas ou personagens para o jogo.
-  \item \textit{rauth}: Responsável por autenticar e garantir uma única conexão por conta em determinada arquitetura.
-  \item \textit{rcrud}: Responsável por realizar o acesso ao banco de dados, retornando os dados da consulta a qual é requisitada.
+  \item \textit{rgame}: Gerencia o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do \textit{chat} do jogo. Ele também é responsável por autenticar contas ao mundo do jogo.
+  \item \textit{rweb}: Recebe requisições web como uma \ac{api}, essas requisições podem ser referentes a criação de novas contas ou personagens para o jogo.
+  \item \textit{rauth}: Autentica e garante uma única conexão por conta em determinada arquitetura.
+  \item \textit{rcrud}: Realiza o acesso ao banco de dados, retornando os dados da consulta a qual é requisitada.
 \end{itemize}
 
 
 
-Dado tais características, temos um ponto de atenção no microsserviço \textit{rcrud} a qual cria uma barreira de acesso ao banco de dados.
+Dado tais características, temos um ponto de atenção no microsserviço \textit{rcrud}, o qual cria uma camada de acesso ao banco de dados.
 %
-Este padrão de projeto tende a facilitar a manutenção do banco de dados, centralizando tipos de requisições.
-%
-O seu objetivo é mover o escopo de consulta a dados em um ponto centralizado, evitando falhas ao armazenar e obter tais dados.
+Este padrão de projeto tende a facilitar a manutenção do banco de dados, centralizando todas as operações a dados temporários e permanentes.
+
+O objetivo do microsserviço ~\textit{rcrud} é mover o escopo de consulta a dados em um ponto centralizado, evitando assim falhas ao armazenar e obter tais dados.
 %
 Este processo é escalável, entretanto adiciona uma camada maior ao obter os dados, na qual tende a aumentar o tempo de resposta para as operações ao banco.
 %
@@ -211,7 +216,6 @@ A disposição da arquitetura Rudy está visível na Figura~\ref{fig:interconexa
 
   Fonte: O próprio autor.
 \end{figure}
-%ccm Informar o nome dos protocolos Postgres/TCP, HTTP/TCP, RPC/TCP. Fazer nas outras arquiteturas o mesmo.
 
 
 Outro ponto de atenção é o acesso ao microsserviço de autenticação \textit{rauth}, o qual pode ser visualizado na Figura~\ref{fig:interconexao_rudy}.
