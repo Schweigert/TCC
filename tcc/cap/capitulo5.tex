@@ -3,14 +3,9 @@
 
 
 
-Este capítulo visa expressar o funcionamento prático dos microsserviços implementados.
+Este capítulo descreve a implememtação dos micorsserviços que compõe o jogo em cada arquitetura.
 %
-Isto é necessário pois as escolhas técnicas, envolvendo as linguagens adotadas, as tecnologias utilizadas e as boas práticas aplicadas no desenvolvimento das aplicações, interferem na qualidade dos microsserviços.
-%
-Denotando-se qualidade como o consumo de recursos e o desempenho das aplicações.
-
-
-
+Isto é necessário pois as escolhas técnicas, envolvendo as linguagens adotadas, as tecnologias utilizadas e as boas práticas aplicadas no desenvolvimento das aplicações, interferem na qualidade (consumo de recursos e o desempenho das aplicações) dos microsserviços.
 
 
 Devido às diversas possibilidades de linguagens de programação e bibliotecas disponíveis, a Seção~\ref{sec:tecnologias} tem o objetivo de descrever as tecnologias utilizadas para o desenvolvimento das aplicações e justificar tais escolhas.
@@ -32,13 +27,13 @@ Para este fim, a Seção~\ref{sec:interconexao} contextualiza a interconexão do
 
 
 
-A seleção das tecnologias e bibliotecas que são executadas nas aplicações é importante, visto que elas implicam diretamente no desempenho e consumo de recursos das arquiteturas selecionadas.
+A seleção das tecnologias e bibliotecas que são executadas nas aplicações é importante, visto que estas implicam diretamente no desempenho e consumo de recursos das arquiteturas selecionadas.
 %
 Entretanto, essa seleção precisa estar de acordo com as regras de negócio impostas para os testes.
 
 
 
-Inicialmente, existe uma preocupação com a linguagem de programação utilizada, visto que ela precisa ter um bom desempenho, um suporte a programação paralela e, ao mesmo tempo, conter bibliotecas que auxiliem no desenvolvimento ágil dos serviços.
+Inicialmente, existe uma preocupação com a linguagem de programação utilizada, visto que esta precisa ter um bom desempenho, um suporte a programação paralela e, ao mesmo tempo, conter bibliotecas que auxiliem no desenvolvimento ágil dos serviços.
 %
 Neste sentido, foi levantado um conjunto de linguagens de programação, o qual viabiliza o projeto de acordo com os seguintes critérios:
 
@@ -57,7 +52,7 @@ Neste sentido, foi levantado um conjunto de linguagens de programação, o qual 
 
 
 
-A partir destes critérios, a linguagem selecionada foi a linguagem GoLang, por se tratar de uma linguagem a qual o autor possui domínio e satisfaz os critérios definidos anteriormente.
+A partir destes critérios, a linguagem selecionada foi a linguagem GoLang, por se tratar de uma linguagem a qual o autor possui domínio e satisfaz os critérios aqui listados.
 %
 Outro critério, o qual é implícito para o desenvolvimento, é a homogeneidade da linguagem de programação em todos os microsserviços.
 %
@@ -84,7 +79,7 @@ Dentre as bibliotecas utilizadas, destacam-se:
 
 
 
-Tais bibliotecas foram utilizadas na camada de infraestrutura, sendo seu uso aplicado a todas as arquiteturas.
+Estas bibliotecas foram utilizadas na camada de infraestrutura, sendo seu uso aplicado a todas as arquiteturas.
 %
 A camada de infraestrutura é responsável pela realização da interação entre a rede e as regras de negócio dos microsserviços.
 
@@ -109,6 +104,7 @@ Este processo é descrito como processo de construção na arquitetura Willson, 
 
 
 Após descrever as tecnologias utilizadas, faz-se necessário descrever o ambiente distribuído desenvolvido.
+%
 Esta descrição é necessária a fim de garantir uma melhor visibilidade dos microsserviços implementados, na qual são citados na análise.
 
 
@@ -124,7 +120,7 @@ Ao todo foram implementados onze microsserviços, os quais possuem a comunicaç�
 %
 Tais conexões entre si, com os bancos de dados e com os seus respectivos clientes, foram definidas pelos autores das arquiteturas.
 %
-Consequentemente, torna-se interessante descrever a interconexão entre os microsserviços, exibindo assim seus protocolos de comunicação de rede:
+Consequentemente, torna-se relevante descrever a interconexão entre os microsserviços, exibindo assim seus protocolos de comunicação de rede:
 
 
 \begin{itemize}
@@ -146,7 +142,7 @@ A disposição dos microsserviços nesta arquitetura é visível na Subseção~\
 
 As arquiteturas foram desenvolvidas com escopo limitado.
 %
-Esta limitação é descrita na Subseção~\ref{sec:SimulaCliente}, onde evidenciam-se quais ações os clientes realizam no serviço.
+Esta limitação é descrita na Subseção~\ref{sec:SimulaCliente}, no qual evidenciam-se quais ações os clientes realizam no serviço.
 %
 Tal redução de escopo visa analisar as funcionalidades básicas de um serviço \ac{mmorpg} evitando regras de negócio específicas.
 
@@ -158,7 +154,7 @@ Tal redução de escopo visa analisar as funcionalidades básicas de um serviço
 
 A arquitetura Rudy foi implementada em versão reduzida para o escopo dos testes.
 %
-A arquitetura Rudy implementada contém quatro microsserviços e dois banco de dados, sendo um para dados permanentes (PostgreSQL) e um para temporários (Redis).
+A arquitetura Rudy implementada contém quatro microsserviços e dois banco de dados, sendo um para dados permanentes (PostgreSQL) e um para dados temporários (Redis).
 %
 Os seus microsserviços estão listados na Tabela~\ref{tab:inter_rudy}.
 
@@ -179,7 +175,7 @@ Nome            & Protocolo            & Público a Rede \\ \hline
 
 Fonte: O próprio autor.
 \end{table}
-
+%ccm Explicar o que é público a rede.
 
 
 Os microsserviços da arquitetura Rudy, descritos na Tabela~\ref{tab:inter_rudy}, possuem funcionalidades próprias.
@@ -217,7 +213,7 @@ A disposição da arquitetura Rudy está visível na Figura~\ref{fig:interconexa
 
   Fonte: O próprio autor.
 \end{figure}
-
+%ccm faltou apenas um TCP junto com HTTP na figura.
 
 Outro ponto de atenção é o acesso ao microsserviço de autenticação \textit{rauth}, o qual pode ser visualizado na Figura~\ref{fig:interconexao_rudy}.
 %
@@ -231,9 +227,9 @@ Mesmo não sendo um padrão recomendado, tal característica não deve ter um im
 O padrão \ac{jwt} recomenda tornar o microsserviço de autenticação público, na qual o cliente realiza a autenticação diretamente com o microsserviço de autenticação, reduzindo o tráfego interno de rede.
 
 
-Entretanto, a arquitetura Salz realiza alterações compatíveis com o padrão \ac{jwt} e remove microsserviços privados, usando uma interconexão de microsserviços plana.
+%Entretanto, a arquitetura Salz realiza alterações compatíveis com o padrão \ac{jwt} e remove microsserviços privados, usando uma interconexão de microsserviços plana.
 %
-Dessa forma, torna-se interessante descrever tais características a fim de permitir comparações na arquitetura.
+%Dessa forma, torna-se interessante descrever tais características a fim de permitir comparações na arquitetura.
 
 
 
@@ -327,7 +323,7 @@ Entretanto, não foi utilizado tal método de validação de sessão.
 
 
 
-O método de autenticação atual consiste na validação de assinatura utilizando o banco de dados de dados temporários (cache).
+O método de autenticação atual consiste na validação de assinatura utilizando o banco de dados de dados temporários (\textit{cache}).
 %
 Esse método utiliza uma comunicação entre os microsserviços \textit{schat} e \textit{sgame} com o microsserviço \textit{sauth}.
 %
@@ -337,7 +333,7 @@ Esta escolha foi realizada para manter os mesmos métodos de autenticação em t
 
 Definidas as características da arquitetura Salz, a sincronização de posições entre o microsserviço \textit{schat} e \textit{sgame} pode ser um ponto de atenção, logo deve-se atentar a frequência da sincronização necessária pela regra de negócio do jogo implementado.
 %
-Dessa forma, a arquitetura Willson propõe um ponto intermediário entre as arquiteturas Salz e Rudy, tornando-se interessante descrever suas alterações.
+%Dessa forma, a arquitetura Willson propõe um ponto intermediário entre as arquiteturas Salz e Rudy, tornando-se interessante descrever suas alterações.
 
 
 
@@ -451,7 +447,7 @@ Para os testes, tal rede possui características específicas para gerenciar a i
 
 
 
-Neste contexto, temos duas redes que separam os ambientes de microsserviços e serviços satélites destas aplicações.
+Neste contexto, há duas redes que separam os ambientes de microsserviços e serviços satélites destas aplicações.
 %
 Esta separação física é necessária nos testes para adicionar um limitador de transporte de dados e latência, tal qual ocorre em aplicações que executam em produção para a categoria de jogos \ac{mmorpg}.
 %
@@ -651,7 +647,7 @@ Nesse sentido, torna-se necessário a descrição da rede do cliente.
 Os clientes executaram sobre uma rede \ac{lan}.
 %
 Estes computadores formam um aglomerado de contêineres para realizar o acesso as arquiteturas na rede do servidor (Subseção~\ref{sec:net_server}).
-
+%
 Os computadores utilizados possuem características próprias, as quais devem ser citadas para melhor compreendimento das características da rede de clientes.
 
 O aglomerado computacional é composto por nove computadores.
@@ -683,6 +679,8 @@ Este comportamento produz uma progressão de carga linear que é visível na Fig
   Fonte: O próprio autor.
 \end{figure}
 
+%ccm Escrever novamente o que são os testes 1,2 e 3. Rever Seção 4.3 porque nao há mais clientes na nuvem.
+
 A Figura~\ref{fig:cliente_linear} exibe o crescimento linear de jogadores simultâneos.
 %
 Tal crescimento está diretamente relacionado ao número de contêineres escalados no aglomerado.
@@ -696,7 +694,7 @@ Dessa forma, garantimos o isolamento entre contêineres, evitando multiplexaçã
 
 A partir do comportamento definido na Figura~\ref{fig:cliente_linear}, espera-se que o consumo dos recursos e tempo de resposta corresponda ao seu crescimento, tendendo a uma complexidade linear mínima.
 %
-Dessa forma, podemos analisar o comportamento do consumo de recurso, dado o número de jogadores simultâneos.
+Dessa forma, pode-se analisar o comportamento do consumo de recurso, dado o número de jogadores simultâneos.
 
 
 \section{Considerações Parciais}
