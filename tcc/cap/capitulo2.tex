@@ -762,7 +762,7 @@ Os microsserviços que compõem a arquitetura são definidos pelas suas seguinte
   \item \textbf{Balanço de carga web}: Realiza a distribuição de carga sobre o \textit{Serviço web estático} e o \textit{Serviço web dinâmico}. Responde sobre o protocolo \ac{http}.
   \item \textbf{Serviço de Jogo}: Gerencia um mundo inteiro, em um único serviço. Esta abordagem segrega os jogadores em diversos canais, contendo um número máximo de conexões por canal. Cada canal opera sobre uma instância deste microsserviço. Este serviço opera sobre o protocolo \ac{rpc}.
   \item \textbf{Serviço de Autenticação}: Gerencia a autenticação das conexões ao \textit{Serviço de jogo}. Este serviço opera sobre o protocolo \ac{rpc}.
-  \item \textbf{Gerenciador de Consultas}: Realiza consultas em memória e disco, utilizando vários bancos de dados diferentes, simulando o uso de banco de dados distribuídos, algo complexo de ser implementado utilizando banco de dados SQL (\textit{e.g.,} PostgreSQL\footnote{PostgreSQL: \url{https://www.postgresql.org}}, MySQL\footnote{MySQL: \url{https://www.mysql.com/}}, etc). Este serviço opera sobre o protocolo \ac{http}.
+  \item \textbf{Gerenciador de Consultas}: Realiza consultas em memória e disco, utilizando vários bancos de dados diferentes, simulando o uso de banco de dados distribuídos, algo complexo de ser implementado utilizando banco de dados SQL (\textit{e.g.,} PostgreSQL\footnote{PostgreSQL: \url{https://www.PostgreSQL.org}}, MySQL\footnote{MySQL: \url{https://www.mysql.com/}}, etc). Este serviço opera sobre o protocolo \ac{http}.
 \end{enumerate}
 
 
@@ -1055,5 +1055,3 @@ A literatura aborda previsibilidade de carga, análise de disponibilidade e uso 
 Torna-se de interesse para projetistas de desenvolvimento de jogos \ac{mmorpg} analisar o impacto e uso de recursos computacionais ao implantar uma arquitetura de microsserviços \ac{mmorpg} visando melhorar a disponibilidade de tais jogos.
 %
 Nesse sentido, se faz necessário realizar um levantamento bibliográfico a cerca dos temas de jogos \ac{mmorpg} e arquiteturas de microsserviços com a finalidade de comprovar a utilidade da proposta do atual trabalho.
-
-

@@ -494,15 +494,16 @@ Após definido as características dos clientes simulados, pode-se definir os te
 Tais testes servem de guia para obter as métricas para a análise das arquiteturas de microsserviços especificadas.
 
 \subsection{Testes}
+\label{sec:cap4_testes}
 
 Os testes que serão executados no atual trabalho esperam analisar a quantia de recursos mínimos para executar os microsserviços e o crescimento de consumo de recursos conforme o crescimento de clientes simultâneos.
 %
 Nesse sentido, foram definidos os seguintes testes:
 
 \begin{enumerate}
-  \item Executar as arquiteturas com zero jogadores simultâneos, por 5 minutos;
-  \item Executar as arquiteturas com um jogador apenas; e
-  \item Executar as arquiteturas com zero jogadores simultâneos, aumentando a cada minuto o número jogadores (\textit{e.g.,} 10) ao serviço, até o serviço obter algum erro interno de microsserviço e terminar a sua execução por erro interno.
+  \item Executar 3 vezes as arquiteturas com zero jogadores simultâneos, por 5 minutos;
+  \item Executar 3 vezes as arquiteturas com um jogador apenas; e
+  \item Executar 3 vezes as arquiteturas com zero jogadores simultâneos, aumentando a cada 30 segundos o número jogadores (um por vez) ao serviço, até o serviço obter algum erro interno de microsserviço e terminar a sua execução por erro interno ou chegar a 100 jogadores simultâneos.
 \end{enumerate}
 
 Os dados são capturados ao decorrer do tempo, podendo assim relacionar os recursos consumidos com o número de conexões simultâneas no serviço e com os demais recursos.

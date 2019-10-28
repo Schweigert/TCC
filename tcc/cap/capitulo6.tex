@@ -29,14 +29,13 @@ Nesse sentido, faz sentido agrupar tais experimentos, agrupados na Seção~\ref{
 
 
 
-Cada experimento utiliza as arquiteturas Rudy, Salz e Willson.
+Cada experimento utiliza as arquiteturas de microsserviços para jogos \ac{mmorpg} Rudy, Salz e Willson.
 %
 Cada arquitetura é executada no mesmo ambiente, isolados por momentos diferentes.
 %
 Para cada arquitetura, é realizado três execuções com os mesmos parâmetros.
 %
 Em cada execução, o seguinte protocolo é seguido:
-
 
 
 \begin{enumerate}
@@ -48,10 +47,9 @@ Em cada execução, o seguinte protocolo é seguido:
 \end{enumerate}
 
 
-
 A partir de tais execuções, os dados são capturados, processados e analisados.
 %
-Durante as execuções, os dados de latência foram estáveis entre 5ms e 15ms, dessa forma foram ignorados como um experimento a parte.
+Durante as execuções, os dados sobre a latência da rede mostraram-se estáveis, variando entre 5ms e 15ms, dessa forma foram ignorados como um experimento a parte, porém serviram para validar a estabilidade da rede.
 
 
 
@@ -72,247 +70,407 @@ Neste contexto existem os seguintes valores:
     \item Consumo de \ac{cpu}: Variável capturada a partir do monitor de recursos do Docker.
 \end{itemize}
 
-Dado este contexto, os dados de consumo de \ac{cpu} obtidos são visíveis na Figura~\ref{fig:experimento_cpu}.
+Nota-se que o número de jogadores simultâneos e o consumo de \ac{cpu} são indexados pelo tempo a qual tais dados foram capturados.
+%
+Nesse sentido podemos relacionar o número de jogadores simultâneos ao consumo de \ac{cpu} dos microsserviços e do banco de dados.
+%
+Dado tal contexto, faz sentido realizar uma análise separando os ambientes de Banco de Dados de Microsserviços.
+
+\subsubsection{Banco de Dados}
+
+
+
+Considerando o ambiente de banco de dados, podemos realizar a associação de número de jogadores simultâneos e \ac{cpu} consumida pelos contêineres de banco de dados.
+%
+Essa associação é realizada pelo tempo de registro das métricas.
+%
+O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_db_cpu}.
 
 
 
 \begin{figure}[htb!]
-    \caption{Consumo de \ac{cpu} das arquiteturas}
-    \label{fig:experimento_cpu}
+    \caption{Consumo de \ac{cpu} dos bancos de dados}
+    \label{fig:experimento_db_cpu}
 
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/r_cpu_game.png}
-        \caption{Microsserviços da arquitetura Rudy}
-        \label{fig:r_cpu_game}
-    \end{subfigure}%
-    \begin{subfigure}{.5\textwidth}
+    \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/testes/r_cpu_db.png}
-        \caption{Banco de Dados da arquitetura Rudy}
+        \caption{Bancos de Dados da arquitetura Rudy}
         \label{fig:r_cpu_db}
     \end{subfigure}%
-
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/s_cpu_game.png}
-        \caption{Microsserviços da arquitetura Salz}
-        \label{fig:s_cpu_game}
-    \end{subfigure}%
-    \begin{subfigure}{.5\textwidth}
+    \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/testes/s_cpu_db.png}
-        \caption{Banco de Dados da arquitetura Salz}
+        \caption{Bancos de Dados da arquitetura Salz}
         \label{fig:s_cpu_db}
-    \end{subfigure}%
+    \end{subfigure}\\
 
-        \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/w_cpu_game.png}
-        \caption{Microsserviços da arquitetura Willson}
-        \label{fig:w_cpu_game}
-    \end{subfigure}%
-    \begin{subfigure}{.5\textwidth}
+    \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/testes/w_cpu_db.png}
-        \caption{Banco de Dados da arquitetura Willson}
+        \caption{Bancos de Dados da arquitetura Willson}
         \label{fig:w_cpu_db}
-    \end{subfigure}%
+    \end{subfigure}
 
     Fonte: O próprio autor.
 \end{figure}
 
 
-
-A Figura~\ref{fig:experimento_cpu} exibe todos os resultados obtidos sobre consumo de \ac{cpu} das arquiteturas de microsserviços, em sua primeira execução.
+A Figura~\ref{fig:experimento_db_cpu} exibe o comportamento do consumo de \ac{cpu} durante a execução dos testes para as arquiteturas Rudy (Subfigura~\ref{fig:r_cpu_db}), Salz (Subfigura~\ref{fig:s_cpu_db}) e Willson (Subfigura~\ref{fig:w_cpu_db}).
 %
-A segunda e terceira execução obtiveram resultados equivalentes.
+Em todas as figuras é notório o seguinte comportamento:
 
+\begin{itemize}
+ \item Baixo consumo de \ac{cpu} do servidor de dados temporários (Redis), com comportamento linear estável.
+ \item Alto consumo de \ac{cpu} do servidor de dados permanentes (PostgreSQL), com comportamento multimodal.
+\end{itemize}
 
-
-Uma característica notória sobre os bancos de dados utilizados é a disparidade entre o consumo de \ac{cpu} do banco de dados permanente e temporário, exibida nas Figuras~\ref{fig:r_cpu_db}, \ref{fig:s_cpu_db} e \ref{fig:w_cpu_db}.
+Este comportamento era esperado, dado a natureza distinta de ambos os banco de dados, na qual PostgreSQL é um banco de dados \ac{acid} e o Redis é um banco de dados \ac{nosql}.
 %
-Esta característica é relacionada a natureza do armazenamento dos dados, sendo o PostgreSQL com características \ac{acid} e o Redis sendo um banco de dados chave-valor em memória.
+Entretanto é notório a discrepância entre ambos os bancos de dados, afimando-se que o banco de dados temporário é estável em relação ao consumo de \ac{cpu}.
+
+Ao analisar o comportamento do banco de dados persistentes para as arquiteturas Rudy (Subfigura~\ref{fig:r_cpu_db}), Salz (Subfigura~\ref{fig:s_cpu_db}) e Willson (Subfigura~\ref{fig:w_cpu_db}) observamos um comportamento diferente na arquitetura Rudy.
 %
-Pela diferença de natureza entre os bancos, espera-se um aumento do consumo de \ac{cpu} por parte do banco de dados PostgreSQL.
-
-Em relação ao consumo de recursos por parte dos microsserviços, pode-se selecionar os maiores e menores consumidores de recurso dos testes.
+Dada esta percepção, faz sentido analisar a tendência destas curvas com base em sua média.
 %
-Esta listagem está disponível na Tabela~\ref{tab:cpu_consumo_max_min}.
-
-
+Nesse sentido, a Tabela~\ref{tab:cpu_db_media_quadrantes} exibe os valores das médias baseado em todo o decorrer do experimento e dividindo o experimento em quadrantes.
 
 \begin{table}[htb!]
 \centering
 \begin{adjustbox}{max width=\textwidth}
-\caption{Maiores e menores consumidores de \ac{cpu}.}
-\label{tab:cpu_consumo_max_min}
-\begin{tabular}{|l|l|l|}
+\caption{Consumo de \ac{cpu} por quadrante pelo PostgreSQL.}
+\label{tab:cpu_db_media_quadrantes}
+\begin{tabular}{|l|l|l|l|}
 
 \hline
 
-Arquitetura & Maior Consumidor & Menor Consumidor \\ \hline
+Quadrante & Rudy    & Salz    & Willson \\ \hline
 
-Rudy        & rcrud            & rweb             \\ \hline
+Primeiro  & 50.60\% & 53.10\% & 58.15\% \\ \hline
 
-Salz        & sauth            & sweb             \\ \hline
+Segundo   & 80.66\% & 88.04\% & 89.86\% \\ \hline
 
-Willson     & wauth             & wweb             \\ \hline
+Terceiro  & 85.61\% & 90.77\% & 92.50\% \\ \hline
 
+Quarto    & 86.94\% & 92.07\% & 93.48\% \\ \hline
+
+\end{tabular}
+
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+Torna-se visível a diferença do consumo de \ac{cpu} entre as arquiteturas pelo banco de dados.
+%
+A partir destes dados podemos deduzir que:
+
+\begin{itemize}
+ \item Arquitetura Rudy consome menos \ac{cpu} do banco de dados persistentes; e \item Arquitetura Salz e Willson consomem \ac{cpu} na mesma proporsão, com a arquitetura Salz tendo uma leva tendência a consumir menos \ac{cpu}.
+\end{itemize}
+
+Para tornar esta diferença visível ao longo de toda a progressão da carga, faz sentido exibir esta informação em um gráfico de linha.
+%
+A Figura~\ref{fig:cpu_db_media_por_jogador} exibe a média de consumo de \ac{cpu} pelo contêinerer PostgreSQL comparado ao número de jogadores simultâneos.
+
+\begin{figure}[htb!]
+  \caption{Consumo de \ac{cpu} pelo PostgreSQL comparado ao número de jogadores simultâneos.}
+  \label{fig:cpu_db_media_por_jogador}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/cpu_db_media_por_jogador.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+Conforme exibido na Figura~\ref{fig:cpu_db_media_por_jogador}, podemos deduzir que em todo caso as arquiteturas Rudy, Salz e Willson seguem a seguinte expressão:
+
+$$
+    CPU(db\_postgresql_{r}) < CPU(db\_postgresql_{s}) \approx CPU(db\_postgresql_{w})
+$$
+
+O banco de dados temporários consome pouca \ac{cpu}, comparado ao banco de dados persistentes.
+%
+Entretanto, faz sentido realizar a mesma análise para validar se existe alguma diferença no seu uso conforme a arquitetura empregada.
+%
+Dessa forma foi dividido em quadrantes para analisar o consumo médio de \ac{cpu}, a qual é exibido na Tabela~\ref{tab:cpu_redis_media_quadrantes}.
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Consumo de \ac{cpu} por quadrante pelo Redis.}
+\label{tab:cpu_redis_media_quadrantes}
+\begin{tabular}{|l|l|l|l|}
+
+\hline
+
+Quadrante & Rudy    & Salz    & Willson \\ \hline
+
+Primeiro  & 1.24\% & 1.46\% & 1.60\% \\ \hline
+
+Segundo   & 1.32\% & 1.79\% & 1.81\% \\ \hline
+
+Terceiro  & 1.28\% & 1.75\% & 1.75\% \\ \hline
+
+Quarto    & 1.26\% & 1.73\% & 1.72\% \\ \hline
+
+\end{tabular}
+
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+Dado os valores da Tabela~\ref{tab:cpu_redis_media_quadrantes}, pode-se obter as seguintes conclusões:
+
+\begin{itemize}
+ \item Rudy consome menos \ac{cpu} do banco de dados temporários; e
+ \item A arquitetura Salz e Willson consomem \ac{cpu} com o mesmo comportamento.
+\end{itemize}
+
+Para tornar esta diferença visível ao longo de toda a progressão da carga, faz sentido exibir esta informação em um gráfico de linha.
+%
+A Figura~\ref{fig:cpu_redis_media_por_jogador} exibe um gráfico a qual compara a média de consumo de \ac{cpu} conforme o número de jogadores simultâneos.
+
+\begin{figure}[htb!]
+  \caption{Consumo de \ac{cpu} pelo PostgreSQL comparado ao número de jogadores simultâneos.}
+  \label{fig:cpu_redis_media_por_jogador}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/cpu_redis_media_por_jogador.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+Conforme exibido na Figura~\ref{fig:cpu_redis_media_por_jogador}, podemos deduzir que em todo caso as arquiteturas Rudy, Salz e Willson seguem a seguinte expressão:
+
+$$
+    CPU(db\_redis_{r}) < CPU(db\_redis_{s}) \approx CPU(db\_redis_{w})
+$$
+
+Nota-se que o consumo de recurso do banco de dados temporários e banco de dados persistentes exibiram o mesmo comportamento.
+%
+Dessa forma, podemos generalizar o comportamento do consumo de \ac{cpu} das arquiteturas Rudy, Salz e Willson para banco de Dados:
+
+$$
+    CPU(db_{r}) < CPU(db_{s}) \approx CPU(db_{w})
+$$
+
+Este comportamento é dado pela característica do microsserviço \textit{rcrud} que realiza uma multiplexação de conexões entre o banco de dados e a arquitetura.
+%
+Entretanto, esta característica pode ser por dois motivos:
+
+\begin{itemize}
+ \item O banco de dados está otimizado para responder uma única conexão, consumindo menos \ac{cpu}; ou
+ \item O banco de dados não consome tanta \ac{cpu} por ter um microsserviço que tornou-se um gargalo como frente do banco de dados.
+\end{itemize}
+
+Dado estas duas hipóteses, faz sentido mensurar a qualidade de serviço entregue ao usuário.
+%
+Podemos mensurar qual das hipóteses é mais valiosa para a qualidade de serviço com base no tempo de resposta do usuário.
+
+
+\subsubsection{Microsserviços}
+
+Considerando o ambiente de banco de dados, podemos realizar a associação de número de jogadores simultâneos e \ac{cpu} consumida pelos contêineres de banco de dados.
+%
+Essa associação é realizada pelo tempo de registro das métricas.
+%
+O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_game_cpu}.
+
+\begin{figure}[htb!]
+    \caption{Consumo de \ac{cpu} dos microsserviços}
+    \label{fig:experimento_game_cpu}
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/testes/r_cpu_game.png}
+        \caption{Microsserviços da arquitetura Rudy}
+        \label{fig:r_cpu_game}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/testes/s_cpu_game.png}
+        \caption{Microsserviços da arquitetura Salz}
+        \label{fig:s_cpu_game}
+    \end{subfigure}
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/testes/w_cpu_game.png}
+        \caption{Microsserviços da arquitetura Willson}
+        \label{fig:w_cpu_game}
+    \end{subfigure}%
+
+    Fonte: O próprio autor.
+\end{figure}
+
+Conforme exibido nas Figuras~\ref{fig:r_cpu_game}, ~\ref{fig:s_cpu_game} e ~\ref{fig:w_cpu_game}, podemos observar as seguintes características:
+
+\begin{itemize}
+ \item Os microsserviços \textit{rweb}, \textit{sweb} e \textit{wweb} consomem pouca \ac{cpu} comparado a todos os outros microsserviços das arquiteturas;
+ \item Os microsserviços \textit{rcrud}, \textit{sauth} e \textit{wauth} são os microsserviços que mais consomem \ac{cpu} nas arquiteturas Rudy, Salz e Willson;
+\end{itemize}
+
+Faz sentido analisar a média do consumo de \ac{cpu} dos microsserviços dividindo em quadrantes.
+%
+Dessa forma, podemos obter dados significantes para realizar comparações a partir destes dados.
+%
+A Tabela~\ref{tab:cpu_microsservicos_media_quadrantes} exibe a média de consumo de \ac{cpu} por quadrante de todos os microsserviços.
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Consumo de \ac{cpu} por quadrante dos microsserviços.}
+\label{tab:cpu_microsservicos_media_quadrantes}
+
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Microsserviço & Primeiro Quadrante & Segundo Quadrante & Terceiro Quadrante & Quarto Quadrante \\ \hline
+rauth         & 11.22\%            & 12.52\%           & 11.88\%            & 11.56\%          \\ \hline
+rcrud         & 25.97\%            & 41.83\%           & 42.5\%             & 43.62\%          \\ \hline
+rgame         & 8.92\%             & 10.54\%           & 10.14\%            & 9.58\%           \\ \hline
+rweb          & 0.01\%             & 0.01\%            & 0.01\%             & 0.01\%           \\ \hline
+sauth         & 26.08\%            & 39.95\%           & 43.22\%            & 40.96\%          \\ \hline
+schat         & 8.34\%             & 9.97\%            & 9.59\%             & 9.61\%           \\ \hline
+sgame         & 3.12\%             & 3.87\%            & 3.72\%             & 3.85\%           \\ \hline
+sweb          & 0.01\%             & 0.01\%            & 0.01\%             & 0.01\%           \\ \hline
+wauth         & 23.79\%            & 50.73\%           & 57.11\%            & 56.69\%          \\ \hline
+wgame         & 9.68\%             & 14.20\%           & 13.66\%            & 13.42\%          \\ \hline
+wweb          & 0.01\%             & 0.01\%            & 0.01\%             & 0.01\%           \\ \hline
 \end{tabular}
 \end{adjustbox}
 
 Fonte: O próprio autor.
 \end{table}
 
-
-
-Conforme exibido na Tabela~\ref{tab:cpu_consumo_max_min}, os maiores consumidores de \ac{cpu} são os serviços que realizam papel de conexão com banco de dados e/ou autenticação.
+A Tabela~\ref{tab:cpu_microsservicos_media_quadrantes} mostra o crescimento do consumo de carga médio dos quadrantes.
 %
-Antagonicamente, os serviços Web são os menores consumidores de \ac{cpu}.
-
-
-
-Para o caso dos maiores consumidores de \ac{cpu}, exibidos na Tabela~\ref{tab:cpu_consumo_max_min}, os serviços \textit{sauth} e \textit{wauth} são usados para realizar conexão ao PostgreSQL / Redis ou realizando operações da biblioteca \textit{bcrypt} (autenticação).
+Estes dados são importantes, haja vista que os mesmos permitem analisar o comportamento das curvas removendo oscilações notórias na visualização do consumo de \ac{cpu}.
 %
-Entretanto, o serviço \textit{rcrud} é responsável por monopolizar o acesso ao banco, não realizando operações da biblioteca \textit{bcrypt}.
-%
-Dessa forma, o maior fator de consumo de recursos em tais serviços é a conexão com o banco de dados.
-
-
-
-Para o caso dos menores consumidores de \ac{cpu}, nota-se que é ocupado pelo microsserviço Web.
-%
-Tal microsserviço é pouco utilizado, sendo chamado somente para a criação da conta e personagem.
-%
-Dessa forma, ele não respeita o crescimento linear de jogadores simultâneos.
-
-
-
-Ainda existe uma diferença de consumo de \ac{cpu} entre os serviços \textit{sauth} \textit{wauth}, listados na Tabela~\ref{tab:cpu_consumo_max_min} na coluna de maiores consumidores.
-%
-Nota-se uma diferença de 20\% no consumo de recursos, exibidos nas Figuras~\ref{fig:s_cpu_game} e~\ref{fig:w_cpu_game}.
-%
-Este aumento de consumo de recursos da arquitetura Willson é relação direta da liberação de recursos na estratégia de manter o sistema de \textit{chat} junto ao microsserviço de jogo.
-%
-Esta mesma característica pode ser comparada ao microsserviço \textit{rcrud} visível na Figura~\ref{fig:r_cpu_game}, visto que em ambos microsserviços citados, o motivo de sua elevada carga \ac{cpu} é o acesso ao banco de dados.
-
-
-
-\subsection{Consumo de Memória}
-
-
-Este experimento visa analisar o consumo de memória unitariamente, em relação ao número de jogadores simultâneos.
-%
-Espera-se que o seu crescimento seja linear seguindo o crescimento de jogadores concorrentes.
-%
-Neste contexto existem os seguintes valores:
-
-
+A partir desta tabela podemos realizar as seguintes conclusões:
 
 \begin{itemize}
-    \item Jogadores simultâneos: Variável capturada a partir do microsserviço de jogo.
-    \item Consumo de memória: Variável capturada a partir do monitor de recursos do Docker.
+ \item Entre os microsserviços \textit{rcrud}, \textit{sauth} e \textit{wauth}, o com maior consumo é o microsserviço \textit{wauth}.
+ \item Os microsserviços \textit{rweb}, \textit{sweb} e \textit{wweb} possuem o mesmo consumo, em média.
 \end{itemize}
 
-Dado este contexto, os dados de consumo de memória obtidos são visíveis na Figura~\ref{fig:experimento_mem}.
-
-
+Faz sentido, a partir destas conclusões, analisar a média em relação a progressão de usuários.
+%
+A visualização da média de consumo de \ac{cpu} por usuário simultâneo tem como objetivo remover ruídos que possam afetar a visualização dos dados.
 
 \begin{figure}[htb!]
-    \caption{Consumo de memória das arquiteturas}
-    \label{fig:experimento_mem}
+    \caption{Média do consumo de \ac{cpu} dos microsserviços por jogador simultâneo}
+    \label{fig:cpu_game_media_por_jogador}
 
-    \begin{subfigure}{.5\textwidth}
+    \begin{subfigure}{0.5\textwidth}
         \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/r_mem_game.png}
+        \includegraphics[width=.95\linewidth]{figuras/analise/cpu_r_arch_media_por_jogador.png}
         \caption{Microsserviços da arquitetura Rudy}
-        \label{fig:r_mem_game}
+        \label{fig:cpu_r_arch_media_por_jogador}
     \end{subfigure}%
-    \begin{subfigure}{.5\textwidth}
+    \begin{subfigure}{0.5\textwidth}
         \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/r_mem_db.png}
-        \caption{Banco de Dados da arquitetura Rudy}
-        \label{fig:r_mem_db}
-    \end{subfigure}%
-
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/s_mem_game.png}
+        \includegraphics[width=.95\linewidth]{figuras/analise/cpu_s_arch_media_por_jogador.png}
         \caption{Microsserviços da arquitetura Salz}
-        \label{fig:s_mem_game}
-    \end{subfigure}%
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/s_mem_db.png}
-        \caption{Banco de Dados da arquitetura Salz}
-        \label{fig:s_mem_db}
-    \end{subfigure}%
+        \label{fig:cpu_s_arch_media_por_jogador}
+    \end{subfigure}
 
-        \begin{subfigure}{.5\textwidth}
+    \begin{subfigure}{0.5\textwidth}
         \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/w_mem_game.png}
+        \includegraphics[width=.95\linewidth]{figuras/analise/cpu_w_arch_media_por_jogador.png}
         \caption{Microsserviços da arquitetura Willson}
-        \label{fig:w_mem_game}
-    \end{subfigure}%
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/w_mem_db.png}
-        \caption{Banco de Dados da arquitetura Willson}
-        \label{fig:w_mem_db}
+        \label{fig:cpu_w_arch_media_por_jogador}
     \end{subfigure}%
 
     Fonte: O próprio autor.
 \end{figure}
 
-\subsection{Rede - Entrada / Saída}
+A Figura~\ref{fig:cpu_game_media_por_jogador} tem como objetivo exibir a média de consumo de \ac{cpu} por jogador, assim permitindo analisar o comportamento das curvas.
+%
+Entretanto, nota-se que todos os microsserviços contém uma característica senoidal, onde sua amplitude aumenta com a quantidade de jogadores, na qual já era visível na Figura~\ref{fig:experimento_game_cpu}.
+%
+Entretanto, neste gráfico também é visível o erro de cada média.
+%
+Este erro é dado pela variância do conjunto de dados obtidos na determinada faixa de jogadores simultâneos.
+%
+Ter um valor de variância alto significa que, por mais que a média seja um bom valor para a métrica, diversos pontos da mesma faixa estão longe deste valor.
+%
+Dessa forma, podemos interpretar como um erro, neste contexto.
+
+Podemos deduzir as seguintes características a partir da Figura~\ref{fig:cpu_game_media_por_jogador}:
+
+\begin{itemize}
+ \item Os microsserviços que contém maior erro são os que estão relacionados a acesso de dados para autenticação ou/e geração de assinaturas de dados para outros serviços (\textit{rcrud, sauth e wauth});
+ \item Os microsserviços que contém maior erro, são os que lideram a lista de maior consumo de \ac{cpu}, porém nota-se a partir dos demais microsserviços que esta relação não é proporcional a carga; e
+ \item O valor total de consumo de \ac{cpu} mudou conforme a arquitetura.
+\end{itemize}
+
+Dado o último critério, utilizando a curva de total consumido das Sub figuras~\ref{fig:cpu_r_arch_media_por_jogador}, ~\ref{fig:cpu_s_arch_media_por_jogador} e ~\ref{fig:cpu_w_arch_media_por_jogador},  podemos comparar o total de consumo de \ac{cpu} por cada arquitetura.
+%
+A Tabela~\ref{tab:consumo_total_cpu} exibe os valores baseados em quadrantes, para realizar a comparação com valores.
+
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Consumo total de \ac{cpu} por quadrante dos microsserviços.}
+\label{tab:consumo_total_cpu}
+
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Arquitetura & Primeiro Quadrante & Segundo Quadrante & Terceiro Quadrante & Quarto Quadrante \\ \hline
+Rudy        & 47.05\%            & 64.51\%           & 65.25\%            & 64.31\%          \\ \hline
+Salz        & 38.74\%            & 53.87\%           & 56.74\%            & 54.27\%          \\ \hline
+Willson     & 44.60\%            & 65.76\%           & 67.94\%            & 66.98\%          \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+A partir dos dados da Tabela~\ref{tab:consumo_total_cpu}, podemos referenciar que a arquitetura Salz consome menos \ac{cpu} que a arquitetura Rudy e Willson.
+%
+Faz sentido realizar a visualização das três curvas de totais em um único gráfico a fim de exibir esta relação.
+%
+A Figura~\ref{fig:consumo_total_cpu} exibe esta comparação.
 
 \begin{figure}[htb!]
-    \caption{Consumo de rede das arquiteturas}
-    \label{fig:experimento_net}
+  \caption{Comparação de consumo total de \ac{cpu} pelas arquiteturas.}
+  \label{fig:consumo_total_cpu}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/cpu_total_archs.png}
+  \centering
 
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/r_net_game.png}
-        \caption{Microsserviços da arquitetura Rudy}
-        \label{fig:r_net_game}
-    \end{subfigure}%
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/r_net_db.png}
-        \caption{Banco de Dados da arquitetura Rudy}
-        \label{fig:r_net_db}
-    \end{subfigure}%
-
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/s_net_game.png}
-        \caption{Microsserviços da arquitetura Salz}
-        \label{fig:s_net_game}
-    \end{subfigure}%
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/s_net_db.png}
-        \caption{Banco de Dados da arquitetura Salz}
-        \label{fig:s_net_db}
-    \end{subfigure}%
-
-        \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/w_net_game.png}
-        \caption{Microsserviços da arquitetura Willson}
-        \label{fig:w_net_game}
-    \end{subfigure}%
-    \begin{subfigure}{.5\textwidth}
-        \centering
-        \includegraphics[width=.95\linewidth]{figuras/testes/w_net_db.png}
-        \caption{Banco de Dados da arquitetura Willson}
-        \label{fig:w_net_db}
-    \end{subfigure}%
-
-    Fonte: O próprio autor.
+  Fonte: O próprio autor.
 \end{figure}
 
-\subsection{Tempo de resposta das Requisições}
+Dado a Figura~\ref{fig:consumo_total_cpu} e a Tabela~\ref{tab:consumo_total_cpu}, podemos afirmar que:
 
-\section{Análise}
+$$
+    CPU(microsservicos_{s}) < CPU(microsservicos_{r}) < CPU(microsservicos_{w})
+$$
+
+Torna-se notório que tal sequência respeita a ordem de interconexões dos microsserviços.
+%
+Nesse sentido, a arquitetura Salz possui mais conexões que a arquitetura Rudy, que possui mais conexões que a arquitetura Willson.
+
+Nota-se que possuir um consumo de \ac{cpu} maior que outra arquitetura não implica em ser uma arquitetura melhor.
+%
+Podemos encontrar dois casos para um consumo de \ac{cpu} ao comparar duas arquiteturas:
+
+\begin{itemize}
+ \item A arquitetura possui pouca carga para estressar a \ac{cpu}; ou
+ \item A arquitetura converge para tal valor, visto que está com gargalo em outro recurso necessário;
+\end{itemize}
+
+Para o caso desta análise, podemos descartar a primeira alternativa.
+%
+Para este caso podemos analisar que a curva estabiliza o seu crescimento entre 20 e 40 jogadores simultâneos, a mesma faixa onde os bancos de dados estabilizaram seu crescimento (visível na Figura~\ref{fig:cpu_db_media_por_jogador}).
+%
+Dessa forma pode-se justificar o aumento de erros nas médias nos microsserviços com acesso ao banco conforme o aumento da carga no serviço.
+
+Outra característica das curvas obtidas é a frequência da senoide encontrada, característica visível na Figura~\ref{fig:consumo_total_cpu}.
+%
+Nota-se que a frequência é escalada tal qual a crista de uma onda entra em contato com o vale da outra onda.
+%
+Tal característica das curvas não é coincidência, sendo resultado do escalonador de contêineres.
+%
+A Figura~\ref{fig:cpu_w_arch_media_por_jogador} é a que melhor exemplifica este comportamento, haja vista que a arquitetura Willson possui somente dois microsserviços que são impactados diretamente por este escalonador.

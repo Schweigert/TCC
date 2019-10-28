@@ -41,7 +41,7 @@ Neste sentido, foi levantado um conjunto de linguagens de programação, o qual 
 
 \begin{itemize}
   \item Alto desempenho para programas paralelos;
-  \item Biblioteca para conexão com banco de dados PostgreSql;
+  \item Biblioteca para conexão com banco de dados PostgreSQL;
   \item Biblioteca para uso de cache (Redis);
   \item Biblioteca para escrita de serviços \ac{rpc}, sobre o protocolo \ac{tcp};
   \item Biblioteca para escrita de serviços \textit{web}, com \ac{api} no formato \ac{json};
@@ -165,7 +165,7 @@ Os seus microsserviços estão listados na Tabela~\ref{tab:inter_rudy}.
 \label{tab:inter_rudy}
 \begin{tabular}{l|l|l}
 \hline
-Nome            & Protocolo            & Público a Rede \\ \hline
+Nome            & Protocolo            & Público na Rede \\ \hline
  rgame          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
  rweb           & \ac{http}/\ac{json}  & \checkmark     \\ \hline
  rauth          & \ac{rpc}/\ac{tcp}    &                \\ \hline
@@ -175,9 +175,11 @@ Nome            & Protocolo            & Público a Rede \\ \hline
 
 Fonte: O próprio autor.
 \end{table}
-%ccm Explicar o que é público a rede.
 
-
+A Tabela~\ref{tab:inter_rudy} relaciona os microsserviços aos protocolos na qual respondem e a sua visibilidade, do ponto de vista do cliente.
+%
+Isto significa que, microsserviços públicos a rede podem e são acessados pelos clientes.
+%
 Os microsserviços da arquitetura Rudy, descritos na Tabela~\ref{tab:inter_rudy}, possuem funcionalidades próprias.
 %
 As funcionalidades de cada microsserviço são:
@@ -213,7 +215,6 @@ A disposição da arquitetura Rudy está visível na Figura~\ref{fig:interconexa
 
   Fonte: O próprio autor.
 \end{figure}
-%ccm faltou apenas um TCP junto com HTTP na figura.
 
 Outro ponto de atenção é o acesso ao microsserviço de autenticação \textit{rauth}, o qual pode ser visualizado na Figura~\ref{fig:interconexao_rudy}.
 %
@@ -251,7 +252,7 @@ Os seus microsserviços estão listados na Tabela~\ref{tab:inter_salz}.
 \label{tab:inter_salz}
 \begin{tabular}{l|l|l}
 \hline
-Nome            & Protocolo            & Público a Rede \\ \hline
+Nome            & Protocolo            & Público na Rede \\ \hline
  sgame          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
  schat          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
  sweb           & \ac{http}/\ac{json}  & \checkmark     \\ \hline
@@ -356,7 +357,7 @@ Os microsserviços da arquitetura Willson estão listados na Tabela~\ref{tab:int
 \label{tab:inter_willson}
 \begin{tabular}{l|l|l}
 \hline
-Nome            & Protocolo            & Público a Rede \\ \hline
+Nome            & Protocolo            & Público na Rede \\ \hline
  wweb           & \ac{http}/\ac{json}  & \checkmark     \\ \hline
  wgame          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
  wauth          & \ac{rpc}/\ac{tcp}    &                \\ \hline
@@ -666,9 +667,23 @@ Outra característica importante do \textit{Docker Swarm} é que, pelo fato de s
 %
 Nesse sentido, permite-se obter os recursos consumidos por contêinerer registrado no serviço Docker.
 
-Na máquina administradora é executado um script na qual escala automaticamente um novo contêinerer do cliente a cada 30 segundos.
+Seguindo o padrão de testes, definido na Subseção~\ref{sec:cap4_testes}, foi executado o seguinte protocolo de testes:
+
+\begin{enumerate}
+  \item Executar 3 vezes as arquiteturas com zero jogadores simultâneos, por 5 minutos;
+  \item Executar 3 vezes as arquiteturas com um jogador apenas; e
+  \item Executar 3 vezes as arquiteturas com zero jogadores simultâneos, aumentando a cada 30 segundos o número jogadores (um por vez) ao serviço, até o serviço obter algum erro interno de microsserviço e terminar a sua execução por erro interno ou chegar a 100 jogadores simultâneos.
+\end{enumerate}
+
+A partir deste protocolo, podemos analisar a estabilidade, junto ao script de coleta de dados, as características do servidor sem sofrer cargas, um único jogador e N jogadores.
 %
-Este comportamento produz uma progressão de carga linear que é visível na Figura~\ref{fig:cliente_linear}.
+Os dados coletados nos testes com zero e um jogadores mostraram que as arquiteturas estavam estáveis, porém não trouxeram dados suficientes para mostar diferenças entre as arquiteturas.
+%
+Nesse sentido, a análise não exibirá tais gráficos, já que a única conclusão para todos é da estabilidade e baixo consumo de recursos, sem relevância estatística entre ambas.
+
+Para realizar o teste com um número crescente de jogadores simultâneos foi utilizado um script na linguagem Ruby na qual escala automaticamente um novo contêinerer do cliente a cada 30 segundos, na rede de clientes.
+%
+Este comportamento produz uma progressão de carga linear, que é visível na Figura~\ref{fig:cliente_linear}.
 
 \begin{figure}[htb!]
   \caption{Quantidade de jogadores simultâneos cresce linearmente.}
@@ -679,8 +694,6 @@ Este comportamento produz uma progressão de carga linear que é visível na Fig
   Fonte: O próprio autor.
 \end{figure}
 
-%ccm Escrever novamente o que são os testes 1,2 e 3. Rever Seção 4.3 porque nao há mais clientes na nuvem.
-
 A Figura~\ref{fig:cliente_linear} exibe o crescimento linear de jogadores simultâneos.
 %
 Tal crescimento está diretamente relacionado ao número de contêineres escalados no aglomerado.
@@ -689,7 +702,7 @@ Cada jogador realiza as operações descritas na Figura~\ref{fig:movimentacao}.
 
 É notório que o número de jogadores simultâneos é exatamente igual ao número de contêineres na rede de clientes.
 %
-Dessa forma, garantimos o isolamento entre contêineres, evitando multiplexação de conexões entre múltiplos contêineres diferentes.
+Dessa forma, garantimos o isolamento entre contêineres, evitando multiplexação de conexões entre processos diferentes.
 
 
 A partir do comportamento definido na Figura~\ref{fig:cliente_linear}, espera-se que o consumo dos recursos e tempo de resposta corresponda ao seu crescimento, tendendo a uma complexidade linear mínima.
@@ -720,3 +733,7 @@ Durante o processo de desenvolvimento foi utilizado o processo de integração c
 Dessa forma, é utilizado o serviço TravisCI para realização de testes e construção de imagens Docker.
 %
 Por sua vez, o TravisCI utiliza o DockerHub para armazenamento das imagens, as quais são utilizadas para implantar sobre a infraestrutura descrita como ambiente de testes.
+
+Para a execução dos testes, foi utilizado um script para escalar contêineres de forma automática.
+%
+Dessa forma temos um comportamento linear, podendo utilizar tal comportamento como gráfico, auxiliando na análise.

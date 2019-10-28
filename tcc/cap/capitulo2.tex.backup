@@ -739,7 +739,7 @@ Os microsserviços que compõem a arquitetura são definidos pelas suas seguinte
   \item \textbf{Balanço de carga web}: Realiza a distribuição de carga sobre o \textit{Serviço web estático} e o \textit{Serviço web dinâmico}.
   \item \textbf{Serviço de Jogo}: Gerencia um mundo inteiro, em um único serviço. Esta abordagem segrega os jogadores em diversos mundos, contendo 1050 jogadores simultâneos por serviço. Este serviço opera sobre o protocolo \ac{rpc}.
   \item \textbf{Serviço de Autenticação}: Gerencia a autenticação das conexões ao \textit{Serviço de jogo}.
-  \item \textbf{Gerenciador de Consultas}: Realiza consultas em memória e disco, utilizando vários bancos de dados diferentes, simulando o uso de banco de dados distribuídos, algo complexo de ser implementado utilizando banco de dados SQL (\textit{e.g.,} PostgreSQL\footnote{PostgreSQL: \url{https://www.postgresql.org}}, MySQL\footnote{MySQL: \url{https://www.mysql.com/}}, etc).
+  \item \textbf{Gerenciador de Consultas}: Realiza consultas em memória e disco, utilizando vários bancos de dados diferentes, simulando o uso de banco de dados distribuídos, algo complexo de ser implementado utilizando banco de dados SQL (\textit{e.g.,} PostgreSQL\footnote{PostgreSQL: \url{https://www.PostgreSQL.org}}, MySQL\footnote{MySQL: \url{https://www.mysql.com/}}, etc).
 \end{enumerate}
 
 
