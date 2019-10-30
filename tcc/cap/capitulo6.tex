@@ -59,7 +59,7 @@ Durante as execuções, os dados sobre a latência da rede mostraram-se estávei
 
 Este experimento visa analisar o consumo de \ac{cpu} unitariamente, em relação ao número de jogadores simultâneos.
 %
-Espera-se que o seu crescimento seja linear seguindo o crescimento de jogadores concorrentes.
+Espera-se que o seu crescimento seja de tendência linear junto ao crescimento de jogadores concorrentes.
 %
 Neste contexto existem os seguintes valores:
 
@@ -474,3 +474,197 @@ Nota-se que a frequência é escalada tal qual a crista de uma onda entra em con
 Tal característica das curvas não é coincidência, sendo resultado do escalonador de contêineres.
 %
 A Figura~\ref{fig:cpu_w_arch_media_por_jogador} é a que melhor exemplifica este comportamento, haja vista que a arquitetura Willson possui somente dois microsserviços que são impactados diretamente por este escalonador.
+
+
+\subsection{Consumo de Memória}
+
+
+
+Este experimento visa analisar o consumo de memória unitariamente, em relação ao número de jogadores simultâneos.
+%
+Espera-se que o seu crescimento seja linear seguindo o crescimento de jogadores concorrentes.
+%
+Neste contexto existem os seguintes valores:
+
+
+
+\begin{itemize}
+    \item Jogadores simultâneos: Variável capturada a partir do microsserviço de jogo.
+    \item Consumo de memória: Variável capturada a partir do monitor de recursos do Docker.
+\end{itemize}
+
+Nota-se que o número de jogadores simultâneos e o consumo de memória são indexados pelo tempo a qual tais dados foram capturados.
+%
+Nesse sentido podemos relacionar o número de jogadores simultâneos ao consumo de memória dos microsserviços e do banco de dados.
+%
+Dado tal contexto, faz sentido realizar uma análise separando os ambientes de Banco de Dados de Microsserviços.
+
+\subsubsection{Banco de Dados}
+
+
+
+Considerando o ambiente de banco de dados, podemos realizar a associação de número de jogadores simultâneos e memória consumida pelos contêineres de banco de dados.
+%
+Essa associação é realizada pelo tempo de registro das métricas.
+%
+O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_db_mem}.
+
+
+
+\begin{figure}[htb!]
+    \caption{Consumo de memória dos bancos de dados}
+    \label{fig:experimento_db_mem}
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/testes/r_mem_db.png}
+        \caption{Bancos de Dados da arquitetura Rudy}
+        \label{fig:r_mem_db}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/testes/s_mem_db.png}
+        \caption{Bancos de Dados da arquitetura Salz}
+        \label{fig:s_mem_db}
+    \end{subfigure}\\
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/testes/w_mem_db.png}
+        \caption{Bancos de Dados da arquitetura Willson}
+        \label{fig:w_mem_db}
+    \end{subfigure}
+
+    Fonte: O próprio autor.
+\end{figure}
+
+Percebe-se, a partir da Figura~\ref{fig:experimento_db_mem}, que o banco com maior estresse é o PostgreSQL.
+%
+O banco de dados Redis consome uma quantidade de memória visivelmente fixa.
+%
+Entretanto o banco de dados Redis é utilizado para armazenamento de dados da sessão do cliente em memória.
+%
+Dessa forma, faz sentido calcular a quantidade de memória consumida por cada usuário para garantir que na totalidade este valor não é significativo em porcentagem.
+
+Para realizar a autenticação é utilizado \ac{jwt}.
+%
+Entretanto é necessário garantir uma única conexão por usuário.
+%
+A unicidade é realizada utilizando o Redis, armazenando uma sequência de caracteres aleatórias em um campo formatado com o nome do usuário.
+%
+O trecho de código que realiza esta operação é exibido na Figura~\ref{fig:seq_chars_redis}.
+
+
+\begin{figure}[htb!]
+    \caption{Código de geração de sequência de caracteres}
+    \label{fig:seq_chars_redis}
+
+    \begin{lstlisting}
+        package merepositories
+
+        // mmosandbox/infra/merepositories/token_repositoriy.go
+
+        // GenerateToken based in username from account
+        func (repository *TokenRepository) GenerateToken(username string) string {
+            token := repository.randomToken()
+            repository.set(repository.keyPattern(username), token)
+
+            return token
+        }
+        
+        // keyPattern to store into redis
+        func (repository *TokenRepository) keyPattern(username string) string {
+            return fmt.Sprintf("session.%s", username)
+        }
+
+        // randomToken with 256 runes
+        func (repository *TokenRepository) randomToken() string {
+            return randomize.RandStringRunes(256)
+        }
+    \end{lstlisting}
+
+    Fonte: O próprio autor.
+\end{figure}
+
+O repositório de dados \textit{TokenRepository}\footnote{\textit{TokenRepository}: \url{https://github.com/schweigert/mmosandbox/blob/master/infra/merepositories/token_repositoriy.go}} contém as operações exibidas na Figura~\ref{fig:seq_chars_redis}.
+%
+Este repositório gera a chave com o padrão \textit{session.\%s} e uma sequência de caracteres aleatória de 256 bytes.
+
+Para realizar este calculo é necessário estimar o custo de armazenamento das chaves.
+%
+Por padrão, os clientes de ataque geram nomes de usuários de 32 caracteres.
+%
+Com tais dados, podemos estimar o custo de memória por usuário.
+%
+Pode-se calcular o consumo de memória por um único jogador simultâneo utilizando a seguinte fórmula:
+
+\begin{multline}
+m_j = m_{chave} + m_{padrao} + m_{valor} \\
+\Rightarrow m_j = 32bytes + 8bytes + 256bytes = 296bytes
+\end{multline}
+
+Logo, ao ter 100 jogadores simultâneos, o serviço Redis consumirá aproximadamente 29Kb para armazenamento de memória.
+%
+Tal valor é insignificante comparado ao total de memória disponível no hospedeiro, dessa forma exibindo um comportamento retilínio na Figura~\ref{fig:experimento_db_mem}.
+
+Entretanto o PostgreSQL exibe um crescimento linear visivel na Figura~\ref{fig:experimento_db_mem}.
+%
+Faz sentido sanitizar estas curvas com a média dos quadrantes.
+%
+A Tabela~\ref{tab:mem_db_media_quadrantes} exibe o consumo de memória médio por quadrante.
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Consumo médio de memória por quadrante do PostgreSQL.}
+\label{tab:mem_db_media_quadrantes}
+
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Arquitetura & Primeiro Quadrante & Segundo Quadrante & Terceiro Quadrante & Quarto Quadrante \\ \hline
+Rudy        & 32.41\%            & 54.07\%           & 65.92\%            & 73.57\%          \\ \hline
+Salz        & 39.56\%            & 61.52\%           & 71.84\%            & 76.29\%          \\ \hline
+Willson     & 38.83\%            & 61.72\%           & 72.43\%            & 79.25\%          \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+A partir da Tabela~\ref{tab:mem_db_media_quadrante}, podemos mensurar a distância de consumo de memória por parte do PostgreSQL.
+%
+No quarto quadrante também podemos observar uma distância, em média, dentre as curvas de consumo.
+%
+Entretanto não podemos mensurar que é uma tendência, visto que o segundo e terceiro quadrante ficam próximo.
+%
+Dado tais informações podemos parcialmente concluir que o consumo de memória por parte do banco de dados persistentes é menor na arquitetura Rudy, entretanto o consumo é demasiadamente próximo entre as arquiteturas Willson e Salz, tendo a arquitetura Salz uma leve tendência a ser maior.
+
+Tal comportamento faz sentido, levando em consideração o número de conexões simultâneas que cada arquitetura realiza ao banco de dados.
+%
+A arquitetura Rudy contém poucas conexões simultâneas ao banco de dados persistentes haja vista que concentra todas suas conexões ao microsserviço \textit{rcrud}, o qual ocorre a partir de todos os microsserviços das demais arquiteturas.
+
+Para confirmar que esta conclusão é correta, faz sentido correlacionar a média de consumo de memória pelo banco de dados persistentes correlacionado ao número de jogadores simultâneos.
+%
+Tal correlação é visível na Figura~\ref{fig:mem_db_media_por_jogador}.
+
+\begin{figure}[htb!]
+  \caption{Consumo de memória média do PostgreSQL comparado ao número de jogadores simultâneos.}
+  \label{fig:mem_db_media_por_jogador}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/mem_db_media_por_jogador.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+A partir da Figura~\ref{fig:mem_db_media_por_jogador} podemos confirmar as conclusões parciais obtidas da Tabela~\ref{tab:cpu_db_media_quadrantes}.
+%
+Além das conclusões parciais, é possível visualizar o crescimento da média a cada incremento de jogador simultâneo.
+%
+Podemos concluir que o serviço de fato foi estressado, haja vista que podemos perceber inicialmente um comportamento na qual não corresponde a uma curva multimodal.
+
+A partir destes dados podemos concluir que:
+
+$$
+    MEM(db\_postgresql_{r}) < MEM(db\_postgresql_{s}) \approx MEM(db\_postgresql_{w})
+$$
+
