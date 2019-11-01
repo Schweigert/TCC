@@ -41,10 +41,15 @@
 \usepackage{epigraph}
 \usepackage{subcaption}
 \usepackage{pkg/lstlang0}
-\lstset{language=Go, basicstyle=\ttfamily\scriptsize,
-keywordstyle=\color{blue}\ttfamily,
-stringstyle=\color{red}\ttfamily,
-commentstyle=\color{green}\ttfamily}
+
+\lstset{
+    language=Go, basicstyle=\ttfamily\scriptsize,
+    keywordstyle=\color{blue}\ttfamily,
+    stringstyle=\color{red}\ttfamily,
+    commentstyle=\color{green}\ttfamily,
+    numbers=left,
+    stepnumber=1
+}
 
 %-----------------------------------------------------------
 \begin{document}
@@ -114,6 +119,11 @@ Jogos Massivos, Otimização de Recursos, Nuvem de Computadores.
 
 %---------- Lista de tabelas -------------------------------
 \listoftables
+\thispagestyle{empty}
+
+%--------- Lista de listagens ------------------------------
+\renewcommand{\lstlistlistingname}{Listagem}
+\lstlistoflistings
 \thispagestyle{empty}
 
 %---------- Lista de Abreviaturas --------------------------

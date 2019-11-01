@@ -1,4 +1,4 @@
-\chapter{Experimento \& Análise}
+\chapter{Experimentos \& Análises}
 \label{cap6}
 
 
@@ -140,11 +140,11 @@ Nesse sentido, a Tabela~\ref{tab:cpu_db_media_quadrantes} exibe os valores das m
 \begin{adjustbox}{max width=\textwidth}
 \caption{Consumo de \ac{cpu} por quadrante pelo PostgreSQL.}
 \label{tab:cpu_db_media_quadrantes}
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{l|l|l|l}
 
-\hline
+\hline \hline
 
-Quadrante & Rudy    & Salz    & Willson \\ \hline
+Quadrante & Rudy    & Salz    & Willson \\ \hline \hline
 
 Primeiro  & 50.60\% & 53.10\% & 58.15\% \\ \hline
 
@@ -152,7 +152,7 @@ Segundo   & 80.66\% & 88.04\% & 89.86\% \\ \hline
 
 Terceiro  & 85.61\% & 90.77\% & 92.50\% \\ \hline
 
-Quarto    & 86.94\% & 92.07\% & 93.48\% \\ \hline
+Quarto    & 86.94\% & 92.07\% & 93.48\% \\ \hline \hline
 
 \end{tabular}
 
@@ -171,7 +171,7 @@ A partir destes dados podemos deduzir que:
 
 Para tornar esta diferença visível ao longo de toda a progressão da carga, faz sentido exibir esta informação em um gráfico de linha.
 %
-A Figura~\ref{fig:cpu_db_media_por_jogador} exibe a média de consumo de \ac{cpu} pelo contêinerer PostgreSQL comparado ao número de jogadores simultâneos.
+A Figura~\ref{fig:cpu_db_media_por_jogador} exibe a média de consumo de \ac{cpu} pelo contêiner PostgreSQL comparado ao número de jogadores simultâneos.
 
 \begin{figure}[htb!]
   \caption{Consumo de \ac{cpu} pelo PostgreSQL comparado ao número de jogadores simultâneos.}
@@ -182,7 +182,7 @@ A Figura~\ref{fig:cpu_db_media_por_jogador} exibe a média de consumo de \ac{cpu
   Fonte: O próprio autor.
 \end{figure}
 
-Conforme exibido na Figura~\ref{fig:cpu_db_media_por_jogador}, podemos deduzir que em todo caso as arquiteturas Rudy, Salz e Willson seguem a seguinte expressão:
+Conforme exibido na Figura~\ref{fig:cpu_db_media_por_jogador}, pode-se deduzir que em todo caso as arquiteturas Rudy, Salz e Willson seguem a seguinte expressão:
 
 $$
     CPU(db\_postgresql_{r}) < CPU(db\_postgresql_{s}) \approx CPU(db\_postgresql_{w})
@@ -246,6 +246,7 @@ $$
     CPU(db\_redis_{r}) < CPU(db\_redis_{s}) \approx CPU(db\_redis_{w})
 $$
 
+%ccm Precisa fazer uma legenda das letrinhas. Pode ser parágrafo ou itemize.
 Nota-se que o consumo de recurso do banco de dados temporários e banco de dados persistentes exibiram o mesmo comportamento.
 %
 Dessa forma, podemos generalizar o comportamento do consumo de \ac{cpu} das arquiteturas Rudy, Salz e Willson para banco de Dados:
@@ -552,41 +553,35 @@ Entretanto é necessário garantir uma única conexão por usuário.
 %
 A unicidade é realizada utilizando o Redis, armazenando uma sequência de caracteres aleatórias em um campo formatado com o nome do usuário.
 %
-O trecho de código que realiza esta operação é exibido na Figura~\ref{fig:seq_chars_redis}.
+O trecho de código que realiza esta operação é exibido na Figura~\ref{lst:seq_chars_redis}.
 
 
-\begin{figure}[htb!]
-    \caption{Código de geração de sequência de caracteres}
-    \label{fig:seq_chars_redis}
 
-    \begin{lstlisting}
-        package merepositories
+\begin{lstlisting}[language=go,firstnumber=1, caption={Informações do Bloco},label={lst:seq_chars_redis}]
+package merepositories
 
-        // mmosandbox/infra/merepositories/token_repositoriy.go
+// mmosandbox/infra/merepositories/token_repositoriy.go
 
-        // GenerateToken based in username from account
-        func (repository *TokenRepository) GenerateToken(username string) string {
-            token := repository.randomToken()
-            repository.set(repository.keyPattern(username), token)
+// GenerateToken based in username from account
+func (repository *TokenRepository) GenerateToken(username string) string {
+    token := repository.randomToken()
+    repository.set(repository.keyPattern(username), token)
 
-            return token
-        }
-        
-        // keyPattern to store into redis
-        func (repository *TokenRepository) keyPattern(username string) string {
-            return fmt.Sprintf("session.%s", username)
-        }
+    return token
+}
 
-        // randomToken with 256 runes
-        func (repository *TokenRepository) randomToken() string {
-            return randomize.RandStringRunes(256)
-        }
-    \end{lstlisting}
+// keyPattern to store into redis
+func (repository *TokenRepository) keyPattern(username string) string {
+    return fmt.Sprintf("session.%s", username)
+}
 
-    Fonte: O próprio autor.
-\end{figure}
+// randomToken with 256 runes
+func (repository *TokenRepository) randomToken() string {
+    return randomize.RandStringRunes(256)
+}
+\end{lstlisting}
 
-O repositório de dados \textit{TokenRepository}\footnote{\textit{TokenRepository}: \url{https://github.com/schweigert/mmosandbox/blob/master/infra/merepositories/token_repositoriy.go}} contém as operações exibidas na Figura~\ref{fig:seq_chars_redis}.
+O repositório de dados \textit{TokenRepository}\footnote{\textit{TokenRepository}: \url{https://github.com/schweigert/mmosandbox/blob/master/infra/merepositories/token_repositoriy.go}} contém as operações exibidas na Listagem~\ref{lst:seq_chars_redis}.
 %
 Este repositório gera a chave com o padrão \textit{session.\%s} e uma sequência de caracteres aleatória de 256 bytes.
 
