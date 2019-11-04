@@ -52,18 +52,182 @@ A partir de tais execuções, os dados são capturados, processados e analisados
 Durante as execuções, os dados sobre a latência da rede mostraram-se estáveis, variando entre 5ms e 15ms, dessa forma foram ignorados como um experimento a parte, porém serviram para validar a estabilidade da rede.
 
 
-
-\subsection{Consumo de \ac{cpu}}
-
+\subsection{Tempo de Resposta}
 
 
-Este experimento visa analisar o consumo de \ac{cpu} unitariamente, em relação ao número de jogadores simultâneos.
+
+Este experimento visa analisar o tempo de resposta, em relação ao número de jogadores simultâneos.
 %
 Espera-se que o seu crescimento seja de tendência linear junto ao crescimento de jogadores concorrentes.
 %
 Neste contexto existem os seguintes valores:
 
 
+
+\begin{itemize}
+    \item Jogadores simultâneos: Variável capturada a partir do microsserviço de jogo.
+    \item Tempo de Resposta: Variável capturada a partir dos clientes.
+\end{itemize}
+
+Tal experimento permitirá analisar a qualidade das arquiteturas de microsserviços.
+%
+As características observadas nestas análises serve também como critério de desempate nas análises de experimentos seguintes.
+
+Nota-se que o número de jogadores simultâneos e o tempo de resposta são indexados pelo tempo a qual tais dados foram capturados.
+%
+Nesse sentido podemos relacionar o tempo de resposta de todos os clientes ao número de jogadores simultâneos.
+%
+Dado tal contexto, faz sentido realizar uma análise separando os ambientes baseado em algumas ações na qual operam sobre microsserviços e recursos diferentes.
+
+Dentro deste contexto existem dois tipos de requisições.
+%
+Requisições que não pertencem a estrutura de repetição infinita do autômato do cliente e requisições que pertencem a estrutura de repetição infinita do autômato do cliente.
+%
+As requisições que não pertencem a estrutura de repetição infinita são:
+
+\begin{itemize}
+    \item Criar conta;
+    \item Criar personagem;
+    \item Iniciar sessão; e
+    \item Instanciar personagem;
+\end{itemize}
+
+As requisições que pertencem a estrutura de repetição infinita são:
+
+\begin{itemize}
+    \item Movimentar personagem;
+    \item Enviar mensagem; e
+    \item Receber mensagem;
+\end{itemize}
+
+
+\subsubsection{Criar conta}
+
+A operação de criar de conta é efetuada sobre o protocolo \ac{tcp}/\ac{http}.
+%
+Nesta operação, o cliente envia um formulário em formato \ac{json} com informações básicas comuns em jogos \ac{mmorpg} para uma instância de conta.
+%
+Os dados são validados e inseridos no banco de dados, caso a validação esteja correta.
+
+\begin{figure}[htb!]
+  \caption{Tempo de resposta para criar contas}
+  \label{fig:create_account_operation_request_time}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/rt/create_account_operation_request_time.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+\subsubsection{Criar personagem}
+
+A operação de criar de personagem é efetuada sobre o protocolo \ac{tcp}/\ac{http}.
+%
+Nesta operação, o cliente envia um formulário em formato \ac{json} com informações básicas comuns em jogos \ac{mmorpg} para uma instância de personagem e dados de autenticação da conta.
+%
+Os dados são validados e inseridos no banco de dados, caso a validação esteja correta.
+
+\begin{figure}[htb!]
+  \caption{Tempo de resposta para criar personagens}
+  \label{fig:create_character_operation_request}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/rt/create_character_operation_request.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+\subsubsection{Iniciar sessão}
+
+A operação de iniciar sessão é efetuada sobre o protocolo \ac{tcp}/\ac{rpc}.
+%
+Nesta operação, o cliente envia um formulário em formato \ac{gob} com informações básicas comuns em jogos \ac{mmorpg} para uma instância de personagem e dados de autenticação da conta.
+%
+Os dados são validados e o serviço retorna um dado assinado e armazenado para garantir a uniquicidade da sessão da conta.
+
+\begin{figure}[htb!]
+  \caption{Tempo de resposta para iniciar sessões}
+  \label{fig:start_session_request_time}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/rt/start_session_request_time.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+\subsubsection{Instanciar personagem}
+
+A operação de instanciar personagem é efetuada sobre o protocolo \ac{tcp}/\ac{rpc}.
+%
+Nesta operação, o cliente envia um formulário em formato \ac{gob} com informações de autenticação assinadas pelo serviço junto a informação de qual personagem deve ser instanciado no mundo virtual.
+%
+Os dados são validados e o personagem selecionado é instanciado no mundo.
+
+\begin{figure}[htb!]
+  \caption{Tempo de resposta para instanciar personagens}
+  \label{fig:spawn_character_request_time}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/rt/spawn_character_request_time.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+
+\subsubsection{Movimentar personagem}
+
+A operação de movimentar personagem é efetuada sobre o protocolo \ac{tcp}/\ac{rpc}.
+%
+Nesta operação, o cliente envia um formulário em formato \ac{gob} com informações de autenticação assinadas pelo serviço junto a um vetor de direção para onde o personagem deve caminhar no mundo virtual.
+%
+Os dados são validados e o personagem instanciado é movimentado.
+
+\begin{figure}[htb!]
+  \caption{Tempo de resposta para movimentar personagens}
+  \label{fig:move_character_request_time}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/rt/move_character_request_time}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+\subsubsection{Enviar mensagem}
+
+A operação de enviar mensagem é efetuada sobre o protocolo \ac{tcp}/\ac{rpc}.
+%
+Nesta operação, o cliente envia um formulário em formato \ac{gob} com informações de autenticação assinadas pelo serviço junto a uma linha de texto.
+%
+Os dados são validados e a linha de texto é distribuído aos personagens dentro do raio de visão do personagem emissor instanciado.
+
+\begin{figure}[htb!]
+  \caption{Tempo de resposta para enviar mensagens}
+  \label{fig:send_chat_request_time}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/rt/send_chat_request_time}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+\subsubsection{Receber mensagem}
+
+A operação de receber mensagem é efetuada sobre o protocolo \ac{tcp}/\ac{rpc}.
+%
+Nesta operação, o cliente envia um formulário em formato \ac{gob} com informações de autenticação assinadas pelo serviço.
+%
+Os dados são validados e o serviço retorna todas as linhas de texto que foram encaminhadas ao personagem instanciado.
+
+\begin{figure}[htb!]
+  \caption{Tempo de resposta para receber mensagens}
+  \label{fig:listen_chat_request_time}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/rt/listen_chat_request_time}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+\subsection{Consumo de \ac{cpu}}
+
+Este experimento visa analisar o consumo de \ac{cpu} unitariamente, em relação ao número de jogadores simultâneos.
+%
+Espera-se que o seu crescimento seja de tendência linear junto ao crescimento de jogadores concorrentes.
+%
+Neste contexto existem os seguintes valores:
 
 \begin{itemize}
     \item Jogadores simultâneos: Variável capturada a partir do microsserviço de jogo.
@@ -77,8 +241,6 @@ Nesse sentido podemos relacionar o número de jogadores simultâneos ao consumo 
 Dado tal contexto, faz sentido realizar uma análise separando os ambientes de Banco de Dados de Microsserviços.
 
 \subsubsection{Banco de Dados}
-
-
 
 Considerando o ambiente de banco de dados, podemos realizar a associação de número de jogadores simultâneos e \ac{cpu} consumida pelos contêineres de banco de dados.
 %
@@ -188,6 +350,14 @@ $$
     CPU(db\_postgresql_{r}) < CPU(db\_postgresql_{s}) \approx CPU(db\_postgresql_{w})
 $$
 
+Na qual entende-se:
+
+\begin{itemize}
+\item $CPU(db\_postgresql_{r})$: Curva de consumo de \ac{cpu} pelo PostgreSQL da arquitetura Rudy;
+\item $CPU(db\_postgresql_{s})$: Curva de consumo de \ac{cpu} pelo PostgreSQL da arquitetura Salz;
+\item $CPU(db\_postgresql_{w})$: Curva de consumo de \ac{cpu} pelo PostgreSQL da arquitetura Willson;
+\end{itemize}
+
 O banco de dados temporários consome pouca \ac{cpu}, comparado ao banco de dados persistentes.
 %
 Entretanto, faz sentido realizar a mesma análise para validar se existe alguma diferença no seu uso conforme a arquitetura empregada.
@@ -246,6 +416,14 @@ $$
     CPU(db\_redis_{r}) < CPU(db\_redis_{s}) \approx CPU(db\_redis_{w})
 $$
 
+Na qual entende-se:
+
+\begin{itemize}
+\item $CPU(db\_redis_{r})$: Curva de consumo de \ac{cpu} pelo Redis da arquitetura Rudy;
+\item $CPU(db\_redis_{s})$: Curva de consumo de \ac{cpu} pelo Redis da arquitetura Salz;
+\item $CPU(db\_redis_{w})$: Curva de consumo de \ac{cpu} pelo Redis da arquitetura Willson;
+\end{itemize}
+
 %ccm Precisa fazer uma legenda das letrinhas. Pode ser parágrafo ou itemize.
 Nota-se que o consumo de recurso do banco de dados temporários e banco de dados persistentes exibiram o mesmo comportamento.
 %
@@ -254,6 +432,14 @@ Dessa forma, podemos generalizar o comportamento do consumo de \ac{cpu} das arqu
 $$
     CPU(db_{r}) < CPU(db_{s}) \approx CPU(db_{w})
 $$
+
+Na qual entende-se:
+
+\begin{itemize}
+\item $CPU(db_{r})$: Curva de consumo de \ac{cpu} pelos banco de dados da arquitetura Rudy;
+\item $CPU(db_{s})$: Curva de consumo de \ac{cpu} pelos banco de dados da arquitetura Salz;
+\item $CPU(db_{w})$: Curva de consumo de \ac{cpu} pelos banco de dados da arquitetura Willson;
+\end{itemize}
 
 Este comportamento é dado pela característica do microsserviço \textit{rcrud} que realiza uma multiplexação de conexões entre o banco de dados e a arquitetura.
 %
@@ -449,6 +635,14 @@ $$
     CPU(microsservicos_{s}) < CPU(microsservicos_{r}) < CPU(microsservicos_{w})
 $$
 
+Na qual entende-se:
+
+\begin{itemize}
+\item $CPU(microsservicos_{r})$: Curva de consumo de \ac{cpu} pelos microsserviços da arquitetura Rudy;
+\item $CPU(microsservicos_{s})$: Curva de consumo de \ac{cpu} pelos microsserviços da arquitetura Salz;
+\item $CPU(microsservicos_{w})$: Curva de consumo de \ac{cpu} pelos microsserviços da arquitetura Willson;
+\end{itemize}
+
 Torna-se notório que tal sequência respeita a ordem de interconexões dos microsserviços.
 %
 Nesse sentido, a arquitetura Salz possui mais conexões que a arquitetura Rudy, que possui mais conexões que a arquitetura Willson.
@@ -598,6 +792,15 @@ m_j = m_{chave} + m_{padrao} + m_{valor} \\
 \Rightarrow m_j = 32bytes + 8bytes + 256bytes = 296bytes
 \end{multline}
 
+Na qual entende-se:
+
+\begin{itemize}
+\item $m_j$: Tamanho dos dados armazenados em memória no Redis por jogador autenticado;
+\item $m_{chave}$: Tamanho da chave armazenada na estrutura chave-valor Redis; e
+\item $m_{valor}$: Tamanho do valor armazenado na estrutura chave-valor do Redis.
+\end{itemize}
+
+
 Logo, ao ter 100 jogadores simultâneos, o serviço Redis consumirá aproximadamente 29Kb para armazenamento de memória.
 %
 Tal valor é insignificante comparado ao total de memória disponível no hospedeiro, dessa forma exibindo um comportamento retilínio na Figura~\ref{fig:experimento_db_mem}.
@@ -663,3 +866,10 @@ $$
     MEM(db\_postgresql_{r}) < MEM(db\_postgresql_{s}) \approx MEM(db\_postgresql_{w})
 $$
 
+Na qual entende-se:
+
+\begin{itemize}
+\item $MEM(db\_postgresql_{r})$: Curva de consumo de memória do PostgreSQL pela arquitetura Rudy;
+\item $MEM(db\_postgresql_{s})$: Curva de consumo de memória do PostgreSQL pela arquitetura Salz;
+\item $MEM(db\_postgresql_{w})$: Curva de consumo de memória do PostgreSQL pela arquitetura Willson;
+\end{itemize}
