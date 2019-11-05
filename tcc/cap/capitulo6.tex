@@ -102,12 +102,21 @@ As requisições que pertencem a estrutura de repetição infinita são:
 
 
 \subsubsection{Criar conta}
+\label{sec:op_create_account}
 
 A operação de criar de conta é efetuada sobre o protocolo \ac{tcp}/\ac{http}.
 %
 Nesta operação, o cliente envia um formulário em formato \ac{json} com informações básicas comuns em jogos \ac{mmorpg} para uma instância de conta.
 %
 Os dados são validados e inseridos no banco de dados, caso a validação esteja correta.
+
+Uma característica importante para esta requisição é apresentada ao exibir a sua frequência no tempo de contato entre um usuário desta aplicação e o serviço.
+%
+A tendência é que um usuário realize uma única requisição durante todo o seu tempo de vida ao entrar em contato com algum jogo \ac{mmorpg}.
+
+O microsserviço a qual será responsável por receber estas requisições não lida com concorrência conforme a demanda dos jogadores simultâneos.
+%
+A Figura~\ref{fig:create_account_operation_request_time} torna visivel que o comportamento do tempo de resposta não depende do número de jogadores simultâneos.
 
 \begin{figure}[htb!]
   \caption{Tempo de resposta para criar contas}
@@ -118,7 +127,64 @@ Os dados são validados e inseridos no banco de dados, caso a validação esteja
   Fonte: O próprio autor.
 \end{figure}
 
+Porém existe visivelmente, na Figura~\ref{fig:create_account_operation_request_time} uma disparidade entre dados em relação a arquitetura utilizada.
+%
+Esta disparidade exibe poucos pontos demorando muito para executar a operação de criação de conta.
+
+Dado o contexto, o único recurso compartilhado com microsserviços que recebem conexões concorrentes é o acesso aos dados da arquitetura.
+%
+Tal acesso é dado diretamente aos bancos de dados Redis e PostgreSQL ou, no caso da arquitetura Rudy, pelo microsserviço \textit{rcrud}.
+%
+Nesse sentido, existe pela natureza da formação dos serviços uma diferença no tempo de resposta perceptível aos clientes.
+
+Para quantificar a Figura~\ref{fig:create_account_operation_request_time}, faz sentido buscar os valores de média, variância, máximo e mínimo dos dados obtidos.
+%
+A Tabela~\ref{tab:create_account_operation_request_time} exibe estes valores estatísticos.
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Média, Variância, Máximo e Mínimo da operação Criar Conta}
+\label{tab:create_account_operation_request_time}
+\begin{tabular}{l|l|l|l|l}
+\hline \hline
+Arquitetura & Média     & Variância & Máximo    & Mínimo  \\ \hline \hline
+Rudy        & 263.09 ms & 115701.29 & 1774.0 ms & 19.0 ms \\ \hline
+Salz        & 152.53 ms & 50575.35  & 1304.0 ms & 28.0 ms \\ \hline
+Willson     & 135.98 ms & 30573.78  & 968.0 ms  & 20.0 ms \\ \hline \hline
+\end{tabular}
+
+\end{adjustbox}
+\end{table}
+
+Como exibido na Tabela~\ref{tab:create_account_operation_request_time}, podemos perceber que existe uma diferença abrupta na média de tempo de resposta da \ac{api} e na variância.
+%
+Os valores de máximo e mínimo somente são exibidos como pontos de atenção, entretanto como visível na Figura~\ref{fig:create_account_operation_request_time}, são poucas requisições que estrapolam a região de maior densidade de requisições, justificando uma grande variância.
+
+No contexto do atual trabalho podemos assumir a variância como disparidade entre os dados.
+%
+Quanto maior o valor, mais instável é o tempo de resposta de determinada operação ao serviço, entretanto ela mesmo sendo instável tenderá a responder em uma média de tempo.
+
+A partir deste contexto, podemos definir que a média de tempo de resposta do serviço, ao criar uma nova conta, segue a seguinte relação:
+
+$$
+  \overline{CriarConta_{w}} < \overline{CriarConta_{s}} < \overline{CriarConta_{r}}
+$$
+
+Onde entende-se:
+
+\begin{itemize}
+ \item $\overline{CriarConta_{r}}$: Tempo de resposta médio da operação criar conta na arquitetura Rudy;
+ \item $\overline{CriarConta_{r}}$: Tempo de resposta médio da operação criar conta na arquitetura Salz;
+ \item $\overline{CriarConta_{r}}$: Tempo de resposta médio da operação criar conta na arquitetura Willson;
+\end{itemize}
+
+Dessa forma, podemos dizer que para a operação de criar conta, em média, do ponto de vista de tempo de resposta, a arquitetura Willson é superior a arquitetura Salz e Rudy, respectivamente.
+%
+Também podemos afirmar que a estabilidade desta operação, do ponto de vista de tempo de resposta, também segue a mesma sequência.
+
 \subsubsection{Criar personagem}
+\label{sec:op_create_char}
 
 A operação de criar de personagem é efetuada sobre o protocolo \ac{tcp}/\ac{http}.
 %
@@ -134,6 +200,68 @@ Os dados são validados e inseridos no banco de dados, caso a validação esteja
 
   Fonte: O próprio autor.
 \end{figure}
+
+Como visível na Figura~\ref{fig:create_character_operation_request}, o comportamento do tempo de resposta da perspectiva do cliente tem comportamento similar a operação criar conta (Subseção~\ref{sec:op_create_account}).
+%
+Nesse sentido, faz sentido aplicar o mesmo método de análise para validar se existem comportamentos similares, haja vista que a natureza desta operação é próxima.
+
+Seguindo a metodologia da média dos dados obtidos, podemos obter os valores de média, variância, máximo e mínimo.
+%
+É possível visualizar estes valores na Tabela~\ref{tab:create_character_operation_request}.
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Média, Variância, Máximo e Mínimo da operação Criar Personagem}
+\label{tab:create_character_operation_request}
+\begin{tabular}{l|l|l|l|l}
+\hline \hline
+Arquitetura & Média     & Variância & Máximo    & Mínimo  \\ \hline \hline
+Rudy        & 135.43 ms & 8782.99 & 517.0 ms & 23.0 ms \\ \hline
+Salz        & 82.48 ms & 9106.62  & 624.0 ms & 24.0 ms \\ \hline
+Willson     & 73.66 ms & 4886.60  & 301.0 ms  & 22.0 ms \\ \hline \hline
+\end{tabular}
+
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+A partir da Tabela~\ref{tab:create_character_operation_request}, podemos observar que a média dos valores seguem o comportamento encontrado na operação Criar Conta (Subseção~\ref{sec:op_create_account}). Entretanto é notório a diferença com relação a estabilidade da operação de criação de personagem.
+
+Para realizar esta operação, o serviço realiza diversas validações, em sua grande parte realizando troca de mensagens entre os microsserviços de autenticação e validações de campos.
+%
+Tal situação, diferente da operação Criar Conta (Subseção~\ref{sec:op_create_account}), realiza poucas validações lógicas de regra de negócio aplicando-as diretamente ao banco de dados PostgreSQL.
+
+A partir desta caracteristica, podemos analisar a diferença na estabilidade entre as arquiteturas Rudy e Salz.
+%
+Por mais que a arquitetura Salz seja melhor em média - do ponto de vista de tempo de resposta - comparada a arquitetura Rudy, a arquitetura Rudy possui uma maior estabilidade em seu tempo de resposta.
+%
+Tal estabilidade é proveniente do enfileiramento das requisições no microsserviço \textit{rcrud}.
+
+Mesmo existindo uma flutuação maior na arquitetura Salz, nota-se que seus pontos máximos de tempo de resposta são inferiores a arquitetura Rudy.
+%
+Nesse sentido, por mais que o tempo de resposta tenha uma maior flutuação na arquitetura Salz, a arquitetura Rudy entrega uma menor qualidade.
+%
+Nesse sentido, deduz-se a seguinte relação:
+
+$$
+  \overline{CriarPersonagem_{w}} < \overline{CriarPersonagem_{s}} <\overline{CriarPersonagem_{r}}
+$$
+
+Onde entende-se:
+
+\begin{itemize}
+ \item $\overline{CriarPersonagem_{r}}$: Tempo de resposta médio da operação criar personagem na arquitetura Rudy;
+ \item $\overline{CriarPersonagem_{s}}$: Tempo de resposta médio da operação criar personagem na arquitetura Salz;
+ \item $\overline{CriarPersonagem_{w}}$: Tempo de resposta médio da operação criar personagem na arquitetura Willson;
+\end{itemize}
+
+Esta relação também expressa a qualidade de serviço, do ponto de vista de tempo de resposta, entregue ao usuário, haja vista que a variação dos valores entre as arquiteturas Salz e Rudy são relevantes estatisticamente, porém com uma magnitude baixa para utilizar como um argumento válido.
+%
+Dessa forma, entendemos que a arquitetura que entrega a melhor qualidade de serviço é a Willson, seguido por Salz e Rudy, respectivamente.
+
+
 
 \subsubsection{Iniciar sessão}
 
@@ -151,6 +279,45 @@ Os dados são validados e o serviço retorna um dado assinado e armazenado para 
 
   Fonte: O próprio autor.
 \end{figure}
+
+Tal qual as análises realizadas sobre as operações Criar Conta (Subseção~\ref{sec:op_create_account}) e Criar Personagem (Subseção~\ref{sec:op_create_char}), a Figura~\ref{fig:start_session_request_time} exibe tempo de requisições que foram realizadas somente uma vez por cliente.
+%
+Entretanto, o tempo de resposta está crescendo linearmente conforme o crescimento dos jogadores, diferente das outras operações.
+
+A partir dessa diferença de comportamento, faz sentido analisar se existe algum crescimento, baseado na diluição destes dados a valores mais significativos para comparação.
+%
+Nesse contexto, faz sentido analisar o crescimento da média ao dividir as requisições em quadrantes.
+%
+Estes valores são exibidos na Tabela~\ref{tab:op_start_session}.
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Tempo de resposta médio dos quadrantes.}
+\label{tab:op_start_session}
+\begin{tabular}{l|l|l|l}
+
+\hline \hline
+
+Quadrante & Rudy    & Salz    & Willson \\ \hline \hline
+
+Primeiro  & 18.6 ms & 20.88 ms & 15.68 ms \\ \hline
+
+Segundo   & 45.4 ms & 52.38 ms & 40.48 ms \\ \hline
+
+Terceiro  & 86.92 ms & 70.88 ms & 55.04 ms \\ \hline
+
+Quarto    & 113.24 ms & 57.04 ms & 55.48 ms \\ \hline \hline
+
+\end{tabular}
+
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+
+
 
 \subsubsection{Instanciar personagem}
 
