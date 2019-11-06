@@ -75,7 +75,7 @@ As características observadas nestas análises serve também como critério de 
 
 Nota-se que o número de jogadores simultâneos e o tempo de resposta são indexados pelo tempo a qual tais dados foram capturados.
 %
-Nesse sentido podemos relacionar o tempo de resposta de todos os clientes ao número de jogadores simultâneos.
+Nesse sentido pode-se relacionar o tempo de resposta de todos os clientes ao número de jogadores simultâneos.
 %
 Dado tal contexto, faz sentido realizar uma análise separando os ambientes baseado em algumas ações na qual operam sobre microsserviços e recursos diferentes.
 
@@ -157,15 +157,15 @@ Willson     & 135.98 ms & 30573.78  & 968.0 ms  & 20.0 ms \\ \hline \hline
 \end{adjustbox}
 \end{table}
 
-Como exibido na Tabela~\ref{tab:create_account_operation_request_time}, podemos perceber que existe uma diferença abrupta na média de tempo de resposta da \ac{api} e na variância.
+Como exibido na Tabela~\ref{tab:create_account_operation_request_time}, pode-se perceber que existe uma diferença abrupta na média de tempo de resposta da \ac{api} e na variância.
 %
 Os valores de máximo e mínimo somente são exibidos como pontos de atenção, entretanto como visível na Figura~\ref{fig:create_account_operation_request_time}, são poucas requisições que estrapolam a região de maior densidade de requisições, justificando uma grande variância.
 
-No contexto do atual trabalho podemos assumir a variância como disparidade entre os dados.
+No contexto do atual trabalho pode-se assumir a variância como disparidade entre os dados.
 %
 Quanto maior o valor, mais instável é o tempo de resposta de determinada operação ao serviço, entretanto ela mesmo sendo instável tenderá a responder em uma média de tempo.
 
-A partir deste contexto, podemos definir que a média de tempo de resposta do serviço, ao criar uma nova conta, segue a seguinte relação:
+A partir deste contexto, pode-se definir que a média de tempo de resposta do serviço, ao criar uma nova conta, segue a seguinte relação:
 
 $$
   \overline{CriarConta_{w}} < \overline{CriarConta_{s}} < \overline{CriarConta_{r}}
@@ -179,9 +179,9 @@ Onde entende-se:
  \item $\overline{CriarConta_{r}}$: Tempo de resposta médio da operação criar conta na arquitetura Willson;
 \end{itemize}
 
-Dessa forma, podemos dizer que para a operação de criar conta, em média, do ponto de vista de tempo de resposta, a arquitetura Willson é superior a arquitetura Salz e Rudy, respectivamente.
+Dessa forma, pode-se dizer que para a operação de criar conta, em média, do ponto de vista de tempo de resposta, a arquitetura Willson é superior a arquitetura Salz e Rudy, respectivamente.
 %
-Também podemos afirmar que a estabilidade desta operação, do ponto de vista de tempo de resposta, também segue a mesma sequência.
+Também pode-se afirmar que a estabilidade desta operação, do ponto de vista de tempo de resposta, também segue a mesma sequência.
 
 \subsubsection{Criar personagem}
 \label{sec:op_create_char}
@@ -205,7 +205,7 @@ Como visível na Figura~\ref{fig:create_character_operation_request}, o comporta
 %
 Nesse sentido, faz sentido aplicar o mesmo método de análise para validar se existem comportamentos similares, haja vista que a natureza desta operação é próxima.
 
-Seguindo a metodologia da média dos dados obtidos, podemos obter os valores de média, variância, máximo e mínimo.
+Seguindo a metodologia da média dos dados obtidos, pode-se obter os valores de média, variância, máximo e mínimo.
 %
 É possível visualizar estes valores na Tabela~\ref{tab:create_character_operation_request}.
 
@@ -227,13 +227,13 @@ Willson     & 73.66 ms & 4886.60  & 301.0 ms  & 22.0 ms \\ \hline \hline
 Fonte: O próprio autor.
 \end{table}
 
-A partir da Tabela~\ref{tab:create_character_operation_request}, podemos observar que a média dos valores seguem o comportamento encontrado na operação Criar Conta (Subseção~\ref{sec:op_create_account}). Entretanto é notório a diferença com relação a estabilidade da operação de criação de personagem.
+A partir da Tabela~\ref{tab:create_character_operation_request}, pode-se observar que a média dos valores seguem o comportamento encontrado na operação Criar Conta (Subseção~\ref{sec:op_create_account}). Entretanto é notório a diferença com relação a estabilidade da operação de criação de personagem.
 
 Para realizar esta operação, o serviço realiza diversas validações, em sua grande parte realizando troca de mensagens entre os microsserviços de autenticação e validações de campos.
 %
 Tal situação, diferente da operação Criar Conta (Subseção~\ref{sec:op_create_account}), realiza poucas validações lógicas de regra de negócio aplicando-as diretamente ao banco de dados PostgreSQL.
 
-A partir desta caracteristica, podemos analisar a diferença na estabilidade entre as arquiteturas Rudy e Salz.
+A partir desta caracteristica, pode-se analisar a diferença na estabilidade entre as arquiteturas Rudy e Salz.
 %
 Por mais que a arquitetura Salz seja melhor em média - do ponto de vista de tempo de resposta - comparada a arquitetura Rudy, a arquitetura Rudy possui uma maior estabilidade em seu tempo de resposta.
 %
@@ -264,7 +264,7 @@ Dessa forma, entendemos que a arquitetura que entrega a melhor qualidade de serv
 
 
 \subsubsection{Iniciar sessão}
-
+\label{sec:op_start_session}
 A operação de iniciar sessão é efetuada sobre o protocolo \ac{tcp}/\ac{rpc}.
 %
 Nesta operação, o cliente envia um formulário em formato \ac{gob} com informações básicas comuns em jogos \ac{mmorpg} para uma instância de personagem e dados de autenticação da conta.
@@ -316,8 +316,70 @@ Quarto    & 113.24 ms & 57.04 ms & 55.48 ms \\ \hline \hline
 Fonte: O próprio autor.
 \end{table}
 
+A Tabela~\ref{tab:op_start_session} exibe o comportamento de crescimento conforme o crescimento de número de usuários, entretanto a média no último quadrante não aumenta proporcionalmente como nos quadrantes anteriores.
+%
+Não pode-se dessa forma dizer que o crescimento é linear.
+
+Outra informação exibida na Tabela~\ref{tab:op_start_session} é que a arquitetura Salz diminui drasticamente a média do seu tempo de resposta no quarto quadrante.
+%
+Também temos um incremento reduzido, se comparado aos demais quadrantes, quando visualizamos o crescimento do quarto quadrante da arquitetura Willson.
+%
+Nesse sentido, o pode-se adicionar a variável de estabilidade da \ac{api} analisada.
+
+Para realizar a análise de estabilidade, faz sentido buscar a variância dos dados de cada quadrante.
+%
+Dessa forma podemos analisar se existe uma flutuação maior comparado aos quadrantes anteriores, mesmo com uma média próxima.
+%
+A Tabela~\ref{tab:op_start_session_var} exibe a variância dos quadrantes.
 
 
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Variância dos quadrantes na operação Iniciar Sessão.}
+\label{tab:op_start_session_var}
+\begin{tabular}{l|l|l|l}
+
+\hline \hline
+
+Quadrante & Rudy    & Salz    & Willson \\ \hline \hline
+
+Primeiro  & 205.92 & 865.47 & 247.58 \\ \hline
+
+Segundo   & 477.60 & 1138.57 & 960.09 \\ \hline
+
+Terceiro  & 2785.59 & 4091.28 & 2307.08 \\ \hline
+
+Quarto    & 4801.06 & 5192.71 & 3740.09 \\ \hline \hline
+
+\end{tabular}
+
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+A Tabela~\ref{tab:op_start_session_var} exibe a informação referente a variação dos dados nos quadrantes.
+%
+Dessa forma, podemos afirmar que a variação aumenta conforme a carga do serviço aumenta.
+%
+Nesse sentido, por mais que a média não apresente comportamento linear, este comportamento linear existe, onde o mesmo é expresso pelo comportamento da variância.
+%
+Porém, a qualidade de serviço está expresso aos valores médios, e não a variação, a qual única e exclusivamente neste caso somente exibe o comportamento dos dados.
+%
+Dessa forma, deduz-se a seguinte relação:
+
+$$
+  \overline{IniciarSessao_{s}} < \overline{IniciarSessao_{w}} <\overline{IniciarSessao_{r}}
+$$
+
+Onde entende-se:
+
+\begin{itemize}
+ \item $\overline{IniciarSessao_{r}}$: Tempo de resposta médio da operação iniciar sessão na arquitetura Rudy;
+ \item $\overline{IniciarSessao_{s}}$: Tempo de resposta médio da operação iniciar sessão na arquitetura Salz;
+ \item $\overline{IniciarSessao_{w}}$: Tempo de resposta médio da operação iniciar sessão na arquitetura Willson;
+\end{itemize}
 
 \subsubsection{Instanciar personagem}
 
@@ -335,6 +397,56 @@ Os dados são validados e o personagem selecionado é instanciado no mundo.
 
   Fonte: O próprio autor.
 \end{figure}
+
+A Figura~\ref{fig:spawn_character_request_time} exibe o mesmo comportamento da operação iniciar sessão, abordada na Subseção~\ref{sec:op_start_session}.
+%
+Faz sentido aplicar os mesmos métodos para obter informação neste contexto, obtendo os valores de média e variância por quadrante.
+%
+Tais informações são exibidas na Tabela~\ref{tab:op_spawn_character}.
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Tempo de resposta médio e variância dos quadrantes para instanciar personagem.}
+\label{tab:op_spawn_character}
+\begin{tabular}{l||l|l||l|l||l|l}
+
+\hline \hline
+
+Quadrante & \multicolumn{2}{l||}{Rudy}    & \multicolumn{2}{l||}{Salz}    & \multicolumn{2}{l}{Willson} \\ \hline \hline
+
+& Média & Variância & Média & Variância & Média & Variância \\ \hline
+
+Primeiro  & 25.0 ms & 209.04 & 56.92 ms & 1350.23 & 24.64 ms & 368.15 \\ \hline
+
+Segundo  & 59.12 ms & 1244.59 & 107.00 ms & 1617.25 & 42.24 ms & 8616.81 \\ \hline
+
+Terceiro  & 123.00 ms & 3250.48 & 138.29 ms & 8661.54 & 86.72 ms & 2331.48 \\ \hline
+
+Quarto  & 143.56 ms & 6984.89 & 202.12 ms & 14807.94 & 118.56 ms & 8616.81 \\ \hline \hline
+
+\end{tabular}
+
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+Diferente do comportamento da operação Iniciar Sessão (Subseção~\ref{sec:op_start_session}), ambos os comportamentos de variação e média exibidos na Tabela~\ref{tab:op_spawn_character} seguem um comportamento linear.
+%
+Deduz dessa forma que:
+
+$$
+  \overline{InstanciarPersonagem_{w}} < \overline{InstanciarPersonagem_{r}} <\overline{InstanciarPersonagem_{s}}
+$$
+
+Onde entende-se:
+
+\begin{itemize}
+ \item $\overline{InstanciarPersonagem_{r}}$: Tempo de resposta médio da operação instanciar personagem na arquitetura Rudy;
+ \item $\overline{InstanciarPersonagem_{s}}$: Tempo de resposta médio da operação instanciar personagem na arquitetura Salz;
+ \item $\overline{InstanciarPersonagem_{w}}$: Tempo de resposta médio da operação instanciar personagem na arquitetura Willson;
+\end{itemize}
 
 
 \subsubsection{Movimentar personagem}
@@ -354,6 +466,38 @@ Os dados são validados e o personagem instanciado é movimentado.
   Fonte: O próprio autor.
 \end{figure}
 
+A Figura~\ref{fig:move_character_request_time} exibe os dados obtidos de tempo de resposta ao movimentar o personagem instanciado no chat durante a variação do número de jogadores simultâneos.
+%
+Percebe-se um gráfico denso, dada a quantidade de pontos obtidos nos testes.
+%
+Dessa forma, faz sentido analisar o comportamento médio por jogador simultâneo.
+%
+A Figura~\ref{fig:spawn_character_request_time_per_concurrency} exibe o comportamento médio por jogador.
+
+\begin{figure}[htb!]
+  \caption{Tempo médio de resposta para movimentar personagem comparado ao número de jogadores}
+  \label{fig:spawn_character_request_time_per_concurrency}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/rt/spawn_character_request_time_per_concurrency}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+Visivelmente, a Figura~\ref{fig:spawn_character_request_time_per_concurrency} permite deduzir dessa forma que:
+
+$$
+  \overline{MoverPersonagem_{w}} < \overline{MoverPersonagem_{r}} <\overline{MoverPersonagem_{s}}
+$$
+
+Onde entende-se:
+
+\begin{itemize}
+ \item $\overline{MoverPersonagem_{r}}$: Tempo de resposta médio da operação mover personagem na arquitetura Rudy;
+ \item $\overline{MoverPersonagem_{s}}$: Tempo de resposta médio da operação mover personagem na arquitetura Salz;
+ \item $\overline{MoverPersonagem_{w}}$: Tempo de resposta médio da operação mover personagem na arquitetura Willson;
+\end{itemize}
+
+
 \subsubsection{Enviar mensagem}
 
 A operação de enviar mensagem é efetuada sobre o protocolo \ac{tcp}/\ac{rpc}.
@@ -370,6 +514,38 @@ Os dados são validados e a linha de texto é distribuído aos personagens dentr
 
   Fonte: O próprio autor.
 \end{figure}
+
+A Figura~\ref{fig:send_chat_request_time} exibe os dados obtidos de tempo de resposta ao enviar uma mensagem no chat durante a variação do número de jogadores simultâneos.
+%
+Percebe-se um gráfico denso, dada a quantidade de pontos obtidos nos testes.
+%
+Dessa forma, faz sentido analisar o comportamento médio por jogador simultâneo.
+%
+A Figura~\ref{fig:send_chat_request_time_per_concurrency} exibe o comportamento médio por jogador.
+
+
+\begin{figure}[htb!]
+  \caption{Tempo médio de resposta para enviar mensagens comparado ao número de jogadores}
+  \label{fig:send_chat_request_time_per_concurrency}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/rt/send_chat_request_time_per_concurrency}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+Visivelmente, a Figura~\ref{fig:send_chat_request_time_per_concurrency} permite deduzir dessa forma que:
+
+$$
+  \overline{EnviarMensagem_{w}} < \overline{EnviarMensagem_{s}} <\overline{EnviarMensagem_{r}}
+$$
+
+Onde entende-se:
+
+\begin{itemize}
+ \item $\overline{EnviarMensagem_{r}}$: Tempo de resposta médio da operação enviar mensagem na arquitetura Rudy;
+ \item $\overline{EnviarMensagem_{s}}$: Tempo de resposta médio da operação enviar mensagem na arquitetura Salz;
+ \item $\overline{EnviarMensagem_{w}}$: Tempo de resposta médio da operação enviar mensagem na arquitetura Willson;
+\end{itemize}
 
 \subsubsection{Receber mensagem}
 
@@ -388,6 +564,37 @@ Os dados são validados e o serviço retorna todas as linhas de texto que foram 
   Fonte: O próprio autor.
 \end{figure}
 
+A Figura~\ref{fig:listen_chat_request_time} exibe os dados obtidos de tempo de resposta ao receber uma mensagem no chat durante a variação do número de jogadores simultâneos.
+%
+Percebe-se um gráfico denso, dada a quantidade de pontos obtidos nos testes.
+%
+Dessa forma, faz sentido analisar o comportamento médio por jogador simultâneo.
+%
+A Figura~\ref{fig:listen_chat_request_time_per_concurrency} exibe o comportamento médio por jogador.
+
+\begin{figure}[htb!]
+  \caption{Tempo médio de resposta para receber mensagens comparado ao número de jogadores}
+  \label{fig:listen_chat_request_time_per_concurrency}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/rt/listen_chat_request_time_per_concurrency}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+Visivelmente, a Figura~\ref{fig:listen_chat_request_time_per_concurrency} permite deduzir dessa forma que:
+
+$$
+  \overline{ReceberMensagem_{w}} < \overline{ReceberMensagem_{s}} <\overline{ReceberMensagem_{r}}
+$$
+
+Onde entende-se:
+
+\begin{itemize}
+ \item $\overline{ReceberMensagem_{r}}$: Tempo de resposta médio da operação receber mensagem na arquitetura Rudy;
+ \item $\overline{ReceberMensagem_{s}}$: Tempo de resposta médio da operação receber mensagem na arquitetura Salz;
+ \item $\overline{ReceberMensagem_{w}}$: Tempo de resposta médio da operação receber mensagem na arquitetura Willson;
+\end{itemize}
+
 \subsection{Consumo de \ac{cpu}}
 
 Este experimento visa analisar o consumo de \ac{cpu} unitariamente, em relação ao número de jogadores simultâneos.
@@ -403,13 +610,13 @@ Neste contexto existem os seguintes valores:
 
 Nota-se que o número de jogadores simultâneos e o consumo de \ac{cpu} são indexados pelo tempo a qual tais dados foram capturados.
 %
-Nesse sentido podemos relacionar o número de jogadores simultâneos ao consumo de \ac{cpu} dos microsserviços e do banco de dados.
+Nesse sentido pode-se relacionar o número de jogadores simultâneos ao consumo de \ac{cpu} dos microsserviços e do banco de dados.
 %
 Dado tal contexto, faz sentido realizar uma análise separando os ambientes de Banco de Dados de Microsserviços.
 
 \subsubsection{Banco de Dados}
 
-Considerando o ambiente de banco de dados, podemos realizar a associação de número de jogadores simultâneos e \ac{cpu} consumida pelos contêineres de banco de dados.
+Considerando o ambiente de banco de dados, pode-se realizar a associação de número de jogadores simultâneos e \ac{cpu} consumida pelos contêineres de banco de dados.
 %
 Essa associação é realizada pelo tempo de registro das métricas.
 %
@@ -492,7 +699,7 @@ Fonte: O próprio autor.
 
 Torna-se visível a diferença do consumo de \ac{cpu} entre as arquiteturas pelo banco de dados.
 %
-A partir destes dados podemos deduzir que:
+A partir destes dados pode-se deduzir que:
 
 \begin{itemize}
  \item Arquitetura Rudy consome menos \ac{cpu} do banco de dados persistentes; e \item Arquitetura Salz e Willson consomem \ac{cpu} na mesma proporsão, com a arquitetura Salz tendo uma leva tendência a consumir menos \ac{cpu}.
@@ -577,7 +784,7 @@ A Figura~\ref{fig:cpu_redis_media_por_jogador} exibe um gráfico a qual compara 
   Fonte: O próprio autor.
 \end{figure}
 
-Conforme exibido na Figura~\ref{fig:cpu_redis_media_por_jogador}, podemos deduzir que em todo caso as arquiteturas Rudy, Salz e Willson seguem a seguinte expressão:
+Conforme exibido na Figura~\ref{fig:cpu_redis_media_por_jogador}, pode-se deduzir que em todo caso as arquiteturas Rudy, Salz e Willson seguem a seguinte expressão:
 
 $$
     CPU(db\_redis_{r}) < CPU(db\_redis_{s}) \approx CPU(db\_redis_{w})
@@ -591,10 +798,9 @@ Na qual entende-se:
 \item $CPU(db\_redis_{w})$: Curva de consumo de \ac{cpu} pelo Redis da arquitetura Willson;
 \end{itemize}
 
-%ccm Precisa fazer uma legenda das letrinhas. Pode ser parágrafo ou itemize.
 Nota-se que o consumo de recurso do banco de dados temporários e banco de dados persistentes exibiram o mesmo comportamento.
 %
-Dessa forma, podemos generalizar o comportamento do consumo de \ac{cpu} das arquiteturas Rudy, Salz e Willson para banco de Dados:
+Dessa forma, pode-se generalizar o comportamento do consumo de \ac{cpu} das arquiteturas Rudy, Salz e Willson para banco de Dados:
 
 $$
     CPU(db_{r}) < CPU(db_{s}) \approx CPU(db_{w})
@@ -619,12 +825,12 @@ Entretanto, esta característica pode ser por dois motivos:
 
 Dado estas duas hipóteses, faz sentido mensurar a qualidade de serviço entregue ao usuário.
 %
-Podemos mensurar qual das hipóteses é mais valiosa para a qualidade de serviço com base no tempo de resposta do usuário.
+Pode-se mensurar qual das hipóteses é mais valiosa para a qualidade de serviço com base no tempo de resposta do usuário.
 
 
 \subsubsection{Microsserviços}
 
-Considerando o ambiente de banco de dados, podemos realizar a associação de número de jogadores simultâneos e \ac{cpu} consumida pelos contêineres de banco de dados.
+Considerando o ambiente de banco de dados, pode-se realizar a associação de número de jogadores simultâneos e \ac{cpu} consumida pelos contêineres de banco de dados.
 %
 Essa associação é realizada pelo tempo de registro das métricas.
 %
@@ -657,7 +863,7 @@ O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimen
     Fonte: O próprio autor.
 \end{figure}
 
-Conforme exibido nas Figuras~\ref{fig:r_cpu_game}, ~\ref{fig:s_cpu_game} e ~\ref{fig:w_cpu_game}, podemos observar as seguintes características:
+Conforme exibido nas Figuras~\ref{fig:r_cpu_game}, ~\ref{fig:s_cpu_game} e ~\ref{fig:w_cpu_game}, pode-se observar as seguintes características:
 
 \begin{itemize}
  \item Os microsserviços \textit{rweb}, \textit{sweb} e \textit{wweb} consomem pouca \ac{cpu} comparado a todos os outros microsserviços das arquiteturas;
@@ -666,7 +872,7 @@ Conforme exibido nas Figuras~\ref{fig:r_cpu_game}, ~\ref{fig:s_cpu_game} e ~\ref
 
 Faz sentido analisar a média do consumo de \ac{cpu} dos microsserviços dividindo em quadrantes.
 %
-Dessa forma, podemos obter dados significantes para realizar comparações a partir destes dados.
+Dessa forma, pode-se obter dados significantes para realizar comparações a partir destes dados.
 %
 A Tabela~\ref{tab:cpu_microsservicos_media_quadrantes} exibe a média de consumo de \ac{cpu} por quadrante de todos os microsserviços.
 
@@ -700,7 +906,7 @@ A Tabela~\ref{tab:cpu_microsservicos_media_quadrantes} mostra o crescimento do c
 %
 Estes dados são importantes, haja vista que os mesmos permitem analisar o comportamento das curvas removendo oscilações notórias na visualização do consumo de \ac{cpu}.
 %
-A partir desta tabela podemos realizar as seguintes conclusões:
+A partir desta tabela pode-se realizar as seguintes conclusões:
 
 \begin{itemize}
  \item Entre os microsserviços \textit{rcrud}, \textit{sauth} e \textit{wauth}, o com maior consumo é o microsserviço \textit{wauth}.
@@ -748,9 +954,9 @@ Este erro é dado pela variância do conjunto de dados obtidos na determinada fa
 %
 Ter um valor de variância alto significa que, por mais que a média seja um bom valor para a métrica, diversos pontos da mesma faixa estão longe deste valor.
 %
-Dessa forma, podemos interpretar como um erro, neste contexto.
+Dessa forma, pode-se interpretar como um erro, neste contexto.
 
-Podemos deduzir as seguintes características a partir da Figura~\ref{fig:cpu_game_media_por_jogador}:
+Pode-se deduzir as seguintes características a partir da Figura~\ref{fig:cpu_game_media_por_jogador}:
 
 \begin{itemize}
  \item Os microsserviços que contém maior erro são os que estão relacionados a acesso de dados para autenticação ou/e geração de assinaturas de dados para outros serviços (\textit{rcrud, sauth e wauth});
@@ -758,7 +964,7 @@ Podemos deduzir as seguintes características a partir da Figura~\ref{fig:cpu_ga
  \item O valor total de consumo de \ac{cpu} mudou conforme a arquitetura.
 \end{itemize}
 
-Dado o último critério, utilizando a curva de total consumido das Sub figuras~\ref{fig:cpu_r_arch_media_por_jogador}, ~\ref{fig:cpu_s_arch_media_por_jogador} e ~\ref{fig:cpu_w_arch_media_por_jogador},  podemos comparar o total de consumo de \ac{cpu} por cada arquitetura.
+Dado o último critério, utilizando a curva de total consumido das Sub figuras~\ref{fig:cpu_r_arch_media_por_jogador}, ~\ref{fig:cpu_s_arch_media_por_jogador} e ~\ref{fig:cpu_w_arch_media_por_jogador},  pode-se comparar o total de consumo de \ac{cpu} por cada arquitetura.
 %
 A Tabela~\ref{tab:consumo_total_cpu} exibe os valores baseados em quadrantes, para realizar a comparação com valores.
 
@@ -781,7 +987,7 @@ Willson     & 44.60\%            & 65.76\%           & 67.94\%            & 66.9
 Fonte: O próprio autor.
 \end{table}
 
-A partir dos dados da Tabela~\ref{tab:consumo_total_cpu}, podemos referenciar que a arquitetura Salz consome menos \ac{cpu} que a arquitetura Rudy e Willson.
+A partir dos dados da Tabela~\ref{tab:consumo_total_cpu}, pode-se referenciar que a arquitetura Salz consome menos \ac{cpu} que a arquitetura Rudy e Willson.
 %
 Faz sentido realizar a visualização das três curvas de totais em um único gráfico a fim de exibir esta relação.
 %
@@ -796,7 +1002,7 @@ A Figura~\ref{fig:consumo_total_cpu} exibe esta comparação.
   Fonte: O próprio autor.
 \end{figure}
 
-Dado a Figura~\ref{fig:consumo_total_cpu} e a Tabela~\ref{tab:consumo_total_cpu}, podemos afirmar que:
+Dado a Figura~\ref{fig:consumo_total_cpu} e a Tabela~\ref{tab:consumo_total_cpu}, pode-se afirmar que:
 
 $$
     CPU(microsservicos_{s}) < CPU(microsservicos_{r}) < CPU(microsservicos_{w})
@@ -816,16 +1022,16 @@ Nesse sentido, a arquitetura Salz possui mais conexões que a arquitetura Rudy, 
 
 Nota-se que possuir um consumo de \ac{cpu} maior que outra arquitetura não implica em ser uma arquitetura melhor.
 %
-Podemos encontrar dois casos para um consumo de \ac{cpu} ao comparar duas arquiteturas:
+Pode-se encontrar dois casos para um consumo de \ac{cpu} ao comparar duas arquiteturas:
 
 \begin{itemize}
  \item A arquitetura possui pouca carga para estressar a \ac{cpu}; ou
  \item A arquitetura converge para tal valor, visto que está com gargalo em outro recurso necessário;
 \end{itemize}
 
-Para o caso desta análise, podemos descartar a primeira alternativa.
+Para o caso desta análise, pode-se descartar a primeira alternativa.
 %
-Para este caso podemos analisar que a curva estabiliza o seu crescimento entre 20 e 40 jogadores simultâneos, a mesma faixa onde os bancos de dados estabilizaram seu crescimento (visível na Figura~\ref{fig:cpu_db_media_por_jogador}).
+Para este caso pode-se analisar que a curva estabiliza o seu crescimento entre 20 e 40 jogadores simultâneos, a mesma faixa onde os bancos de dados estabilizaram seu crescimento (visível na Figura~\ref{fig:cpu_db_media_por_jogador}).
 %
 Dessa forma pode-se justificar o aumento de erros nas médias nos microsserviços com acesso ao banco conforme o aumento da carga no serviço.
 
@@ -857,7 +1063,7 @@ Neste contexto existem os seguintes valores:
 
 Nota-se que o número de jogadores simultâneos e o consumo de memória são indexados pelo tempo a qual tais dados foram capturados.
 %
-Nesse sentido podemos relacionar o número de jogadores simultâneos ao consumo de memória dos microsserviços e do banco de dados.
+Nesse sentido pode-se relacionar o número de jogadores simultâneos ao consumo de memória dos microsserviços e do banco de dados.
 %
 Dado tal contexto, faz sentido realizar uma análise separando os ambientes de Banco de Dados de Microsserviços.
 
@@ -865,7 +1071,7 @@ Dado tal contexto, faz sentido realizar uma análise separando os ambientes de B
 
 
 
-Considerando o ambiente de banco de dados, podemos realizar a associação de número de jogadores simultâneos e memória consumida pelos contêineres de banco de dados.
+Considerando o ambiente de banco de dados, pode-se realizar a associação de número de jogadores simultâneos e memória consumida pelos contêineres de banco de dados.
 %
 Essa associação é realizada pelo tempo de registro das métricas.
 %
@@ -950,7 +1156,7 @@ Para realizar este calculo é necessário estimar o custo de armazenamento das c
 %
 Por padrão, os clientes de ataque geram nomes de usuários de 32 caracteres.
 %
-Com tais dados, podemos estimar o custo de memória por usuário.
+Com tais dados, pode-se estimar o custo de memória por usuário.
 %
 Pode-se calcular o consumo de memória por um único jogador simultâneo utilizando a seguinte fórmula:
 
@@ -996,13 +1202,13 @@ Willson     & 38.83\%            & 61.72\%           & 72.43\%            & 79.2
 Fonte: O próprio autor.
 \end{table}
 
-A partir da Tabela~\ref{tab:mem_db_media_quadrante}, podemos mensurar a distância de consumo de memória por parte do PostgreSQL.
+A partir da Tabela~\ref{tab:mem_db_media_quadrante}, pode-se mensurar a distância de consumo de memória por parte do PostgreSQL.
 %
-No quarto quadrante também podemos observar uma distância, em média, dentre as curvas de consumo.
+No quarto quadrante também pode-se observar uma distância, em média, dentre as curvas de consumo.
 %
-Entretanto não podemos mensurar que é uma tendência, visto que o segundo e terceiro quadrante ficam próximo.
+Entretanto não pode-se mensurar que é uma tendência, visto que o segundo e terceiro quadrante ficam próximo.
 %
-Dado tais informações podemos parcialmente concluir que o consumo de memória por parte do banco de dados persistentes é menor na arquitetura Rudy, entretanto o consumo é demasiadamente próximo entre as arquiteturas Willson e Salz, tendo a arquitetura Salz uma leve tendência a ser maior.
+Dado tais informações pode-se parcialmente concluir que o consumo de memória por parte do banco de dados persistentes é menor na arquitetura Rudy, entretanto o consumo é demasiadamente próximo entre as arquiteturas Willson e Salz, tendo a arquitetura Salz uma leve tendência a ser maior.
 
 Tal comportamento faz sentido, levando em consideração o número de conexões simultâneas que cada arquitetura realiza ao banco de dados.
 %
@@ -1021,13 +1227,13 @@ Tal correlação é visível na Figura~\ref{fig:mem_db_media_por_jogador}.
   Fonte: O próprio autor.
 \end{figure}
 
-A partir da Figura~\ref{fig:mem_db_media_por_jogador} podemos confirmar as conclusões parciais obtidas da Tabela~\ref{tab:cpu_db_media_quadrantes}.
+A partir da Figura~\ref{fig:mem_db_media_por_jogador} pode-se confirmar as conclusões parciais obtidas da Tabela~\ref{tab:cpu_db_media_quadrantes}.
 %
 Além das conclusões parciais, é possível visualizar o crescimento da média a cada incremento de jogador simultâneo.
 %
-Podemos concluir que o serviço de fato foi estressado, haja vista que podemos perceber inicialmente um comportamento na qual não corresponde a uma curva multimodal.
+pode-se concluir que o serviço de fato foi estressado, haja vista que pode-se perceber inicialmente um comportamento na qual não corresponde a uma curva multimodal.
 
-A partir destes dados podemos concluir que:
+A partir destes dados pode-se concluir que:
 
 $$
     MEM(db\_postgresql_{r}) < MEM(db\_postgresql_{s}) \approx MEM(db\_postgresql_{w})
