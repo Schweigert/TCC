@@ -2,11 +2,11 @@
 \label{introducao}
 
 
-Jogos \acf{mmorpg} são utilizados como negócio viável e lucrativo, sendo que, a experiência de jogabilidade na qual o usuário final será submetido é um fator crítico para o sucesso.
+Jogos \acf{mmorpg} são utilizados como negócio viável e lucrativo, sendo que, a experiência de jogabilidade na qual o usuário final será submetido é um fator crítico para o sucesso destes jogos.
 %
-Este gênero, especificado de interpretação de papéis de forma massiva em um ambiente compartilhado, tem como sua principal característica a comunicação e representação virtual de personagens em um mundo fantasia compartilhado.
+Este gênero, focado na interpretação de papéis de forma massiva em um ambiente compartilhado, tem como sua principal característica a comunicação e representação virtual de personagens em um mundo fantasia compartilhado.
 %
-Neste mundo compartilhado cada jogador pode interagir com objetos ou tomar ações sobre outros jogadores em tempo real, tendo como principais objetivos a resolução de problemas conforme a sua regra de negócio de cada projeto~\cite{video_game_technologies}.
+Neste mundo compartilhado cada jogador pode interagir com objetos ou tomar ações sobre outros jogadores em tempo real, tendo como principal objetivo a resolução de problemas dentro de uma comunidade virtual, na qual é resolvido específico a cada projeto~\cite{video_game_technologies}.
 
 
 
@@ -14,16 +14,16 @@ A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sob
 %
 Modelar um sistema de alto desempenho torna-se um trabalho essencial para a satisfação do usuário final neste cenário~\cite{1417630}.
 %
-As ocorrências geradas por um sistema de baixo desempenho podem acarretar em frustração do usuário com o serviço e/ou aumento dos gastos com recurso computacional para manter o serviço.
+As ocorrências geradas por um sistema de baixo desempenho podem acarretar em frustração do usuário com o serviço e/ou aumento dos gastos com recurso computacional para manter tais serviços.
 %
 Uma ocorrência é qualquer tipo de mal funcionamento em uma aplicação, não necessariamente aparente ao usuário final~\cite{1417630}.
 %
-Evitar ou eliminar as ocorrências durante o projeto e desenvolvimento das arquiteturas do serviço é um processo crítico para o bom funcionamento desses jogos.
+Evitar ou eliminar as ocorrências durante o projeto de desenvolvimento das arquiteturas do serviço é um processo crítico para o sucesso desses jogos.
 
 
 Os avanços tecnológicos de sistemas distribuídos estão permitindo que as pessoas utilizem serviços com volumes massivos de dados para aplicações sensíveis a latência.
 %
-Essa situação é propícia à área de jogos massivos, e tem atraído pesquisadores~\cite{mmo_analytic,1417630,6267019,6063041}.
+Essa situação é propícia à área de jogos massivos, e tem formentado pesquisas deste ramo~\cite{mmo_analytic,1417630,6267019,6063041}.
 %
 O principal objetivo destas pesquisas é reduzir a carga e o impacto da latência para o usuário final nesses serviços, aumentando a quantidade de jogadores simultâneos em um único serviço.
 %
@@ -39,36 +39,36 @@ Em específico, este paradigma de desenvolvimento de arquiteturas herda caracter
     \cite{Raymond2003Oct}
 \end{quotation}
 
-Alguns estudos discorrem sobre a escalabilidade dos serviços baseados em microsserviços a qual em um todo  com o seu foco para desenvolvimento \textit{web}~\cite{photon_engine, mmorpg_culture, DiFrancesco2017Apr}.
+Alguns estudos discorrem sobre a escalabilidade dos serviços baseados em microsserviços, sendo que tais estudos usam o desenvolvimento \textit{web} como sua principal aplicação~\cite{photon_engine, mmorpg_culture, DiFrancesco2017Apr}.
 %
-Entretanto, a estrutura de um serviço \ac{mmorpg} baseado em microsserviços é mais abrangente, necessitando de maior desempenho comparado a serviços monolíticos\textit{web}~\cite{photon_engine, mmorpg_culture}.
+Entretanto, a estrutura de um serviço \ac{mmorpg} baseado em microsserviços é mais abrangente, necessitando de maior desempenho comparado a serviços \textit{web}~\cite{photon_engine, mmorpg_culture}.
 %
 Dessa forma, torna-se interessante a análise de serviços \ac{mmorpg} baseados em microsserviços.
 
 
-Deste modo, o problema principal identificado está na análise de consumo de recursos para a manutenção de arquiteturas de microsserviços específicos a jogos \ac{mmorpg} utilizando como base arquiteturas encontradas na literatura.
+Deste modo o problema identificado é a falta de uma análise sobre o consumo de recursos para a manutenção de arquiteturas de microsserviços específicos a jogos \ac{mmorpg}, utilizando como base as arquiteturas encontradas na literatura.
 %
-Adicionalmente a este problema, será necessário o desenvolvimento de tais arquiteturas para submissão a experimentos e análise.
+Adicionalmente a este problema, será necessário o desenvolvimento de tais arquiteturas para submissão a experimentos e posterior análise.
 
-Este trabalho tem como objetivo analisar o consumo de recurso das principais arquiteturas disponíveis na literatura.
+Este trabalho tem como objetivo analisar o consumo de recursos das principais arquiteturas disponíveis na literatura.
 %
 Nesse sentido, os objetivos específicos do atual trabalho são:
 
 \begin{itemize}
-    \item Identificar arquiteturas empregadas na categoria de jogos do presente trabalho.
+    \item Identificar arquiteturas empregadas na categoria de jogos \ac{mmorpg}.
     \item Identificar os protocolos utilizados nessas arquiteturas.
     \item Identificar os microsserviços dessas arquiteturas.
     \item Identificar e avaliar ferramentas de análise de métricas para armazenar valores dos testes.
     \item Analisar o comportamento das arquiteturas aplicadas, levantando questões de desempenho e recursos utilizados.
-    \item Propor alternativas de otimização para os problemas encontrados nas devidas arquiteturas.
+    \item Propor alternativas de otimização para os problemas relacionados a consumo de recursos encontrados nas devidas arquiteturas identificadas.
 \end{itemize}
 
 
-Para dar suporte a proposta deste trabalho, uma revisão da literatura é apresentada, a fim de esclarecer os conceitos principais referentes a temática de serviços \ac{mmorpg}.
+Para dar suporte a proposta deste trabalho, uma revisão da literatura é apresentada a fim de esclarecer os conceitos principais referentes a temática de serviços \ac{mmorpg}.
 %
 Ao analisar os trabalhos relacionados identificados, houve uma dificuldade para encontrar os tópicos \ac{mmorpg} e sistemas distribuídos baseado em microsserviços.
 %
-A relevância desta análise contribui, diretamente para que outros trabalhos científicos possam utilizar da análise de arquiteturas para jogos \ac{mmorpg} baseados em arquiteturas de microsserviços.
+Os resultados obtidos deste trabalho podem contribuir com futuros trabalhos científicos em diversas áreas de desenvolvimento e engenharia de software, computação distribuída ou consumo de recursos, específicos ou não a área de desenvolvimento de jogos.
 
 
 
@@ -76,18 +76,18 @@ A análise é inicialmente realizada através de uma pesquisa referenciada sobre
 %
 Depois, um estudo sobre a intersecção de ambos os temas.
 %
-Também são identificados trabalhos relacionados na presente literatura que foquem tanto em microsserviços tal como serviços \ac{mmorpg}.
+Também são identificados trabalhos relacionados na presente literatura que foquem tanto em arquiteturas de  microsserviços genéricas quanto em arquiteturas de serviços \ac{mmorpg}.
 %
-Em seguida é definida a proposta, junto a testes e cenários a fim de analisar tais arquiteturas. 
+Em seguida é definida a proposta, junto a testes e cenários a fim de coletar informações e realizar a análise das arquiteturas de microsserviços específicas a jogos \ac{mmorpg}. 
 
 
 
-Este trabalho de conclusão de curso possui natureza aplicada pois será necessário a implementação das arquiteturas descritas na literatura (TCC-II), utilizando as mesmas regras de negócio, viabilizando uma análise igualitária entre as arquiteturas propostas.
+Este trabalho de conclusão de curso possui natureza aplicada pois será necessário a implementação das arquiteturas descritas na literatura, utilizando as mesmas regras de negócio, viabilizando uma análise igualitária entre as arquiteturas propostas.
 %
-A análise será abordada de maneira qualitativa, pois será feito um estudo a partir de valores gerados por experimentos utilizando as ferramentas, abordando as características de tais arquiteturas.
+A análise será efetuada de maneira qualitativa, pois será realizado um estudo a partir de valores gerados pelos experimentos, considerando as características individuais de cada arquitetura identificada.
 
 
-
+%% ccm alterar esa bagaça
 Este trabalho está organizado em três capítulos, que dão suporte a análise das arquiteturas específicas a jogos \ac{mmorpg} proposta.
 %
 No Capítulo~\ref{cap2} são apresentados os conceitos necessários para o entendimento desse trabalho, com a finalidade de apresentar o funcionamento básico de um cliente e serviço \ac{mmorpg}, arquitetura de um serviço baseado em microsserviços e por fim em específico algumas arquiteturas de microsserviços \ac{mmorpg} encontradas na literatura.
