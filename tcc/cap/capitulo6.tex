@@ -1273,4 +1273,50 @@ Considerando o ambiente de banco de dados, pode-se realizar a associação de n�
 %
 Essa associação é realizada pelo tempo de registro das métricas.
 %
-O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_db_cpu}.
+O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_db_net_in}.
+
+\begin{figure}[htb!]
+    \caption{Entrada de dados da rede dos bancos de dados}
+    \label{fig:experimento_db_net_in}
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/analise/rt/r_net_in_db.png}
+        \caption{Bancos de Dados da arquitetura Rudy}
+        \label{fig:r_netin_db}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/analise/rt/s_net_in_db.png}
+        \caption{Bancos de Dados da arquitetura Salz}
+        \label{fig:s_netin_db}
+    \end{subfigure}\\
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/analise/rt/w_net_in_db.png}
+        \caption{Bancos de Dados da arquitetura Willson}
+        \label{fig:w_netin_db}
+    \end{subfigure}
+
+    Fonte: O próprio autor.
+\end{figure}
+
+A Figura~\ref{fig:experimento_db_net_in} exibe o comportamento da entrada dos dados para os bancos de dados.
+%
+Ele segue um padrão visivelmente linear.
+%
+Ambas as arquiteturas consomem o banco de dados com o mesmo comportamento linear, entretanto em proporções diferentes.
+%
+Faz sentido analisar o tráfego de rede instantâneo da máquina hospedeira.
+%
+Esta visualização está disponível na Figura~\ref{fig:net_in_db}.
+
+\begin{figure}[htb!]
+  \caption{Velocidade da entrada de dados para a rede \textit{databases}.}
+  \label{fig:net_in_db}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/net_in_db.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
