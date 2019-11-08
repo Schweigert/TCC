@@ -6,18 +6,18 @@ O termo \textit{jogos eletrônicos} é amplamente difundido, entretanto as espec
 %
 A Seção~\ref{sec:jogos_eletronicos} trata a definição de jogo eletrônico, um levante histórico e o impacto da evolução do hardware no desenvolvimento dos jogos.
 %
-Este termo é tomado como introdução para o conceito de gênero de jogo, abordado na Subseção~\ref{sec:arvore_generos} e na qual são abordados os principais gêneros, características e tecnologias (do ponto de vista de rede de computadores) que são comuns em cada gênero.
+Este termo é tomado como introdução para o conceito de gênero de jogo, abordado na Subseção~\ref{sec:arvore_generos}, a qual referencia os principais gêneros, características e tecnologias (do ponto de vista de rede de computadores) que são comuns em cada gênero.
 %
-Esta introdução acerca dos gêneros e suas tecnologias de comunicação busca trazer a importância do desempenho das arquiteturas dos jogos \ac{mmorpg} e proporção da comunidade impactada caso haja falhas de funcionamento nessas arquiteturas.
+Esta introdução acerca dos gêneros e suas tecnologias de comunicação busca trazer a importância do desempenho das arquiteturas dos jogos \ac{mmorpg} e proporção da comunidade impactada caso hajam falhas de funcionamento nessas arquiteturas.
 
 
 
-Após definir a categoria de jogo abordado, a Seção~\ref{sec:mmorpg} aborda sobre uma introdução ao impacto de mercado desse gênero, uma definição simplista e a divisão das camadas de aplicação que permeiam uma arquitetura para um jogo \ac{mmorpg}.
+Após definir a categoria de jogo abordado, a Seção~\ref{sec:mmorpg} apresenta uma introdução ao impacto de mercado desse gênero, uma definição simplista do gênero e a divisão das camadas de aplicação que permeiam uma arquitetura para um jogo \ac{mmorpg}.
 %
-Entretanto, antes de abordar sobre as camadas da infraestrutura de um arquitetura \ac{mmorpg}, faz-se obrigatório o entendimento sobre jogabilidade (Seção~\ref{sec:jogabilidade}) e problemas relativos a rede relevantes a este gênero (Seção~\ref{sec:problemas}).
+Antes de abordar sobre as camadas da infraestrutura de uma arquitetura de jogo \ac{mmorpg} e seus problemas recorrentes relativos a rede (Seção~\ref{sec:problemas}), faz-se obrigatório o entendimento sobre a jogabilidade deste gênero (Seção~\ref{sec:jogabilidade}).
 
 
-Os conceitos de Cliente (Seção~\ref{sec:cliente}) e Serviço (Seção~\ref{sec:microsservicos}) são abordados a fim de introduzir conceitos de arquiteturas comuns nestes serviços.
+Os conceitos de cliente (Seção~\ref{sec:cliente}) e serviço (Seção~\ref{sec:microsservicos}) são abordados a fim de introduzir conceitos básicos de arquiteturas para jogos \ac{mmorpg}.
 %
 O objetivo destas seções é referenciar diversas tecnologias e técnicas utilizadas nesses sistemas a fim de permitir o desenvolvimento de uma arquitetura de microsserviços específica a jogos \ac{mmorpg}.
 %
@@ -44,11 +44,11 @@ O sistema operacional, hardware ou base de execução da aplicação gráfica de
 
 
 
-Inicialmente, os jogos eram implementados de forma simples por conta da limitação de hardware das plataformas dos anos 80.
+Inicialmente, os jogos eram implementados de forma simples por conta da limitação de hardware das plataformas da década de 80.
 %
 As implementações de jogos para \textit{videogames} eram projetadas diretamente para algum hardware proprietário, sem sistema operacional, por muitas vezes sem utilizar comunicação por rede ou armazenamento em memória secundária~\cite{rollings2003andrew}.
 %
-Além de diversas plataformas não terem acesso a rede, os serviços para jogos eram inviabilizados pelo custo de manutenção e pela ausência de demanda a qual teriam os requisitos mínimos para jogar~\cite{adams_1208533}.
+Além de diversas plataformas não terem acesso a rede, os serviços para jogos eram inviabilizados pelo custo de manutenção e pela ausência de demanda na qual teriam os requisitos mínimos para jogar~\cite{adams_1208533}.
 %
 Na década de 80, o \textit{videogame} Atari foi uma plataforma popular, vendendo 30.000 unidades em seu lançamento contra apenas 2.000 unidades do seu concorrente Intellivision~\cite{atari_age}.
 
@@ -64,7 +64,7 @@ Tais jogos popularizaram um novo gênero, trazendo inovação tecnológica como 
 
 Muitos outros jogos do gênero foram criados devido ao aumento da quantidade de público alvo e viabilidade de novas tecnologias, na qual fomentaram a evolução dos jogos \ac{mmorpg}.
 %
-Nesse sentido, as redes de computadores realizaram papel de impulsionador para várias categorias de jogos, que antes não eram possíveis por conta da limitação de comunicação entre computadores.
+Nesse sentido, as redes de computadores realizaram papeis de impulsionadores para várias categorias de jogos, que antes não eram possíveis por conta da limitação de comunicação entre computadores.
 %
 Sendo assim, torna-se necessário ter uma visão geral das principais categorias de jogos eletrônicos com relação as tecnologias empregadas do ponto de vista de redes de computadores.
 
@@ -78,7 +78,7 @@ A classificação por gênero é uma ferramenta tradicional para auxiliar a fác
 %
 Dentro de jogos eletrônicos, o gênero permite que jogadores busquem jogos com características conforme o seu interesse~\cite{Clarke2015}.
 %
-A árvore pode ser visualizada na Figura~\ref{fig:generos}.
+A árvore de gêneros para jogos eletrônicos pode ser visualizada na Figura~\ref{fig:generos}.
 
 
 \begin{figure}[htb!]
@@ -96,8 +96,7 @@ Um gênero de jogo eletrônico é uma categoria específica para agrupar estilos
 %
 Porém, um gênero não define de forma explícita o conteúdo expresso em algum jogo eletrônico, mas sim um desafio comum presente no jogo analisado~\cite{adams_1208533, video_game_technologies}.
 %
-Uma breve explicação sobre os principais gêneros (Figura~\ref{fig:generos}):
-
+Na Figura~\ref{fig:generos} foram apresentados os principais gêneros, na qual podem ser brevemente descritos como:
 
 
 \begin{itemize}
@@ -107,16 +106,16 @@ Uma breve explicação sobre os principais gêneros (Figura~\ref{fig:generos}):
     \end{itemize}
   \item \ac{mmo}: Preza pela interação com outros jogadores em um mundo compartilhado~\cite{adams_1208533}. SecondLife\footnote{SecondLife: \url{https://www.secondlife.com/}} é um jogo focado na interação social, com artifícios de comércio e relacionamentos em um mundo fictício criado pela comunidade~\cite{tecmundo_secondlife}. Em grande parte, esses jogos utilizam tecnologia \ac{wan} e \ac{cs}.
     \begin{itemize}
-      \item \ac{moba}: Coloca um número fixo de jogadores separados em dois times, no qual o time com maior estratégia de posicionamento e gerenciamento de recursos em equipe ganha a partida. Jogos \ac{moba} perdem algumas características breves do gênero \ac{rpg}, deixando de lado a interpretação e contextualização de um mundo, fixando-se somente em um combate estratégico e momentâneo (distribuído em partidas atômicas) entre as equipes, carregando consigo somente as características de comércio e comunidade dos jogos \ac{mmo}~\cite{adams_1208533}. Tal subgênero é popularmente conhecido pelos títulos Blizzard Dota 2\footnote{Blizzard Dota 2: \url{http://br.dota2.com/}} e Riot League of Legends\footnote{Riot League of Legends: \url{https://br.leagueoflegends.com/pt/}}. O jogo League of Legends obteve 100 milhões de usuários ativos em 2016 sendo o jogo mais jogado do mundo neste ano~\cite{lol_statista}, tendo torneios nacionais e internacionais~\cite{lol_sportv}. É popular nesse subgênero utilizar tecnologias como \ac{lan}, \ac{p2p} e \ac{wan}.
-      \item \ac{mmorpg}: Herda características dos gêneros ação e aventura, \ac{rpg}, e \ac{mmo} diretamente. Nesse gênero é permitido interações em um mundo na qual outros jogadores conjuntamente jogam, na qual a interação entre outros jogadores (herdado dos jogos \ac{mmo}), com o mundo (herdado dos jogos de ação e aventura) e com objetivos guiados por \acp{npc} (herdados de jogos \ac{rpg}) se faz como desafio e objetivo do jogo~\cite{adams_1208533}. Um título popular para esse gênero é o jogo Blizzard Word of WarCraft, a qual tem o título de maior comunidade de jogo em um único serviço do mundo\footnote{Blizzard Word of WarCraft: \url{https://worldofwarcraft.com/pt-br/}}. A grande parte dos jogos \ac{mmorpg} utilizam tecnologia \ac{wan} e \ac{cs}.
+      \item \ac{moba}: Coloca um número fixo de jogadores separados em dois times, no qual o time com melhor estratégia de posicionamento e gerenciamento de recursos em equipe ganha a partida. Jogos \ac{moba} perdem algumas características breves do gênero \ac{rpg}, deixando de lado a interpretação e contextualização de um mundo, fixando-se somente em um combate estratégico e momentâneo (distribuído em partidas atômicas) entre as equipes, carregando consigo somente as características de comércio e comunidade dos jogos \ac{mmo}~\cite{adams_1208533}. Tal subgênero é popularmente conhecido pelos títulos Blizzard Dota 2\footnote{Blizzard Dota 2: \url{http://br.dota2.com/}} e Riot League of Legends\footnote{Riot League of Legends: \url{https://br.leagueoflegends.com/pt/}}. O jogo League of Legends obteve 100 milhões de usuários ativos em 2016 sendo o jogo mais jogado do mundo neste ano~\cite{lol_statista}, tendo torneios nacionais e internacionais~\cite{lol_sportv}. É popular nesse subgênero utilizar tecnologias como \ac{lan}, \ac{p2p} e \ac{wan}.
+      \item \ac{mmorpg}: Herda características dos gêneros ação e aventura, \ac{rpg}, e \ac{mmo} diretamente. Nesse gênero é permitido interações em um mundo compartilhado aos jogadores, na qual a interação entre outros jogadores (herdado dos jogos \ac{mmo}), com o mundo (herdado dos jogos de ação e aventura) e com objetivos guiados por \acp{npc} (herdados de jogos \ac{rpg}) se faz como desafio e objetivo do jogo~\cite{adams_1208533}. Um título popular para esse gênero é o jogo Blizzard Word of WarCraft, o qual tem o título de maior comunidade de jogo em um único serviço do mundo\footnote{Blizzard Word of WarCraft: \url{https://worldofwarcraft.com/pt-br/}}. A grande parte dos jogos \ac{mmorpg} utilizam tecnologia \ac{wan} e \ac{cs}.
     \end{itemize}
-  \item Aventura: Caracterizado por desafios envolvendo ações com diversos \acp{npc} ou com o ambiente para solucionar desafios~\cite{adams_1208533}. A grande parte desses jogos utilizam arquiteturas \ac{wan}, \ac{p2p} ou \ac{lan}.
+  \item Aventura: Caracterizado por desafios envolvendo ações com diversos \acp{npc} ou com o ambiente a fim de solucionar desafios~\cite{adams_1208533}. A grande parte desses jogos utilizam arquiteturas \ac{wan}, \ac{p2p} ou \ac{lan}.
     \begin{itemize}
       \item Ação e Aventura: Herda características da categoria de Aventura. O jogador é imerso em um mundo para interagir com o ambiente e com \acp{npc}, além de se preocupar com a movimentação no cenário~\cite{adams_1208533}. Um título popularmente conhecido desse gênero é a série de jogos nomeada Nintendo The Legend of Zelda\footnote{Nintendo The Legend of Zelda: \url{https://www.zelda.com/}}. É comum nesses jogos encontrar tecnologia \ac{lan} ou \ac{p2p} para modo de jogo cooperativo.
     \end{itemize}
   \item Simulação: Caracterizados por abordar temas da realidade. São comuns jogos de construção e gerenciamento, animais de estimação, vida social e simulação de veículos~\cite{adams_1208533}. A grande parte desses jogos não permite a interação entre os demais jogadores. É popular encontrar serviços como \textit{ranking}, loja e janela de notícias utilizando \ac{cs}.
     \begin{itemize}
-      \item Esportes: Trata somente da simulação de esportes, nos quais o(s) time(s) podem ser controlados tanto por uma inteligência artificial quanto por jogadores \textit{online}~\cite{adams_1208533}. O jogo FIFA\footnote{FIFA: \url{https://www.easports.com/br/fifa}} é um título popular nesse segmento. É comum encontrar tecnologias \ac{p2p} e \ac{lan}.
+      \item Esportes: Trata somente da simulação de esportes, nos quais os times podem ser controlados tanto por uma inteligência artificial quanto por jogadores \textit{online}~\cite{adams_1208533}. O jogo FIFA\footnote{FIFA: \url{https://www.easports.com/br/fifa}} é um título popular nesse segmento. É comum encontrar tecnologias \ac{p2p} e \ac{lan}.
     \end{itemize}
   \item Ação: Preza pela habilidade de coordenação motora e reflexos do jogador, para tomar uma ação a fim de superar seus desafios no cenário alcançando algum objetivo~\cite{adams_1208533}. É comum encontrar tecnologias \ac{lan}, \ac{p2p}, \ac{wan} e \ac{cs}.
     \begin{itemize}
@@ -137,7 +136,7 @@ Dentre vários gêneros, alguns utilizam popularmente algumas tecnologias de red
 %
 A Tabela~\ref{tab:comunicacao_genero} indica a correlação de tecnologias de rede comuns nos gêneros, além de trazer a correlação de número de jogadores por gênero de jogo em seus serviços.
 %
-Essa correlação é importante para identificar as características de jogabilidade referentes a jogabilidade com multijogadores~\cite{video_game_technologies}.
+Essa correlação é importante para identificar as características referentes a jogabilidade com multijogadores~\cite{video_game_technologies}.
 
 
 \begin{table}[htb!]
@@ -146,7 +145,7 @@ Essa correlação é importante para identificar as características de jogabili
 \label{tab:comunicacao_genero}
 \begin{tabular}{l|l|l|l|l|l}
 \hline
-                & \ac{lan}   & \ac{wan}   & \ac{p2p}    & \ac{cs}  &  Jogadores Impactados por falhas                     \\ \hline
+                & \ac{lan}   & \ac{wan}   & \ac{p2p}    & \ac{cs}  &  Jogadores Impactados por falhas                     \\ \hline \hline
 ESTRATÉGIA      & \checkmark & \checkmark & \checkmark &              &   até 10~\cite{eoe3}                              \\ \hline
 RTS             & \checkmark & \checkmark &            & \checkmark   &   até 10~\cite{starcraft2}                        \\ \hline
 MOBA            & \checkmark & \checkmark & \checkmark & \checkmark   &   até 10~\cite{lol_how_work_games}                \\ \hline
@@ -159,7 +158,7 @@ SIMULAÇÃO       & \checkmark & \checkmark & \checkmark & \checkmark   &   até
 ESPORTES        & \checkmark & \checkmark & \checkmark & \checkmark   &   até 10~\cite{fifa2018}                          \\ \hline
 FPS             & \checkmark & \checkmark & \checkmark & \checkmark   &   até 100~\cite{battlefield3}                     \\ \hline
 TPS             & \checkmark & \checkmark & \checkmark & \checkmark   &   até 100~\cite{battlefield3}                     \\ \hline
-JOGOS SÉRIOS    & \checkmark & \checkmark & \checkmark & \checkmark   &   até 10~\cite{sherlock_dengue}                   \\ \hline
+JOGOS SÉRIOS    & \checkmark & \checkmark & \checkmark & \checkmark   &   até 10~\cite{sherlock_dengue}                   \\ \hline \hline
 \end{tabular}
 
 Fonte: O próprio autor.
@@ -170,7 +169,7 @@ Dentre todos os jogos, o gênero \ac{mmorpg} é o mais impactado pela quantidade
 %
 Nesse sentido, as arquiteturas do serviço e cliente se tornam um ponto crítico no desenvolvimento a fim de suportar a carga necessária ao desenho do jogo.
 %
-Por esse motivo, a escolha por abordar o gênero \ac{mmorpg} se torna interessante do ponto de vista computacional, a fim de analisar o comportamento e consumo de jogos \ac{mmorpg}, visando obter características destas arquiteturas.
+Por esse motivo, a escolha por abordar o gênero \ac{mmorpg} se torna interessante do ponto de vista computacional, visto que o impacto de falhas em tais serviços impactam um vasto número de jogadores, ao comparar com outros gêneros.
 
 
 
@@ -189,20 +188,20 @@ A projeção deste mercado para 2018 era de mais de 30 bilhões de dólares amer
 
 \ac{mmorpg} são jogos de interpretação de papéis massivos, originados dos gêneros \ac{rpg}.
 %
-A principal característica desse estilo de jogo é a comunicação e representação virtual de um mundo fantasia no qual cada jogador pode interagir com objetos virtuais compartilhados ou tomar ações sobre outros jogadores em tempo real, tendo como principais objetivos a resolução de problemas conforme a sua regra de \textit{design}, o desenvolvimento do personagem e a interação entre os jogadores\cite{video_game_technologies}.
+A principal característica desse estilo de jogo é a comunicação e representação virtual de um mundo fantasia, no qual cada jogador pode interagir com objetos virtuais compartilhados ou tomar ações sobre outros jogadores em tempo real, tendo como principais objetivos a resolução de problemas conforme a sua regra de \textit{design}, o desenvolvimento do personagem e a interação entre os jogadores\cite{video_game_technologies}.
 
 
 
 Um jogo \ac{mmorpg} é arquitetado em três partes~\cite{mmo_analytic}:
 \begin{itemize}
   \item \textbf{Cliente}: Aplicação que realiza as requisições com a interface do serviço, exibindo o estado de jogo de forma imersiva ao jogador. Este tema é melhor abordado na Subseção \ref{sec:cliente}.
-  \item \textbf{Servidor}: O computador, ou conjunto de computadores, que recebe as requisições do cliente a fim de serem processadas pelo Serviço.
+  \item \textbf{Servidor}: O computador, ou o conjunto de computadores, que recebe as requisições do cliente a fim de serem processadas pelo Serviço.
   \item \textbf{Serviço}: Implementa as regras de negócio e requisitos do jogo. O serviço disponibiliza uma interface com ações possíveis ao cliente sobre algum protocolo de rede. Este tema é abordado na Subseção~\ref{sec:microsservicos}.
 \end{itemize}
 
 Jogos \ac{mmorpg} trabalham como serviço.
 %
-Por este motivo, o modelo de negócios de tais jogos, do ponto de vista de redes de computador, são suscetíveis a perda financeira em casos de negação de serviço~\cite{1417630}.
+Por este motivo, o modelo de negócios de tais jogos, do ponto de vista de redes de computador, é suscetível a perda financeira em casos de negação de serviço~\cite{1417630}.
 %
 A maioria dos jogos \ac{mmorpg} disponíveis no mercado estão implementados sobre uma arquitetura que executa sobre diversos servidores~\cite{stephenclarkewillson2017}, nos quais o desempenho destes servidores influencia tanto na experiência de jogabilidade do usuário final, quanto no custo de manutenção destes serviços~\cite{1417630}.
 %
@@ -219,16 +218,16 @@ Nesse sentido, torna-se necessário descrever as características de jogabilidad
 
 É comum serviços \ac{mmorpg} terem regras de negócio parecidas, visto que pertencem ao mesmo gênero.
 %
-Dessa forma, facilita a compreensão básica de forma genérica de um jogo \ac{mmorpg} e auxilia a compreender o modelo computacional implementado nestes serviços explicar regras de negócio recorrentes neste gênero.
+Dessa forma, explicar regras de negócio recorrentes neste gênero facilita a compreensão básica de forma genérica de um jogo \ac{mmorpg} e auxilia a compreensão do modelo computacional implementado nestes serviços.
 %
 Deste modo, torna-se necessário definir algumas funcionalidades básicas que estão dentro do contexto de jogabilidade de jogos \ac{mmorpg} para melhor compreensão de sua arquitetura em seções futuras.
 
 
 O sistema de autenticação é o sistema que geralmente inicia o cliente de algum jogo \ac{mmorpg}~\cite{albion_online_unite, matthiasrudy2011}.
 %
-Este sistema é implementado via protocolo \textit{web} ou \ac{rpc}, a fim de disponibilizar um código para validar todas as futuras ações da seção do usuário.
+Este sistema é implementado via protocolo \ac{http} ou \ac{rpc}, a fim de disponibilizar um código para validar todas as futuras ações da seção do usuário.
 %
-Este pode ser visualizado de forma macro na Figura~\ref{fig:autenticacao}.
+Este sistema pode ser visualizado de forma macro na Figura~\ref{fig:autenticacao}.
 
 \begin{figure}[htb!]
 \caption{Sistema de autenticação para jogos \ac{mmorpg}.}
@@ -240,7 +239,7 @@ Fonte: Adaptado de ~\cite{LeckyThompson2008Nov}
 \end{figure}
 
 
-O sistema de autenticação visualizado na Figura~\ref{fig:autenticacao} é o principal, porém não o único.
+O sistema de autenticação visualizado na Figura~\ref{fig:autenticacao} é popularmente conhecido, porém não o único.
 %
 O jogo Realm of the Mad God\footnote{Realm of the Mad God: \url{https://www.realmofthemadgod.com/}} é um exemplo na qual não exige autenticação do usuário, entretanto ele não armazena o progresso do jogador caso o jogador não efetue a autenticação.
 
@@ -268,17 +267,17 @@ Fonte:~\cite{albion_online_unite}
 \end{figure}
 
 
-Esse caso pode ser visualizado na Figura~\ref{fig:proximidade}, na qual o personagem selecionado (destacado em vermelho) tem uma área de interesse de baixa distância~\cite{albion_online_unite}, sendo que o jogador não tem informações dos demais objetos e jogadores fora de sua área de interesse a nível de rede.
+Um exemplo de área de interesse pode ser visualizado na Figura~\ref{fig:proximidade}, na qual o personagem selecionado (destacado em vermelho) tem uma área de interesse de baixa distância~\cite{albion_online_unite}, sendo que o jogador não tem informações dos demais objetos e jogadores fora de sua área de interesse a nível de rede.
 %
-Esta característica impede trapaças (visto que o cliente tem informações que só estão contidas em sua área de interesse) e reduz a frequência de atualização a cada cliente~\cite{albion_online_unite}.
+Esta característica impede trapaças (visto que o cliente tem informações que só estão contidas em sua área de interesse) e reduz a carga de cada atualização a cada cliente~\cite{albion_online_unite}.
 
 
 Após o jogador estar com o controle do personagem no ambiente, é comum em tais jogos que ele possa realizar determinadas ações.
 %
-Nesse sentido, algumas ações comuns dentro do ambiente de um jogo \ac{mmorpg}~\cite{mmorpg_culture}:
+Nesse sentido, algumas ações comuns dentro do ambiente de um jogo \ac{mmorpg}~\cite{mmorpg_culture} são:
 
 \begin{itemize}
-  \item Enviar e receber mensagem no chat;
+  \item Enviar e receber mensagem no \textit{chat};
   \item Mover-se pelo ambiente;
   \item Interagir com outros jogadores, \acp{npc} ou objetos fixos do ambiente; e
   \item Obter itens do ambiente.
@@ -286,12 +285,12 @@ Nesse sentido, algumas ações comuns dentro do ambiente de um jogo \ac{mmorpg}~
 
 
 
-O envio e recepção de mensagens do chat é dado com o contexto do posicionamento do personagem~\cite{albion_online_unite}, visível na Figura~\ref{fig:chat}.
+O envio e recepção de mensagens do \textit{chat} é dado com o contexto do posicionamento do personagem~\cite{albion_online_unite}, visível na Figura~\ref{fig:chat}.
 %
-Somente outros personagens dentro de uma distância podem receber alguma mensagem emitida pelo jogador $P_n$.
+Somente outros personagens dentro de um raio podem receber alguma mensagem emitida pelo jogador $P_n$.
 
 \begin{figure}[htb!]
-\caption{Chat baseado em contexto de posicionamento, utilizando Distância Euclidiana.}
+\caption{\textit{Chat} baseado em contexto de posicionamento, utilizando Distância Euclidiana.}
 \label{fig:chat}
 \includegraphics[height=6cm]{img/cap2/chat.png}
 \centering
@@ -299,7 +298,7 @@ Somente outros personagens dentro de uma distância podem receber alguma mensage
 Fonte: Adaptado de ~\cite{albion_online_unite}
 \end{figure}
 
-Essa distância (Figura~\ref{fig:chat}) pode ser calculada utilizando Distância Euclidiana~\cite{Deza2009Aug}, na qual a distância entre dois personagens podem ser calculadas pela equação $d(p, q) = \sqrt{\sum_{i=1}^{n}(q_i - p_i)^2}$.
+Essa distância (Figura~\ref{fig:chat}) pode ser calculada utilizando Distância Euclidiana~\cite{Deza2009Aug}, na qual a distância entre dois personagens pode ser calculada pela equação $d(p, q) = \sqrt{\sum_{i=1}^{n}(q_i - p_i)^2}$.
 %
 Para diminuir a complexidade das comparações, a fim de decidir quais personagens $P_n$ devem receber a mensagem, é comum utilizar técnicas de divisão de área utilizando algoritmos como \textit{Quadtree} ou \textit{Octree}~\cite{Lengyel2011Jun}, subdividindo os quadrantes de uma região do ambiente do jogo a fim de facilitar a consulta de quais personagens estão em determinada área deste ambiente.
 
@@ -312,7 +311,7 @@ Nesse exemplo, mostra-se visível que as mensagens de $P_1$ devem ser visíveis 
 
 O sistema de movimento pelo ambiente do jogo possibilita que cada jogador movimente seu personagem pelo ambiente a fim de explorá-lo.
 %
-Dessa maneira, este é um sistema crítico para um jogo \ac{mmorpg}, visto que o posicionamento de objetos serão utilizados para diversas consultas de proximidade, além de necessitar uma frequência de atualização constante do posicionamento dos jogadores a fim de manter a integridade de funcionamento do serviço de ambiente do jogo~\cite{albion_online_unite}.
+Dessa maneira, este é um sistema crítico para um jogo \ac{mmorpg}, visto que o posicionamento de objetos é utilizado para diversas consultas de proximidade, além de necessitar uma frequência de atualização constante do posicionamento dos jogadores a fim de manter a integridade de funcionamento do serviço de ambiente do jogo~\cite{albion_online_unite}.
 %
 Um exemplo de movimentação no ambiente pode ser visualizado na Figura~\ref{fig:walk}.
 
@@ -328,7 +327,7 @@ Fonte: O próprio autor.
 
 Com a movimentação descrita na Figura~\ref{fig:walk}, o personagem torna-se livre a explorar o ambiente seguindo as regras de negócio do jogo, permitindo a interação com o ambiente, objetos posicionados no cenário ou outros jogadores.
 %
-Dessa forma, a interação com estes elementos também são afetados pela área de interesse, na qual o personagem terá um raio limitante para cada tipo de interação no ambiente.
+Dessa forma, a interação com estes elementos também é afetada pela área de interesse, na qual o personagem terá um raio limitante para cada tipo de interação no ambiente.
 %
 Um exemplo de ambiente com personagens ($P_1$ e $P_2$), objetos ($O_1$) e \acp{npc} (NPC somente) pode ser visualizado na Figura~\ref{fig:obj_e_npc1}~\cite{albion_online_unite}.
 
@@ -348,7 +347,7 @@ Dessa forma, o desempenho necessário para a execução dessas tarefas está tan
 
 Essas operações precisam de desempenho para não causar frustração ao jogador final~\cite{7008965}.
 %
-Nesse sentido, torna-se necessário conhecer os problemas computacionais conhecidos com relação aos serviços de jogos \ac{mmorpg}.
+Nesse sentido, torna-se necessário conhecer os problemas computacionais recorrentes com relação aos serviços de jogos \ac{mmorpg}.
 
 
 
@@ -368,16 +367,18 @@ Neste contexto, as ocorrências comuns são~\cite{1417630}:
   \item \textbf{Falha de conexão entre o cliente e o serviço}: causa a negação de serviço ao usuário final.
 \end{itemize}
 
-Existem algumas causas comuns para essas as ocorrências descritas~\cite{1417630}:
+Existem algumas causas comuns para as ocorrências descritas~\cite{1417630}:
 
 \begin{itemize}
-  \item \textbf{Baixo poder computacional do servidor}: poder computacional baixo para a qualidade de experiência de jogabilidade do usuário final desejada.
+  \item \textbf{Baixo poder computacional do servidor}: poder computacional abaixo do necessário para a qualidade de experiência de jogabilidade do usuário final desejada.
   \item \textbf{Complexidade de algoritmos}: o serviço usa algoritmos de alta complexidade ou regras de negócios que demandam por um algoritmo complexo.
   \item \textbf{Limitado pela própria arquitetura}: está limitado diretamente pelo número de conexões, não suportando a carga recebida.
   \item \textbf{Limitado pela rede}: a quantidade de requisições não é suportada pelo meio físico na qual a arquitetura está implantada.
 \end{itemize}
 
-Tais ocorrências estão diretamente correlacionadas a carga a qual tais serviços estão submetidos e podem ser amenizadas utilizando técnicas de provisionamento de recursos e balanceamento de carga~\cite{1417630}, mas não suficiente para eliminar tais ocorrências.
+Tais ocorrências estão diretamente correlacionadas a carga na qual tais serviços estão submetidos.
+%
+Esta carga pode ser amenizada utilizando técnicas de provisionamento de recursos e balanceamento de carga~\cite{1417630}, entretanto o serviço pode estar limitado pela sua arquitetura.
 
 A área de desenvolvimento web compartilha várias ocorrências comuns geradas por sobrecarga do serviço~\cite{7830692}.
 %
@@ -389,7 +390,7 @@ Da mesma forma, faz sentido modularizar um serviço \ac{mmorpg} em microsserviç
 
 Do ponto de vista da arquitetura de computadores, as operações existentes em um jogo \ac{mmorpg} seguem um padrão de interação com o mundo, criar, excluir ou manipular objetos deste mundo.
 %
-Para suprir o desenvolvimento de tais sistemas, se faz necessário compreender os padrões de desenvolvimento de tais arquiteturas na qual suprem as operações básicas de interação com o mundo.
+Para suprir o desenvolvimento de tais sistemas, se faz necessário compreender os padrões de desenvolvimento de tais arquiteturas, os quais implementam as operações básicas de interação com o mundo.
 
 
 
@@ -417,7 +418,7 @@ Fonte:~\cite{albion_online_unite}
 
 A Figura~\ref{fig:cliente_albion} representa na prática, como será exibido ao usuário final o ambiente do jogo.
 %
-O modelo teórico apresentado referente a esta figura pode ser visualizado na Figura~\ref{fig:proximidade}.
+O modelo teórico apresentado no cliente leva como base o campo de visão do jogador, no qual pode ser visualizado na Figura~\ref{fig:proximidade}.
 
 
 Do ponto de vista de computação gráfica, um cenário 3D pode ser visualizado como uma árvore.
@@ -445,17 +446,19 @@ Dentro dessa árvore, cada nodo tem uma funcionalidade específica.
 %
 Essas funcionalidades variam a cada motor gráfico, podendo existir nodos focados à parte física, renderização ou controles~\cite{godot_docs}.
 %
-Em um jogo \ac{mmorpg}, o serviço \ac{mmorpg} será responsável por enviar atualizações dos parâmetros aos nodos frequentemente e o cliente será responsável por realizar chamadas remotas a fim de descrever as ações a qual o jogador aplicou sobre seu personagem~\cite{photon_engine}.
+Em um jogo \ac{mmorpg}, o seu serviço será responsável por enviar atualizações dos parâmetros aos nodos frequentemente e o cliente será responsável por realizar chamadas remotas a fim de descrever as ações a qual o jogador aplicou sobre seu personagem~\cite{photon_engine}.
 
 
 Do ponto de vista da rede de computadores, a arquitetura de um cliente de jogo \ac{mmorpg} deve suportar consultas e chamadas de métodos remotos em um serviço~\cite{albion_online_unite}.
 %
-Um cliente para um jogo \ac{mmorpg} pode seguir o estilo de arquitetura \ac{rest}, porém não obrigatoriamente sobre o protocolo \ac{http}, mas sim usando algum protocolo \ac{rpc} sobre o protocolo \ac{tcp} ou \ac{udp}~\cite{albion_online_unite, stephenclarkewillson2017}.
+Um cliente, para um jogo \ac{mmorpg}, pode seguir o estilo de arquitetura \ac{rest}, porém não obrigatoriamente sobre o protocolo \ac{http}, mas sim usando algum protocolo \ac{rpc} sobre o protocolo \ac{tcp} ou \ac{udp}~\cite{albion_online_unite, stephenclarkewillson2017}.
 %
 Essa comunicação é realizada pelo módulo \textit{Network}, presente em um cliente \ac{mmorpg}.
 
 
-O módulo de \textit{Network} implementado em um cliente de jogo \ac{mmorpg} é responsável por realizar as requisições \ac{rpc} conforme as ações solicitadas pelo jogador ao serviço, além de aplicar os parâmetros na \textit{Scene Tree} ou chamar métodos remotos no cliente por ordens do serviço.
+O módulo de \textit{Network} implementado em um cliente de jogo \ac{mmorpg} é responsável por realizar as requisições \ac{rpc} conforme as ações realizadas pelo jogador.
+%
+Este também é responsável por aplicar os parâmetros na \textit{Scene Tree} ou chamar métodos remotos no cliente por ordens do serviço.
 %
 Além disso, o módulo \textit{Network} possui uma \textit{Thread} dedicada ao gerenciamento de entrada e saída em relação ao serviço~\cite{albion_online_unite}.
 %
@@ -472,7 +475,7 @@ Adaptado de:~\cite{507915, faber}
 \end{figure}
 
 
-A Figura~\ref{fig:gateway} refere-se a uma visão macro de um cliente \ac{mmorpg}, na qual é possível ver o ator \textit{jogador} o qual pode executar ações sobre seu personagem por meio da \textit{engine}.
+A Figura~\ref{fig:gateway} refere-se a uma visão macro de um cliente \ac{mmorpg}, na qual é possível ver o ator \textit{jogador} o qual pode executar ações sobre seu personagem por meio do motor gráfico.
 %
 Por sua vez, existe uma entrada de dados a mais comparado a esquemas de jogos \textit{offline}.
 %
@@ -517,10 +520,10 @@ Um microsserviço é definido pelas seguintes características~\cite{8169955}:
 \begin{itemize}
   \item Deve possibilitar a implementação como uma peça individual do macrosserviço.
   \item Deve funcionar individualmente.
-  \item Cada serviço deve ter uma interface. Essa interface deve ser o suficiente para utilizar o microsserviço.
+  \item Cada microsserviço deve ter uma interface. Essa interface deve ser o suficiente para utilizar o microsserviço.
   \item A interface deve estar disponível na rede para chamada de processamento remoto ou consulta de dados.
-  \item O serviço pode ser utilizado por qualquer linguagem de programação e/ou plataforma.
-  \item O serviço deve executar com as dependências mínimas.
+  \item O microsserviço pode ser utilizado por qualquer linguagem de programação e/ou plataforma.
+  \item O microsserviço deve executar com as dependências mínimas.
   \item Ao agregar vários microsserviços, o macrosserviço resultante poderá prover funcionalidades complexas.
 \end{itemize}
 

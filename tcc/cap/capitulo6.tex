@@ -1247,3 +1247,30 @@ Na qual entende-se:
 \item $MEM(db\_postgresql_{s})$: Curva de consumo de memória do PostgreSQL pela arquitetura Salz; e
 \item $MEM(db\_postgresql_{w})$: Curva de consumo de memória do PostgreSQL pela arquitetura Willson.
 \end{itemize}
+
+\subsection{Entrada de Rede}
+
+Este experimento visa analisar o consumo da entrada de rede unitariamente, em relação ao número de jogadores simultâneos.
+%
+Espera-se que o seu crescimento seja de tendência linear junto ao crescimento de jogadores concorrentes.
+%
+Neste contexto existem os seguintes valores:
+
+\begin{itemize}
+    \item Jogadores simultâneos: Variável capturada a partir do microsserviço de jogo; e
+    \item Entrada: Variável capturada a partir do monitor de recursos do Docker.
+\end{itemize}
+
+Nota-se que o número de jogadores simultâneos e o consumo entrada de rede são indexados pelo tempo a qual tais dados foram capturados.
+%
+Nesse sentido, pode-se relacionar o número de jogadores simultâneos ao consumo de entrada de rede dos microsserviços e do banco de dados.
+%
+Dado tal contexto, faz sentido realizar uma análise separando os ambientes de Banco de Dados de Microsserviços.
+
+\subsubsection{Banco de Dados}
+
+Considerando o ambiente de banco de dados, pode-se realizar a associação de número de jogadores simultâneos e entrada de rede consumida pelos contêineres de banco de dados.
+%
+Essa associação é realizada pelo tempo de registro das métricas.
+%
+O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_db_cpu}.
