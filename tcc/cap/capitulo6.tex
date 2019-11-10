@@ -663,7 +663,7 @@ Este comportamento era esperado, dado a natureza distinta de ambos os banco de d
 %
 Entretanto, é notório a discrepância entre ambos os bancos de dados, afimando-se que o banco de dados temporário é estável em relação ao consumo de \ac{cpu}.
 
-Ao analisar o comportamento do banco de dados persistentes para as arquiteturas Rudy (Subfigura~\ref{fig:r_cpu_db}), Salz (Subfigura~\ref{fig:s_cpu_db}) e Willson (Subfigura~\ref{fig:w_cpu_db}) observamos um comportamento diferente na arquitetura Rudy.
+Ao analisar o comportamento do banco de dados persistentes para as arquiteturas Rudy (Subfigura~\ref{fig:r_cpu_db}), Salz (Subfigura~\ref{fig:s_cpu_db}) e Willson (Subfigura~\ref{fig:w_cpu_db}) observa-se um comportamento diferente na arquitetura Rudy.
 %
 Dada esta percepção, faz sentido analisar a tendência destas curvas com base em sua média.
 %
@@ -1248,6 +1248,125 @@ Na qual entende-se:
 \item $MEM(db\_postgresql_{w})$: Curva de consumo de memória do PostgreSQL pela arquitetura Willson.
 \end{itemize}
 
+
+\subsubsection{Microsserviços}
+
+Considerando o ambiente de microsserviços, pode-se realizar a associação de número de jogadores simultâneos e memória consumida pelos contêineres de banco de dados.
+%
+Essa associação é realizada pelo tempo de registro das métricas.
+%
+O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_gs_mem}.
+
+
+\begin{figure}[htb!]
+    \caption{Consumo de memória dos microsserviços}
+    \label{fig:experimento_gs_mem}
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/testes/r_mem_game.png}
+        \caption{Microsserviço da arquitetura Rudy}
+        \label{fig:r_mem_game}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/testes/s_mem_game.png}
+        \caption{Microsserviço da arquitetura Salz}
+        \label{fig:s_mem_game}
+    \end{subfigure}\\
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/testes/w_mem_game.png}
+        \caption{Microsserviço da arquitetura Willson}
+        \label{fig:w_mem_game}
+    \end{subfigure}
+
+    Fonte: O próprio autor.
+\end{figure}
+
+Ao escalar jogadores simultâneos ao serviço, a memória consumida pelas arquiteturas de microsserviços cresce linearmente, com saltos.
+%
+Tais saltos, visíveis na Figura~\ref{fig:experimento_gs_mem}, são provenientes do gerenciador de memória da linguagem de implementação.
+%
+Este método de alocação de memória tenta evitar a comunicação com o sistema operacional para esta alocação de memória.
+
+
+Faz sentido analisar o comportamento em quadrantes, já que o seu crescimento é linear.
+%
+Dessa forma podemos analisar o comportamento de crescimento dos microsserviços e realizar uma análise comparativa sobre os dados obtidos.
+%
+Pode-se visualizar estes dados na Tabela~\ref{tab:mem_gs_media}.
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Consumo médio de memória pelos microsserviços.}
+\label{tab:mem_gs_media}
+
+\begin{tabular}{l|l|l|l|l|l|l|l|l}
+\hline
+\hline
+\multirow{2}{*}{Microsserviços} & \multicolumn{2}{l|}{Quadrante 1} & \multicolumn{2}{l|}{Quadrante 2} & \multicolumn{2}{l|}{Quadrante 3} & \multicolumn{2}{l}{Quadrante 4} \\ \cline{2-9} 
+                                & Média  & Total                   & Média  & Total                   & Média  & Total                   & Média  & Total                   \\ \hline \hline
+rauth                           & 8 \%   & \multirow{4}{*}{33 \%}  & 9 \%   & \multirow{4}{*}{41 \%}  & 9 \%   & \multirow{4}{*}{49 \%}  & 9 \%   & \multirow{4}{*}{53 \%}  \\ \cline{1-2} \cline{4-4} \cline{6-6} \cline{8-8}
+rcrud                           & 11 \%  &                         & 14 \%  &                         & 17 \%  &                         & 18 \%  &                         \\ \cline{1-2} \cline{4-4} \cline{6-6} \cline{8-8}
+rgame                           & 9 \%   &                         & 12 \%  &                         & 16 \%  &                         & 19 \%  &                         \\ \cline{1-2} \cline{4-4} \cline{6-6} \cline{8-8}
+rweb                            & 5 \%   &                         & 6 \%   &                         & 7 \%   &                         & 7 \%   &                         \\ \hline \hline
+sauth                           & 9 \%   & \multirow{4}{*}{34 \%}  & 12 \%  & \multirow{4}{*}{41 \%}  & 16 \%  & \multirow{4}{*}{51 \%}  & 19 \%  & \multirow{4}{*}{60 \%}  \\ \cline{1-2} \cline{4-4} \cline{6-6} \cline{8-8}
+schat                           & 9 \%   &                         & 11 \%  &                         & 14 \%  &                         & 17 \%  &                         \\ \cline{1-2} \cline{4-4} \cline{6-6} \cline{8-8}
+sgame                           & 9 \%   &                         & 11 \%  &                         & 14 \%  &                         & 17 \%  &                         \\ \cline{1-2} \cline{4-4} \cline{6-6} \cline{8-8}
+sweb                            & 7 \%   &                         & 7 \%   &                         & 7 \%   &                         & 7 \%   &                         \\ \hline \hline
+wauth                           & 10 \%  & \multirow{3}{*}{26 \%}  & 12 \%  & \multirow{3}{*}{31 \%}  & 16 \%  & \multirow{3}{*}{39 \%}  & 20 \%  & \multirow{3}{*}{47 \%}  \\ \cline{1-2} \cline{4-4} \cline{6-6} \cline{8-8}
+wgame                           & 9 \%   &                         & 12 \%  &                         & 16 \%  &                         & 20 \%  &                         \\ \cline{1-2} \cline{4-4} \cline{6-6} \cline{8-8}
+wweb                            & 7 \%   &                         & 7 \%   &                         & 7 \%   &                         & 7 \%   &                         \\ \hline \hline
+\end{tabular}
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+A partir da Tabela~\ref{tab:mem_gs_media} podemos deduzir diversas características dos microsserviços e das arquiteturas.
+%
+Dessa forma, deduz-se sobre os microsserviços que:
+
+\begin{itemize}
+ \item Ao comparar os microsserviços de autenticação, percebe-se que o microsserviço \textit{rauth} não aumenta o seu consumo de memória, repassando o seu consumo de memória ao microsserviço \textit{rcrud};
+ \item O microsserviço \textit{rweb} consome menos memória comparado aos microsserviços \textit{sweb} e \textit{wweb} pois não realiza conexão com o banco de dados; e
+ \item O microsserviço \textit{schat} e \textit{sgame} consomem menos memória ao comparar com os microsserviços \textit{wgame} e \textit{rgame}. Entretanto a soma de ambos consome muito mais.
+\end{itemize}
+
+A partir do consumo total, exibido na Tabela~\ref{tab:mem_gs_media}, pode-se concluir que:
+
+$$
+    \overline{Memoria_{gs\_w}} < \overline{Memoria_{gs\_r}} < \overline{Memoria_{gs\_s}}
+$$
+
+Na qual entende-se:
+
+\begin{itemize}
+\item $\overline{Memoria_{gs\_r}}$: Média de consumo de memória dos microsserviços pela arquitetura Rudy;
+\item $\overline{Memoria_{gs\_s}}$: Média de consumo de memória dos microsserviços pela arquitetura Salz; e
+\item $\overline{Memoria_{gs\_w}}$: Média de consumo de memória dos microsserviços pela arquitetura Willson.
+\end{itemize}
+
+A arquitetura Willson obteve melhor desempenho para consumo de memória, visto que tal arquitetura possui um componente a menos para desempenhar o mesmo papel comparado as outras arquiteturas.
+%
+No geral, seus microsserviços consumiram mais memória unitariamente, talvez sendo um problema para escalar esta arquitetura em múltiplas máquinas com recursos escassos.
+
+A arquitetura Rudy obteve o resultado mediano, se comparado as arquiteturas selecionadas.
+%
+O seu consumo foi maior que a arquitetura Willson por contemplar um microsserviço a mais.
+%
+Entretanto, a arquitetura economizou memória ao concentrar todas as conexões no microsserviço \textit{rcrud}, porém centralizou todo o processamento de \ac{cpu} para isto no mesmo local.
+
+A arquitetura Salz distribui as consultas ao banco de dados de forma que os serviços que precisam destes dados realizam consultas diretamente ao banco de dados.
+%
+Esta estratégia maximiza o número de conexões ao banco e, consequentemente, aumenta o consumo de memória.
+%
+Além da estratégia, a arquitetura contém 4 microsserviços, o que também colabora com o aumento do consumo de memória.
+
+
 \subsection{Entrada de Rede}
 
 Este experimento visa analisar o consumo da entrada de rede unitariamente, em relação ao número de jogadores simultâneos.
@@ -1308,15 +1427,200 @@ Ele segue um padrão visivelmente linear.
 %
 Ambas as arquiteturas consomem o banco de dados com o mesmo comportamento linear, entretanto em proporções diferentes.
 %
-Faz sentido analisar o tráfego de rede instantâneo da máquina hospedeira.
+Faz sentido analisar a vazão da rede do banco de dados.
 %
 Esta visualização está disponível na Figura~\ref{fig:net_in_db}.
 
 \begin{figure}[htb!]
-  \caption{Velocidade da entrada de dados para a rede \textit{databases}.}
+  \caption{Vazão da entrada de dados para a rede \textit{databases}.}
   \label{fig:net_in_db}
   \includegraphics[width=0.8\textwidth]{figuras/analise/net_in_db.png}
   \centering
 
   Fonte: O próprio autor.
 \end{figure}
+
+A Figura~\ref{fig:net_in_db} exibe claramente que existe uma vazão máxima para entrada de dados aos bancos de dados.
+%
+Nota-se que existe diferença entre as arquiteturas, a qual já era visível na Figura~\ref{fig:experimento_db_net_in}.
+
+Como existem pontos de contato entre as curvas, faz sentido realizar uma análise do comportamento médio.
+%
+A partir destes dados pode-se comparar as curvas e validar qual banco de dados recebeu mais requisições.
+%
+A Tabela~\ref{tab:net_in_db_media_quadrantes} exibe a média por quadrante das curvas comparado a vazão da rede por segundo.
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Consumo médio da entrada da rede por quadrante do PostgreSQL.}
+\label{tab:net_in_db_media_quadrantes}
+
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Arquitetura & Primeiro Quadrante & Segundo Quadrante & Terceiro Quadrante & Quarto Quadrante \\ \hline
+Rudy        & 4,94 Mbps            & 6,67 Mbps           & 6,91 Mbps            & 7,03 Mbps          \\ \hline
+Salz        & 6,06 Mbps            & 7,61 Mbps           & 7,88 Mbps            & 7,88 Mbps          \\ \hline
+Willson     & 6,67 Mbps            & 8,34 Mbps          & 8,41 Mbps            & 8,55 Mbps          \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+A partir da Tabela~\ref{tab:net_in_db_media_quadrantes} percebe-se que a arquitetura Willson mesmo com características próximas a arquitetura Rudy, performou com melhor qualidade, recebendo mais dados de requisição.
+%
+O microsserviço \textit{rcrud} a qual poderia tornar-se um gargalo para a entrada de rede tem esta característica confirmada.
+
+Ao comparar as arquiteturas Salz e Willson, perce-se que, por mais que todos os seus microsserviços realizam conexão direta ao banco, existe uma diferença notória entre ambas.
+%
+Esta diferença é pela quantidade de microsserviços na qual utilizam determinado banco de dados.
+
+Nesse sentido, pode-se deduzir:
+
+$$
+    \overline{Entrada_{db\_r}} < \overline{Entrada_{db\_s}} < \overline{Entrada_{db\_w}}
+$$
+
+Deste modo, entende-se:
+
+\begin{itemize}
+ \item $\overline{Entrada_{db\_r}}$: Vazão de entrada médio do banco de dados na arquitetura Rudy;
+ \item $\overline{Entrada_{db\_r}}$: Vazão de entrada médio do banco de dados na arquitetura Salz; e
+ \item $\overline{Entrada_{db\_r}}$: Vazão de entrada médio do banco de dados na arquitetura Willson.
+\end{itemize}
+
+A Arquitetura Rudy contempla a menor vazão de rede entre as arquiteturas selecionadas.
+%
+A sua menor vazão, comparada as demais, é pelo afunilamento de requisições em um unico microsserviço.
+%
+Dessa forma, o microsserviço \textit{rcrud} é um gargalo aparente nesta arquitetura.
+
+A arquitetura Salz possui uma vazão de entrada maior comparado a arquitetura Rudy, porém menor que a arquitetura Willson.
+%
+Esta característica é dada pela saturação da \ac{cpu} do ponto de vista da arquitetura Salz, a qual obstruiu a vazão de dados.
+
+A arquitetura Willson possui a maior vazão de entrada de dados entre as arquiteturas selecionadas.
+%
+Esta característica provém de um melhor aproveitamento da \ac{cpu} pela distribuição do processamento na arquitetura Willson.
+
+
+\subsubsection{Microsserviços}
+
+Considerando o ambiente de microsserviços, pode-se realizar a associação de número de jogadores simultâneos e entrada de rede consumida pelos contêineres de microsserviços.
+%
+Essa associação é realizada pelo tempo de registro das métricas.
+%
+O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_gs_net_in}.
+
+\begin{figure}[htb!]
+    \caption{Entrada de dados da rede das arquiteturas}
+    \label{fig:experimento_gs_net_in}
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/analise/rt/r_net_in_arch.png}
+        \caption{Bancos de Dados da arquitetura Rudy}
+        \label{fig:r_netin_gs}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/analise/rt/s_net_in_arch.png}
+        \caption{Bancos de Dados da arquitetura Salz}
+        \label{fig:s_netin_gs}
+    \end{subfigure}\\
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/analise/rt/w_net_in_arch.png}
+        \caption{Bancos de Dados da arquitetura Willson}
+        \label{fig:w_netin_gs}
+    \end{subfigure}
+
+    Fonte: O próprio autor.
+\end{figure}
+
+A Figura~\ref{fig:experimento_gs_net_in} exibe o comportamento do consumo de entrada da rede, na qual visivelmente todos os serviços são lineares.
+%
+Este comportamento está diretamente relacionado a distribuição das funcionalidades dentro das arquiteturas.
+%
+Este comportamento é notório na Sub figura~\ref{fig:r_netin_gs}, a qual exibe a demanda exercida sobre o microsserviço \textit{rcrud} a qual está distribuído entre diversos processos nas demais arquiteturas.
+
+A partir do comportamento exibido nas Sub figuras~\ref{fig:r_netin_gs}, ~\ref{fig:s_netin_gs} e ~\ref{fig:w_netin_gs}, faz sentido analisar a vazão de rede de entrada.
+%
+Dessa forma pode-se analisar a limitação da entrada da rede.
+%
+O comportamento da vazão da rede de entrada de dados é visível na Figura~\ref{fig:net_in_gs}.
+
+\begin{figure}[htb!]
+  \caption{Vazão da entrada de dados para a rede \textit{gameservers}.}
+  \label{fig:net_in_gs}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/net_in_gs.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+Conforme exibido na Figura~\ref{fig:net_in_gs}, a arquitetura Rudy contempla um maior consumo da entrada da rede.
+%
+Entretanto, tanto a arquitetura Salz e Willson possuem, visualmente, o mesmo comportamento.
+%
+Dessa forma, faz sentido analisar a média os quadrantes para quantificar e verificar se o os valores médios são realmente próximos na arquitetura Salz e Willson.
+%
+A Tabela~\ref{tab:net_in_gs_media_quadrantes} exibe estes dados.
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Consumo médio da entrada da rede por quadrante do servidor de jogo.}
+\label{tab:net_in_gs_media_quadrantes}
+
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Arquitetura & Primeiro Quadrante & Segundo Quadrante & Terceiro Quadrante & Quarto Quadrante \\ \hline
+Rudy        & 12,58 Mbps            & 15,62 Mbps           & 15,84 Mbps            & 15,66 Mbps          \\ \hline
+Salz        & 9,22 Mbps            & 10,63 Mbps           & 11,97 Mbps            & 11,42 Mbps          \\ \hline
+Willson     & 9,12 Mbps            & 12,30 Mbps          & 12,27 Mbps            & 12,23 Mbps          \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+A Tabela~\ref{tab:net_in_gs_media_quadrantes} exibe a média dos quadrantes da vazão de entrada dos servidores de jogo.
+%
+Dessa forma, podemos confirmar que a arquitetura Salz possui uma carga de entrada menor que a arquitetura Willson.
+%
+Entretanto, este aumento é um reflexo direto da comunicação interna da arquitetura ou desempenho por uma otimização
+
+Nesse sentido, pode-se deduzir:
+
+$$
+    \overline{Entrada_{gs\_r}} < \overline{Entrada_{gs\_s}} < \overline{Entrada_{gs\_w}}
+$$
+
+Deste modo, entende-se:
+
+\begin{itemize}
+ \item $\overline{Entrada_{gs\_r}}$: Vazão de entrada médio dos microsserviços na arquitetura Rudy;
+ \item $\overline{Entrada_{gs\_r}}$: Vazão de entrada médio dos microsserviços na arquitetura Salz; e
+ \item $\overline{Entrada_{gs\_r}}$: Vazão de entrada médio dos microsserviços na arquitetura Willson.
+\end{itemize}
+
+A arquitetura Rudy possui um aumento excessivo em relação as demais arquiteturas selecionadas pela separação do microsserviço \textit{rcrud}.
+%
+Todas as chamadas, tanto ao Redis e PostgreSQL passa por tal serviço.
+%
+Dessa forma, temos um aumento elevado em relação as demais arquiteturas.
+
+A arquitetura Salz possui o menor valor de entrada.
+%
+Tal característica ocorre mesmo com a sincronização de posição de personagens entre os microsserviços \textit{sgame} e \textit{schat}.
+%
+Esta característica é resultante da comunicação direta com os microsserviços a qual a arquitetura necessita de informações, evitando reinjeção de dados na arquitetura de microsserviços.
+
+A arquitetura Willson possui um valor intermediário em relação as demais arquiteturas selecionadas.
+%
+Este valor intermediário é dada pela vazão de requisições que a arquitetura Willson consegue exercer ao cliente.
+%
+Dessa forma, percebemos o tempo de resposta da arquitetura Willson menor que as demais, e consecutivamente recebendo mais requisições, e por sua vez elevando a entrada do serviço como um todo.
