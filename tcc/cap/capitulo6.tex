@@ -798,7 +798,7 @@ Nota-se que o consumo de recurso do banco de dados temporários e banco de dados
 Dessa forma, pode-se generalizar o comportamento do consumo de \ac{cpu} das arquiteturas Rudy, Salz e Willson para o banco de Dados Redis:
 
 $$
-    CPU(db_{r}) < CPU(db_{s}) \approx CPU(db_{w})
+    CPU(db_{r}) < CPU(db_{s}) < CPU(db_{w})
 $$
 
 Na qual entende-se:
@@ -1943,3 +1943,134 @@ Deste modo, entende-se:
  \item $\overline{Saida_{gs\_s}}$: Vazão de saída média dos microsserviços na arquitetura Salz; e
  \item $\overline{Saida_{gs\_s}}$: Vazão de saída média dos microsserviços na arquitetura Willson.
 \end{itemize}
+
+\section{Considerações Parciais}
+\label{sec:experimentos_conc}
+
+Este capítulo descreve os resultados obtidos a partir dos experimentos executados sobre as arquiteturas Rudy, Salz e Willson.
+%
+Tais experimetos foram baseados em um protocolo de execução, a qual garante a limpeza do ambiente evitando interferência de demais execuções.
+
+Os experimentos executados foram:
+
+\begin{itemize}
+ \item Tempo de resposta de algumas requisições, do ponto de vista do cliente;
+ \item Consumo de \ac{cpu} do serviço;
+ \item Consumo de memória pelos microsserviços;
+ \item Consumo de Entrada da rede do serviço; e
+ \item Consumo de Saída da rede do serviço.
+\end{itemize}
+
+Os experimentos envolvendo tempo de resposta tem como objetivo a classificação de qualidade, do ponto de vista de tempo de resposta para o cliente, a fim de proporcionar critérios de desempate, caso existentes.
+%
+Além disso,é ilustrado a saturação do serviço conforme o aumento da demanda, a qual torna-se notório que o gargalo está presente na arquitetura do serviço e não no cliente.
+
+A partir do tempo de resposta, foi possível analisar as seguintes requisições:
+
+\begin{itemize}
+    \item Criar conta;
+    \item Criar personagem;
+    \item Iniciar sessão; 
+    \item Instanciar personagem;
+    \item Movimentar personagem;
+    \item Enviar mensagem; e
+    \item Receber mensagem.
+\end{itemize}
+
+A partir destas requisições, foi possível obter um critério de desempate conforme as seguintes expressões:
+
+$$
+  \overline{CriarConta_{w}} < \overline{CriarConta_{s}} < \overline{CriarConta_{r}}
+$$
+
+$$
+  \overline{CriarPersonagem_{w}} < \overline{CriarPersonagem_{s}} <\overline{CriarPersonagem_{r}}
+$$
+
+$$
+  \overline{IniciarSessao_{s}} < \overline{IniciarSessao_{w}} <\overline{IniciarSessao_{r}}
+$$
+
+$$
+  \overline{InstanciarPersonagem_{w}} < \overline{InstanciarPersonagem_{r}} <\overline{InstanciarPersonagem_{s}}
+$$
+
+$$
+  \overline{MoverPersonagem_{w}} < \overline{MoverPersonagem_{r}} <\overline{MoverPersonagem_{s}}
+$$
+
+$$
+  \overline{EnviarMensagem_{w}} < \overline{EnviarMensagem_{s}} <\overline{EnviarMensagem_{r}}
+$$
+
+$$
+  \overline{ReceberMensagem_{w}} < \overline{ReceberMensagem_{s}} <\overline{ReceberMensagem_{r}}
+$$
+
+Pode-se aglomerar tais relações baseado em sua grande área.
+%
+Temos os seguintes grandes grupos:
+
+\begin{itemize}
+ \item $WebAPI$: Junta as ações $CriarConta$ e $CriarPersonagem$. São referentes a ações sobre \ac{http} que inserem dados no banco PostgreSQL;
+  \item Iniciar Sessão;
+  \item $InteracaoMundo$: Agrupa as ações $InstanciarPersonagem$ e $MoverPersonagem$ na qual sã o executadas sobre \ac{rpc}; e
+  \item $InteracaoSocial$: Agrupa as ações $EnviarMensagem$ e $ReceberMensagem$ na qual são executadas sobre \ac{rpc}.
+\end{itemize}
+
+Seguindo os grandes grupos, podemos descrever o seguinte comportamento:
+
+$$
+WebAPI_{w} < WebAPI_{s} < WebAPI_{r}
+$$
+
+$$
+  IniciarSessao_{s} < IniciarSessao_{w} <IniciarSessao_{r}
+$$
+
+$$
+InteracaoMundo_{w} < InteracaoMundo_{r} < InteracaoMundo_{s}
+$$
+
+$$
+InteracaoSocial_{w} < InteracaoSocial_{s} < InteracaoSocial_{r}
+$$
+
+Nota-se a partir destes dados que a arquitetura Salz possui um sistema de autenticação mais eficiente, entretanto nas demais categocias a arquitetura Willson possui um tempo de resposta mais satisfatório, baseado na regra e negócio utilizada neste trabalho.
+%
+Entretanto, a ação de autenticação é apenas uma requisição que será realizada, comparado a milhoes de requisições a qual tem-se benefício na arquitetura Willson.
+
+
+A partir do experimento de consumo de \ac{cpu}, é deduzido as seguintes expressões:
+
+$$
+    CPU(microsservicos_{s}) < CPU(microsservicos_{r}) < CPU(microsservicos_{w})
+$$
+
+$$
+    CPU(db_{r}) < CPU(db_{s}) < CPU(db_{w})
+$$
+
+A partir destas expressões, percebe-se que existe uma relação com o tempo de resposta.
+%
+Mais específico, existe uma relação entre o consumo de \ac{cpu} do banco de dados com o tempo de resposta $WebAPI$ e o consumo de \ac{cpu} dos microsserviços com a $InteracaoMundo$.
+%
+Estes dois pontos de atenção podem evidenciar os seguintes gargalos:
+
+\begin{itemize}
+ \item Interação com o mundo nas arquiteturas Rudy e Salz;
+ \item WebAPI nas arquiteturas Rudy e Salz;
+\end{itemize}
+ 
+A arquitetura Rudy consome mais \ac{cpu} para adicionar um passo de instrução a mais, com o microsserviço \textit{rcrud}.
+%
+Tal característica implica diretamente em seu tempo de resposta ao realizar operações no banco, quando comparado a arquitetura Salz.
+%
+Isto é algo notório na expressão de $WebAPI$.
+
+Entretanto, a arquitetura Salz gasta mais processamento que a arquitetura Rudy ao realizar multiplos acessos ao banco e sincronizar seus dados entre os microsserviços \textit{sgame} e \textit{schat}.
+%
+Dessa forma, a arquitetura Salz consegue desempenhar um acesso a banco mais eficiente que a arquitetura Rudy, quando comparado a $WebAPI$, entretanto tem um menor processamento de dados para executar as ações da $InteracaoMundo$.
+%
+Ao comparar a $InteracaoSocial$, podemos visualizar o efeito do maior consumo de \ac{cpu} por parte da arquitetura Rudy e, consequentemente, o seu sistema de fila para receptar as ações do mundo, na qual desempatam a arquitetura Salz em relação a arquitetura Rudy.
+
