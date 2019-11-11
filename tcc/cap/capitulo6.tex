@@ -1376,8 +1376,9 @@ Espera-se que o seu crescimento seja de tendência linear junto ao crescimento d
 Neste contexto existem os seguintes valores:
 
 \begin{itemize}
-    \item Jogadores simultâneos: Variável capturada a partir do microsserviço de jogo; e
-    \item Entrada: Variável capturada a partir do monitor de recursos do Docker.
+    \item Jogadores simultâneos: Variável capturada a partir do microsserviço de jogo;
+    \item Entrada do serviço: Variável capturada a partir do monitor de recursos do Docker; e
+    \item Entrada do ambiente: Variável capturada a partir do sistema operacional.
 \end{itemize}
 
 Nota-se que o número de jogadores simultâneos e o consumo entrada de rede são indexados pelo tempo a qual tais dados foram capturados.
@@ -1542,6 +1543,35 @@ O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimen
 
 A Figura~\ref{fig:experimento_gs_net_in} exibe o comportamento do consumo de entrada da rede, na qual visivelmente todos os serviços são lineares.
 %
+Dessa forma, pode-se deduzir os seguintes comportamentos para as arquiteturas de microsserviços:
+
+$$
+     Entrada_{rweb} < Entrada_{rgame} < Entrada_{rauth} < Entrada_{rcrud}
+$$
+$$
+     Entrada_{sweb} < Entrada_{sgame} < Entrada_{schat} < Entrada_{sauth}
+$$
+$$
+     Entrada_{wgame} < Entrada_{wgame} < Entrada_{wauth}
+$$
+
+Na qual entende-se:
+
+\begin{itemize}
+ \item $Entrada_{rweb}$: Curva de entrada do microsserviço web na arquitetura Rudy;
+ \item $Entrada_{rgame}$: Curva de entrada do microsserviço game na arquitetura Rudy;
+ \item $Entrada_{rauth}$: Curva de entrada do microsserviço auth na arquitetura Rudy;
+ \item $Entrada_{rcrud}$: Curva de entrada do microsserviço crud na arquitetura Rudy;
+  \item $Entrada_{sweb}$: Curva de entrada do microsserviço web na arquitetura Salz;
+ \item $Entrada_{sgame}$: Curva de entrada do microsserviço game na arquitetura Salz;
+ \item $Entrada_{sauth}$: Curva de entrada do microsserviço auth na arquitetura Salz;
+ \item $Entrada_{schat}$: Curva de entrada do microsserviço chat na arquitetura Salz;
+ \item $Entrada_{wweb}$: Curva de entrada do microsserviço web na arquitetura Willson;
+ \item $Entrada_{wgame}$: Curva de entrada do microsserviço game na arquitetura Willson; e
+ \item $Entrada_{wauth}$: Curva de entrada do microsserviço auth na arquitetura Willson.
+\end{itemize}
+
+
 Este comportamento está diretamente relacionado a distribuição das funcionalidades dentro das arquiteturas.
 %
 Este comportamento é notório na Sub figura~\ref{fig:r_netin_gs}, a qual exibe a demanda exercida sobre o microsserviço \textit{rcrud} a qual está distribuído entre diversos processos nas demais arquiteturas.
@@ -1575,12 +1605,12 @@ A Tabela~\ref{tab:net_in_gs_media_quadrantes} exibe estes dados.
 \caption{Consumo médio da entrada da rede por quadrante do servidor de jogo.}
 \label{tab:net_in_gs_media_quadrantes}
 
-\begin{tabular}{|l|l|l|l|l|}
-\hline
-Arquitetura & Primeiro Quadrante & Segundo Quadrante & Terceiro Quadrante & Quarto Quadrante \\ \hline
+\begin{tabular}{l|l|l|l|l}
+\hline \hline
+Arquitetura & Primeiro Quadrante & Segundo Quadrante & Terceiro Quadrante & Quarto Quadrante \\ \hline \hline
 Rudy        & 12,58 Mbps            & 15,62 Mbps           & 15,84 Mbps            & 15,66 Mbps          \\ \hline
 Salz        & 9,22 Mbps            & 10,63 Mbps           & 11,97 Mbps            & 11,42 Mbps          \\ \hline
-Willson     & 9,12 Mbps            & 12,30 Mbps          & 12,27 Mbps            & 12,23 Mbps          \\ \hline
+Willson     & 9,12 Mbps            & 12,30 Mbps          & 12,27 Mbps            & 12,23 Mbps          \\ \hline \hline
 \end{tabular}
 \end{adjustbox}
 
@@ -1624,3 +1654,181 @@ A arquitetura Willson possui um valor intermediário em relação as demais arqu
 Este valor intermediário é dada pela vazão de requisições que a arquitetura Willson consegue exercer ao cliente.
 %
 Dessa forma, percebemos o tempo de resposta da arquitetura Willson menor que as demais, e consecutivamente recebendo mais requisições, e por sua vez elevando a entrada do serviço como um todo.
+
+\subsection{Saída de Rede}
+
+Este experimento visa analisar o consumo da saída de rede unitariamente, em relação ao número de jogadores simultâneos.
+%
+Espera-se que o seu crescimento seja de tendência linear junto ao crescimento de jogadores concorrentes.
+%
+Neste contexto existem os seguintes valores:
+
+\begin{itemize}
+    \item Jogadores simultâneos: Variável capturada a partir do microsserviço de jogo;
+    \item Saída do serviço: Variável capturada a partir do monitor de recursos do Docker; e
+    \item Saída do ambiente: Variável capturada a partir do sistema operacional.
+\end{itemize}
+
+Nota-se que o número de jogadores simultâneos e o consumo da saída de rede são indexados pelo tempo a qual tais dados foram capturados.
+%
+Nesse sentido, pode-se relacionar o número de jogadores simultâneos ao consumo de entrada de rede dos microsserviços e do banco de dados.
+%
+Dado tal contexto, faz sentido realizar uma análise separando os ambientes de Banco de Dados de Microsserviços.
+
+\subsubsection{Banco de Dados}
+
+Considerando o ambiente de banco de dados, pode-se realizar a associação de número de jogadores simultâneos e saída de rede consumida pelos contêineres de banco de dados.
+%
+Essa associação é realizada pelo tempo de registro das métricas.
+%
+O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_db_net_out}.
+
+\begin{figure}[htb!]
+    \caption{Saída de dados da rede dos bancos de dados}
+    \label{fig:experimento_db_net_out}
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/analise/rt/r_net_out_db.png}
+        \caption{Bancos de Dados da arquitetura Rudy}
+        \label{fig:r_netout_db}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/analise/rt/s_net_out_db.png}
+        \caption{Bancos de Dados da arquitetura Salz}
+        \label{fig:s_netout_db}
+    \end{subfigure}\\
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/analise/rt/w_net_out_db.png}
+        \caption{Bancos de Dados da arquitetura Willson}
+        \label{fig:w_netout_db}
+    \end{subfigure}
+
+    Fonte: O próprio autor.
+\end{figure}
+
+Conforme visível na Figura~\ref{fig:experimento_db_net_out}, o comportamento da saída de dados segue a tendència da entrada e dados ao banco de dados.
+%
+Este comportamento era previsível, haja vista que o banco de dados recebe requisições a qual geram um determinada saída.
+%
+Faz sentido analisar a taxa de vazão total do ambiente de dados para fins comparativos a vazão de entrada.
+%
+O comportamento da vazão da rede de saída de dados é visível na Figura~\ref{fig:net_out_db}.
+
+\begin{figure}[htb!]
+  \caption{Vazão da saída de dados para a rede \textit{gameservers}.}
+  \label{fig:net_out_db}
+  \includegraphics[width=0.8\textwidth]{figuras/analise/net_out_db.png}
+  \centering
+
+  Fonte: O próprio autor.
+\end{figure}
+
+Percebe-se que o comportamento de vazão de saída da rede segue o mesmo padrão da entrada de rede para a rede de banco de dados, visivel ao comparar a Figura~\ref{fig:net_out_db} e ~\ref{fig:net_in_db}.
+%
+Faz sentido analisar os quadrantes, validando se o comportamento das médias dos quadrantes acompanham as mesmas proporções conforme a entrada de rede.
+%
+A Tabela~\ref{tab:net_out_db_media_quadrantes} exibe os valores de média de vazão de rede dos quadrantes.
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Consumo médio da saída da rede por quadrante do servidor de jogo.}
+\label{tab:net_out_db_media_quadrantes}
+
+\begin{tabular}{l|l|l|l|l}
+\hline \hline
+Arquitetura & Primeiro Quadrante & Segundo Quadrante & Terceiro Quadrante & Quarto Quadrante \\ \hline \hline
+Rudy        & 2,93 Mbps            & 3,98 Mbps           & 4,10 Mbps            & 4,27 Mbps          \\ \hline
+Salz        & 3,42 Mbps            & 4,57 Mbps           & 4,62 Mbps            & 4,63 Mbps          \\ \hline
+Willson     & 3,65 Mbps            & 5,02 Mbps          & 5,10 Mbps            & 5,18 Mbps          \\ \hline \hline
+\end{tabular}
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+A partir da Tabela~\ref{tab:net_out_db_media_quadrantes}, percebe-se uma sequência para comparação entre as arquiteturas no critério referente a consumo de saída de rede.
+%
+Nesse sentido, pode-se deduzir:
+
+$$
+    \overline{Saida_{db\_r}} < \overline{Saida_{db\_s}} < \overline{Saida_{db\_w}}
+$$
+
+Deste modo, entende-se:
+
+\begin{itemize}
+ \item $\overline{Saida_{db\_r}}$: Vazão de saída média dos bancos de dados na arquitetura Rudy;
+ \item $\overline{Saida_{db\_s}}$: Vazão de saída média dos bancos de dados na arquitetura Salz; e
+ \item $\overline{Saida_{db\_w}}$: Vazão de saída média dos bancos de dados na arquitetura Willson.
+\end{itemize}
+
+O comportamento visual e a expressão deduzida a partir da média dos quadrantes entre arquiteturas extraído é um reflexo direto da entrada de rede de banco de dados.
+%
+Dessa forma, podemos comparar a entrada e saída, a fim de ter uma única comparação para vazão de rede sobre o ambiente de banco de dados.
+%
+Faz sentido comparar a expressão deduzida da Tabela~\ref{tab:net_out_db_media_quadrantes} com a expressão deduzida a partir da Tabela~\ref{tab:net_in_db_media_quadrantes} da seguinte forma:
+
+$$
+    \overline{Entrada_{gs\_r}} < \overline{Entrada_{gs\_s}} < \overline{Entrada_{gs\_w}}
+$$
+$$
+    \overline{Saida_{db\_r}} < \overline{Saida_{db\_s}} < \overline{Saida_{db\_w}}
+$$
+
+Deduz que:
+
+$$
+    \overline{Rede_{db\_r}} < \overline{Rede_{db\_s}} < \overline{Rede_{db\_w}}
+$$
+
+Na qual entende-se:
+
+\begin{itemize}
+ \item $\overline{Rede_{db\_r}}$: Vazão de rede média dos bancos de dados na arquitetura Rudy;
+ \item $\overline{Rede_{db\_s}}$: Vazão de rerde média dos bancos de dados na arquitetura Salz; e
+ \item $\overline{Rede_{db\_w}}$: Vazão de rede média dos bancos de dados na arquitetura Willson.
+\end{itemize}
+
+\subsubsection{Microsserviços}
+
+Considerando o ambiente de banco de dados, pode-se realizar a associação de número de jogadores simultâneos e saída de rede consumida pelos contêineres de banco de dados.
+%
+Essa associação é realizada pelo tempo de registro das métricas.
+%
+O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_game_net_out}.
+
+\begin{figure}[htb!]
+    \caption{Saída de dados da rede dos microsserviços}
+    \label{fig:experimento_game_net_out}
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/analise/rt/r_net_out_arch.png}
+        \caption{Bancos de Dados da arquitetura Rudy}
+        \label{fig:r_netout_arch}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/analise/rt/s_net_out_arch.png}
+        \caption{Bancos de Dados da arquitetura Salz}
+        \label{fig:s_netout_arch}
+    \end{subfigure}\\
+
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=.95\linewidth]{figuras/analise/rt/w_net_out_arch.png}
+        \caption{Bancos de Dados da arquitetura Willson}
+        \label{fig:w_netout_arch}
+    \end{subfigure}
+
+    Fonte: O próprio autor.
+\end{figure}
+
+A Figura~\ref{fig:experimento_game_net_out} exibe os mesmos comportamentos da entrada de rede.
+%
+
