@@ -101,11 +101,11 @@ Nesta operação, o cliente envia um formulário em formato \ac{json} com inform
 %
 Os dados são validados e inseridos no banco de dados, caso a validação esteja correta.
 
-Uma característica importante para este experimento é a quantidade de requisições efetuadas, a quala é apresentada ao exibir a sua frequência no tempo de contato entre um usuário desta aplicação e o serviço.
+Uma característica importante para este experimento é a quantidade de requisições efetuadas, a qual é apresentada ao exibir a sua frequência no tempo de contato entre um usuário desta aplicação e o serviço.
 %
 A tendência é que um usuário realize uma única requisição durante todo o seu tempo de vida ao entrar em contato com algum jogo \ac{mmorpg}.
 
-O microsserviço responsável por receber estas requisições não lida com concorrência conforme a demanda dos jogadores simultâneos, sendo assim o tempo de resposta não deve variar confome o aumento do número de jogadores simultâneos.
+O microsserviço responsável por receber estas requisições não lida com concorrência conforme a demanda dos jogadores simultâneos, sendo assim o tempo de resposta não deve variar conforme o aumento do número de jogadores simultâneos.
 %
 A Figura~\ref{fig:create_account_operation_request_time} torna visível que o comportamento do tempo de resposta não depende do número de jogadores simultâneos.
 
@@ -241,7 +241,7 @@ $$
   \overline{CriarPersonagem_{w}} < \overline{CriarPersonagem_{s}} <\overline{CriarPersonagem_{r}}
 $$
 
-Onde entende-se:
+Na qual entende-se:
 
 \begin{itemize}
  \item $\overline{CriarPersonagem_{r}}$: Tempo de resposta médio da operação criar personagem na arquitetura Rudy;
@@ -357,7 +357,9 @@ A Tabela~\ref{tab:op_start_session_var} exibe a informação referente a variaç
 %
 Dessa forma, pode-se afirmar que a variação aumenta conforme a carga do serviço.
 %
-Nesse sentido, a média não apresenta um comportamento linear, porém pode-se observar um comportamento de crescimento linear a partir da variância.
+Nesse sentido, a média não apresenta um comportamento linear.
+%
+Porém, pode-se observar um comportamento de crescimento linear a partir da variância.
 %
 Dessa forma, deduz-se a seguinte relação:
 
@@ -433,7 +435,7 @@ $$
   \overline{InstanciarPersonagem_{w}} < \overline{InstanciarPersonagem_{r}} <\overline{InstanciarPersonagem_{s}}
 $$
 
-No qual entende-se:
+Na qual entende-se:
 
 \begin{itemize}
  \item $\overline{InstanciarPersonagem_{r}}$: Tempo de resposta médio da operação instanciar personagem na arquitetura Rudy;
@@ -482,7 +484,7 @@ $$
   \overline{MoverPersonagem_{w}} < \overline{MoverPersonagem_{r}} <\overline{MoverPersonagem_{s}}
 $$
 
-No qual entende-se:
+Assim, entende-se:
 
 \begin{itemize}
  \item $\overline{MoverPersonagem_{r}}$: Tempo de resposta médio da operação mover personagem na arquitetura Rudy;
@@ -532,7 +534,7 @@ $$
   \overline{EnviarMensagem_{w}} < \overline{EnviarMensagem_{s}} <\overline{EnviarMensagem_{r}}
 $$
 
-No qual entende-se:
+Deste modo, entende-se:
 
 \begin{itemize}
  \item $\overline{EnviarMensagem_{r}}$: Tempo de resposta médio da operação enviar mensagem na arquitetura Rudy;
@@ -580,7 +582,7 @@ $$
   \overline{ReceberMensagem_{w}} < \overline{ReceberMensagem_{s}} <\overline{ReceberMensagem_{r}}
 $$
 
-Na qual entende-se:
+Logo, entende-se:
 
 \begin{itemize}
  \item $\overline{ReceberMensagem_{r}}$: Tempo de resposta médio da operação receber mensagem na arquitetura Rudy;
@@ -716,10 +718,10 @@ A Figura~\ref{fig:cpu_db_media_por_jogador} exibe a média de consumo de \ac{cpu
 Conforme exibido na Figura~\ref{fig:cpu_db_media_por_jogador}, pode-se deduzir que em todo caso as arquiteturas Rudy, Salz e Willson seguem a seguinte expressão:
 
 $$
-    CPU(db\_postgresql_{r}) < CPU(db\_postgresql_{s}) \approx CPU(db\_postgresql_{w})
+    CPU(db\_postgresql_{r}) < CPU(db\_postgresql_{s}) < CPU(db\_postgresql_{w})
 $$
 
-Na qual entende-se:
+Logo, entende-se:
 
 \begin{itemize}
 \item $CPU(db\_postgresql_{r})$: Curva de consumo de \ac{cpu} pelo PostgreSQL da arquitetura Rudy;
@@ -782,7 +784,7 @@ A Figura~\ref{fig:cpu_redis_media_por_jogador} exibe um gráfico comparando a m�
 Conforme exibido na Figura~\ref{fig:cpu_redis_media_por_jogador}, pode-se deduzir que em todo caso as arquiteturas Rudy, Salz e Willson seguem a seguinte expressão:
 
 $$
-    CPU(db\_redis_{r}) < CPU(db\_redis_{s}) \approx CPU(db\_redis_{w})
+    CPU(db\_redis_{r}) < CPU(db\_redis_{s}) < CPU(db\_redis_{w})
 $$
 
 Na qual entende-se:
@@ -941,7 +943,7 @@ A visualização da média de consumo de \ac{cpu} por usuário simultâneo tem c
 
 A Figura~\ref{fig:cpu_game_media_por_jogador} tem como objetivo exibir a média de consumo de \ac{cpu} por jogador, assim permitindo analisar o comportamento das curvas.
 %
-Entretanto, nota-se que todos os microsserviços contém uma característica senoidal, onde sua amplitude aumenta com a quantidade de jogadores, na qual já era visível na Figura~\ref{fig:experimento_game_cpu}.
+Entretanto, nota-se que todos os microsserviços contém uma característica senoidal, na qual sua amplitude aumenta com a quantidade de jogadores, na qual já era visível na Figura~\ref{fig:experimento_game_cpu}.
 %
 Porém, neste gráfico também é visível o erro de cada média.
 %
@@ -1115,7 +1117,7 @@ Contudo, é necessário garantir uma única conexão por usuário.
 %
 A unicidade é realizada utilizando o Redis, armazenando uma sequência de caracteres aleatórias em um campo formatado com o nome do usuário.
 %
-O trecho de código que realiza esta operação é exibido na Figura~\ref{lst:seq_chars_redis}.
+O trecho de código que realiza esta operação é exibido na Listagem~\ref{lst:seq_chars_redis}.
 
 
 
@@ -1160,7 +1162,7 @@ m_j = m_{chave} + m_{padrao} + m_{valor} \\
 \Rightarrow m_j = 32bytes + 8bytes + 256bytes = 296bytes
 \end{multline}
 
-Na qual entende-se:
+Sendo que:
 
 \begin{itemize}
 \item $m_j$: Tamanho dos dados armazenados em memória no Redis por jogador autenticado;
@@ -1420,7 +1422,7 @@ O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimen
 
 A Figura~\ref{fig:experimento_db_net_in} exibe o comportamento da entrada dos dados para os bancos de dados.
 %
-Ele segue um padrão visivelmente linear.
+Este segue um padrão visivelmente linear.
 %
 Ambas as arquiteturas consomem o banco de dados com o mesmo comportamento linear, entretanto em proporções diferentes.
 %
@@ -1657,7 +1659,7 @@ Este experimento visa analisar o consumo da saída de rede unitariamente, em rel
 %
 Espera-se que o seu crescimento seja de tendência linear junto ao crescimento de jogadores concorrentes.
 %
-Neste contexto existem os seguintes valores:
+Neste contexto, existem os seguintes valores:
 
 \begin{itemize}
     \item Jogadores simultâneos: Variável capturada a partir do microsserviço de jogo;
@@ -1727,13 +1729,13 @@ Percebe-se que o comportamento de vazão de saída da rede segue o mesmo padrão
 %
 Faz sentido analisar os quadrantes, validando se o comportamento das médias dos quadrantes acompanham as mesmas proporções conforme a entrada de rede.
 %
-A Tabela~\ref{tab:net_in_db_media_quadrantes} exibe os valores de média de vazão de rede dos quadrantes.
+A Tabela~\ref{tab:net_out_db_media_quadrantes} exibe os valores de média de vazão de rede dos quadrantes.
 
 \begin{table}[htb!]
 \centering
 \begin{adjustbox}{max width=\textwidth}
 \caption{Consumo médio da saída da rede por quadrante do servidor de jogo.}
-\label{tab:net_in_db_media_quadrantes}
+\label{tab:net_out_db_media_quadrantes}
 
 \begin{tabular}{l|l|l|l|l}
 \hline \hline
@@ -1747,7 +1749,7 @@ Willson     & 3,65 Mbps            & 5,02 Mbps          & 5,10 Mbps            &
 Fonte: O próprio autor.
 \end{table}
 
-A partir da Tabela~\ref{tab:net_in_db_media_quadrantes}, percebe-se uma sequência para comparação entre as arquiteturas no critério referente a consumo de saída de rede.
+A partir da Tabela~\ref{tab:net_out_db_media_quadrantes}, percebe-se uma sequência para comparação entre as arquiteturas no critério referente a consumo de saída de rede.
 %
 Nesse sentido, pode-se deduzir:
 
@@ -1944,133 +1946,108 @@ Deste modo, entende-se:
  \item $\overline{Saida_{gs\_s}}$: Vazão de saída média dos microsserviços na arquitetura Willson.
 \end{itemize}
 
-\section{Considerações Parciais}
+\section{Análise unificada dos resultados}
 \label{sec:experimentos_conc}
 
 Este capítulo descreve os resultados obtidos a partir dos experimentos executados sobre as arquiteturas Rudy, Salz e Willson.
 %
-Tais experimetos foram baseados em um protocolo de execução, a qual garante a limpeza do ambiente evitando interferência de demais execuções.
+Tais experimentos foram baseados em um protocolo de execução, a qual garante a limpeza do ambiente evitando interferência de demais execuções.
 
-Os experimentos executados foram:
+Foi obtido comparações ao realizar uma análise individual dos critérios obtidos nos experimentos.
+%
+É possível realizar um aglomerado de todos os resultados em uma única tabela.
+%
+A Tabela~\ref{tab:resultados_experimentos} exibe as comparações obtidas a partir dos dados capturados.
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Resultados obtidos a partir dos dados capturados.}
+\label{tab:resultados_experimentos}
+
+\begin{tabular}{l|l||l|l|l}
+\hline \hline
+\multicolumn{2}{l||}{Critério}                                                                          & Rudy        & Salz        & Willson     \\ \hline \hline
+\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}}Tempo\\ de Resposta\end{tabular}}  & Criar Conta           & Maior valor & Valor médio & Menor valor \\ \cline{2-5} 
+                                                                                & Criar Personagem      & Maior valor & Valor médio & Menor valor \\ \cline{2-5} 
+                                                                                & Iniciar Sessão        & Maior valor & Menor valor & Valor médio \\ \cline{2-5} 
+                                                                                & Instanciar Personagem & Valor médio & Maior valor & Menor valor \\ \cline{2-5} 
+                                                                                & Movimentar Personagem & Valor médio & Maior valor & Menor valor \\ \cline{2-5} 
+                                                                                & Enviar Mensagem       & Maior valor & Valor médio & Menor valor \\ \cline{2-5} 
+                                                                                & Receber Mensagem      & Maior valor & Valor médio & Menor valor \\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Consumo\\ de CPU\end{tabular}}     & Banco de Dados        & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
+                                                                                & Microsserviços        & Valor médio & Menor valor & Maior valor \\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Consumo\\ de Memória\end{tabular}} & Banco de Dados        & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
+                                                                                & Microsserviços        & Valor médio & Maior valor & Menor valor \\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Entrada\\ de Rede\end{tabular}}    & Banco de Dados        & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
+                                                                                & Microsserviços        & Menor valor & Valor médio & Maior valor \\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Saída\\ de Rede\end{tabular}}      & Banco de Dados        & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
+                                                                                & Microsserviços        & Maior valor & Valor médio & Menor valor \\ \hline \hline
+\end{tabular}
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+A partir da Tabela~\ref{tab:resultados_experimentos}, podemos observar comportamentos aproximados, na qual respeitam as relações obtidas.
+%
+Faz sentido simplificar os resultados obtidos, exibidos na Tabela~\ref{tab:resultados_experimentos}, justificando pelo funcionamento das arquiteturas.
+%
+A seguir, listamos as deduções obtidas:
 
 \begin{itemize}
- \item Tempo de resposta de algumas requisições, do ponto de vista do cliente;
- \item Consumo de \ac{cpu} do serviço;
- \item Consumo de memória pelos microsserviços;
- \item Consumo de Entrada da rede do serviço; e
- \item Consumo de Saída da rede do serviço.
+ \item \textbf{Criar Conta} e \textbf{Criar Personagem} são operações que utilizam o mesmo fluxo e protocolo para persistência de dados no mesmo banco de dados. Ambos possuem o mesmo comportamento;
+ \item \textbf{Instanciar Personagem} e \textbf{Movimentar Personagem} são ações que utilizam o mesmo fluxo e protocolo. Ambos possuem o mesmo comportamento;
+ \item \textbf{Enviar Mensagem} e \textbf{Receber Mensagem} são ações que utilizam o mesmo fluxo e protocolo. Ambos possuem o mesmo comportamento; e
+ \item \textbf{Entrada de Rede} do banco de dados e do microsserviços cresce proporcionalmente.
 \end{itemize}
 
-Os experimentos envolvendo tempo de resposta tem como objetivo a classificação de qualidade, do ponto de vista de tempo de resposta para o cliente, a fim de proporcionar critérios de desempate, caso existentes.
+A partir destas deduções, é possível simplificar a Tabela~\ref{tab:resultados_experimentos}.
 %
-Além disso,é ilustrado a saturação do serviço conforme o aumento da demanda, a qual torna-se notório que o gargalo está presente na arquitetura do serviço e não no cliente.
+A Tabela~\ref{tab:resultados_experimentos_simplificados} exibe os comportamentos obtidos de forma simplificada.
 
-A partir do tempo de resposta, foi possível analisar as seguintes requisições:
+
+\begin{table}[htb!]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\caption{Resultados obtidos a partir dos dados capturados.}
+\label{tab:resultados_experimentos_simplificados}
+
+\begin{tabular}{l|l||l|l|l}
+\hline \hline
+\multicolumn{2}{l||}{Critério}                                                                     & Rudy        & Salz        & Willson     \\ \hline \hline
+\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Tempo\\ de Resposta\end{tabular}}  & Operações Web      & Maior valor & Valor médio & Menor valor \\ \cline{2-5}
+                                                                              & Operação de Sessão & Maior valor & Menor valor & Valor médio \\ \cline{2-5} 
+                                                                              & Operações do Mundo & Valor médio & Maior valor & Menor valor \\ \cline{2-5} 
+                                                                              & Operações de Chat  & Maior valor & Valor médio & Menor valor \\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Consumo\\ de CPU\end{tabular}}     & Banco de Dados     & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
+                                                                              & Microsserviços     & Valor médio & Menor valor & Maior valor \\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Consumo\\ de Memória\end{tabular}} & Banco de Dados     & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
+                                                                              & Microsserviços     & Valor médio & Maior valor & Menor valor \\ \hline \hline
+\multicolumn{2}{l||}{Entrada de Rede}                                                              & Menor valor & Valor médio & Maior valor \\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Saída\\ de Rede\end{tabular}}      & Banco de Dados     & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
+                                                                              & Microsserviços     & Maior valor & Valor médio & Menor valor \\ \hline \hline
+\end{tabular}
+\end{adjustbox}
+
+Fonte: O próprio autor.
+\end{table}
+
+A Tabela~\ref{tab:resultados_experimentos_simplificados} exibe a tabela simplificada.
+%
+A partir destes dados, podemos tomar algumas conclusões.
+%
+Dessa forma, conclui-se:
 
 \begin{itemize}
-    \item Criar conta;
-    \item Criar personagem;
-    \item Iniciar sessão; 
-    \item Instanciar personagem;
-    \item Movimentar personagem;
-    \item Enviar mensagem; e
-    \item Receber mensagem.
+ \item \textbf{Operação de Sessão} é uma categoria de requisições na qual não compartilha características com outras operações;
+ \item \textbf{Consumo de CPU do Banco de Dados} é inversamente proporcional a requisições web \textbf{Criar Conta} e \textbf{Criar Personagem};
+ \item \textbf{Consumo de CPU dos microsserviços} é inversamente proporcional a maioria das ações que envolvem o serviço de jogo sobre o protocolo \ac{rpc};
+ \item \textbf{Saída de Rede dos bancos de dados} relaciona-se a entrada de rede do banco de dados, que consecutivamente tem relação com \textbf{Operações Web}; e
+ \item \textbf{Saída de Rede dos microsserviços} é relaciona-se  as requisições da operação de mundo, visto que tais operações possuem alta frequência de requisições.
 \end{itemize}
 
-A partir destas requisições, foi possível obter um critério de desempate conforme as seguintes expressões:
+\section{Considerações parciais}
 
-$$
-  \overline{CriarConta_{w}} < \overline{CriarConta_{s}} < \overline{CriarConta_{r}}
-$$
-
-$$
-  \overline{CriarPersonagem_{w}} < \overline{CriarPersonagem_{s}} <\overline{CriarPersonagem_{r}}
-$$
-
-$$
-  \overline{IniciarSessao_{s}} < \overline{IniciarSessao_{w}} <\overline{IniciarSessao_{r}}
-$$
-
-$$
-  \overline{InstanciarPersonagem_{w}} < \overline{InstanciarPersonagem_{r}} <\overline{InstanciarPersonagem_{s}}
-$$
-
-$$
-  \overline{MoverPersonagem_{w}} < \overline{MoverPersonagem_{r}} <\overline{MoverPersonagem_{s}}
-$$
-
-$$
-  \overline{EnviarMensagem_{w}} < \overline{EnviarMensagem_{s}} <\overline{EnviarMensagem_{r}}
-$$
-
-$$
-  \overline{ReceberMensagem_{w}} < \overline{ReceberMensagem_{s}} <\overline{ReceberMensagem_{r}}
-$$
-
-Pode-se aglomerar tais relações baseado em sua grande área.
-%
-Temos os seguintes grandes grupos:
-
-\begin{itemize}
- \item $WebAPI$: Junta as ações $CriarConta$ e $CriarPersonagem$. São referentes a ações sobre \ac{http} que inserem dados no banco PostgreSQL;
-  \item Iniciar Sessão;
-  \item $InteracaoMundo$: Agrupa as ações $InstanciarPersonagem$ e $MoverPersonagem$ na qual sã o executadas sobre \ac{rpc}; e
-  \item $InteracaoSocial$: Agrupa as ações $EnviarMensagem$ e $ReceberMensagem$ na qual são executadas sobre \ac{rpc}.
-\end{itemize}
-
-Seguindo os grandes grupos, podemos descrever o seguinte comportamento:
-
-$$
-WebAPI_{w} < WebAPI_{s} < WebAPI_{r}
-$$
-
-$$
-  IniciarSessao_{s} < IniciarSessao_{w} <IniciarSessao_{r}
-$$
-
-$$
-InteracaoMundo_{w} < InteracaoMundo_{r} < InteracaoMundo_{s}
-$$
-
-$$
-InteracaoSocial_{w} < InteracaoSocial_{s} < InteracaoSocial_{r}
-$$
-
-Nota-se a partir destes dados que a arquitetura Salz possui um sistema de autenticação mais eficiente, entretanto nas demais categocias a arquitetura Willson possui um tempo de resposta mais satisfatório, baseado na regra e negócio utilizada neste trabalho.
-%
-Entretanto, a ação de autenticação é apenas uma requisição que será realizada, comparado a milhoes de requisições a qual tem-se benefício na arquitetura Willson.
-
-
-A partir do experimento de consumo de \ac{cpu}, é deduzido as seguintes expressões:
-
-$$
-    CPU(microsservicos_{s}) < CPU(microsservicos_{r}) < CPU(microsservicos_{w})
-$$
-
-$$
-    CPU(db_{r}) < CPU(db_{s}) < CPU(db_{w})
-$$
-
-A partir destas expressões, percebe-se que existe uma relação com o tempo de resposta.
-%
-Mais específico, existe uma relação entre o consumo de \ac{cpu} do banco de dados com o tempo de resposta $WebAPI$ e o consumo de \ac{cpu} dos microsserviços com a $InteracaoMundo$.
-%
-Estes dois pontos de atenção podem evidenciar os seguintes gargalos:
-
-\begin{itemize}
- \item Interação com o mundo nas arquiteturas Rudy e Salz;
- \item WebAPI nas arquiteturas Rudy e Salz;
-\end{itemize}
- 
-A arquitetura Rudy consome mais \ac{cpu} para adicionar um passo de instrução a mais, com o microsserviço \textit{rcrud}.
-%
-Tal característica implica diretamente em seu tempo de resposta ao realizar operações no banco, quando comparado a arquitetura Salz.
-%
-Isto é algo notório na expressão de $WebAPI$.
-
-Entretanto, a arquitetura Salz gasta mais processamento que a arquitetura Rudy ao realizar multiplos acessos ao banco e sincronizar seus dados entre os microsserviços \textit{sgame} e \textit{schat}.
-%
-Dessa forma, a arquitetura Salz consegue desempenhar um acesso a banco mais eficiente que a arquitetura Rudy, quando comparado a $WebAPI$, entretanto tem um menor processamento de dados para executar as ações da $InteracaoMundo$.
-%
-Ao comparar a $InteracaoSocial$, podemos visualizar o efeito do maior consumo de \ac{cpu} por parte da arquitetura Rudy e, consequentemente, o seu sistema de fila para receptar as ações do mundo, na qual desempatam a arquitetura Salz em relação a arquitetura Rudy.
+Informar em poucos parágrafos qual arquitetura apresentou melhor resultado em cada critério e justificar 
 
