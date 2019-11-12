@@ -2049,5 +2049,66 @@ Dessa forma, conclui-se:
 
 \section{Considerações parciais}
 
-Informar em poucos parágrafos qual arquitetura apresentou melhor resultado em cada critério e justificar 
+Este capítulo teve como objetivo descrever os resultados obtidos a partir da execução dos experimentos sobre as arquiteturas de microsserviços Rudy, Salz e Willson.
+%
+Dessa forma, tal capítulo exibe os seguintes experimentos:
+
+\begin{itemize}
+ \item Tempo de resposta;
+ \item Consumo de \ac{cpu};
+ \item Consumo de Memória;
+ \item Entrada de Rede; e
+ \item Saída de Rede;
+\end{itemize}
+
+A partir do tempo de resposta, pode-se observar quatro comportamentos distintos.
+%
+Os comportamentos observados são:
+
+\begin{itemize}
+ \item Operações Web: A arquitetura Willson mostrou o menor tempo de resposta por uma melhor ocupação de \ac{cpu} e conexão direta ao banco de dados;
+ \item Operação de Sessão: A arquitetura Salz mostrou o menor tempo de resposta por fornecer o microsserviço de autenticação de forma pública para conexão pelo cliente, diminuindo a cadeia de conexões necessárias para realizar a autenticação no serviço;
+ \item Operações de Mundo: A arquitetura Willson mostrou o menor tempo de resposta por mostrar um melhor aproveitamento de \ac{cpu};
+ \item Operações do Mundo: A arquitetura Willson mostrou o menor tempo de resposta por mostrar um melhor aproveitamento de \ac{cpu}; e
+ \item Operações de Chat: A arquitetura Willson mostrou o menor tempo de resposta por mostrar um melhor aproveitamento de \ac{cpu};
+\end{itemize}
+
+A partir dos resultados obtidos, pode-se avaliar a arquitetura Willson como a melhor arquitetura para o critério de tempo de resposta.
+%
+Entretanto, para obter determinado desempenho, o seu consumo de recursos é maior, no geral, que as demais arquiteturas.
+
+
+A partir dos resultados de consumo de \ac{cpu}, foi dividido o ambiente em banco de dados e microsserviços.
+%
+Para a arquitetura do banco de dados, a arquitetura Rudy obteve o menor consumo de \ac{cpu} em média.
+%
+Tal resultado é proveniente do enfileiramento de requisições pelo microsserviço \textit{rcrud}, a qual obtrui a comunicação com o banco de dados, tornando uma comunicação serial.
+
+Para a arquitetura de microsserviços, a arquitetura Salz obteve o menor consumo de \ac{cpu} em média.
+%
+Este resultado é proveniente da divisão dos microsserviços \textit{sgame} e \textit{schat}, na qual obstruem com comunicação interna a \ac{cpu}.
+
+Para o critério de consumo de memória na infraestrutura do banco de dados, a arquitetura Rudy toma a posição como mais econômica, na qual mostra um ponto positivo para a obstrução das requisições no microsserviço \textit{rcrud}.
+%
+Isto é um reflexo direto, positivo, da minimização de requisições simultâneas a um serviço de fonte de dados.
+
+
+Para o consumo de memória por parte do serviço a arquitetura Willson mostrou-se a mais econômica.
+%
+Esta economia de memória é proveniente da minimização de microsserviços, e consecutivamente processos concorrentes para execução das mesmas tarefas.
+%
+Entretanto, este ponto não necessáriamente é positivo, mas sim uma característica do experimento.
+Nota-se que no caso de necessidade de escalar a arquitetura Willson, será necessário escalar sistemas que talvez sejam desnecessários para a operação do serviço.
+
+Para o trafego de rede, notou-se que a entrada e saída de dados no banco de dados tendem a crescer com a mesma intencidade.
+%
+Esta característica é dada pelo protocolo utilizado ao consumir um dado do banco de dados, na qual sempre haverá uma resposta sobre a requisição enviada.
+%
+Dentro deste contexto, a arquitetura Rudy mostrou utilizar menos banco de dados.
+%
+Isto é um reflexo direto ao enfileiriamento causado pelo microsserviço \textit{rcrud}.
+
+Entretanto, isolando o ambiente de microsserviços no critério de saída de rede, possui o menor e maior consumo para os ambientes de banco de dados e microsserviços respectivamente.
+%
+Esta característica é dada pelo elevado consumo de rede interna para realizar consultas ao banco de dados.
 
