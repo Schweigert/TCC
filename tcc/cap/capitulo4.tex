@@ -9,13 +9,13 @@ Nesse sentido, jogos com mecânicas de projeto similares possuem implementaçõe
 %
 Entretanto, a arquitetura escolhida impacta no custo de operação e qualidade do serviço aos jogadores.
 %
-Por este motivo, diferentes arquiteturas com o mesmo \textit{design} não são comparáveis entre sí, visto que dependem das regras de negócio do jogo.
+Por este motivo, diferentes arquiteturas com a mesma regra de negócio são comparáveis entre sí, visto que visam resolver os mesmos problemas.
 
 
 
 Ao desenvolver um serviço \ac{mmorpg} é necessário decidir uma arquitetura que possibilite reduzir custos, consumo de recursos e minimize ocorrências para os jogadores a fim de viabilizar a sua implantação como produto.
 %
-Porém, a impossibilidade de comparação direta entre as arquiteturas de serviço \ac{mmorpg} instiga a análise das características básicas destas arquiteturas que possam influenciar o \textit{game design}, tais como consumo de recursos, tempo de resposta, latência e número máximo de clientes simultâneos conectados nos microsserviços.
+Porém, a impossibilidade de comparação direta entre as arquiteturas de serviço \ac{mmorpg} instiga a análise das características básicas destas arquiteturas que possam influenciar o \textit{game design}, tais como consumo de recursos e tempo de resposta comparado ao número de jogadores simultâneos.
 %
 Sendo assim, uma análise do consumo de recursos computacionais das arquiteturas levantadas previamente na literatura tem valor científico no auxílio da escolha de implementações de arquiteturas de microsserviços, em específico para serviços \ac{mmorpg}.
 
@@ -23,12 +23,11 @@ Sendo assim, uma análise do consumo de recursos computacionais das arquiteturas
 
 Neste capítulo é descrita a proposta para análise de consumo de recursos computacionais em arquiteturas \ac{mmorpg}.
 %
-Inicialmente, é descrita a proposta em alto nível (Seção~\ref{sec:proposta}), trazendo os objetivos desta análise, quais recursos e métricas serão analisadas (TCC-II).
+Inicialmente, é descrita a proposta em alto nível (Seção~\ref{sec:proposta}), trazendo os objetivos desta análise, quais recursos e métricas serão analisadas.
 %
 Os Critérios de Análise (Seção~\ref{sec:criterios}) exibem como os dados obtidos devem ser interpretados, baseando-se nos objetivos da análise das arquiteturas.
 %
-O Plano de Testes (Seção~\ref{sec:plano}) exibe como será realizada a coleta dos dados, descrevendo o ambiente, cenário, critérios e os testes que serão realizados. %para obter os objetivos deste trabalho.
-%
+O Plano de Testes (Seção~\ref{sec:plano}) exibe como será realizada a coleta dos dados, descrevendo o ambiente, cenário, critérios e os testes que serão realizados.
 
 \section{Proposta}
 \label{sec:proposta}
@@ -39,8 +38,8 @@ Em específico, serão obtidos os valores referentes aos uso dos seguintes recur
 
 \begin{enumerate}
   \item \textbf{\ac{cpu}}: o uso de CPU, com sua representação sendo em relação a porcentagem de processamento nos núcleos utilizados;
-  \item \textbf{Memória}: Quantidade de memória utilizada pelos processos do serviço/arquitetura. A sua representação será como dado absoluto;
-  \item \textbf{Rede}: Banda de rede utilizada nas operações de entrada e saída para cada microsserviço, utilizando valores absolutos. Juntamente será obtido o valor de latência do cliente ao microsserviço, verificando se o congestionamento da rede afeta a latência do microsserviço.
+  \item \textbf{Memória}: Quantidade de memória utilizada pelos processos do serviço/arquitetura. A sua representação será como dado absoluto; e
+  \item \textbf{Rede}: Banda de rede utilizada nas operações de entrada e saída para cada microsserviço, utilizando valores absolutos;
 \end{enumerate}
 
 Além dos recursos computacionais, esta análise levará em conta valores referentes a outras métricas.
@@ -49,10 +48,10 @@ As métricas, cujos os valores serão obtidos são:
 
 \begin{enumerate}
   \item \textbf{Número máximo de jogadores simultâneos}: Descobrir o limite de conexões para as arquiteturas propostas a análise. Será representado como valor absoluto.
-  \item \textbf{Tempo de resposta das requisições}: Descobrir o tempo de resposta por categoria de requisição, conforme o número de jogadores no serviço. Será representado como tempo decorrido, em milissegundos.
+  \item \textbf{Tempo de resposta das requisições}: Descobrir o tempo de resposta por categoria de requisição, conforme o número de jogadores no serviço. Será representado como tempo decorrido da requisição, em milissegundos.
 \end{enumerate}
 
-Todos estes valores serão obtidos a partir de simulações, e por este motivo faz-se necessário descrever o comportamento dos jogadores simulados (Seção~\ref{sec:SimulaCliente}).
+Todos estes valores serão obtidos a partir de clientes automatizados, e por este motivo faz-se necessário descrever o comportamento dos jogadores autonomos (Seção~\ref{sec:SimulaCliente}).
 %
 Espera-se, em situações adversas, caracterizar os comportamentos das arquiteturas bem como gargalos e os custos de recursos computacionais para manutenção das arquiteturas de microsserviços.
 %
@@ -66,12 +65,12 @@ A fim de padronizar a análise dos dados obtidos, estes serão estabelecidos usa
 Neste sentido, a análise dos dados obtidos será guiada pelo esperado dos valores obtidos em um serviço padrão:
 
 \begin{enumerate}
-  \item \textbf{Consumo CPU}: Espera-se estressar com um elevado número de requisições.
-  \item \textbf{Consumo Memória}: Espera-se estressar com requisições nas quais exija armazenamento em memória.
-  \item \textbf{Vazão Rede - Entrada}: Espera-se estressar com requisições nas quais tenham uma carga de dados elevada.
-  \item \textbf{Vazão Rede - Saída}: Espera-se estressar com respostas nas quais tenham uma carga de dados elevada.
-  \item \textbf{Número de Conexões Simultâneas}: Servirá como guia de comparação com os demais valores e desempenho da arquitetura;
-  \item \textbf{Tempo de resposta das requisições}: Servirá como guia de desempenho da arquitetura; e
+  \item \textbf{Consumo CPU}: Espera-se estressar com um elevado número de requisições;
+  \item \textbf{Consumo Memória}: Espera-se estressar com requisições nas quais exija armazenamento em memória;
+  \item \textbf{Vazão Rede - Entrada}: Espera-se estressar com requisições nas quais tenham uma carga de dados elevada;
+  \item \textbf{Vazão Rede - Saída}: Espera-se estressar com respostas nas quais tenham uma carga de dados elevada;
+  \item \textbf{Número de Conexões Simultâneas}: Servirá como guia de comparação com os demais valores e desempenho da arquitetura, caso exista um limite de escalabilidade;
+  \item \textbf{Tempo de resposta das requisições}: Servirá como guia de qualidade da arquitetura; e
 \end{enumerate}
 
 Em um caso de uso ideal, todos os recursos não são estressáveis, com um número de conexões simultâneas elevado.
@@ -80,7 +79,7 @@ Porém, espera-se para este trabalho um possível conjunto de ocorrências, na q
 %
 Este conjunto servirá de guia / exemplo de problemas relevantes retirado dos valores obtidos.
 %
-Logo, a simulação e cenários foram elaborados para forçar tais ocorrências.
+Logo, a automação e cenários de execução foram elaborados para forçar tais ocorrências.
 
 
 A partir dos valores obtidos, e seguindo o esperado de uma arquitetura totalmente relacionada ao número de conexões, espera-se encontrar um conjunto de eventuais problemas nas arquiteturas.
@@ -167,7 +166,7 @@ A Figura~\ref{Ambiente de testes} descreve a infraestrutura utilizada para execu
 
 
 
-Como visível na Figura~\ref{Ambiente de testes}, o ambiente de testes planejado está organizado em cinco regiões.
+Como visível na Figura~\ref{Ambiente de testes}, o ambiente de testes planejado está organizado em quatro regiões.
 %
 Essas regiões foram isoladas com o objetivo de diminuir o impacto de desempenho e consumo de recursos por outras ferramentas durante a coleta de dados.
 %
@@ -178,23 +177,18 @@ Por este motivo, as regiões da infraestrutura planejada são:
 \begin{enumerate}
   \item \textbf{Serviço de Jogo}: A camada de serviço da infraestrutura dos testes concentrará a arquitetura dos microsserviços referente às arquiteturas de microsserviços analisadas.
   \item \textbf{Banco de dados do serviço de jogo}: A camada de banco de dados do serviço de jogo conterá os serviços de dados e web a fim de manter um padrão de banco de dados para ambos os serviços utilizados e auxiliar na inicialização dos testes.
-  \item \textbf{Estresse}: A camada de estresse será responsável por realizar requisições ao serviço a fim de estressá-lo, simulando padrões de requisição de um padrão de um jogador.
-  \item \textbf{Cliente}: A camada de cliente será composta pelos mesmos elementos da camada de estresse, porém em um ambiente controlado para que a alta demanda dos clientes neste ambiente não interfira nas métricas obtidas.
+  \item \textbf{Estresse}: A camada de estresse será responsável por realizar requisições ao serviço a fim de estressá-lo, automatizando um cliente com padrões de requisições tal qual um jogador.
   \item \textbf{Dados}: A camada de dados será composta por um banco de dados de \textit{log} a fim de armazenar os dados obtidos da camada Cliente e Serviço, posteriormente utilizado exclusivamente na coleta de dados.
 \end{enumerate}
 
 
 
-Tais regiões da infraestrutura utilizada no ambiente de testes devem manter um padrão ao qual seu propósito é garantir a inexistência de interferência entre os testes, focando em obter métricas válidas para posterior análise.
+Tais regiões da infraestrutura utilizada no ambiente de testes devem manter um padrão ao qual garante-se a inexistência de interferência entre as regiões, focando em obter métricas válidas para posterior análise.
 %
 Dessa forma, espera-se dividir as aplicações conforme a sua rede, facilitando o seu monitoramento.
-%
-Entretanto, por se tratar de um sistema baseado em serviço, espera-se utilizar uma considerável parte do mesmo sistema de cliente para as três arquiteturas, excluindo-se os casos no quais a arquitetura necessite de alterações.
 
 
-
-
-Para os casos de uso, serão utilizadas as arquiteturas de microsserviços específicos a jogos \ac{mmorpg} obtidos da literatura.
+Para os casos de uso, serão utilizadas as arquiteturas de microsserviços específicas a jogos \ac{mmorpg} obtidos da literatura.
 %
 São essas elas:
 
@@ -230,7 +224,7 @@ O cenário reflete diretamente sobre o ambiente proposto para esta análise.
 %
 Este será executado sobre cinco camadas, nas quais cada camada estará isolada em sub-redes em uma nuvem de computadores.
 
-O cenário será composto por cinco sub-redes, as quais cada uma será responsável pela operação de uma região do ambiente planejado (Figura~\ref{fig:cenario}).
+O cenário será composto por quatro sub-redes, as quais cada uma será responsável pela operação de uma região do ambiente planejado (Figura~\ref{fig:cenario}).
 %
 Esta divisão física em redes facilitará a orquestração dos serviços na rede, seguindo boas práticas de implantação de microsserviços.
 %
@@ -253,8 +247,7 @@ Estas redes são descritas da seguinte forma:
   \item \textbf{Dados}: Armazena e processa os dados obtidos da arquitetura. É usado pelas redes \textit{Cliente} e \textit{Serviço de Jogo}.
   \item \textbf{Banco de dados do serviço de jogo}: Armazena dados do jogo. É usado pela rede \textit{Serviço de Jogo}.
   \item \textbf{Serviço de Jogo}: Executa sistemas \textit{web} e \ac{rpc}, em específico da camada de serviço de jogo. Gera métricas para os serviços na rede \textit{Dados} e manipula os bancos de dados na rede \textit{Banco de dados do serviço de jogo}.
-  \item \textbf{Estresse}: Executa múltiplos clientes, a fim de estressar o serviço de Jogo.
-  \item \textbf{Clientes}: Executa um número controlado de clientes para obter métricas de tempo de resposta e latência entre as redes \textit{Cliente} e \textit{Serviço de Jogo}.
+  \item \textbf{Clientes}: Executa um número de clientes definido para obter métricas de tempo de resposta entre as redes \textit{Cliente} e \textit{Serviço de Jogo}.
 \end{enumerate}
 
 Conforme a descrição de cada rede, existe uma interdependência dentre as redes.
@@ -265,14 +258,13 @@ Tal interdependência pode ser visualizada na Tabela~\ref{tab:interdependencia}.
 \centering
 \caption{Tabela de interdependência das sub-redes.}
 \label{tab:interdependencia}
-\begin{tabular}{|l|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|}
 \hline
-\multicolumn{1}{|c|}{\rotatebox[origin=c]{-45}{Linha depende de Coluna}}  & \rotatebox[origin=c]{90}{Dados} & \rotatebox[origin=c]{90}{Banco de dados do serviço de jogo} & \rotatebox[origin=c]{90}{Serviço de Jogo} & \rotatebox[origin=c]{90}{Estresse} & \rotatebox[origin=c]{90}{Clientes} \\ \hline
-Dados                             & --    & Não                               & Não             & Não      & Não      \\ \hline
-Banco de dados do serviço de jogo & Não   & --                                & Não             & Não      & Não      \\ \hline
-Serviço de Jogo                   & Sim   & Sim                               & --              & Não      & Não      \\ \hline
-Estresse                          & Não   & Não                               & Sim             & --       & Não      \\ \hline
-Clientes                          & Sim   & Não                               & Sim             & Não      & --       \\ \hline
+\multicolumn{1}{|c|}{\rotatebox[origin=c]{-45}{Linha depende de Coluna}}  & \rotatebox[origin=c]{90}{Dados} & \rotatebox[origin=c]{90}{Banco de dados do serviço de jogo} & \rotatebox[origin=c]{90}{Serviço de Jogo} & \rotatebox[origin=c]{90}{Estresse} \\ \hline
+Dados                             & --    & Não                               & Não             & Não     \\ \hline
+Banco de dados do serviço de jogo & Não   & --                                & Não             & Não      \\ \hline
+Serviço de Jogo                   & Sim   & Sim                               & --              & Não      \\ \hline
+Clientes                          & Não   & Não                               & Sim             & --       \\ \hline
 \end{tabular}
 
 Fonte: O próprio autor.
@@ -292,13 +284,9 @@ Seguindo assim uma boa prática de não armazenar dados dentro de contêineres.
 %
 Por sua vez, estas máquinas virtuais serão focadas em armazenamento.
 
-A implantação dos clientes sobre a rede \textit{Clientes} executará um número limitado de contêineres fixo sobre as máquinas virtuais, para que não estresse as instâncias desta rede.
+A estrutura de implantação da rede \textit{Clientes} será dada por um gerenciador de nós em uma rede de contêineres.
 %
-Nesse sentido, os recursos computacionais requiridos por estas instâncias são menores em relação aos demais.
-
-A estrutura de implantação da rede \textit{Estresse} será dada por um gerenciador de nós em uma rede de contêineres.
-%
-Esta rede terá mais instâncias sob demanda conforme o caso de teste.
+Esta rede terá um gestor de conteineres para aumentar a demanda conforme o caso de teste.
 
 O limite de recursos do cenário é definido na Tabela~\ref{tab:limite_recursos}, sendo definida a faixa de endereços de cada rede a qual foi projetada.
 %
@@ -312,11 +300,10 @@ Estes valores podem ser alterados conforme a necessidade dos testes, tendo seus 
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 Nome da Rede                      & Rede                     & Instâncias & Armazenamento / Ins. & N. Núcleos & Memória \\ \hline
-Dados                             & 10.0.*.* / 255.255.0.0   & 1          & 250GB                & 4          & 4GB     \\ \hline
-Banco de dados do serviço de jogo & 10.51.*.* / 255.255.0.0  & 4          & 100GB                & 4          & 2GB     \\ \hline
-Serviço de Jogo                   & 10.52.*.* / 255.255.0.0  & 10         & 25GB                 & 4          & 4GB     \\ \hline
-Estresse                          & 10.100.*.* / 255.255.0.0 & N          & 25GB                 & 4          & 4GB     \\ \hline
-Clientes                          & 10.101.*.* / 255.255.0.0 & 3          & 10GB                 & 2          & 1GB     \\ \hline
+Dados                             & 10.0.*.* / 255.255.0.0   & 1          & 25GB                & 4          & 8GB     \\ \hline
+Banco de dados do serviço de jogo & 10.51.*.* / 255.255.0.0  & 1          & 25GB                & 4          & 8GB     \\ \hline
+Serviço de Jogo                   & 10.52.*.* / 255.255.0.0  & 4         & 25GB                 & 4          & 8GB     \\ \hline
+Clientes                          & 10.101.*.* / 255.255.0.0 & 20          & 1TB                 & 8          & 16GB     \\ \hline
 \end{tabular}
 \end{adjustbox}
 
@@ -325,20 +312,20 @@ Fonte: O próprio autor.
 
 A partir da Tabela~\ref{tab:limite_recursos}, espera-se definir um limite de recursos máximos utilizados pelo Serviço de Jogo.
 %
-A única rede que pode variar conforme o teste será a rede Estresse, visto que a demanda para estressar uma rede pode mudar conforme as características do teste.
+A única rede que pode variar suas características conforme o teste será a rede Clientes, visto que a demanda para estressar o serviço pode mudar conforme as características do teste e arquitetura utilizada.
 
-A partir deste cenário é definido qual o comportamento dos clientes na execução dos testes.
+A partir deste cenário é definido qual o comportamento dos clientes na execução dos testes automatizados.
 %
 Nesse sentido, uma definição das características mínimas de regra de negócio, padrão de comportamentos e interface esperada para o serviço e cliente é necessária.
 
 
 
-\subsection{Simulação de Clientes}
+\subsection{Automatização de Clientes}
 \label{sec:SimulaCliente}
 
 
 
-Utilizando a simulação de clientes objetiva-se estressar as arquiteturas utilizando um ataque com \textit{bots}.
+Utilizando a automatização de clientes objetiva-se estressar as arquiteturas utilizando um ataque com \textit{bots}.
 %
 Neste cenário, para padronizar a coleta de dados, todos os \textit{bots} terão a mesma rotina evitando assim um comportamento aleatório, a qual pode descaracterizar os dados obtidos para análise.
 
@@ -363,8 +350,6 @@ Autenticação                                                    & \begin{tabul
 \begin{tabular}[c]{@{}l@{}}Seleção de\\ Personagem\end{tabular} & \begin{tabular}[c]{@{}l@{}}Uma conexão deve requerer o controle de um\\ personagem.\end{tabular}                                                                                           & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando uma árvore de cena interna\\ ao serviço, onde o tipo do nó será Personagem e o seu nome\\ será o nome do personagem.\end{tabular} \\ \hline
 Envio de Mensagem                                               & \begin{tabular}[c]{@{}l@{}}Será possível enviar mensagens e receber. Elas serão\\ baseadas na região. Será mantido uma distância fixa\\ para todos os casos de uso.\end{tabular}           & \begin{tabular}[c]{@{}l@{}}Deve existir uma estrutura de busca interna ao serviço para\\ consultar personagens de uma região em relação a um\\ usuário.\end{tabular}                      \\ \hline
 Movimentação                                                    & \begin{tabular}[c]{@{}l@{}}Será possível movimentar o personagem para as\\ células adjacentes. Isso indica que o\\ posicionamento do personagem será baseado\\ em uma matriz.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Esta ação deve comunicar a atualização para todos os demais\\ jogadores da região de interesse.\end{tabular}                                                   \\ \hline
-Ataque                                                          & \begin{tabular}[c]{@{}l@{}}Ao atacar, o jogador causará um dano aleatório\\ baseado em seu nível em todos os inimigos das\\ células adjacentes.\end{tabular}                               & \begin{tabular}[c]{@{}l@{}}Esta ação irá manipular a árvore de objetos da cena do serviço\\ e deverá notificar todos os jogadores desta área de interesse.\end{tabular}                   \\ \hline
-Consumo de Itens                                                & \begin{tabular}[c]{@{}l@{}}Ao consumir um item, os atributos do personagem\\ serão alterados, influenciando na regra de negócio\\ utilizada nas arquiteturas de teste.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Implicará na utilização de um banco de dados em memória\\ e manipulação de dados não visíveis pela\\ árvore de cena.\end{tabular}      \\ \hline
 \end{tabular}
 \end{adjustbox}
 
@@ -411,7 +396,7 @@ Além destes, serão implementados outros comandos para \ac{api} privada do serv
 Porém, os demais comandos da \ac{api} privada não serão utilizados pelo cliente, sendo necessariamente um requisito para o funcionamento do serviço com determinada arquitetura.
 
 
-O ambiente da simulação será baseado em matrizes.
+O mundo de jogo será baseado em matrizes.
 %
 Cada mapa pode ser visualizado como uma matriz de 100x100 unidades.
 %
@@ -424,7 +409,7 @@ O raio de interesse é de quatro células.
 Um exemplo de estado do ambiente do jogo pode ser visualizado na Figura~\ref{fig:roi}.
 
 \begin{figure}[htb!]
-  \caption{Área de interesse da simulação com raio de quatro células.}
+  \caption{Área de interesse do ambiente do jogo com raio de quatro células.}
   \label{fig:roi}
   \includegraphics[height=8.0cm]{img/cap3/roi.png}
   \centering
@@ -448,7 +433,7 @@ A movimentação do personagem seguirá o autômato descrito na Figura~\ref{fig:
 
 
 \begin{figure}[htb!]
-  \caption{Autômato de movimentação dos personagens simulados.}
+  \caption{Autômato de movimentação dos personagens automatizados.}
   \label{fig:movimentacao}
   \includegraphics[height=5.5cm]{img/cap3/movimentacao.png}
   \centering
@@ -456,47 +441,40 @@ A movimentação do personagem seguirá o autômato descrito na Figura~\ref{fig:
   Fonte: O próprio autor.
 \end{figure}
 
-A Figura~\ref{fig:movimentacao} descreve o comportamento de um \textit{bot} no ambiente do jogo simulado.
+A Figura~\ref{fig:movimentacao} descreve o comportamento de um \textit{bot} no ambiente do jogo automatizado.
 %
-Ele seguirá um padrão de procurar batalhas, batalhar, gerenciar itens do personagem e buscar novas batalhas.
+Ele seguirá um padrão de procurar outros jogadores para interagir pelo \textit{chat}.
 %
-Este conjunto de ações simula o comportamento de busca de itens dentro de um jogo \ac{mmorpg}.
+Este conjunto de ações simula o comportamento de um jogador interagindo com outros jogadores em um jogo \ac{mmorpg}.
 %
 As características específicas de cada estado são definidas da seguinte forma:
 
 \begin{itemize}
-  \item Autenticar: Realizará autenticação com o serviço \textit{web} ou \textit{rpc} apropriado a arquitetura. Neste passo o \textit{bot} receberá as informações do seu personagem.
-  \item Buscar Inimigo: Caminhará de forma aleatória a fim de buscar um inimigo, caso não exista em sua área de interesse. Caso encontre em sua área de interesse, irá aproximar deste inimigo.
-  \item Batalhar: Irá atacar um inimigo, aplicando dano a este \ac{npc}. O personagem poderá receber dano. Estes valores serão fixos baseados em seu equipamento. O personagem pode perder todos os seus pontos de vida, sendo desconectado do serviço.
-  \item Gerenciar Itens: O \textit{bot} irá consumir itens para recuperar pontos de vida e usar equipamentos melhores aos já utilizados.
-  \item Caminhar Aleatoriamente: O personagem caminhará aleatoriamente por um número de passos máximo. Após isso, voltará a buscar uma batalha.
+  \item Autenticar: Realizará autenticação com o serviço \textit{web} ou \textit{rpc} apropriado a arquitetura. Neste passo o \textit{bot} receberá as informações do seu personagem; e
+  \item Movimentar: O personagem movimentará em busca de outro jogadores; e
+  \item Comunicar: O personagem enviará uma mensagem aleatória no \textit{chat}.
 \end{itemize}
 
-Esta sequência de ações visa forçar aos \textit{bots} a exploração do cenário.
+Esta sequência de ações visa forçar aos \textit{bots} a exploração do cenário e interagir com outros jogadores.
 %
 A cada mudança de estado, o jogador irá anunciar no chat a sua troca de ação.
 %
 Isso contribuirá com o monitoramento do comportamento dos personagens tanto quanto usará a funcionalidade de chat.
 %
-Para simular a ação de resposta de mensagens de um jogador, cada \textit{bot} que receber uma mensagem terá uma porcentagem fixa de $25\%$ de probabilidade de responder a sua ação no atual momento.
+Para simular a ação de resposta de mensagens de um jogador, cada \textit{bot} que receber uma mensagem terá uma porcentagem fixa de $25\%$ de probabilidade de responder uma mensagem aleatória.
 %
 Um \textit{bot} não poderá responder a uma mensagem na qual ele mesmo emitiu na região.
 
+O ambiente final do jogo automatizado possui três mapas no eixo horizontal e no eixo vertical, visto que esta é a combinação mínima para que o serviço tenha um mapa central com bordas para efetuar transições de novos personagens.
 
-Ao realizar um \textit{ReBind} ou transitar de um mapa para o outro, o estado atual do autômato volta para o estado \textbf{Autenticar}.
-%
-Caso já esteja autenticado, continuará a sua busca por inimigos na nova região.
-
-O ambiente final da simulação possui três mapas no eixo horizontal e no eixo vertical, visto que esta é a combinação mínima para que o serviço tenha um mapa central com bordas para efetuar transições de novos personagens.
-
-Após definido as características dos clientes simulados, pode-se definir os testes que serão executados sobre as arquiteturas de microsserviços específicos para jogos \ac{mmorpg}.
+Após definido as características dos clientes automatizados, pode-se definir os testes que serão executados sobre as arquiteturas de microsserviços específicos para jogos \ac{mmorpg}.
 %
 Tais testes servem de guia para obter as métricas para a análise das arquiteturas de microsserviços especificadas.
 
 \subsection{Testes}
 \label{sec:cap4_testes}
 
-Os testes que serão executados no atual trabalho esperam analisar a quantia de recursos mínimos para executar os microsserviços e o crescimento de consumo de recursos conforme o crescimento de clientes simultâneos.
+Os testes que serão executados no atual trabalho esperam obter informações a cerca das características de consumo de recursos ao  executar os microsserviços, analisando conforme o crescimento de jogadores simultâneos.
 %
 Nesse sentido, foram definidos os seguintes testes:
 

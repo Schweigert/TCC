@@ -1,87 +1,106 @@
 \chapter{Considerações \& Trabalhos futuros}
 \label{cap:conclusao}
 
-                % 1. Uma explicação informando de modo claro se atingiu ou não os objetivos estabelecidos (aqui pode-se ter também uma subdivisão entre objetivos gerais e objetivos específicos). Em cada caso devem ser explicados os motivos:
-                %     a. Caso tenha atingido os objetivos: informar os principais fatores que contribuíram para o sucesso, descrevendo-os de forma breve porém que não deixem dúvidas;
-                %     b. Caso não tenha atingido os objetivos: informar o quanto do objetivo foi atingido e citar os fatores que contribuíram para o insucesso, descrevendo-os de forma breve porém que não deixe dúvidas.
-                % 2. Descrever as principais considerações e conclusões que foram obtidas em decorrência da execução do trabalho. Aqui não deve ser repetido texto já existente no trabalho mas escrever as impressões dessas considerações e como elas contribuíram para a execução e atingir o objetivo;
-                % 3. Citar e descrever as principais dificuldades encontradas para execução do trabalho e projeto. Todo o trabalho desenvolvido significa uma evolução para o aluno, sendo que para chegar essa evolução o mesmo necessitou transpor uma série de obstáculos. Relatar os obstáculos e como superou (ou não superou)  ajuda a dignificar e mostrar o mérito do trabalho em si para o leitor/ avaliador. Também é uma contribuição, no sentido que uma vez expostos os problemas e soluções os leitores/avaliadores aprendem/conhecem formas de resolução ou de abordagem a tais problemas;
-                % 4. Comentar se ocorreram modificações durante a execução do trabalho no escopo definido na fase de Projeto e no que fora desenvolvido. Deve ser explicado o quê gerou essas modificações, fundamentando e justificando tais alterações.
-                % 5. Pode ser descrita a relação entre cronograma proposto e cronograma realizado no trabalho. Permitindo assim o leitor/avaliador aprender com as distorções/acertos indicados.
-                % 6. Descrever ou citar trabalhos futuros que podem ser feitos com base nesse trabalho desenvolvido. No decorrer da execução de um trabalho busca-se atingir um objetivo definido no projeto, porém vários assuntos interessantes de pesquisar são  revelados (sendo que os mesmo não são tratados/pesquisados no trabalho por não condizerem com os objetivos / escopo do trabalho). A descrição de tais assuntos/temas/pesquisas demonstra a percepção desenvolvida pelo aluno no desenvolvimento assim como a sua visão de objetividade na execução desse trabalho.
+% 1. Uma explicação informando de modo claro se atingiu ou não os objetivos estabelecidos (aqui pode-se ter também uma subdivisão entre objetivos gerais e objetivos específicos). Em cada caso devem ser explicados os motivos:
+%     a. Caso tenha atingido os objetivos: informar os principais fatores que contribuíram para o sucesso, descrevendo-os de forma breve porém que não deixem dúvidas;
+%     b. Caso não tenha atingido os objetivos: informar o quanto do objetivo foi atingido e citar os fatores que contribuíram para o insucesso, descrevendo-os de forma breve porém que não deixe dúvidas.
+% 2. Descrever as principais considerações e conclusões que foram obtidas em decorrência da execução do trabalho. Aqui não deve ser repetido texto já existente no trabalho mas escrever as impressões dessas considerações e como elas contribuíram para a execução e atingir o objetivo;
+% 3. Citar e descrever as principais dificuldades encontradas para execução do trabalho e projeto. Todo o trabalho desenvolvido significa uma evolução para o aluno, sendo que para chegar essa evolução o mesmo necessitou transpor uma série de obstáculos. Relatar os obstáculos e como superou (ou não superou)  ajuda a dignificar e mostrar o mérito do trabalho em si para o leitor/ avaliador. Também é uma contribuição, no sentido que uma vez expostos os problemas e soluções os leitores/avaliadores aprendem/conhecem formas de resolução ou de abordagem a tais problemas;
+% 4. Comentar se ocorreram modificações durante a execução do trabalho no escopo definido na fase de Projeto e no que fora desenvolvido. Deve ser explicado o quê gerou essas modificações, fundamentando e justificando tais alterações.
+% 5. Pode ser descrita a relação entre cronograma proposto e cronograma realizado no trabalho. Permitindo assim o leitor/avaliador aprender com as distorções/acertos indicados.
+% 6. Descrever ou citar trabalhos futuros que podem ser feitos com base nesse trabalho desenvolvido. No decorrer da execução de um trabalho busca-se atingir um objetivo definido no projeto, porém vários assuntos interessantes de pesquisar são  revelados (sendo que os mesmo não são tratados/pesquisados no trabalho por não condizerem com os objetivos / escopo do trabalho). A descrição de tais assuntos/temas/pesquisas demonstra a percepção desenvolvida pelo aluno no desenvolvimento assim como a sua visão de objetividade na execução desse trabalho.
 
-                %ccm Incluir seção de contribuições do TCC
-                %ccm Incluir seção de Trabalhos futuros
-Este TCC tem como objetivo levantar questões relacionadas a complexidade de coordenação de arquiteturas de microsserviços para jogos \ac{mmorpg}.
-%
-Estas arquiteturas são complexas devido a quantidade de módulos e serviços necessários que visam suprir a demanda do mercado para esse gênero de jogo.
-%
-Sendo assim, para melhor descrever as características de tais arquiteturas, este trabalho propõe a realização de uma análise sobre três arquiteturas distintas descritas na literatura.
+%ccm Incluir seção de contribuições do TCC
+%ccm Incluir seção de Trabalhos futuros
 
 
-Dentre as três arquiteturas selecionadas, é explícito o objetivo a qual cada arquitetura foi planejada.
-%
-O principal objetivo da arquitetura Rudy é normalizar conexões de diferentes qualidades com o seu modelo de paralelização de requisições.
-%
-Já para a arquitetura Salz o seu objetivo é escalabilidade para jogadores simultâneos em um único ambiente.
-%
-A arquitetura Willson tem como objetivo reduzir o tempo de resposta aos clientes.
-%
-Porém, este objetivo não é descrito de forma clara e objetiva pelos autores, os quais desenvolveram tais arquiteturas dentro de cenários de demanda específicos do mercado.
-%
-Dessa forma, espera-se encontrar padrões de valores que venham de encontro com tais objetivos.
 
-Com relação aos testes, os valores de recurso para o cenário não podem ser estipulados.
+Jogos \ac{mmorpg} são utilizados como negócio viável e lucrativo, sendo que, a experiência de jogabilidade na qual o usuário final será submetido é um fator crítico para o sucesso destes jogos.
 %
-Dessa forma, foi definido um teto a fim de limitar o consumo das arquiteturas.
+Tais serviços são implementados sobre arquiteturas que executam o serviço sobre diversos servidores, na qual o desempenho deste serviço e o custo de sua manutenção é um fator crítico para o sucesso de um jogo deste gênero.
 %
-Porém, espera-se não utilizar o limite destes recursos, tornando o cenário de testes mais simples.
-%
-Caso o consumo de recursos seja menor ao limite, todas as arquiteturas serão testadas utilizando o mesmo cenário.
+Modelar um sistema de alto desempenho para tais serviços torna-se um trabalho essencial para a satisfação do usuário final neste cenário.
 
-Com relação aos testes, faz necessário verificar na totalidade se será viável desenvolver, implantar e testar todas as arquiteturas no período de tempo estipulado.
-%
-Dessa forma, podem haver alterações para o TCC II.
-%
-Espera-se para o TCC II projetar, desenvolver, implantar e analisar os dados, conforme o cronograma estipulado.
 
-O atual trabalho, iniciado no primeiro semestre de 2018, atingiu seus objetivos.
+O atual trabalho teve como objetivo analisar as arquiteturas de microsserviços Rudy, Salz e Willson, caracterizadas especificamente para jogos \ac{mmorpg} com o objetivo de oferecer relações e efeitos sobre as arquiteturas selecionadas.
 %
-Dentre as atividades estipuladas para a primeira fase do TCC, todas foram concluídas, porém não dentro do prazo estipulado de um semestre.
+Esta análise é baseada na coleta de informações do consumo de recursos para sua execução e um valor de qualidade das arquiteturas, do ponto de vista do cliente.
 
-As principais considerações acerca da pesquisa referenciada são relevantes as características de projeto de um serviço distribuído em microsserviços paroa atender jogos \ac{mmorpg}.
+Nesse sentido, o atual trabalho obteve sucesso ao realizar esta análise, gerando informação sobre uma relação entre a qualidade das arquiteturas de microsserviços selecionadas para um conjunto de regras de negócio de um jogo genérico e o consumo de recursos computacionais para as respectivas execuções.
 %
-Elas podem ser enumeradas da seguinte forma:
+Ambas as arquiteturas desempenharam seus papéis sem problemas, demonstrando características únicas na qual evidenciaram-se neste trabalho.
+
+Um objetivo específico deste trabalho era validar as características obtidas da literatura, haja vista que os autores citavam o seu comportamento sem a comprovação destes comportamentos.
+%
+Dessa forma, o atual trabalho concluiu com sucesso a validação destas características, tornando tais dados como verdadeiros para futuros pesquisadores.
+
+Outro fator pertinente após a analise é com relação ao gargalo encontrado, no qual mostrou-se relacionado a forma de obter e armazenar dados.
+%
+Entretanto, tal informação não é uma contribuição inicial do atual trabalho visto que outros autores do levantamento teórico realizado já citavam tal característica.
+
+O atual trabalho concluiu que o desempenho, do ponto de vista de tempo de resposta, está relacionado a melhor utilização da \ac{cpu}, seja pelos microsserviços de armazenamento de dados ou por microsserviços de processamento de dados.
+%
+Mostrou-se viável a aplicação de sistemas de filas ou barreias para gerenciamento do acesso ou minimização do consumo de um serviço interno, impactando diretamente na vazão dos dados pela arquitetura.
+%
+Outro critério de atenção é a sincronização de dados, a qual pode consumir um valor significativo de \ac{cpu} e, caso desempenhe um papel incompatível com o necessário, pode prejudicar o processamento e vazão dos dados pela arquitetura.
+
+Este trabalho teve algumas dificuldades durante a sua execução.
+%
+Durante o processo de busca por referências teóricas na literatura, mostrou-se uma área atacada por diversos modelos para processamento de dados e desenvolvimento web, porém existe uma baixa frequência de publicações de artigos para jogos \ac{mmorpg}, abordando sua arquitetura em baixo nível.
+%
+Tal problema foi solucionado ao buscar as arquiteturas para jogos \ac{mmorpg} e encontrar modelos próximos em desenvolvimento web.
+
+Outro problema significativo tem relação com a arquitetura e organização de código que foi necessário para a implementação das arquiteturas e clientes.
+%
+Por se tratar de um projeto grande, na qual teve a duração de seis meses de desenvolvimento, foi encontrado diversos problemas de engenharia de software para permitir o isolamento da regra de negócio de forma abstrata, garantindo que todas as arquiteturas estavam processando as requisições sem otimizações particulares.
+%
+Este problema foi superado ao utilizar tecnicas de \textit{Clean Architecture} e testes automatizados utilizando uma suíte de integração contínua.
+%
+Estas técnicas aumentaram a produtividade para o desenvolvimento em longo prazo, permitindo a sua implementação em um menor espaço de tempo.
+%
+
+A segunda maior dificuldade apresentada no desenvolvimento deste trabalho foi encontrada durante a execução dos testes no ambiente.
+%
+Encontraram-se dois problemas relacionados a infraestrutura dos ambientes, especificamente no \textit{firewall} que interconecta a rede de laboratórios a nuvem P2D.
+%
+Estes problemas foram a limitação de tráfego entre as redes e o bloqueio de acesso a diversos protocolos limitando a conexão entre os clientes e o serviços.
+%
+O problema de limitação de tráfego foi resolvido limitando o recurso do serviço para ser estressado mais facilmente e o problema de bloqueio de acesso a protocolos foi resolvido após a realização de alguns chamados ao suporte técnico da rede.
+%
+
+A execução do atual trabalho não obteve alterações em seu escopo, entretanto foi executada em um período prolongado comparado ao estimado.
+%
+Este prolongamento não teve relações com os problemas identificados no desenvolvimento do atual trabalho e sim com dificuldades encontradas no processo de produção textual do atual trabalho, sendo que esta foi a maior dificuldade encontrada na realização deste trabalho.
+
+\section{Contribuições do TCC}
+
+Este TCC contribui com futuros jogos \ac{mmorpg} ou arquiteturas distribuídas de outras áreas, a qual beneficiam-se dos dados, caracteristicas e conclusões encontradas no atual trabalho.
+%
+Além desta contribuição, o atual trabalho também serve como guia de engenharia de software para a implementação de protótipos funcionais, contribuindo com exemplos designados a esta área na qual obteve-se dificuldades de encontrar material científico.
+
+O atual trabalho também, indiretamente, contribuiu com diversas ferramentas e softwares OpenSource durante o processo de implementação das arquiteturas, pois tais ferramentas necessitaram de pequenos ajustes para funcionamento de protocolos de redes.
+%
+A fim de criar um serviço válido, protótipos de clientes reais com o motor gráfico Godot foram implementados para validação do protocolo de comunicação do serviço.
+%
+A ferramenta que mais obteve contribuições foi o motor gráfico Godot, a qual teve diversas alterações em sua classe de conexão \ac{tcp} para viabilizar protótipos deste trabalho.
+%
+Tais alterações foram disponibilizadas no repositório oficial da ferramenta, sendo essa disponibilização aplicada a versão mais recente (3.1) e assim utilizadas por outros desenvolvedores da comunidade para desenvolvimento de futuros jogos.
+
+
+
+
+\section{Trabalhos futuros}
+
+Este TCC permite uma sequência de trabalhos futuros.
+%
+Alguns possíveis trabalhos futuros são:
 
 \begin{itemize}
-  \item Preocupação de consumo de recursos e escalabilidade para muitos jogadores, evitando a segregação de jogadores em seu ambiente;
-  \item Preocupação dos autores das arquiteturas acerca do processamento em relação ao escalonador de processos do sistema operacional, cache de dados e/ou requisições e modelo de processamento paralelo das requisições, visando alto desempenho das arquiteturas; e
-  \item Preocupação dos desenvolvedores das arquiteturas com o funcionamento independente do cliente, fomentando o desenvolvimento multiplataforma do gênero.
+ \item Predição do uso de recursos baseado no modelo computacional das arquiteturas Rudy, Salz e Willson;
+ \item Análise do gerenciador de processos do Docker na validação de consumo de \ac{cpu} com características senoidais;
+ \item Análise do impacto na troca do ambiente de implantação;
+ \item Análise do impacto no tempo de resposta ao remover o sistema de monitoramento de uso de recursos;
+ \item Análise do impacto no troca dos serviços de bando de dados;
+ \item Análise do impacto na utilização do sistema de assinatura de daados \ac{jwt} como sistema de autorização; e
+ \item Análise do impacto na otimização dos protocolos de comunicação utilizados.
 \end{itemize}
-
-Estas preocupações ampliam a utilidade do atual trabalho.
-%
-Entretanto, o conteúdo encontrado para a pesquisa referenciada dificultou o processo de desenvolvimento da referenciação teórica.
-%
-Em específico, as dificuldades encontradas durante a elaboração da primeira parte do atual trabalho foram:
-
-\begin{itemize}
-  \item Dificuldade de encontrar material científico ou acadêmico correlacionando arquiteturas de microsserviços e arquiteturas para jogos \ac{mmorpg}.
-  \item Os autores das arquiteturas especificam com exatidão determinados pontos relevantes ao projeto, mas não foi identificado um aprofundamento para determinados microsserviços da arquitetura. Dessa forma foi necessário realizar buscas na literatura a fim de viabilizar tais projetos, seguindo as especificações das arquiteturas.
-\end{itemize}
-
-Além das dificuldades com relação direta aos objetivos atuais deste trabalho, houve a necessidade de realizar um estudo sobre as tecnologias que permeiam o processo de implantação, desenvolvimento e testes de arquiteturas de microsserviços.
-%
-Dessa forma espera-se utilizar a tecnologia \textit{Docker Swarm} para implantação das arquiteturas, sobre uma nuvem de computadores \textit{OpenStack}.
-%
-A fim de desenvolver de forma ágil as arquiteturas, será utilizada a linguagem de programação \textit{GoLang}, a qual se propõe ser rápida (compilada, fortemente tipificada, executado como código nativo), a qual inclui uma ampla biblioteca padrão para conexão com banco de dados e protocolo \ac{tcp}, podendo facilmente ser implantada utilizando a tecnologia \textit{Docker}.
-%
-A resolução destas dificuldades na atual etapa facilitará o desenvolvimento do TCC II.
-
-Para o TCC-II serão desenvolvidas as arquiteturas de microsserviços para jogos \ac{mmorpg} descritas na proposta do atual trabalho.
-%
-Também serão desenvolvidos testes de carga automatizados a fim de facilitar a etapa de testes das arquiteturas.
-%
-Por fim, os dados serão coletados por um sistema de análise de recursos desenvolvido no TCC-II, durante os testes, serão analisados a fim de gerar uma análise das arquiteturas de microsserviços para jogos \ac{mmorpg} que levantará questões de desempenho presentes nela.
-
-
