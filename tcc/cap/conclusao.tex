@@ -44,6 +44,12 @@ Mostrou-se viável a aplicação de sistemas de filas ou barreias para gerenciam
 %
 Outro critério de atenção é a sincronização de dados, a qual pode consumir um valor significativo de \ac{cpu} e, caso desempenhe um papel incompatível com o necessário, pode prejudicar o processamento e vazão dos dados pela arquitetura.
 
+Ao final deste trabalho, não foi possível analisar todos os dados obtidos.
+%
+A partir dos dados coletados, existem dados intermediários que não foram utilizados nesta análise.
+%
+Este conjunto de dados possui informações de monitoramento de todas as máquinas envolvidas no experimento de forma individual quanto dos processos individuais na arquitetura do Docker Swarm e Docker Compose.
+
 Este trabalho teve algumas dificuldades durante a sua execução.
 %
 Durante o processo de busca por referências teóricas na literatura, mostrou-se uma área atacada por diversos modelos para processamento de dados e desenvolvimento web, porém existe uma baixa frequência de publicações de artigos para jogos \ac{mmorpg}, abordando sua arquitetura em baixo nível.
@@ -74,17 +80,17 @@ Este prolongamento não teve relações com os problemas identificados no desenv
 
 \section{Contribuições do TCC}
 
-Este TCC contribui com futuros jogos \ac{mmorpg} ou arquiteturas distribuídas de outras áreas, a qual beneficiam-se dos dados, caracteristicas e conclusões encontradas no atual trabalho.
+Este TCC contribui com futuros jogos \ac{mmorpg} ou arquiteturas distribuídas de outras áreas, a qual beneficiam-se dos dados, características e conclusões encontradas no atual trabalho.
 %
 Além desta contribuição, o atual trabalho também serve como guia de engenharia de software para a implementação de protótipos funcionais, contribuindo com exemplos designados a esta área na qual obteve-se dificuldades de encontrar material científico.
 
-O atual trabalho também, indiretamente, contribuiu com diversas ferramentas e softwares OpenSource durante o processo de implementação das arquiteturas, pois tais ferramentas necessitaram de pequenos ajustes para funcionamento de protocolos de redes.
+O atual trabalho também, indiretamente, contribuiu com diversas ferramentas e softwares \textit{OpenSource} durante o processo de implementação das arquiteturas, pois tais ferramentas necessitaram de pequenos ajustes para funcionamento de protocolos de redes.
 %
 A fim de criar um serviço válido, protótipos de clientes reais com o motor gráfico Godot foram implementados para validação do protocolo de comunicação do serviço.
 %
-A ferramenta que mais obteve contribuições foi o motor gráfico Godot, a qual teve diversas alterações em sua classe de conexão \ac{tcp} para viabilizar protótipos deste trabalho.
+A ferramenta que mais obteve contribuições foi o motor gráfico Godot, a qual recebeu diversas alterações em sua classe de conexão \ac{tcp} para viabilizar protótipos deste trabalho.
 %
-Tais alterações foram disponibilizadas no repositório oficial da ferramenta, sendo essa disponibilização aplicada a versão mais recente (3.1) e assim utilizadas por outros desenvolvedores da comunidade para desenvolvimento de futuros jogos.
+Tais alterações foram disponibilizadas no repositório oficial da ferramenta, sendo essa disponibilização aplicada a versão mais recente (3.1, disponível no segundo semestre de 2019) e consequentemente utilizadas por outros desenvolvedores da comunidade para desenvolvimento de futuros jogos.
 
 
 
@@ -93,7 +99,11 @@ Tais alterações foram disponibilizadas no repositório oficial da ferramenta, 
 
 Este TCC permite uma sequência de trabalhos futuros.
 %
-Alguns possíveis trabalhos futuros são:
+Alguns possíveis trabalhos futuros podem utilizar os dados pertinentes neste trabalho, tal qual analisar o impacto de melhorias ou otimizações em tais sistemas.
+%
+Também pode-se abordar os temas adjacentes utilizados neste trabalho, como tecnologias, protocolos ou metodologias utilizadas no desenvolvimento, implantação e análise do atual trabalho, utilizando os resultados e ferramentas desenvolvidas em futuras pesquisas.
+%
+Em específico, pode-se continuar este trabalho com os seguintes sugestões de temas:
 
 \begin{itemize}
  \item Predição do uso de recursos baseado no modelo computacional das arquiteturas Rudy, Salz e Willson;
@@ -101,6 +111,8 @@ Alguns possíveis trabalhos futuros são:
  \item Análise do impacto na troca do ambiente de implantação;
  \item Análise do impacto no tempo de resposta ao remover o sistema de monitoramento de uso de recursos;
  \item Análise do impacto no troca dos serviços de bando de dados;
- \item Análise do impacto na utilização do sistema de assinatura de daados \ac{jwt} como sistema de autorização; e
- \item Análise do impacto na otimização dos protocolos de comunicação utilizados.
+ \item Análise do impacto na utilização do sistema de assinatura de dados \ac{jwt} como sistema de autorização;
+ \item Análise do impacto na otimização dos protocolos de comunicação utilizados;
+ \item Anaĺise do consumo de recursos pela arquitetura de armazenamento de métricas; e
+ \item Análise dos dados capturados mas não analisados no atual trabalho.
 \end{itemize}

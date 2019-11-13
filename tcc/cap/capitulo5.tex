@@ -3,7 +3,7 @@
 
 
 
-Este capítulo descreve a implememtação dos micorsserviços que compõe o jogo em cada arquitetura.
+Este capítulo descreve a implementação dos microsserviços que compõe o jogo em cada arquitetura.
 %
 Isto é necessário pois as escolhas técnicas, envolvendo as linguagens adotadas, as tecnologias utilizadas e as boas práticas aplicadas no desenvolvimento das aplicações, interferem na qualidade (consumo de recursos e o desempenho das aplicações) dos microsserviços.
 
@@ -52,7 +52,7 @@ Neste sentido, foi levantado um conjunto de linguagens de programação, o qual 
 
 
 
-A partir destes critérios, a linguagem selecionada foi a linguagem GoLang, por se tratar de uma linguagem a qual o autor possui domínio e satisfaz os critérios aqui listados.
+A partir destes critérios, a linguagem selecionada foi a linguagem Golang, por se tratar de uma linguagem a qual o autor possui domínio e satisfaz os critérios aqui listados.
 %
 Outro critério, o qual é implícito para o desenvolvimento, é a homogeneidade da linguagem de programação em todos os microsserviços.
 %
@@ -69,12 +69,12 @@ Dentre as bibliotecas utilizadas, destacam-se:
 
 
 \begin{itemize}
-  \item gin: Servidor Web para serviços de alto desempenho;
-  \item gorm: Biblioteca de objetos relacionais, a qual suporta conexão direta ao banco PostgreSQL;
-  \item go-redis: Biblioteca para conexão ao serviço Redis;
-  \item net/rpc: Biblioteca nativa da linguagem GoLang para escrita de serviços \ac{rpc} sobre o protocolo \ac{tcp};
-  \item graphite: Biblioteca de conexão ao banco de métricas; e
-  \item testify: Biblioteca auxiliar a suíte nativa de testes da linguagem.
+  \item \textit{gin}: Servidor Web para serviços de alto desempenho;
+  \item \textit{gorm}: Biblioteca de objetos relacionais, a qual suporta conexão direta ao banco PostgreSQL;
+  \item \textit{go-redis}: Biblioteca para conexão ao serviço Redis;
+  \item \textit{net/rpc}: Biblioteca nativa da linguagem GoLang para escrita de serviços \ac{rpc} sobre o protocolo \ac{tcp};
+  \item \textit{graphite}: Biblioteca de conexão ao banco de métricas; e
+  \item \textit{testify}: Biblioteca auxiliar a suíte nativa de testes da linguagem.
 \end{itemize}
 
 
@@ -84,7 +84,7 @@ Estas bibliotecas foram utilizadas na camada de infraestrutura, sendo seu uso ap
 A camada de infraestrutura é responsável pela realização da interação entre a rede e as regras de negócio dos microsserviços.
 
 
-Destaca-se, dentre as bibliotecas citadas, a biblioteca testify.
+Destaca-se, dentre as bibliotecas citadas, a biblioteca \textit{testify}.
 %
 Tal biblioteca foi utilizada na garantia de integridade das aplicações desenvolvidas.
 %
@@ -96,9 +96,9 @@ Entretanto, a biblioteca não é utilizada durante a execução da aplicação, 
 
 As bibliotecas auxiliares foram utilizadas no processo de integração contínua.
 %
-O processo de integração contínua foi implantado utilizando os serviços externos Github e TravisCI.
+O processo de integração contínua foi implantado utilizando os serviços externos \textit{Github}\footnote{\textit{Repositório no Github}: \url{https://github.com/schweigert/mmosandbox}} e \textit{TravisCI}\footnote{\textit{Testes Automatizados}: \url{https://travis-ci.org/schweigert/mmosandbox}}.
 %
-Este processo é descrito como processo de construção na arquitetura Willson, sendo responsável pelo teste e envio de imagens de contêineres a um serviço de registro na nuvem.
+Este processo é descrito como processo de construção na arquitetura Willson, sendo responsável pelo teste e envio de imagens de contêineres ao serviço de registro de imagens DockerHub\footnote{\textit{DockerHub}: \url{https://hub.docker.com/r/schweigert/mmosandbox}}.
 
 
 
@@ -126,13 +126,13 @@ Consequentemente, torna-se relevante descrever a interconexão entre os microsse
 \begin{itemize}
  \item A arquitetura Rudy contém um microsserviço intermediário para conexão com o banco de dados.
 %
-Esta disposição de microsserviços está exposta na Subseção~\ref{sec:inter_rudy}.
+Esta disposição de microsserviços está exposta na Subseção~\ref{sec:inter_rudy};
 
- \item A arquitetura Salz remove a responsabilidade de mensageria do jogo do microsserviço de jogo.
+ \item A arquitetura Salz remove a responsabilidade de mensageira do jogo do microsserviço de jogo.
 %
 Outra alteração é a exposição do microsserviço de autenticação como uma interface pública na rede, permitindo a conexão a partir dos clientes.
 %
-Esta disposição de microsserviços da arquitetura Salz é exposta na Subseção~\ref{sec:inter_salz}.
+Esta disposição de microsserviços da arquitetura Salz é exposta na Subseção~\ref{sec:inter_salz}; e
 
 \item A arquitetura Willson tem o funcionamento semelhante a arquitetura Rudy, porém não utiliza um microsserviço intermediário para organização de consultas ao banco de dados.
 %
@@ -164,12 +164,12 @@ Os seus microsserviços estão listados na Tabela~\ref{tab:inter_rudy}.
 \caption{Microsserviços da arquitetura Rudy.}
 \label{tab:inter_rudy}
 \begin{tabular}{l|l|l}
-\hline
-Nome            & Protocolo            & Público na Rede \\ \hline
+\hline \hline
+Nome            & Protocolo            & Público na Rede \\ \hline \hline
  rgame          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
  rweb           & \ac{http}/\ac{json}  & \checkmark     \\ \hline
  rauth          & \ac{rpc}/\ac{tcp}    &                \\ \hline
- rcrud          & \ac{rpc}/\ac{tcp}    &                \\ \hline
+ rcrud          & \ac{rpc}/\ac{tcp}    &                \\ \hline \hline
 \end{tabular}
 \end{adjustbox}
 
@@ -187,9 +187,9 @@ As funcionalidades de cada microsserviço são:
 
 
 \begin{itemize}
-  \item \textit{rgame}: Gerencia o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do \textit{chat} do jogo. Ele também é responsável por autenticar contas ao mundo do jogo.
-  \item \textit{rweb}: Recebe requisições web como uma \ac{api}, essas requisições podem ser referentes a criação de novas contas ou personagens para o jogo.
-  \item \textit{rauth}: Autentica e garante uma única conexão por conta em determinada arquitetura.
+  \item \textit{rgame}: Gerencia o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do \textit{chat} do jogo. Ele também é responsável por autenticar contas ao mundo do jogo;
+  \item \textit{rweb}: Recebe requisições web como uma \ac{api}, essas requisições podem ser referentes a criação de novas contas ou personagens para o jogo;
+  \item \textit{rauth}: Autentica e garante uma única conexão por conta em determinada arquitetura; e
   \item \textit{rcrud}: Realiza o acesso ao banco de dados, retornando os dados da consulta a qual é requisitada.
 \end{itemize}
 
@@ -251,12 +251,12 @@ Os seus microsserviços estão listados na Tabela~\ref{tab:inter_salz}.
 \caption{Microsserviços da arquitetura Salz.}
 \label{tab:inter_salz}
 \begin{tabular}{l|l|l}
-\hline
-Nome            & Protocolo            & Público na Rede \\ \hline
+\hline \hline
+Nome            & Protocolo            & Público na Rede \\ \hline \hline
  sgame          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
  schat          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
  sweb           & \ac{http}/\ac{json}  & \checkmark     \\ \hline
- sauth          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
+ sauth          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline \hline
 \end{tabular}
 \end{adjustbox}
 
@@ -333,9 +333,6 @@ Esta escolha foi realizada para manter os mesmos métodos de autenticação em t
 
 
 Definidas as características da arquitetura Salz, a sincronização de posições entre o microsserviço \textit{schat} e \textit{sgame} pode ser um ponto de atenção, logo deve-se atentar a frequência da sincronização necessária pela regra de negócio do jogo implementado.
-%
-%Dessa forma, a arquitetura Willson propõe um ponto intermediário entre as arquiteturas Salz e Rudy, tornando-se interessante descrever suas alterações.
-
 
 
 \subsection{Willson}
@@ -356,11 +353,11 @@ Os microsserviços da arquitetura Willson estão listados na Tabela~\ref{tab:int
 \caption{Microsserviços da arquitetura Willson.}
 \label{tab:inter_willson}
 \begin{tabular}{l|l|l}
-\hline
-Nome            & Protocolo            & Público na Rede \\ \hline
+\hline \hline
+Nome            & Protocolo            & Público na Rede \\ \hline \hline
  wweb           & \ac{http}/\ac{json}  & \checkmark     \\ \hline
  wgame          & \ac{rpc}/\ac{tcp}    & \checkmark     \\ \hline
- wauth          & \ac{rpc}/\ac{tcp}    &                \\ \hline
+ wauth          & \ac{rpc}/\ac{tcp}    &                \\ \hline \hline
 \end{tabular}
 \end{adjustbox}
 
@@ -375,8 +372,8 @@ As funcionalidades de cada microsserviço são:
 
 
 \begin{itemize}
-  \item \textit{wgame}: Gerencia o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do chat do jogo e também gerencia a sessão do jogador, que têm um forte acoplamento com o microsserviço \textit{wauth}.
-  \item \textit{wweb}: Recebe requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo.
+  \item \textit{wgame}: Gerencia o posicionamento dos personagens, a execução das operações do mundo e a troca de mensagens do chat do jogo e também gerencia a sessão do jogador, que têm um forte acoplamento com o microsserviço \textit{wauth};
+  \item \textit{wweb}: Recebe requisições web como uma \ac{api} a fim de criar novas contas e novos personagens para o jogo; e
   \item \textit{wauth}: Autentica e garante uma única conexão por conta em determinada arquitetura.
 \end{itemize}
 
@@ -551,21 +548,21 @@ Certamente é possível construir um ambiente com uma única sub-rede realizando
 %
 Deste modo, foram criadas sub-redes de acordo com os contextos levantados na Figura~\ref{fig:network_server}.
 %
-A Tabela~\ref{tab:subredes} mostra a divisão de tais subredes, conforme a faixa de \ac{ip} aplicada.
+A Tabela~\ref{tab:subredes} mostra a divisão de tais sub redes, conforme a faixa de \ac{ip} aplicada.
 
 
 
 \begin{table}[htb!]
 \centering
 \begin{adjustbox}{max width=\textwidth}
-\caption{Subredes da rede do servidor.}
+\caption{Sub redes da rede do servidor.}
 \label{tab:subredes}
-\begin{tabular}{|l|l|}
-\hline
-Nome da subrede & Faixa          \\ \hline
-metrics         & 192.168.0.0/24 \\ \hline
-databases       & 192.168.1.0/24 \\ \hline
-servers         & 192.168.2.0/24 \\ \hline
+\begin{tabular}{l|l}
+\hline \hline
+Nome da sub rede & Faixa          \\ \hline \hline
+\textit{metrics}         & 192.168.0.0/24 \\ \hline
+\textit{databases}       & 192.168.1.0/24 \\ \hline
+\textit{servers}         & 192.168.2.0/24 \\ \hline \hline
 \end{tabular}
 \end{adjustbox}
 
@@ -574,13 +571,13 @@ Fonte: O próprio autor.
 
 
 
-As subredes, descritas na Tabela~\ref{tab:subredes}, foram criadas seguindo um padrão de faixa de \ac{ip} conforme a configuração exigida pela nuvem Tchê.
+As sub redes, descritas na Tabela~\ref{tab:subredes}, foram criadas seguindo um padrão de faixa de \ac{ip} conforme a configuração exigida pela nuvem Tchê.
 %
 As faixas de \ac{ip} dependem das redes externas a nuvem computacional gerenciada pelo OpenStack.
 %
 Entretanto, tal configuração não implica na performance da aplicação, somente em sua organização.
 
-Cada subrede possui uma máquina virtual para execução dos serviços.
+Cada sub rede possui uma máquina virtual para execução dos serviços.
 %
 O esquema das máquinas virtuais está visível na Figura~\ref{fig:virtual_machines}.
 
@@ -609,12 +606,12 @@ As máquinas virtuais por sua vez possuem configurações distintas e essas conf
 \begin{adjustbox}{max width=\textwidth}
 \caption{Configurações das máquinas virtuais do servidor.}
 \label{tab:configuracao_das_maquinas}
-\begin{tabular}{|l|l|l|l|l|l|}
-\hline
-Nome              & Sistema Operacional            & IP          & vCPU    & Memória & Armazenamento \\ \hline
+\begin{tabular}{l|l|l|l|l|l}
+\hline \hline
+Nome              & Sistema Operacional            & IP          & vCPU    & Memória & Armazenamento \\ \hline \hline
 server\_machine   & Ubuntu LTS 18.04 Bionic Beaver & 192.168.2.* & 4 Cores & 8 GB    & 40GB          \\ \hline
 database\_machine & Ubuntu LTS 18.04 Bionic Beaver & 192.168.1.* & 4 Cores & 8 GB    & 40GB          \\ \hline
-metric\_machine   & Ubuntu LTS 18.04 Bionic Beaver & 192.168.0.* & 4 Cores & 8 GB    & 120GB         \\ \hline
+metric\_machine   & Ubuntu LTS 18.04 Bionic Beaver & 192.168.0.* & 4 Cores & 8 GB    & 120GB         \\ \hline \hline
 \end{tabular}
 \end{adjustbox}
 
@@ -623,13 +620,13 @@ Fonte: O próprio autor.
 
 
 
-Conforme exibido na Tabela~\ref{tab:configuracao_das_maquinas}, a única variação entre as configurações das máquinasa virtuais do servidor é o armazenamento da máquina virtual \textit{metric\_machine}.
+Conforme exibido na Tabela~\ref{tab:configuracao_das_maquinas}, a única variação entre as configurações das máquinas virtuais do servidor é o armazenamento da máquina virtual \textit{metric\_machine}.
 %
 Tal característica é dada pela necessidade de armazenamento de métricas, nas quais precisam de volumes de dados dedicados a este serviço.
 
 
 
-Em todas as sub-redes, por padrão, foi utilizado o gestor de contêineres Docker Compose.
+Em todas as sub-redes, por padrão, foi utilizado o gestor de contêineres \textit{Docker Compose}.
 %
 Este gestor de contêineres permite executar aplicações de multi-contêineres usando como entrada um arquivo \ac{yaml}.
 %
@@ -655,7 +652,7 @@ O aglomerado computacional é composto por nove computadores.
 %
 Todos os computadores possuem 8 \textit{cores}, 16 GB de memória e 1TB de armazenamento.
 
-Em especial, percebe-se que este aglomerado é composto por características homogênias.
+Em especial, percebe-se que este aglomerado é composto por características homogenias.
 %
 Este ambiente foi montado com tais características para remover complexidade, evitando possíveis problemas de diferença de sistema operacional ou hardware.
 
@@ -663,9 +660,9 @@ Para formar o aglomerado de contêineres foi utilizado a tecnologia \textit{Dock
 %
 Tal tecnologia permite o controle da infraestrutura pelo \textit{Docker Engine} (Serviço de controle de contêineres) de forma remota, podendo-se definir os serviços em arquivos \ac{yaml}, a partir das máquinas administradoras do aglomerado.
 
-Outra característica importante do \textit{Docker Swarm} é que, pelo fato de ser uma interface de gerenciamento do \textit{Docker Engine}, podemos obter dados de consumo de recursos individuais por contêinerer.
+Outra característica importante do \textit{Docker Swarm} é que, pelo fato de ser uma interface de gerenciamento do \textit{Docker Engine}, podemos obter dados de consumo de recursos individuais por contêineres.
 %
-Nesse sentido, permite-se obter os recursos consumidos por contêinerer registrado no serviço Docker.
+Nesse sentido, permite-se obter os recursos consumidos por contêineres registrado no serviço Docker.
 
 Seguindo o padrão de testes, definido na Subseção~\ref{sec:cap4_testes}, foi executado o seguinte protocolo de testes:
 
@@ -675,13 +672,13 @@ Seguindo o padrão de testes, definido na Subseção~\ref{sec:cap4_testes}, foi 
   \item Executar 3 vezes as arquiteturas com zero jogadores simultâneos, aumentando a cada 30 segundos o número jogadores (um por vez) ao serviço, até o serviço obter algum erro interno de microsserviço e terminar a sua execução por erro interno ou chegar a 100 jogadores simultâneos.
 \end{enumerate}
 
-A partir deste protocolo, podemos analisar a estabilidade, junto ao script de coleta de dados, as características do servidor sem sofrer cargas, um único jogador e N jogadores.
+A partir deste protocolo, podemos analisar a estabilidade, junto ao \textit{script} de coleta de dados, as características do servidor sem sofrer cargas, um único jogador e N jogadores.
 %
-Os dados coletados nos testes com zero e um jogadores mostraram que as arquiteturas estavam estáveis, porém não trouxeram dados suficientes para mostar diferenças entre as arquiteturas.
+Os dados coletados nos testes com zero e um jogadores mostraram que as arquiteturas estavam estáveis, porém não trouxeram dados suficientes para mostra diferenças entre as arquiteturas.
 %
 Nesse sentido, a análise não exibirá tais gráficos, já que a única conclusão para todos é da estabilidade e baixo consumo de recursos, sem relevância estatística entre ambas.
 
-Para realizar o teste com um número crescente de jogadores simultâneos foi utilizado um script na linguagem Ruby na qual escala automaticamente um novo contêinerer do cliente a cada 30 segundos, na rede de clientes.
+Para realizar o teste com um número crescente de jogadores simultâneos foi utilizado um \textit{script} na linguagem Ruby na qual escala automaticamente um novo contêiner do cliente a cada 30 segundos, na rede de clientes.
 %
 Este comportamento produz uma progressão de carga linear, que é visível na Figura~\ref{fig:cliente_linear}.
 
@@ -728,12 +725,24 @@ Redis e PostgreSQL são os bancos de dados utilizados.
 %
 Esta escolha é dada pela fácil integração com a linguagem e bibliotecas selecionadas para o desenvolvimento.
 
-Durante o processo de desenvolvimento foi utilizado o processo de integração contínua.
+Durante o processo de desenvolvimento foi utilizado o processo de integração contínua sobre o repositório do \textit{Github}
 %
-Dessa forma, é utilizado o serviço TravisCI para realização de testes e construção de imagens Docker.
+\footnote{\textit{Github}: \url{https://github.com/schweigert/mmosandbox}}
 %
-Por sua vez, o TravisCI utiliza o DockerHub para armazenamento das imagens, as quais são utilizadas para implantar sobre a infraestrutura descrita como ambiente de testes.
+que hospeda todo o código fonte deste trabalho.
+%
+Dessa forma, é utilizado o serviço \textit{TravisCI} para realização de testes e construção de imagens \textit{Docker}.
+%
+Por sua vez, o \textit{TravisCI}
+%
+\footnote{\textit{TravisCI}: \url{https://travis-ci.org/schweigert/mmosandbox}}
+%
+utiliza o \textit{DockerHub}
+%
+\footnote{\textit{DockerHub}: \url{https://hub.docker.com/r/schweigert/mmosandbox}}
+%
+para armazenamento das imagens, as quais são utilizadas para implantar sobre a infraestrutura descrita como ambiente de testes.
 
-Para a execução dos testes, foi utilizado um script para escalar contêineres de forma automática.
+Para a execução dos testes, foi utilizado um \textit{script} para escalar contêineres de forma automática.
 %
 Dessa forma temos um comportamento linear, podendo utilizar tal comportamento como gráfico, auxiliando na análise.

@@ -9,7 +9,7 @@ Nesse sentido, jogos com mecânicas de projeto similares possuem implementaçõe
 %
 Entretanto, a arquitetura escolhida impacta no custo de operação e qualidade do serviço aos jogadores.
 %
-Por este motivo, diferentes arquiteturas com a mesma regra de negócio são comparáveis entre sí, visto que visam resolver os mesmos problemas.
+Por este motivo, diferentes arquiteturas com a mesma regra de negócio são comparáveis entre si, visto que visam resolver os mesmos problemas.
 
 
 
@@ -51,7 +51,7 @@ As métricas, cujos os valores serão obtidos são:
   \item \textbf{Tempo de resposta das requisições}: Descobrir o tempo de resposta por categoria de requisição, conforme o número de jogadores no serviço. Será representado como tempo decorrido da requisição, em milissegundos.
 \end{enumerate}
 
-Todos estes valores serão obtidos a partir de clientes automatizados, e por este motivo faz-se necessário descrever o comportamento dos jogadores autonomos (Seção~\ref{sec:SimulaCliente}).
+Todos estes valores serão obtidos a partir de clientes automatizados, e por este motivo faz-se necessário descrever o comportamento dos jogadores autônomos (Seção~\ref{sec:SimulaCliente}).
 %
 Espera-se, em situações adversas, caracterizar os comportamentos das arquiteturas bem como gargalos e os custos de recursos computacionais para manutenção das arquiteturas de microsserviços.
 %
@@ -91,10 +91,10 @@ Um conjunto exemplo destes problemas estão listados na Tabela~\ref{tab:problema
   \centering
   \caption{Possíveis conjuntos para a análise.}
   \label{tab:problemas}
-  \begin{tabular}{|l|l|l|l|l|l|l|l|}
-  \hline
+  \begin{tabular}{l|l|l|l|l|l|l|l}
+  \hline \hline
   \multicolumn{7}{|c|}{Recursos}                                                                      & \multirow{2}{*}{Descrição} \\ \cline{1-7}
-  \rotatebox[origin=c]{90}{\ac{cpu}} & \rotatebox[origin=c]{90}{Memória} & \rotatebox[origin=c]{90}{Rede Entrada} & \rotatebox[origin=c]{90}{Rede Saída} & \rotatebox[origin=c]{90}{Conexões Simultâneas} & \rotatebox[origin=c]{90}{Tempo de Resposta} & \rotatebox[origin=c]{90}{Latência} &                            \\ \hline
+  \rotatebox[origin=c]{90}{\ac{cpu}} & \rotatebox[origin=c]{90}{Memória} & \rotatebox[origin=c]{90}{Rede Entrada} & \rotatebox[origin=c]{90}{Rede Saída} & \rotatebox[origin=c]{90}{Conexões Simultâneas} & \rotatebox[origin=c]{90}{Tempo de Resposta} & \rotatebox[origin=c]{90}{Latência} &                            \\ \hline \hline
   $\uparrow$    &              &              &              & $\downarrow$ &              &              & \thead{Rotina de processamento de requisições\\está ocupando muita \ac{cpu}} \\ \hline
                 & $\uparrow$   &              &              & $\downarrow$ &              &              & \thead{O microsserviço está armazenando\\informações as quais poderiam estar alocadas em outros\\microsserviços}  \\ \hline
                 &              & $\uparrow$   &              & $\downarrow$ &              &              & \thead{Uma entrada de dados elevada pode indicar\\o uso de um protocolo\\inapropriado para o serviço} \\ \hline
@@ -105,7 +105,7 @@ Um conjunto exemplo destes problemas estão listados na Tabela~\ref{tab:problema
   $\uparrow$    & $\uparrow$   & $\downarrow$ & $\downarrow$ &              &              &              & \thead{Possível gargalo nos algoritmos\\utilizados no serviço} \\ \hline
                 &              &              &              & $\downarrow$ &              &              & \thead{Bloqueio de novas conexões pelo\\sistema operacional ou\\modelo de paralelismo} \\ \hline
   $\uparrow$    & $\uparrow$   & $\uparrow$   & $\uparrow$   & $\uparrow$   & $\downarrow$ &  $\uparrow$  & \thead{Limite de processamento da arquitetura} \\ \hline
-  $\downarrow$  & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\uparrow$   & $\downarrow$ &  $\downarrow$& \thead{Teste ideal} \\ \hline
+  $\downarrow$  & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\uparrow$   & $\downarrow$ &  $\downarrow$& \thead{Teste ideal} \\ \hline \hline
 
 
   \end{tabular}
@@ -258,13 +258,13 @@ Tal interdependência pode ser visualizada na Tabela~\ref{tab:interdependencia}.
 \centering
 \caption{Tabela de interdependência das sub-redes.}
 \label{tab:interdependencia}
-\begin{tabular}{|l|l|l|l|l|}
-\hline
-\multicolumn{1}{|c|}{\rotatebox[origin=c]{-45}{Linha depende de Coluna}}  & \rotatebox[origin=c]{90}{Dados} & \rotatebox[origin=c]{90}{Banco de dados do serviço de jogo} & \rotatebox[origin=c]{90}{Serviço de Jogo} & \rotatebox[origin=c]{90}{Estresse} \\ \hline
+\begin{tabular}{l||l|l|l|l}
+\hline \hline
+\multicolumn{1}{c||}{\rotatebox[origin=c]{-45}{Linha depende de Coluna}}  & \rotatebox[origin=c]{90}{Dados} & \rotatebox[origin=c]{90}{Banco de dados do serviço de jogo} & \rotatebox[origin=c]{90}{Serviço de Jogo} & \rotatebox[origin=c]{90}{Estresse} \\ \hline \hline
 Dados                             & --    & Não                               & Não             & Não     \\ \hline
 Banco de dados do serviço de jogo & Não   & --                                & Não             & Não      \\ \hline
 Serviço de Jogo                   & Sim   & Sim                               & --              & Não      \\ \hline
-Clientes                          & Não   & Não                               & Sim             & --       \\ \hline
+Clientes                          & Não   & Não                               & Sim             & --       \\ \hline \hline
 \end{tabular}
 
 Fonte: O próprio autor.
@@ -286,7 +286,7 @@ Por sua vez, estas máquinas virtuais serão focadas em armazenamento.
 
 A estrutura de implantação da rede \textit{Clientes} será dada por um gerenciador de nós em uma rede de contêineres.
 %
-Esta rede terá um gestor de conteineres para aumentar a demanda conforme o caso de teste.
+Esta rede terá um gestor de contêineres para aumentar a demanda conforme o caso de teste.
 
 O limite de recursos do cenário é definido na Tabela~\ref{tab:limite_recursos}, sendo definida a faixa de endereços de cada rede a qual foi projetada.
 %
@@ -297,13 +297,13 @@ Estes valores podem ser alterados conforme a necessidade dos testes, tendo seus 
 \begin{adjustbox}{max width=\textwidth}
 \caption{Limite de recursos por instância de cada rede.}
 \label{tab:limite_recursos}
-\begin{tabular}{|l|l|l|l|l|l|}
-\hline
-Nome da Rede                      & Rede                     & Instâncias & Armazenamento / Ins. & N. Núcleos & Memória \\ \hline
+\begin{tabular}{l|l|l|l|l|l}
+\hline \hline
+Nome da Rede                      & Rede                     & Instâncias & Armazenamento / Ins. & N. Núcleos & Memória \\ \hline \hline
 Dados                             & 10.0.*.* / 255.255.0.0   & 1          & 25GB                & 4          & 8GB     \\ \hline
 Banco de dados do serviço de jogo & 10.51.*.* / 255.255.0.0  & 1          & 25GB                & 4          & 8GB     \\ \hline
 Serviço de Jogo                   & 10.52.*.* / 255.255.0.0  & 4         & 25GB                 & 4          & 8GB     \\ \hline
-Clientes                          & 10.101.*.* / 255.255.0.0 & 20          & 1TB                 & 8          & 16GB     \\ \hline
+Clientes                          & 10.101.*.* / 255.255.0.0 & 20          & 1TB                 & 8          & 16GB     \\ \hline \hline
 \end{tabular}
 \end{adjustbox}
 
@@ -342,14 +342,14 @@ Nesse sentido, a Tabela~\ref{tab:requisitos_funcionais} relaciona a funcionalida
 \begin{adjustbox}{max width=\textwidth}
 \caption{Requisitos das funcionalidades e respectivo impacto de implementação.}
 \label{tab:requisitos_funcionais}
-\begin{tabular}{|l|l|l|}
-\hline
-Requisito                                                       & Descrição                                                                                                                                                                                  & Implementação                                                                                                                                                                             \\ \hline
-Identificação                                                   & \begin{tabular}[c]{@{}l@{}}Gera uma numeração única (token) com base\\ em uma tupla de dados.\end{tabular}                                                                                 & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando algoritmo de \textit{hash},\\ de forma a garantir que este token seja único e diferente a\\ cada implementação.\end{tabular}         \\ \hline
-Autenticação                                                    & \begin{tabular}[c]{@{}l@{}}Recebe o token e garante que não existe nenhuma\\ conexão utilizando o mesmo token.\end{tabular}                                                                & \begin{tabular}[c]{@{}l@{}}Será implementado usando um serviço de chave valor,\\ como o Redis.\end{tabular}                                                                               \\ \hline
+\begin{tabular}{l|l|l}
+\hline \hline
+Requisito                                                       & Descrição                                                                                                                                                                                  & Implementação                                                                                                                                                                             \\ \hline \hline
+Identificação                                                   & \begin{tabular}[c]{@{}l@{}}Gera uma numeração única (token) com base\\ em uma tupla de dados.\end{tabular}                                                                                 & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando algoritmo de \textit{hash},\\ de forma a garantir que este \textit{token} seja único e diferente a\\ cada implementação.\end{tabular}         \\ \hline
+Autenticação                                                    & \begin{tabular}[c]{@{}l@{}}Recebe o \textit{token} e garante que não existe nenhuma\\ conexão utilizando o mesmo \textit{token}.\end{tabular}                                                                & \begin{tabular}[c]{@{}l@{}}Será implementado usando um serviço de chave valor,\\ como o Redis.\end{tabular}                                                                               \\ \hline
 \begin{tabular}[c]{@{}l@{}}Seleção de\\ Personagem\end{tabular} & \begin{tabular}[c]{@{}l@{}}Uma conexão deve requerer o controle de um\\ personagem.\end{tabular}                                                                                           & \begin{tabular}[c]{@{}l@{}}Será implementado utilizando uma árvore de cena interna\\ ao serviço, onde o tipo do nó será Personagem e o seu nome\\ será o nome do personagem.\end{tabular} \\ \hline
 Envio de Mensagem                                               & \begin{tabular}[c]{@{}l@{}}Será possível enviar mensagens e receber. Elas serão\\ baseadas na região. Será mantido uma distância fixa\\ para todos os casos de uso.\end{tabular}           & \begin{tabular}[c]{@{}l@{}}Deve existir uma estrutura de busca interna ao serviço para\\ consultar personagens de uma região em relação a um\\ usuário.\end{tabular}                      \\ \hline
-Movimentação                                                    & \begin{tabular}[c]{@{}l@{}}Será possível movimentar o personagem para as\\ células adjacentes. Isso indica que o\\ posicionamento do personagem será baseado\\ em uma matriz.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Esta ação deve comunicar a atualização para todos os demais\\ jogadores da região de interesse.\end{tabular}                                                   \\ \hline
+Movimentação                                                    & \begin{tabular}[c]{@{}l@{}}Será possível movimentar o personagem para as\\ células adjacentes. Isso indica que o\\ posicionamento do personagem será baseado\\ em uma matriz.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Esta ação deve comunicar a atualização para todos os demais\\ jogadores da região de interesse.\end{tabular}                                                   \\ \hline \hline
 \end{tabular}
 \end{adjustbox}
 
@@ -368,9 +368,9 @@ A lista de comandos públicos é exibida na Tabela~\ref{tab:api_publica}.
 \begin{adjustbox}{max width=\textwidth}
 \caption{Requisitos mínimos funcionais para a implementação da simulação descrita.}
 \label{tab:api_publica}
-\begin{tabular}{|l|l|l|l|l|}
-\hline
-Nome                  & Argumentos            & Retorno & Protocolo & Direção              \\ \hline
+\begin{tabular}{l|l|l|l|l}
+\hline \hline
+Nome                  & Argumentos            & Retorno & Protocolo & Direção              \\ \hline \hline
 \textit{Auth}                  & \textit{Username, Password}    & \ac{json} & \textit{Web}       & Cliente para Serviço \\ \hline
 \textit{CreateAccount}         & \textit{Username, Password}    & \ac{json} & \textit{Web}       & Cliente para Serviço \\ \hline
 \textit{UpdateAccount}         & \textit{Username, Password}    & \ac{json} & \textit{Web}       & Cliente para Serviço \\ \hline
@@ -384,7 +384,7 @@ Nome                  & Argumentos            & Retorno & Protocolo & Direção 
 \textit{UpdateMapEstate}       & \textit{NPC, Action, MoreData} &           & \ac{rpc}           & Serviço para Cliente \\ \hline
 \textit{UpdateCharacterEstate} & \textit{NPC, Action, MoreData} &           & \ac{rpc}           & Serviço para Cliente \\ \hline
 \textit{ReceiveMessage}        & \textit{NPC, Message}          &           & \ac{rpc}           & Serviço para Cliente \\ \hline
-\textit{ReBind}                & \textit{IP, Port}              &           & \ac{rpc}           & Serviço para Cliente \\ \hline
+\textit{ReBind}                & \textit{IP, Port}              &           & \ac{rpc}           & Serviço para Cliente \\ \hline \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -435,7 +435,7 @@ A movimentação do personagem seguirá o autômato descrito na Figura~\ref{fig:
 \begin{figure}[htb!]
   \caption{Autômato de movimentação dos personagens automatizados.}
   \label{fig:movimentacao}
-  \includegraphics[height=5.5cm]{img/cap3/movimentacao.png}
+  \includegraphics[height=3.5cm]{img/cap3/movimentacao.png}
   \centering
 
   Fonte: O próprio autor.

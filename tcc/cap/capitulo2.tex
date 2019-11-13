@@ -144,7 +144,7 @@ Essa correlação é importante para identificar as características referentes 
 \caption{Tipos de comunicação e quantidade de jogadores impactados por ocorrências conforme o seu gênero.}
 \label{tab:comunicacao_genero}
 \begin{tabular}{l|l|l|l|l|l}
-\hline
+\hline \hline
                 & \ac{lan}   & \ac{wan}   & \ac{p2p}    & \ac{cs}  &  Jogadores Impactados por falhas                     \\ \hline \hline
 ESTRATÉGIA      & \checkmark & \checkmark & \checkmark &              &   até 10~\cite{eoe3}                              \\ \hline
 RTS             & \checkmark & \checkmark &            & \checkmark   &   até 10~\cite{starcraft2}                        \\ \hline
@@ -508,11 +508,11 @@ Entretanto, faz-se necessário compreender o funcionamento do serviço a fim de 
 
 
 
-Entende-se por microsserviço, aplicações que executam operações menores de um macrosserviço, da melhor forma possível~\cite{stephenclarkewillson2017, Newman2015Feb}.
+Entende-se por microsserviço, aplicações que executam operações menores de um serviço, da melhor forma possível~\cite{stephenclarkewillson2017, Newman2015Feb}.
 %
 O objetivo de uma arquitetura de microsserviços é funcionar separadamente de forma autônoma, contendo baixo acoplamento~\cite{Newman2015Feb}.
 %
-Seu funcionamento deve ser desenhado para permitir alinhamentos de alta coesão e baixo acoplamento entre os demais microsserviços existentes em um macrosserviço~\cite{8169955}.
+Seu funcionamento deve ser desenhado para permitir alinhamentos de alta coesão e baixo acoplamento entre os demais microsserviços existentes em um serviço~\cite{8169955}.
 
 
 
@@ -523,13 +523,13 @@ Um microsserviço é definido pelas seguintes características~\cite{8169955}:
 
 
 \begin{itemize}
-  \item Deve possibilitar a implementação como uma peça individual do macrosserviço.
+  \item Deve possibilitar a implementação como uma peça individual do serviço.
   \item Deve funcionar individualmente.
   \item Cada microsserviço deve ter uma interface. Essa interface deve ser o suficiente para utilizar o microsserviço.
   \item A interface deve estar disponível na rede para chamada de processamento remoto ou consulta de dados.
   \item O microsserviço pode ser utilizado por qualquer linguagem de programação e/ou plataforma.
   \item O microsserviço deve executar com as dependências mínimas.
-  \item Ao agregar vários microsserviços, o macrosserviço resultante poderá prover funcionalidades complexas.
+  \item Ao agregar vários microsserviços, o serviço resultante poderá prover funcionalidades complexas.
 \end{itemize}
 
 
@@ -538,7 +538,7 @@ O microsserviço deverá ser uma entidade separada.
 %
 A entidade deve ser implantada sobre um sistema isolado (\textit{e.g.,} Docker~\footnote{Docker:~\url{https://www.docker.com/}}, \acp{vm}, \textit{etc.}).
 %
-Toda a comunicação entre os microsserviços de um macrosserviço será executada sobre a rede, a fim de reforçar a separação entre cada serviço.
+Toda a comunicação entre os microsserviços de um serviço será executada sobre a rede, a fim de reforçar a separação entre cada serviço.
 %
 As chamadas pela rede com o cliente ou entre os microsserviços será executada através de uma \ac{api}, permitindo a liberdade de tecnologia em que cada microsserviço será implementado~\cite{Newman2015Feb}.
 %
@@ -562,7 +562,7 @@ Uma arquitetura de microsserviços é escalável, como visível na Figura~\ref{f
 %
 A arquitetura permite o aumento do número de microsserviços sob demanda para suprir a necessidade de escalabilidade.
 %
-Este modelo computacional obtém maior desempenho, principalmente se executar sobre plataformas de computação elástica, na qual o orquestrador do macrosserviço pode aumentar o número de instâncias conforme a necessidade de requisições~\cite{Nadareishvili2016Aug}.
+Este modelo computacional obtém maior desempenho, principalmente se executar sobre plataformas de computação elástica, na qual o orquestrador do serviço pode aumentar o número de instâncias conforme a necessidade de requisições~\cite{Nadareishvili2016Aug}.
 
 
 
@@ -662,7 +662,7 @@ Dessa forma, é possível trocar o nome das funções solicitadas em \ac{rpc} po
 %
 Já para operações \ac{crud}, pode-se utilizar tanto requisições sobre o protocolo \ac{http} ou sobre um protocolo otimizado sobre \ac{tcp} dependendo da necessidade de desempenho, como exemplo o protocolo \ac{rpc} ou protocolos de fluxo de dados proprietários~\cite{LeckyThompson2008Nov}.
 
-Dado um serviço que não é implementado sobre uma arquitetura de microsserviços, a utilização de dois protocolos irá complicar o gerenciamento de threads para responder de duas formas diferentes, entretando o seu esquema de estados ficará simplificado.
+Dado um serviço que não é implementado sobre uma arquitetura de microsserviços, a utilização de dois protocolos irá complicar o gerenciamento de \textit{threads} para responder de duas formas diferentes, entretanto o seu esquema de estados ficará simplificado.
 %
 Esta simplificação pode ser visualizada na figura~\ref{fig:network_crud_rpc}.
 
@@ -725,7 +725,7 @@ Para este fim, torna-se de interesse a este trabalho realizar um levantamento de
 
 Dentre as arquiteturas identificadas, as qualificadas dentro do paradigma de arquiteturas de microsserviços são as arquiteturas Rudy (Subseção~\ref{rudy}), Salz (Subseção~\ref{salz}) e Willson (Subseção~\ref{willson}).
 
-Em geral, as arquiteturas de forma genérica contém microsserviços \textit{web} para \textit{E Commerce}, operações \ac{crud} através da web e distribuição de atualizações.
+Em geral, as arquiteturas de forma genérica contém microsserviços \textit{web} para \textit{E-Commerce}, operações \ac{crud} através da web e distribuição de atualizações.
 %
 Os microsserviços de gerenciamento de jogo, por sua vez, respondem através do protocolo \ac{tcp}, podendo ser sobre \ac{rpc} ou protocolos proprietários.
 %
@@ -937,7 +937,7 @@ Para evitar esta decisão, da mesma forma é notória a abordagem utilizada pela
 
 A arquitetura elaborada por Clarke-Willson leva como principal característica a preocupação da disponibilização de atualizações aos clientes~\cite{willson}.
 %
-Essas atualizações são versionadas a todos os microsserviços utilizando sistemas de versionamento de código fonte~\cite{stephenclarkewillson2017, willson}.
+Essas atualizações são distribuídas a todos os microsserviços utilizando sistemas de versionamento de código fonte~\cite{stephenclarkewillson2017, willson}.
 %
 Por este motivo, a sua arquitetura inclusive compreende microsserviços de armazenamento de arquivos sobre protocolo \ac{http} para atualização dos clientes~\cite{stephenclarkewillson2017}.
 %
@@ -1030,7 +1030,7 @@ Nessa arquitetura, é necessário levar em conta o funcionamento, método de com
 Fonte: O próprio autor
 \end{figure}
 
-A arquitetura genérica descrita na Figura~\ref{fig:generica} também precisa corresponder as demandas necessárias do \textit{GameDesign} do próprio jogo.
+A arquitetura genérica descrita na Figura~\ref{fig:generica} também precisa corresponder as demandas necessárias de regra de negócio do próprio jogo.
 %
 Neste caso, só um tipo de microsserviço é visível nesta rede, porém poderiam existir microsserviços responsáveis pela parte social, comercial e estatísticas, aumentando o grau de complexidade da arquitetura.
 %
@@ -1057,7 +1057,7 @@ Após a introdução técnica necessária para entendimento das arquiteturas, fo
 %
 Entretanto, não foi encontrado trabalhos correlacionados as arquiteturas encontradas, dessa forma encontrando um dos pontos de apoio científico deste trabalho.
 
-A literatura aborda previsibilidade de carga, análise de disponibilidade e uso de recurso de tais arquiteturas (a fim de guiar escolhas na etapa de \textit{Game Design} do produto e viabilizar o comércio do mesmo), relatados na Seção~\ref{sec:similares}.
+A literatura aborda previsibilidade de carga, análise de disponibilidade e uso de recurso de tais arquiteturas (a fim de guiar escolhas na etapa de elaboração da regra de negócio do produto e viabilizar o comércio do mesmo), relatados na Seção~\ref{sec:similares}.
 %
 Torna-se de interesse para projetistas de desenvolvimento de jogos \ac{mmorpg} analisar o impacto e uso de recursos computacionais ao implantar uma arquitetura de microsserviços \ac{mmorpg} visando melhorar a disponibilidade de tais jogos.
 %

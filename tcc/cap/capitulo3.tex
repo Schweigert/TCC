@@ -166,7 +166,7 @@ Foi concluído que a arquitetura de microsserviços, nas condições desta aplic
 %
 Essa redução pode ser observada na Figura~\ref{fig:custo_aws}.
 %
-O autor alerta sobre tolerância a falhas, transações distribuídas, distribuição de dados e versionamento de serviço.
+O autor alerta sobre tolerância a falhas, transações distribuídas, distribuição de dados e controle de versões de serviço.
 
 
 \section{Suznjevic e Matijasevic (2012)}
@@ -183,14 +183,14 @@ Este trabalho usa com base o modelo descrito na Seção~\ref{sec:huang}, um mode
 \centering
 \caption{Complexidade da interação com o ambiente, por contexto da interação.}
 \label{tab:complexidade}
-\begin{tabular}{|l|l|l|l|l|}
-\hline
-Contexto da ação        & \ac{pvp}           & \ac{pvnpc}              & Número de \acp{npc}    & Network {[}kbits/s{]} \\ \hline
+\begin{tabular}{l|l|l|l|l}
+\hline \hline
+Contexto da ação        & \ac{pvp}           & \ac{pvnpc}              & Número de \acp{npc}    & Network {[}kbits/s{]} \\ \hline \hline
 Questing                & $O(n)$             & $O(n log(n))$           & $N \leq 6 $            & 11.4          \\ \hline
 Trading                 & $O(n)$             & $O(n)$                  & $N \leq 20$            & 8.1           \\ \hline
 Dungeons                & $O(n^2)$           & $O(n^2)$                & $N \leq 20$            & 18.3          \\ \hline
 \ac{pvp} combat         & $O(n^3)$           & $O(n)$                  & $N = 0    $            & 24.1          \\ \hline
-Raiding                 & $O(n^2 log(n))$    & $O(n^3)$                & $N \leq 40$            & 32.0          \\ \hline
+Raiding                 & $O(n^2 log(n))$    & $O(n^3)$                & $N \leq 40$            & 32.0          \\ \hline \hline
 \end{tabular}
 
 Fonte:~\cite{6374456}
@@ -260,11 +260,11 @@ Esta relação pode ser visualizada na Tabela~\ref{tab:categoria_trabalhos}.
 \caption{Trabalhos relacionados por categoria.}
 \label{tab:categoria_trabalhos}
 \begin{tabular}{l|l}
-\hline
-Autor & Categoria                            \\ \hline
+\hline \hline
+Autor & Categoria                            \\ \hline \hline
 \cite{6374456}  & Previsão de carga          \\ \hline
 \cite{7515686}  & Comparação de arquiteturas \\ \hline
-\cite{1417630}  & Previsão de carga          \\ \hline
+\cite{1417630}  & Previsão de carga          \\ \hline \hline
 \end{tabular}
 
 
@@ -283,11 +283,11 @@ Nenhum trabalho relatou limite de conexões ou latência do sistema.
 \caption{Trabalhos relacionados por recurso analisado.}
 \label{tab:recursos_categoria}
 \begin{tabular}{l|l|l|l|l|l|l|l}
-\hline
-Autor           & \ac{cpu}   & Memória    & Banda      & Custo      & Latência & \makecell{Limite \\ de \\ conexões} & \makecell{Complexidade \\ de \\ Algoritmos} \\ \hline
+\hline \hline
+Autor           & \ac{cpu}   & Memória    & Banda      & Custo      & Latência & \makecell{Limite \\ de \\ conexões} & \makecell{Complexidade \\ de \\ Algoritmos} \\ \hline \hline
 \cite{1417630}  & $\times$   & $\times$   & \checkmark & $\times$   & $\times$ & $\times$                            & $\times$                                    \\ \hline
 \cite{7515686}  & $\times$   & $\times$   & $\times$   & \checkmark & $\times$ & $\times$                            & $\times$                                    \\ \hline
-\cite{6374456}  & \checkmark & \checkmark & \checkmark & $\times$   & $\times$ & $\times$                            & \checkmark                                  \\ \hline
+\cite{6374456}  & \checkmark & \checkmark & \checkmark & $\times$   & $\times$ & $\times$                            & \checkmark                                  \\ \hline \hline
 \end{tabular}
 \end{adjustbox}
 
@@ -311,11 +311,11 @@ Além disso, não foi descrito um método de replicação automática dos servi�
 \caption{Arquiteturas analisadas.}
 \label{tab:arquiteturas_analisadas}
 \begin{tabular}{l|l|l|l}
-\hline
-Autor           & Arquitetura de Microsserviços & Arquitetura Distribuída  & \ac{mmorpg}   \\ \hline
+\hline \hline
+Autor           & Arquitetura de Microsserviços & Arquitetura Distribuída  & \ac{mmorpg}   \\ \hline \hline
 \cite{1417630}  & $\times$                      & \checkmark               & \checkmark    \\ \hline
 \cite{7515686}  & \checkmark                    & \checkmark               & $\times$      \\ \hline
-\cite{6374456}  & $\times$                      & \checkmark               & \checkmark    \\ \hline
+\cite{6374456}  & $\times$                      & \checkmark               & \checkmark    \\ \hline \hline
 \end{tabular}
 \end{adjustbox}
 
@@ -325,7 +325,7 @@ Fonte: O próprio autor.
 
 Este Trabalho de Conclusão de Curso pretende analisar uma arquitetura de microsserviços especificada a jogos \ac{mmorpg}, visando métricas de desempenho e custo de operação.
 %
-Os recursos analisados serão CPU, Memória, Banda, Custo, Latência, Limite de Conexões e Complexidade dos Algoritmos empregados.
+Os recursos analisados serão \ac{cpu}, Memória, Banda, Custo, Latência, Limite de Conexões e Complexidade dos Algoritmos empregados.
 
 
 \section{Considerações parciais}
