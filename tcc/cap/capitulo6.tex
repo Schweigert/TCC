@@ -37,10 +37,10 @@ Cada  experimento é executado seguindo o protocolo:
 
 
 \begin{enumerate}
- \item Início dos serviços do banco de dados.
- \item Início dos serviços de jogo.
- \item Início dos clientes.
- \item Clientes são adicionados de 1 em 1, a cada 30 segundos, até atingir a quantidade de 100 clientes simultâneos.
+ \item Início dos serviços do banco de dados;
+ \item Início dos serviços de jogo;
+ \item Início dos clientes;
+ \item Clientes são adicionados de 1 em 1, a cada 30 segundos, até atingir a quantidade de 100 clientes simultâneos; e
  \item Após a finalização do experimento os serviços em todos os ambientes são removidos, mantendo somente os dados capturados.
 \end{enumerate}
 
@@ -1961,6 +1961,7 @@ A Tabela~\ref{tab:resultados_experimentos} exibe as comparações obtidas a part
 
 \begin{table}[htb!]
 \centering
+\scriptsize
 \begin{adjustbox}{max width=\textwidth}
 \caption{Resultados obtidos a partir dos dados capturados.}
 \label{tab:resultados_experimentos}
@@ -1988,7 +1989,7 @@ A Tabela~\ref{tab:resultados_experimentos} exibe as comparações obtidas a part
 
 Fonte: O próprio autor.
 \end{table}
-
+%ccm Informar o que significa maior valor, menor valor e médio valor em uma coluna de obasevação
 A partir da Tabela~\ref{tab:resultados_experimentos}, podemos observar comportamentos aproximados, na qual respeitam as relações obtidas.
 %
 Faz sentido simplificar os resultados obtidos, exibidos na Tabela~\ref{tab:resultados_experimentos}, justificando pelo funcionamento das arquiteturas.
@@ -2044,6 +2045,8 @@ A partir destes dados, conclui-se que:
  \item \textbf{Saída de Rede dos bancos de dados} relaciona-se a entrada de rede do banco de dados, que consecutivamente tem relação com \textbf{Operações Web}; e
  \item \textbf{Saída de Rede dos microsserviços} relaciona-se  as requisições da operação de mundo, visto que tais operações possuem alta frequência de requisições.
 \end{itemize}
+
+%ccm Referenciar tabela de características do Cap. 4
 
 \section{Considerações parciais}
 

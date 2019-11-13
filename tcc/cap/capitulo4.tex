@@ -1,6 +1,6 @@
 \chapter{Proposta para análise de arquiteturas \ac{mmorpg}}
 \label{cap3}
-
+%ccm <-38 para os itens que 
 
 
 As arquiteturas de serviços \ac{mmorpg} são desenvolvidas visando suprir as necessidades do projeto do jogo desenvolvido, de forma a viabilizar a utilização deste serviço.
@@ -39,7 +39,7 @@ Em específico, serão obtidos os valores referentes aos uso dos seguintes recur
 \begin{enumerate}
   \item \textbf{\ac{cpu}}: o uso de CPU, com sua representação sendo em relação a porcentagem de processamento nos núcleos utilizados;
   \item \textbf{Memória}: Quantidade de memória utilizada pelos processos do serviço/arquitetura. A sua representação será como dado absoluto; e
-  \item \textbf{Rede}: Banda de rede utilizada nas operações de entrada e saída para cada microsserviço, utilizando valores absolutos;
+  \item \textbf{Rede}: Banda de rede utilizada nas operações de entrada e saída para cada microsserviço, utilizando valores absolutos.
 \end{enumerate}
 
 Além dos recursos computacionais, esta análise levará em conta valores referentes a outras métricas.
@@ -47,7 +47,7 @@ Além dos recursos computacionais, esta análise levará em conta valores refere
 As métricas, cujos os valores serão obtidos são:
 
 \begin{enumerate}
-  \item \textbf{Número máximo de jogadores simultâneos}: Descobrir o limite de conexões para as arquiteturas propostas a análise. Será representado como valor absoluto.
+  \item \textbf{Número máximo de jogadores simultâneos}: Descobrir o limite de conexões para as arquiteturas propostas a análise. Será representado como valor absoluto; e
   \item \textbf{Tempo de resposta das requisições}: Descobrir o tempo de resposta por categoria de requisição, conforme o número de jogadores no serviço. Será representado como tempo decorrido da requisição, em milissegundos.
 \end{enumerate}
 
@@ -69,15 +69,15 @@ Neste sentido, a análise dos dados obtidos será guiada pelo esperado dos valor
   \item \textbf{Consumo Memória}: Espera-se estressar com requisições nas quais exija armazenamento em memória;
   \item \textbf{Vazão Rede - Entrada}: Espera-se estressar com requisições nas quais tenham uma carga de dados elevada;
   \item \textbf{Vazão Rede - Saída}: Espera-se estressar com respostas nas quais tenham uma carga de dados elevada;
-  \item \textbf{Número de Conexões Simultâneas}: Servirá como guia de comparação com os demais valores e desempenho da arquitetura, caso exista um limite de escalabilidade;
-  \item \textbf{Tempo de resposta das requisições}: Servirá como guia de qualidade da arquitetura; e
+  \item \textbf{Número de Conexões Simultâneas}: Servirá como guia de comparação com os demais valores e desempenho da arquitetura, caso exista um limite de escalabilidade; e
+  \item \textbf{Tempo de resposta das requisições}: Servirá como guia de qualidade da arquitetura.
 \end{enumerate}
 
 Em um caso de uso ideal, todos os recursos não são estressáveis, com um número de conexões simultâneas elevado.
 %
 Porém, espera-se para este trabalho um possível conjunto de ocorrências, na qual podem ou não ocorrer.
 %
-Este conjunto servirá de guia / exemplo de problemas relevantes retirado dos valores obtidos.
+Este conjunto serve de guia / exemplo de problemas relevantes retirado dos valores obtidos.
 %
 Logo, a automação e cenários de execução foram elaborados para forçar tais ocorrências.
 
@@ -112,7 +112,8 @@ Um conjunto exemplo destes problemas estão listados na Tabela~\ref{tab:problema
 
   Fonte: O próprio autor.
 \end{table}
-
+%ccm Remover latência
+%ccm Importante comentar na análise conjunta no Cap. 6
 
 Não foram encontrados trabalhos para guiar a caracterização dos dados, sendo assim a caracterização foi definida genericamente.
 %

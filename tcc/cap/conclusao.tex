@@ -40,7 +40,7 @@ Entretanto, tal informação não é uma contribuição inicial do atual trabalh
 
 O atual trabalho concluiu que o desempenho, do ponto de vista de tempo de resposta, está relacionado a melhor utilização da \ac{cpu}, seja pelos microsserviços de armazenamento de dados ou por microsserviços de processamento de dados.
 %
-Mostrou-se viável a aplicação de sistemas de filas ou barreias para gerenciamento do acesso ou minimização do consumo de um serviço interno, impactando diretamente na vazão dos dados pela arquitetura.
+Mostrou-se viável a aplicação de sistemas de filas ou barreiras para gerenciamento do acesso ou minimização do consumo de um serviço interno, impactando diretamente na vazão dos dados pela arquitetura.
 %
 Outro critério de atenção é a sincronização de dados, a qual pode consumir um valor significativo de \ac{cpu} e, caso desempenhe um papel incompatível com o necessário, pode prejudicar o processamento e vazão dos dados pela arquitetura.
 
@@ -48,26 +48,30 @@ Ao final deste trabalho, não foi possível analisar todos os dados obtidos.
 %
 A partir dos dados coletados, existem dados intermediários que não foram utilizados nesta análise.
 %
-Este conjunto de dados possui informações de monitoramento de todas as máquinas envolvidas no experimento de forma individual quanto dos processos individuais na arquitetura do Docker Swarm e Docker Compose.
+Este conjunto de dados possui informações de monitoramento de todas as máquinas envolvidas nos experimentos de forma individual, quanto dos processos individuais na arquitetura do Docker Swarm e Docker Compose.
+%
+Pretende-se analisar esses dados, preferencialmente, durante a escrita de um artigo técnico científico previsto como trabalho futuro. 
 
 Este trabalho teve algumas dificuldades durante a sua execução.
 %
-Durante o processo de busca por referências teóricas na literatura, mostrou-se uma área atacada por diversos modelos para processamento de dados e desenvolvimento web, porém existe uma baixa frequência de publicações de artigos para jogos \ac{mmorpg}, abordando sua arquitetura em baixo nível.
+Durante o processo de busca por referências teóricas na literatura, mostrou-se uma área atacada por diversos modelos para processamento de dados e desenvolvimento web. 
+%
+Porém existe uma baixa frequência de publicações de artigos para jogos \ac{mmorpg}, abordando sua arquitetura em baixo nível.
 %
 Tal problema foi solucionado ao buscar as arquiteturas para jogos \ac{mmorpg} e encontrar modelos próximos em desenvolvimento web.
 
 Outro problema significativo tem relação com a arquitetura e organização de código que foi necessário para a implementação das arquiteturas e clientes.
 %
-Por se tratar de um projeto grande, na qual teve a duração de seis meses de desenvolvimento, foi encontrado diversos problemas de engenharia de software para permitir o isolamento da regra de negócio de forma abstrata, garantindo que todas as arquiteturas estavam processando as requisições sem otimizações particulares.
+Por se tratar de um projeto de considerável porte, na qual teve a duração de seis meses de desenvolvimento, foram encontrados diversos problemas de engenharia de software para permitir o isolamento da regra de negócio de forma abstrata, garantindo que todas as arquiteturas estavam processando as requisições sem otimizações particulares.
 %
-Este problema foi superado ao utilizar tecnicas de \textit{Clean Architecture} e testes automatizados utilizando uma suíte de integração contínua.
+Este problema foi superado ao utilizar técnicas de \textit{Clean Architecture} e testes automatizados utilizando uma suíte de integração contínua.
 %
 Estas técnicas aumentaram a produtividade para o desenvolvimento em longo prazo, permitindo a sua implementação em um menor espaço de tempo.
 %
 
 A segunda maior dificuldade apresentada no desenvolvimento deste trabalho foi encontrada durante a execução dos testes no ambiente.
 %
-Encontraram-se dois problemas relacionados a infraestrutura dos ambientes, especificamente no \textit{firewall} que interconecta a rede de laboratórios a nuvem P2D.
+Encontraram-se dois problemas relacionados a infraestrutura dos ambientes, especificamente no \textit{firewall} que interconecta a rede de laboratórios a nuvem LabP2D.
 %
 Estes problemas foram a limitação de tráfego entre as redes e o bloqueio de acesso a diversos protocolos limitando a conexão entre os clientes e o serviços.
 %
@@ -116,3 +120,5 @@ Em específico, pode-se continuar este trabalho com os seguintes sugestões de t
  \item Anaĺise do consumo de recursos pela arquitetura de armazenamento de métricas; e
  \item Análise dos dados capturados mas não analisados no atual trabalho.
 \end{itemize}
+
+%ccm escrever artigo
