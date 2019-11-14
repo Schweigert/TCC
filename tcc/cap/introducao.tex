@@ -2,7 +2,7 @@
 \label{introducao}
 
 
-Jogos \acf{mmorpg} são utilizados como negócio viável e lucrativo, sendo que, a experiência de jogabilidade na qual o usuário final será submetido é um fator crítico para o sucesso destes jogos.
+Jogos \acf{mmorpg} são utilizados como negócio viável e lucrativo, sendo que, a experiência de jogabilidade na qual o usuário final é submetido é um fator crítico para o sucesso destes jogos.
 %
 Este gênero, focado na interpretação de papéis de forma massiva em um ambiente compartilhado, tem como sua principal característica a comunicação e representação virtual de personagens em um mundo fantasia compartilhado.
 %
@@ -48,19 +48,18 @@ Dessa forma, torna-se interessante a análise de serviços \ac{mmorpg} baseados 
 
 Deste modo o problema identificado é a falta de uma análise sobre o consumo de recursos para a manutenção de arquiteturas de microsserviços específicos a jogos \ac{mmorpg}, utilizando como base as arquiteturas encontradas na literatura.
 %
-Adicionalmente a este problema, será necessário o desenvolvimento de tais arquiteturas para submissão a experimentos e posterior análise.
+Adicionalmente a este problema, é necessário o desenvolvimento de tais arquiteturas para submissão a experimentos e análise.
 
 Este trabalho tem como objetivo analisar o consumo de recursos das principais arquiteturas disponíveis na literatura.
 %
 Nesse sentido, os objetivos específicos do atual trabalho são:
 
 \begin{itemize}
-    \item Identificar arquiteturas empregadas na categoria de jogos \ac{mmorpg}.
-    \item Identificar os protocolos utilizados nessas arquiteturas.
+    \item Identificar arquiteturas empregadas na categoria de jogos \ac{mmorpg};
+    \item Identificar os protocolos utilizados nessas arquiteturas;
     \item Identificar os microsserviços dessas arquiteturas.
-    \item Identificar e avaliar ferramentas de análise de métricas para armazenar valores dos testes.
+    \item Identificar e avaliar ferramentas de análise de métricas para armazenar valores dos testes; e
     \item Analisar o comportamento das arquiteturas aplicadas, levantando questões de desempenho e recursos utilizados.
-    \item Propor alternativas de otimização para os problemas relacionados a consumo de recursos encontrados nas devidas arquiteturas identificadas.
 \end{itemize}
 
 
@@ -68,7 +67,7 @@ Para dar suporte a proposta deste trabalho, uma revisão da literatura é aprese
 %
 Ao analisar os trabalhos relacionados identificados, houve uma dificuldade para encontrar os tópicos \ac{mmorpg} e sistemas distribuídos baseado em microsserviços.
 %
-Os resultados obtidos deste trabalho podem contribuir com futuros trabalhos científicos em diversas áreas de desenvolvimento e engenharia de software, computação distribuída ou consumo de recursos, específicos ou não a área de desenvolvimento de jogos.
+Os resultados obtidos deste trabalho contribuem com futuros trabalhos científicos em diversas áreas de desenvolvimento e engenharia de software, computação distribuída ou consumo de recursos, específicos ou não a área de desenvolvimento de jogos.
 
 
 
@@ -78,15 +77,16 @@ Depois, um estudo sobre a intersecção de ambos os temas.
 %
 Também são identificados trabalhos relacionados na presente literatura que foquem tanto em arquiteturas de  microsserviços genéricas quanto em arquiteturas de serviços \ac{mmorpg}.
 %
-Em seguida é definida a proposta, junto a testes e cenários a fim de coletar informações e realizar a análise das arquiteturas de microsserviços específicas a jogos \ac{mmorpg}. 
+Em seguida é definida a proposta, junto a testes e cenários a fim de coletar informações e análisar as arquiteturas de microsserviços específicas a jogos \ac{mmorpg}.
 
 
-%ccm 38
-Este trabalho de conclusão de curso possui natureza aplicada pois será necessário a implementação das arquiteturas descritas na literatura, utilizando as mesmas regras de negócio, viabilizando uma análise igualitária entre as arquiteturas propostas.
+Este trabalho de conclusão de curso possui natureza aplicada pois executa a implementação das arquiteturas descritas na literatura, utilizando as mesmas regras de negócio, permitindo a atual análise igualitária entre as arquiteturas selecionadas.
 %
-A análise será efetuada de maneira qualitativa, pois será realizado um estudo a partir de valores gerados pelos experimentos, considerando as características individuais de cada arquitetura identificada.
+A análise é efetuada de maneira qualitativa, pois é realizado um estudo a partir de valores gerados pelos experimentos, considerando as características individuais de cada arquitetura identificada.
 
-%ccm comentar um pouco sobre os resultados da análise
+Esta análise obtêm resultados relevantes sobre o comportamento do consumo de recurso das arquiteturas \ac{mmorpg} encontradas na literatura, encontrando pontos de gargalos nas arquiteturas específicas a este gênero.
+%
+A partir dos resultados obtidos, é realizada uma análise unificada dos dados, permitindo a comparação conforme os critérios selecionados nos experimentos.
 
 Este trabalho está organizado em seis capítulos, que dão suporte a análise das arquiteturas específicas a jogos \ac{mmorpg} proposta.
 %
@@ -94,12 +94,10 @@ No Capítulo~\ref{cap2} são apresentados os conceitos necessários para o enten
 %
 O Capítulo~\ref{cap21} aborda trabalhos relacionados encontrados na literatura, tendo como objetivo principal destacar e comparar suas características, a fim de prover fundamentos para a análise dos serviços descritos na referenciação teórica.
 %
-A proposta é definida no Capítulo~\ref{cap3}, a qual define o plano de captura de valores, a interpretação de tais valores e cenário a qual as arquiteturas propostas serão implantados.
+A proposta é definida no Capítulo~\ref{cap3}, a qual define o plano de captura de valores, a interpretação de tais valores e cenário a qual as arquiteturas propostas são implantados.
 
 O Capítulo~\ref{cap5} descreve a implementação e implantação das arquiteturas de microsserviços.
 %
-A partir da execução dos microsserviços implantados em uma nuvem computacional, pode-se obter dados sobre o consumo de recurso.
+A partir da execução dos microsserviços implantados em uma nuvem computacional, obtêm-se dados sobre o consumo de recurso.
 %
 O Capítulo~\ref{cap6} junta diversos dados capturados e realiza uma análise sobre o consumo de recursos computacionais, justificando e caracterizando comportamentos das arquiteturas desenvolvidas.
-
-

@@ -15,15 +15,6 @@ Faz sentido subdividir tais experimentos em grupos menores, para posterior compa
 
 
 
-%ccm todo gráfico precisa responder a alguma pergunta.
-% 1- Formular a pergunta com base no que definiu no Cap.4
-% 2- quem está envolvido, quais são os parâmetros, quais são constantes
-% 3- Descrever o perfil/modus operandi do experimento
-% 4- Mostrar a figura
-% 5- Analisar os resultados com base na expectativa no Cap.4 (foi similar, diferente, por quê?)
-% 6 - Precisa manter em mente que as figuras devem manter uma escala para poder comparar entre diferentes arquiteturas
-
-
 \section{Experimentos}
 \label{sec:experimentos}
 
@@ -171,7 +162,8 @@ Deste modo, entende-se:
 Dessa forma, pode-se dizer que para a operação de criar conta, em média do ponto de vista de tempo de resposta, a arquitetura Willson é superior a arquitetura Salz e Rudy, respectivamente.
 %
 Também pode-se afirmar que a estabilidade desta operação, do ponto de vista de tempo de resposta, também segue a mesma sequência.
-%ccm Indentificou melhor mas não justificou a origem dessa melhora
+%
+Tal melhoria é apresentada pela economia de \ac{cpu} pela arquitetura Willson, a qual será apresentado na Sessão~\ref{sec:exp_cpu}, em função da quantidade de processos da arquitetura.
 
 \subsubsection{Criar personagem}
 \label{sec:op_create_char}
@@ -217,7 +209,7 @@ Willson     & 73,66 ms & 4886,60  & 301,0 ms  & 22,0 ms \\ \hline \hline
 Fonte: O próprio autor.
 \end{table}
 
-A partir da Tabela~\ref{tab:create_character_operation_request}, pode-se observar que a média dos valores segue o comportamento encontrado na operação Criar Conta (Subseção~\ref{sec:op_create_account}). 
+A partir da Tabela~\ref{tab:create_character_operation_request}, pode-se observar que a média dos valores segue o comportamento encontrado na operação Criar Conta (Subseção~\ref{sec:op_create_account}).
 %
 Entretanto, é notório a diferença com relação a estabilidade da operação de criação de personagem.
 
@@ -374,7 +366,10 @@ Na qual entende-se:
  \item $\overline{IniciarSessao_{s}}$: Tempo de resposta médio da operação iniciar sessão na arquitetura Salz; e
  \item $\overline{IniciarSessao_{w}}$: Tempo de resposta médio da operação iniciar sessão na arquitetura. Willson;
 \end{itemize}
-%ccm 13
+
+Este é o tempo de resposta mais rápido da arquitetura Salz, e tal característica é diretamente relacionado ao microsserviço de autenticação estar público aos jogadores, sem a necessidade de um intermediador dessas mensagens.
+%
+Entretanto, a arquitetura Salz não apresentou bons resultados quando comparados a tempo de resposta de \textit{chat} ou \textit{game}, por conta da saturação da \ac{cpu} nesta arquiteutra.
 
 \subsubsection{Instanciar personagem}
 
@@ -591,7 +586,7 @@ Logo, entende-se:
 \end{itemize}
 
 \subsection{Consumo de \ac{cpu}}
-
+\label{sec:exp_cpu}
 Este experimento visa analisar o consumo de \ac{cpu} unitariamente, em relação ao número de jogadores simultâneos.
 %
 Espera-se que o seu crescimento seja de tendência linear junto ao crescimento de jogadores concorrentes.
@@ -658,7 +653,7 @@ Em todas as figuras é notório o seguinte comportamento:
 
 Este comportamento era esperado, dado a natureza distinta de ambos os banco de dados, na qual PostgreSQL é um banco de dados \ac{acid} e o Redis é um banco de dados \ac{nosql}.
 %
-Entretanto, é notório a discrepância entre ambos os bancos de dados, 
+Entretanto, é notório a discrepância entre ambos os bancos de dados,
 confirmando-se que o banco de dados temporário é estável em relação ao consumo de \ac{cpu}.
 
 Ao analisar o comportamento do banco de dados persistentes para as arquiteturas Rudy (Subfigura~\ref{fig:r_cpu_db}), Salz (Subfigura~\ref{fig:s_cpu_db}) e Willson (Subfigura~\ref{fig:w_cpu_db}) observa-se um comportamento diferente na arquitetura Rudy.
@@ -698,7 +693,7 @@ Torna-se visível a diferença do consumo de \ac{cpu} entre as arquiteturas pelo
 A partir destes dados, pode-se deduzir que:
 
 \begin{itemize}
- \item Arquitetura Rudy consome menos \ac{cpu} do banco de dados persistentes; e 
+ \item Arquitetura Rudy consome menos \ac{cpu} do banco de dados persistentes; e
  \item Arquitetura Salz e Willson consomem \ac{cpu} na mesma proporção, com a arquitetura Salz tendo uma leve tendência a consumir menos \ac{cpu}.
 \end{itemize}
 
@@ -1303,7 +1298,7 @@ Pode-se visualizar estes dados na Tabela~\ref{tab:mem_gs_media}.
 \begin{tabular}{l|l|l|l|l|l|l|l|l}
 \hline
 \hline
-\multirow{2}{*}{Microsserviços} & \multicolumn{2}{l|}{Quadrante 1} & \multicolumn{2}{l|}{Quadrante 2} & \multicolumn{2}{l|}{Quadrante 3} & \multicolumn{2}{l}{Quadrante 4} \\ \cline{2-9} 
+\multirow{2}{*}{Microsserviços} & \multicolumn{2}{l|}{Quadrante 1} & \multicolumn{2}{l|}{Quadrante 2} & \multicolumn{2}{l|}{Quadrante 3} & \multicolumn{2}{l}{Quadrante 4} \\ \cline{2-9}
                                 & Média  & Total                   & Média  & Total                   & Média  & Total                   & Média  & Total                   \\ \hline \hline
 rauth                           & 8 \%   & \multirow{4}{*}{33 \%}  & 9 \%   & \multirow{4}{*}{41 \%}  & 9 \%   & \multirow{4}{*}{49 \%}  & 9 \%   & \multirow{4}{*}{53 \%}  \\ \cline{1-2} \cline{4-4} \cline{6-6} \cline{8-8}
 rcrud                           & 11 \%  &                         & 14 \%  &                         & 17 \%  &                         & 18 \%  &                         \\ \cline{1-2} \cline{4-4} \cline{6-6} \cline{8-8}
@@ -1966,31 +1961,33 @@ A Tabela~\ref{tab:resultados_experimentos} exibe as comparações obtidas a part
 \caption{Resultados obtidos a partir dos dados capturados.}
 \label{tab:resultados_experimentos}
 
-\begin{tabular}{l|l||l|l|l}
+\begin{tabular}{l|l||l|l|l|l}
 \hline \hline
-\multicolumn{2}{l||}{Critério}                                                                          & Rudy        & Salz        & Willson     \\ \hline \hline
-\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}}Tempo\\ de Resposta\end{tabular}}  & Criar Conta           & Maior valor & Valor médio & Menor valor \\ \cline{2-5} 
-                                                                                & Criar Personagem      & Maior valor & Valor médio & Menor valor \\ \cline{2-5} 
-                                                                                & Iniciar Sessão        & Maior valor & Menor valor & Valor médio \\ \cline{2-5} 
-                                                                                & Instanciar Personagem & Valor médio & Maior valor & Menor valor \\ \cline{2-5} 
-                                                                                & Movimentar Personagem & Valor médio & Maior valor & Menor valor \\ \cline{2-5} 
-                                                                                & Enviar Mensagem       & Maior valor & Valor médio & Menor valor \\ \cline{2-5} 
-                                                                                & Receber Mensagem      & Maior valor & Valor médio & Menor valor \\ \hline \hline
-\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Consumo\\ de CPU\end{tabular}}     & Banco de Dados        & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
-                                                                                & Microsserviços        & Valor médio & Menor valor & Maior valor \\ \hline \hline
-\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Consumo\\ de Memória\end{tabular}} & Banco de Dados        & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
-                                                                                & Microsserviços        & Valor médio & Maior valor & Menor valor \\ \hline \hline
-\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Entrada\\ de Rede\end{tabular}}    & Banco de Dados        & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
-                                                                                & Microsserviços        & Menor valor & Valor médio & Maior valor \\ \hline \hline
-\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Saída\\ de Rede\end{tabular}}      & Banco de Dados        & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
-                                                                                & Microsserviços        & Maior valor & Valor médio & Menor valor \\ \hline \hline
+\multicolumn{2}{l||}{Critério}                                                                          & Rudy        & Salz        & Willson & Otimizado    \\ \hline \hline
+\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}}Tempo\\ de Resposta\end{tabular}}  & Criar Conta           & Maior valor & Valor médio & Menor valor & Willson \\ \cline{2-6}
+                                                                                & Criar Personagem      & Maior valor & Valor médio & Menor valor & Willson \\ \cline{2-6}
+                                                                                & Iniciar Sessão        & Maior valor & Menor valor & Valor médio & Salz \\ \cline{2-6}
+                                                                                & Instanciar Personagem & Valor médio & Maior valor & Menor valor & Willson \\ \cline{2-6}
+                                                                                & Movimentar Personagem & Valor médio & Maior valor & Menor valor & Willson \\ \cline{2-6}
+                                                                                & Enviar Mensagem       & Maior valor & Valor médio & Menor valor & Willson \\ \cline{2-6}
+                                                                                & Receber Mensagem      & Maior valor & Valor médio & Menor valor & Willson \\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Consumo\\ de CPU\end{tabular}}     & Banco de Dados        & Menor valor & Valor médio & Maior valor & Rudy \\ \cline{2-6}
+                                                                                & Microsserviços        & Valor médio & Menor valor & Maior valor & Salz \\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Consumo\\ de Memória\end{tabular}} & Banco de Dados        & Menor valor & Valor médio & Maior valor & Rudy \\ \cline{2-6}
+                                                                                & Microsserviços        & Valor médio & Maior valor & Menor valor & Willson \\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Entrada\\ de Rede\end{tabular}}    & Banco de Dados        & Menor valor & Valor médio & Maior valor & Rudy \\ \cline{2-6}
+                                                                                & Microsserviços        & Menor valor & Valor médio & Maior valor & Rudy \\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Saída\\ de Rede\end{tabular}}      & Banco de Dados        & Menor valor & Valor médio & Maior valor & Rudy \\ \cline{2-6}
+                                                                                & Microsserviços        & Maior valor & Valor médio & Menor valor & Willson \\ \hline \hline
 \end{tabular}
 \end{adjustbox}
 
 Fonte: O próprio autor.
 \end{table}
-%ccm Informar o que significa maior valor, menor valor e médio valor em uma coluna de obasevação
+
 A partir da Tabela~\ref{tab:resultados_experimentos}, podemos observar comportamentos aproximados, na qual respeitam as relações obtidas.
+%
+Tal tabela também exibe qual o valor mais otimizado, a partir do critério de tempo de resposta e consumo de recursos, ambos sendo minimizados.
 %
 Faz sentido simplificar os resultados obtidos, exibidos na Tabela~\ref{tab:resultados_experimentos}, justificando pelo funcionamento das arquiteturas.
 %
@@ -2014,20 +2011,20 @@ A Tabela~\ref{tab:resultados_experimentos_simplificados} exibe os comportamentos
 \caption{Resultados obtidos a partir dos dados capturados.}
 \label{tab:resultados_experimentos_simplificados}
 
-\begin{tabular}{l|l||l|l|l}
+\begin{tabular}{l|l||l|l|l|l}
 \hline \hline
-\multicolumn{2}{l||}{Critério}                                                                     & Rudy        & Salz        & Willson     \\ \hline \hline
-\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Tempo\\ de Resposta\end{tabular}}  & Operações Web      & Maior valor & Valor médio & Menor valor \\ \cline{2-5}
-                                                                              & Operação de Sessão & Maior valor & Menor valor & Valor médio \\ \cline{2-5} 
-                                                                              & Operações do Mundo & Valor médio & Maior valor & Menor valor \\ \cline{2-5} 
-                                                                              & Operações de Chat  & Maior valor & Valor médio & Menor valor \\ \hline \hline
-\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Consumo\\ de CPU\end{tabular}}     & Banco de Dados     & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
-                                                                              & Microsserviços     & Valor médio & Menor valor & Maior valor \\ \hline \hline
-\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Consumo\\ de Memória\end{tabular}} & Banco de Dados     & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
-                                                                              & Microsserviços     & Valor médio & Maior valor & Menor valor \\ \hline \hline
-\multicolumn{2}{l||}{Entrada de Rede}                                                              & Menor valor & Valor médio & Maior valor \\ \hline \hline
-\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Saída\\ de Rede\end{tabular}}      & Banco de Dados     & Menor valor & Valor médio & Maior valor \\ \cline{2-5} 
-                                                                              & Microsserviços     & Maior valor & Valor médio & Menor valor \\ \hline \hline
+\multicolumn{2}{l||}{Critério}                                                                     & Rudy        & Salz        & Willson & Otimizado \\ \hline \hline
+\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Tempo\\ de Resposta\end{tabular}}  & Operações Web      & Maior valor & Valor médio & Menor valor & Willson \\ \cline{2-6}
+                                                                              & Operação de Sessão & Maior valor & Menor valor & Valor médio & Salz\\ \cline{2-6}
+                                                                              & Operações do Mundo & Valor médio & Maior valor & Menor valor & Willson \\ \cline{2-6}
+                                                                              & Operações de Chat  & Maior valor & Valor médio & Menor valor & Willson \\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Consumo\\ de CPU\end{tabular}}     & Banco de Dados     & Menor valor & Valor médio & Maior valor & Rudy \\ \cline{2-6}
+                                                                              & Microsserviços     & Valor médio & Menor valor & Maior valor & Salz \\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Consumo\\ de Memória\end{tabular}} & Banco de Dados     & Menor valor & Valor médio & Maior valor & Rudy \\ \cline{2-6}
+                                                                              & Microsserviços     & Valor médio & Maior valor & Menor valor & Willson \\ \hline \hline
+\multicolumn{2}{l||}{Entrada de Rede}                                                              & Menor valor & Valor médio & Maior valor  & Rudy\\ \hline \hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Saída\\ de Rede\end{tabular}}      & Banco de Dados     & Menor valor & Valor médio & Maior valor & Rudy \\ \cline{2-6}
+                                                                              & Microsserviços     & Maior valor & Valor médio & Menor valor & Willson \\ \hline \hline
 \end{tabular}
 \end{adjustbox}
 
@@ -2046,7 +2043,11 @@ A partir destes dados, conclui-se que:
  \item \textbf{Saída de Rede dos microsserviços} relaciona-se  as requisições da operação de mundo, visto que tais operações possuem alta frequência de requisições.
 \end{itemize}
 
-%ccm Referenciar tabela de características do Cap. 4
+Percebe-se que ambas as arquiteturas foram limitadas pelo processamento do banco de dados.
+%
+Nota-se que o problema em torno dessas arquiteturas é a capacidade de processamento e distribuição de conteúdo para os jogadores, na qual a arquitetura Willson obteve o maior desempenho.
+%
+Este resultado era esperado na Tabela~\ref{tab:problemas} como limitação por processamento.
 
 \section{Considerações parciais}
 
@@ -2112,4 +2113,3 @@ Isto é um reflexo direto ao enfileiramento causado pelo microsserviço \textit{
 Entretanto, isolando o ambiente de microsserviços no critério de saída de rede, possui o menor e maior consumo para os ambientes de banco de dados e microsserviços respectivamente.
 %
 Esta característica é dada pelo elevado consumo de rede interna para realizar consultas ao banco de dados, devido ao microsserviço \textit{rcrud}.
-
