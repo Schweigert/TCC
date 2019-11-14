@@ -101,7 +101,7 @@ O microsserviço responsável por receber estas requisições não lida com conc
 A Figura~\ref{fig:create_account_operation_request_time} torna visível que o comportamento do tempo de resposta não depende do número de jogadores simultâneos.
 
 \begin{figure}[htb!]
-  \caption{Tempo de resposta para criar contas}
+  \caption{Tempo de resposta para Criar Contas.}
   \label{fig:create_account_operation_request_time}
   \includegraphics[width=0.8\textwidth]{figuras/analise/rt/create_account_operation_request_time.png}
   \centering
@@ -124,7 +124,7 @@ A Tabela~\ref{tab:create_account_operation_request_time} exibe estes valores est
 \begin{table}[htb!]
 \centering
 \begin{adjustbox}{max width=\textwidth}
-\caption{Média, Variância, Máximo e Mínimo da operação Criar Conta}
+\caption{Média, Variância, Máximo e Mínimo da operação Criar Conta.}
 \label{tab:create_account_operation_request_time}
 \begin{tabular}{l|l|l|l|l}
 \hline \hline
@@ -163,7 +163,7 @@ Dessa forma, pode-se dizer que para a operação de criar conta, em média do po
 %
 Também pode-se afirmar que a estabilidade desta operação, do ponto de vista de tempo de resposta, também segue a mesma sequência.
 %
-Tal melhoria é apresentada pela economia de \ac{cpu} pela arquitetura Willson, a qual será apresentado na Sessão~\ref{sec:exp_cpu}, em função da quantidade de processos da arquitetura.
+Tal melhoria é apresentada pela economia de \ac{cpu} pela arquitetura Willson, a qual será apresentado na Seção~\ref{sec:exp_cpu}, em função da quantidade de processos da arquitetura.
 
 \subsubsection{Criar personagem}
 \label{sec:op_create_char}
@@ -174,8 +174,12 @@ Nesta operação, o cliente envia um formulário em formato \ac{json} com inform
 %
 Os dados são validados e inseridos no banco de dados, caso a validação esteja correta.
 
+Como pode-se perceber, através da Figura~\ref{fig:create_character_operation_request}, o comportamento do tempo de resposta da perspectiva do cliente é similar a operação Criar Conta.
+%
+Sendo assim, faz sentido aplicar o mesmo método de análise para validar a existência de comportamentos similares, haja vista que a natureza desta operação é similar a criação de personagem.
+
 \begin{figure}[htb!]
-  \caption{Tempo de resposta para criar personagens}
+  \caption{Tempo de resposta para criar personagens.}
   \label{fig:create_character_operation_request}
   \includegraphics[width=0.8\textwidth]{figuras/analise/rt/create_character_operation_request.png}
   \centering
@@ -183,18 +187,17 @@ Os dados são validados e inseridos no banco de dados, caso a validação esteja
   Fonte: O próprio autor.
 \end{figure}
 
-Como pode-se perceber, através da Figura~\ref{fig:create_character_operation_request}, o comportamento do tempo de resposta da perspectiva do cliente é similar a operação criar conta (Subseção~\ref{sec:op_create_account}).
-%
-Sendo assim, faz sentido aplicar o mesmo método de análise para validar a existência de comportamentos similares, haja vista que a natureza desta operação é similar a criação de personagem.
+
 
 Seguindo o método da média dos dados obtidos, pode-se obter os valores de média, variância, máximo e mínimo.
 %
 É possível visualizar estes valores na Tabela~\ref{tab:create_character_operation_request}.
-
+\pagebreak
 \begin{table}[htb!]
 \centering
 \begin{adjustbox}{max width=\textwidth}
-\caption{Média, Variância, Máximo e Mínimo da operação Criar Personagem}
+\caption{Média, Variância, Máximo e Mínimo da operação Criar Personagem.}
+\vspace{-0.3cm}
 \label{tab:create_character_operation_request}
 \begin{tabular}{l|l|l|l|l}
 \hline \hline
@@ -209,13 +212,14 @@ Willson     & 73,66 ms & 4886,60  & 301,0 ms  & 22,0 ms \\ \hline \hline
 Fonte: O próprio autor.
 \end{table}
 
-A partir da Tabela~\ref{tab:create_character_operation_request}, pode-se observar que a média dos valores segue o comportamento encontrado na operação Criar Conta (Subseção~\ref{sec:op_create_account}).
+\vspace{-0.3cm}
+A partir da Tabela~\ref{tab:create_character_operation_request}, pode-se observar que a média dos valores segue o comportamento encontrado na operação Criar Conta.
 %
 Entretanto, é notório a diferença com relação a estabilidade da operação de criação de personagem.
 
 Para realizar esta operação, o serviço realiza diversas validações, geralmente efetuando a troca de mensagens entre os microsserviços de autenticação e validações de campos.
 %
-Tal situação, diferente da operação Criar Conta (Subseção~\ref{sec:op_create_account}), realiza poucas validações lógicas de regra de negócio, aplicando-as diretamente ao banco de dados PostgreSQL.
+Tal situação, diferente da operação Criar Conta, realiza poucas validações lógicas de regra de negócio, aplicando-as diretamente ao banco de dados PostgreSQL.
 
 A partir desta característica, pode-se analisar a diferença na estabilidade entre as arquiteturas Rudy e Salz.
 %
@@ -228,13 +232,13 @@ Mesmo existindo uma flutuação maior na arquitetura Salz, nota-se que seus pont
 Logo, por mais que o tempo de resposta tenha uma maior flutuação na arquitetura Salz, a arquitetura Rudy entrega uma menor qualidade.
 %
 Sendo assim, define-se a seguinte relação:
-
+\vspace{-0.3cm}
 $$
   \overline{CriarPersonagem_{w}} < \overline{CriarPersonagem_{s}} <\overline{CriarPersonagem_{r}}
 $$
-
+\vspace{-0.3cm}
 Na qual entende-se:
-
+\vspace{-0.3cm}
 \begin{itemize}
  \item $\overline{CriarPersonagem_{r}}$: Tempo de resposta médio da operação criar personagem na arquitetura Rudy;
  \item $\overline{CriarPersonagem_{s}}$: Tempo de resposta médio da operação criar personagem na arquitetura Salz; e
@@ -257,18 +261,22 @@ Nesta operação, o cliente envia um formulário em formato \ac{gob} com informa
 %
 Os dados são validados e o serviço retorna um dado assinado e armazenado, esse dados garante a singularidade da sessão da conta.
 
+Tal qual as análises realizadas sobre as operações Criar Conta (Subseção~\ref{sec:op_create_account}) e Criar Personagem (Subseção~\ref{sec:op_create_char}), a Figura~\ref{fig:start_session_request_time} exibe o tempo de requisições que foram realizadas somente uma vez por cliente.
+%
+Os dados capturados mostram que o tempo de resposta segue uma tenência linear conforme o crescimento dos jogadores, diferente das outras operações.
+
 \begin{figure}[htb!]
-  \caption{Tempo de resposta para iniciar sessões}
+  \caption{Tempo de resposta para iniciar sessões.}
+  \vspace{-0.3cm}
   \label{fig:start_session_request_time}
   \includegraphics[width=0.8\textwidth]{figuras/analise/rt/start_session_request_time.png}
   \centering
 
+  \vspace{-0.3cm}
   Fonte: O próprio autor.
 \end{figure}
 
-Tal qual as análises realizadas sobre as operações Criar Conta (Subseção~\ref{sec:op_create_account}) e Criar Personagem (Subseção~\ref{sec:op_create_char}), a Figura~\ref{fig:start_session_request_time} exibe o tempo de requisições que foram realizadas somente uma vez por cliente.
-%
-Os dados capturados mostram que o tempo de resposta segue uma tenência linear conforme o crescimento dos jogadores, diferente das outras operações.
+
 
 A partir dessa diferença de comportamento, faz sentido analisar se existe algum crescimento, baseado na diluição destes dados a valores mais significativos para comparação.
 %
@@ -354,50 +362,60 @@ Nesse sentido, a média não apresenta um comportamento linear.
 Porém, pode-se observar um comportamento de crescimento linear a partir da variância.
 %
 Dessa forma, deduz-se a seguinte relação:
-
+\vspace{-0.3cm}
 $$
   \overline{IniciarSessao_{s}} < \overline{IniciarSessao_{w}} <\overline{IniciarSessao_{r}}
 $$
-
+\vspace{-0.3cm}
 Na qual entende-se:
-
+\vspace{-0.3cm}
 \begin{itemize}
  \item $\overline{IniciarSessao_{r}}$: Tempo de resposta médio da operação iniciar sessão na arquitetura Rudy;
+ \vspace{-0.3cm}
  \item $\overline{IniciarSessao_{s}}$: Tempo de resposta médio da operação iniciar sessão na arquitetura Salz; e
+ \vspace{-0.3cm}
  \item $\overline{IniciarSessao_{w}}$: Tempo de resposta médio da operação iniciar sessão na arquitetura. Willson;
 \end{itemize}
 
+\vspace{-0.3cm}
 Este é o tempo de resposta mais rápido da arquitetura Salz, e tal característica é diretamente relacionado ao microsserviço de autenticação estar público aos jogadores, sem a necessidade de um intermediador dessas mensagens.
 %
-Entretanto, a arquitetura Salz não apresentou bons resultados quando comparados a tempo de resposta de \textit{chat} ou \textit{game}, por conta da saturação da \ac{cpu} nesta arquiteutra.
+Entretanto, a arquitetura Salz não apresentou bons resultados quando comparados a tempo de resposta de \textit{chat} ou \textit{game}, por conta da saturação da \ac{cpu} nesta arquitetura.
 
 \subsubsection{Instanciar personagem}
 
-A operação de instanciar personagem é efetuada sobre o protocolo \ac{tcp}/\ac{rpc}.
+A operação de instanciar personagem é efetuada usando \ac{tcp}/\ac{rpc}.
 %
 Nesta operação, o cliente envia um formulário em formato \ac{gob}, com informações de autenticação assinadas pelo serviço junto a informação de qual personagem deve ser instanciado no mundo virtual.
 %
 Os dados são validados e o personagem selecionado é instanciado no mundo.
+%
+A Figura~\ref{fig:spawn_character_request_time} exibe o mesmo comportamento da operação iniciar sessão, abordada na Subseção~\ref{sec:op_start_session}.
+%
 
+
+% \vspace{-0.3cm}
 \begin{figure}[htb!]
-  \caption{Tempo de resposta para instanciar personagens}
+  \caption{Tempo de resposta para Instanciar Personagens.}
+  \vspace{-0.3cm}
   \label{fig:spawn_character_request_time}
   \includegraphics[width=0.8\textwidth]{figuras/analise/rt/spawn_character_request_time.png}
   \centering
 
+  \vspace{-0.3cm}
   Fonte: O próprio autor.
 \end{figure}
 
-A Figura~\ref{fig:spawn_character_request_time} exibe o mesmo comportamento da operação iniciar sessão, abordada na Subseção~\ref{sec:op_start_session}.
-%
 Faz sentido aplicar os mesmos métodos para obter informações neste contexto, obtendo os valores de média e variância por quadrante.
 %
 Tais informações são exibidas na Tabela~\ref{tab:op_spawn_character}.
 
+\pagebreak
+
 \begin{table}[htb!]
 \centering
 \begin{adjustbox}{max width=\textwidth}
-\caption{Tempo de resposta médio e variância dos quadrantes para instanciar personagem.}
+\caption{Tempo de resposta médio e variância dos quadrantes para Instanciar Personagem.}
 \label{tab:op_spawn_character}
 \begin{tabular}{l||l|l||l|l||l|l}
 
@@ -496,6 +514,10 @@ Nesta operação, o cliente envia um formulário em formato \ac{gob} com informa
 %
 Os dados são validados e a linha de texto é distribuída aos personagens dentro do raio de visão do personagem emissor instanciado.
 
+A Figura~\ref{fig:send_chat_request_time} exibe os dados obtidos de tempo de resposta ao enviar uma mensagem no chat durante a variação do número de jogadores simultâneos.
+%
+Percebe-se um gráfico denso, dada a quantidade de pontos obtidos nos testes.
+
 \begin{figure}[htb!]
   \caption{Tempo de resposta para enviar mensagens}
   \label{fig:send_chat_request_time}
@@ -505,14 +527,12 @@ Os dados são validados e a linha de texto é distribuída aos personagens dentr
   Fonte: O próprio autor.
 \end{figure}
 
-A Figura~\ref{fig:send_chat_request_time} exibe os dados obtidos de tempo de resposta ao enviar uma mensagem no chat durante a variação do número de jogadores simultâneos.
-%
-Percebe-se um gráfico denso, dada a quantidade de pontos obtidos nos testes.
+
 %
 Dessa forma, faz sentido analisar o comportamento médio por jogador simultâneo.
 %
 A Figura~\ref{fig:send_chat_request_time_per_concurrency} exibe o comportamento médio por jogador simultâneo.
-
+\pagebreak
 
 \begin{figure}[htb!]
   \caption{Tempo médio de resposta para enviar mensagens comparado ao número de jogadores simultâneos}
@@ -545,6 +565,10 @@ Nesta operação, o cliente envia um formulário em formato \ac{gob} com informa
 %
 Os dados são validados e o serviço retorna todas as linhas de texto que foram encaminhadas ao personagem instanciado.
 
+A Figura~\ref{fig:listen_chat_request_time} exibe os dados obtidos de tempo de resposta ao receber uma mensagem no chat, durante a variação do número de jogadores simultâneos.
+%
+Percebe-se um gráfico denso, dada a quantidade de pontos obtidos nos testes.
+
 \begin{figure}[htb!]
   \caption{Tempo de resposta para receber mensagens}
   \label{fig:listen_chat_request_time}
@@ -554,9 +578,7 @@ Os dados são validados e o serviço retorna todas as linhas de texto que foram 
   Fonte: O próprio autor.
 \end{figure}
 
-A Figura~\ref{fig:listen_chat_request_time} exibe os dados obtidos de tempo de resposta ao receber uma mensagem no chat, durante a variação do número de jogadores simultâneos.
-%
-Percebe-se um gráfico denso, dada a quantidade de pontos obtidos nos testes.
+
 %
 Dessa forma, faz sentido analisar o comportamento médio por jogador simultâneo.
 %
@@ -615,26 +637,26 @@ O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimen
 
 
 \begin{figure}[htb!]
-    \caption{Consumo de \ac{cpu} dos bancos de dados}
+    \caption{Consumo de \ac{cpu} dos bancos de dados.}
     \label{fig:experimento_db_cpu}
 
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/testes/r_cpu_db.png}
-        \caption{Bancos de Dados da arquitetura Rudy}
+        \caption{Bancos de Dados da arquitetura Rudy.}
         \label{fig:r_cpu_db}
     \end{subfigure}%
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/testes/s_cpu_db.png}
-        \caption{Bancos de Dados da arquitetura Salz}
+        \caption{Bancos de Dados da arquitetura Salz.}
         \label{fig:s_cpu_db}
     \end{subfigure}\\
 
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/testes/w_cpu_db.png}
-        \caption{Bancos de Dados da arquitetura Willson}
+        \caption{Bancos de Dados da arquitetura Willson.}
         \label{fig:w_cpu_db}
     \end{subfigure}
 
@@ -958,15 +980,15 @@ Pode-se deduzir as seguintes características a partir da Figura~\ref{fig:cpu_ga
 
 Dado o último critério, utilizando a curva de total consumido das Subfiguras~\ref{fig:cpu_r_arch_media_por_jogador}, ~\ref{fig:cpu_s_arch_media_por_jogador} e ~\ref{fig:cpu_w_arch_media_por_jogador},  pode-se comparar o total de consumo de \ac{cpu} por cada arquitetura.
 %
-A Tabela~\ref{tab:consumo_total_cpu} exibe os valores baseados em quadrantes, para realizar a comparação com valores.
+A Tabela~\ref{tab:consumo_total_cpu} exibe os valores baseados em quadrantes para comparação.
 
-
+\vspace{-0.3cm}
 \begin{table}[htb!]
 \centering
 \begin{adjustbox}{max width=\textwidth}
 \caption{Consumo total de \ac{cpu} por quadrante dos microsserviços.}
 \label{tab:consumo_total_cpu}
-
+\vspace{-0.3cm}
 \begin{tabular}{l|l|l|l|l}
 \hline \hline
 Arquitetura & Primeiro Quadrante & Segundo Quadrante & Terceiro Quadrante & Quarto Quadrante \\ \hline \hline
@@ -979,35 +1001,38 @@ Willson     & 44,60\%            & 65,76\%           & 67,94\%            & 66,9
 Fonte: O próprio autor.
 \end{table}
 
-A partir dos dados da Tabela~\ref{tab:consumo_total_cpu}, pode-se referenciar que a arquitetura Salz consome menos \ac{cpu} que a arquitetura Rudy e Willson.
+\vspace{-0.3cm}
+A partir dos dados da Tabela~\ref{tab:consumo_total_cpu}, pode-se deduzir que a arquitetura Salz consome menos \ac{cpu} que a arquitetura Rudy e Willson.
 %
-Faz sentido realizar a visualização das três curvas de totais em um único gráfico, a fim de exibir esta relação identificada.
-%
-A Figura~\ref{fig:consumo_total_cpu} exibe esta comparação.
+Faz sentido realizar a visualização das três curvas de totais em um único gráfico, a fim de exibir esta relação identificada (Figura~\ref{fig:consumo_total_cpu}).
 
+\vspace{-0.3cm}
 \begin{figure}[htb!]
   \caption{Comparação de consumo total de \ac{cpu} pelas arquiteturas.}
+  \vspace{-0.5cm}
   \label{fig:consumo_total_cpu}
   \includegraphics[width=0.8\textwidth]{figuras/analise/cpu_total_archs.png}
   \centering
 
+  \vspace{-0.3cm}
   Fonte: O próprio autor.
 \end{figure}
 
 Dado a Figura~\ref{fig:consumo_total_cpu} e a Tabela~\ref{tab:consumo_total_cpu}, pode-se afirmar que:
-
+\vspace{-0.3cm}
 $$
     CPU(microsservicos_{s}) < CPU(microsservicos_{r}) < CPU(microsservicos_{w})
 $$
-
+\vspace{-0.3cm}
 Na qual entende-se:
-
+\vspace{-0.3cm}
 \begin{itemize}
 \item $CPU(microsservicos_{r})$: Curva de consumo de \ac{cpu} pelos microsserviços da arquitetura Rudy;
 \item $CPU(microsservicos_{s})$: Curva de consumo de \ac{cpu} pelos microsserviços da arquitetura Salz; e
 \item $CPU(microsservicos_{w})$: Curva de consumo de \ac{cpu} pelos microsserviços da arquitetura Willson.
 \end{itemize}
 
+\vspace{-0.3cm}
 Torna-se notório que tal sequência respeita a ordem de interconexões dos microsserviços.
 %
 Nesse sentido, a arquitetura Salz possui mais conexões que a arquitetura Rudy, que possui mais conexões que a arquitetura Willson.
@@ -1049,56 +1074,57 @@ Neste contexto existem os seguintes valores:
 
 
 \begin{itemize}
-    \item Jogadores simultâneos: Variável capturada a partir do microsserviço de jogo; e
-    \item Consumo de memória: Variável capturada a partir do monitor de recursos do Docker.
+    \item Jogadores simultâneos: Capturado a partir do microsserviço de jogo; e
+    \item Consumo de memória: Capturado a partir do monitor de recursos do Docker.
 \end{itemize}
 
 Nota-se que o número de jogadores simultâneos e o consumo de memória são indexados pelo tempo a qual tais dados foram capturados.
 %
 Nesse sentido, pode-se relacionar, o número de jogadores simultâneos ao consumo de memória dos microsserviços e do banco de dados.
 %
-Dado tal contexto, faz sentido realizar uma análise separando os ambientes de Banco de Dados de Microsserviços.
+%Dado tal contexto, faz sentido realizar uma análise separando os ambientes de Banco de Dados de Microsserviços.
 
 \subsubsection{Banco de Dados}
 
 
 
-Considerando o ambiente de banco de dados, pode-se realizar a associação do número de jogadores simultâneos e a memória consumida pelos contêineres de banco de dados.
+Pode-se realizar a associação do número de jogadores simultâneos e a memória consumida pelos contêineres de banco de dados.
 %
 Essa associação é realizada pelo tempo de registro das métricas.
 %
 O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_db_mem}.
 
 
-
+\vspace{-0.3cm}
 \begin{figure}[htb!]
-    \caption{Consumo de memória dos bancos de dados}
+    \caption{Consumo de memória dos bancos de dados.}
     \label{fig:experimento_db_mem}
-
+\vspace{-0.3cm}
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/testes/r_mem_db.png}
-        \caption{Bancos de Dados da arquitetura Rudy}
+        \caption{Bancos de Dados da arquitetura Rudy.}
         \label{fig:r_mem_db}
     \end{subfigure}%
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/testes/s_mem_db.png}
-        \caption{Bancos de Dados da arquitetura Salz}
+        \caption{Bancos de Dados da arquitetura Salz.}
         \label{fig:s_mem_db}
     \end{subfigure}\\
 
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/testes/w_mem_db.png}
-        \caption{Bancos de Dados da arquitetura Willson}
+        \caption{Bancos de Dados da arquitetura Willson.}
         \label{fig:w_mem_db}
     \end{subfigure}
 
+    \vspace{-0.3cm}
     Fonte: O próprio autor.
 \end{figure}
 
-Percebe-se, a partir da Figura~\ref{fig:experimento_db_mem}, que o banco de daados com maior estresse é o PostgreSQL.
+Percebe-se, a partir da Figura~\ref{fig:experimento_db_mem}, que o banco de dados com maior estresse é o PostgreSQL.
 %
 O banco de dados Redis consome uma quantidade de memória visivelmente constante.
 %
@@ -1219,23 +1245,25 @@ Tal correlação é visível na Figura~\ref{fig:mem_db_media_por_jogador}.
   Fonte: O próprio autor.
 \end{figure}
 
-A partir da Figura~\ref{fig:mem_db_media_por_jogador} pode-se confirmar as conclusões parciais obtidas da Tabela~\ref{tab:cpu_db_media_quadrantes}.
+A partir da Figura~\ref{fig:mem_db_media_por_jogador} pode-se confirmar as hipóteses obtidas da Tabela~\ref{tab:cpu_db_media_quadrantes}.
 %
-Além das conclusões parciais, é possível visualizar o crescimento da média a cada incremento de jogador simultâneo.
+Além destas hipóteses, é possível visualizar o crescimento da média a cada incremento de jogador simultâneo.
 %
 Sendo assim, pode-se concluir que o serviço de banco de dados PostgreSQL de fato foi estressado, haja vista que pode-se perceber inicialmente um comportamento na qual não corresponde a uma curva multimodal.
 
 A partir destes dados conclui-se que:
-
+\vspace{-0.3cm}
 $$
     MEM(db\_postgresql_{r}) < MEM(db\_postgresql_{s}) \approx MEM(db\_postgresql_{w})
 $$
-
+\vspace{-0.3cm}
 Na qual entende-se:
-
+\vspace{-0.3cm}
 \begin{itemize}
 \item $MEM(db\_postgresql_{r})$: Curva de consumo de memória do PostgreSQL pela arquitetura Rudy;
+\vspace{-0.3cm}
 \item $MEM(db\_postgresql_{s})$: Curva de consumo de memória do PostgreSQL pela arquitetura Salz; e
+\vspace{-0.3cm}
 \item $MEM(db\_postgresql_{w})$: Curva de consumo de memória do PostgreSQL pela arquitetura Willson.
 \end{itemize}
 
@@ -1248,31 +1276,32 @@ Essa associação é realizada pelo tempo de registro das métricas.
 %
 O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_gs_mem}.
 
-
+\vspace{-0.3cm}
 \begin{figure}[htb!]
-    \caption{Consumo de memória dos microsserviços}
+    \caption{Consumo de memória dos microsserviços.}
     \label{fig:experimento_gs_mem}
 
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/testes/r_mem_game.png}
-        \caption{Microsserviço da arquitetura Rudy}
+        \caption{Microsserviço da arquitetura Rudy.}
         \label{fig:r_mem_game}
     \end{subfigure}%
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/testes/s_mem_game.png}
-        \caption{Microsserviço da arquitetura Salz}
+        \caption{Microsserviço da arquitetura Salz.}
         \label{fig:s_mem_game}
     \end{subfigure}\\
 
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/testes/w_mem_game.png}
-        \caption{Microsserviço da arquitetura Willson}
+        \caption{Microsserviço da arquitetura Willson.}
         \label{fig:w_mem_game}
     \end{subfigure}
 
+    \vspace{-0.3cm}
     Fonte: O próprio autor.
 \end{figure}
 
@@ -1387,26 +1416,26 @@ Essa associação é realizada pelo tempo de registro das métricas.
 O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_db_net_in}.
 
 \begin{figure}[htb!]
-    \caption{Entrada de dados da rede dos bancos de dados}
+    \caption{Entrada de dados da rede dos bancos de dados.}
     \label{fig:experimento_db_net_in}
 
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/analise/rt/r_net_in_db.png}
-        \caption{Bancos de Dados da arquitetura Rudy}
+        \caption{Bancos de Dados da arquitetura Rudy.}
         \label{fig:r_netin_db}
     \end{subfigure}%
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/analise/rt/s_net_in_db.png}
-        \caption{Bancos de Dados da arquitetura Salz}
+        \caption{Bancos de Dados da arquitetura Salz.}
         \label{fig:s_netin_db}
     \end{subfigure}\\
 
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/analise/rt/w_net_in_db.png}
-        \caption{Bancos de Dados da arquitetura Willson}
+        \caption{Bancos de Dados da arquitetura Willson.}
         \label{fig:w_netin_db}
     \end{subfigure}
 
@@ -1504,28 +1533,28 @@ Considerando o ambiente de microsserviços, pode-se realizar a associação do n
 Essa associação é realizada pelo tempo de registro das métricas.
 %
 O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_gs_net_in}.
-
+\pagebreak
 \begin{figure}[htb!]
-    \caption{Entrada de dados da rede de microsserviços}
+    \caption{Entrada de dados da rede de microsserviços.}
     \label{fig:experimento_gs_net_in}
 
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/analise/rt/r_net_in_arch.png}
-        \caption{Microsserviços da arquitetura Rudy}
+        \caption{Microsserviços da arquitetura Rudy.}
         \label{fig:r_netin_gs}
     \end{subfigure}%
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/analise/rt/s_net_in_arch.png}
-        \caption{Microsserviços da arquitetura Salz}
+        \caption{Microsserviços da arquitetura Salz.}
         \label{fig:s_netin_gs}
     \end{subfigure}\\
 
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/analise/rt/w_net_in_arch.png}
-        \caption{Microsserviços da arquitetura Willson}
+        \caption{Microsserviços da arquitetura Willson.}
         \label{fig:w_netin_gs}
     \end{subfigure}
 
@@ -1675,28 +1704,28 @@ Considerando o ambiente de banco de dados, pode-se realizar a associação de n�
 Essa associação é realizada pelo tempo de registro das métricas.
 %
 O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_db_net_out}.
-
+\pagebreak
 \begin{figure}[htb!]
-    \caption{Saída de dados da rede dos bancos de dados}
+    \caption{Saída de dados da rede dos bancos de dados.}
     \label{fig:experimento_db_net_out}
 
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/analise/rt/r_net_out_db.png}
-        \caption{Bancos de Dados da arquitetura Rudy}
+        \caption{Bancos de Dados da arquitetura Rudy.}
         \label{fig:r_netout_db}
     \end{subfigure}%
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/analise/rt/s_net_out_db.png}
-        \caption{Bancos de Dados da arquitetura Salz}
+        \caption{Bancos de Dados da arquitetura Salz.}
         \label{fig:s_netout_db}
     \end{subfigure}\\
 
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/analise/rt/w_net_out_db.png}
-        \caption{Bancos de Dados da arquitetura Willson}
+        \caption{Bancos de Dados da arquitetura Willson.}
         \label{fig:w_netout_db}
     \end{subfigure}
 
@@ -1720,7 +1749,7 @@ O comportamento da vazão da rede de saída de dados é visível na Figura~\ref{
   Fonte: O próprio autor.
 \end{figure}
 
-Percebe-se que o comportamento de vazão de saída da rede segue o mesmo padrão da entrada de rede para a rede de banco de dados, tal característa é visível ao comparar a Figura~\ref{fig:net_out_db} e ~\ref{fig:net_in_db}.
+Percebe-se que o comportamento de vazão de saída da rede segue o mesmo padrão da entrada de rede para a rede de banco de dados, tal característica é visível ao comparar a Figura~\ref{fig:net_out_db} e \ref{fig:net_in_db}.
 %
 Faz sentido analisar os quadrantes, validando se os valores encontrados de média de saída de rede seguem o comportamento da entrada de rede.
 %
@@ -1796,26 +1825,26 @@ Essa associação é realizada pelo tempo de registro das métricas.
 O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimento_game_net_out}.
 
 \begin{figure}[htb!]
-    \caption{Saída de dados da rede dos microsserviços}
+    \caption{Saída de dados da rede dos microsserviços.}
     \label{fig:experimento_game_net_out}
 
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/analise/rt/r_net_out_arch.png}
-        \caption{Bancos de Dados da arquitetura Rudy}
+        \caption{Bancos de Dados da arquitetura Rudy.}
         \label{fig:r_netout_arch}
     \end{subfigure}%
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/analise/rt/s_net_out_arch.png}
-        \caption{Bancos de Dados da arquitetura Salz}
+        \caption{Bancos de Dados da arquitetura Salz.}
         \label{fig:s_netout_arch}
     \end{subfigure}\\
 
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=.95\linewidth]{figuras/analise/rt/w_net_out_arch.png}
-        \caption{Bancos de Dados da arquitetura Willson}
+        \caption{Bancos de Dados da arquitetura Willson.}
         \label{fig:w_netout_arch}
     \end{subfigure}
 
@@ -1825,7 +1854,7 @@ O resultado desta associação pode ser visualizado na Figura~\ref{fig:experimen
 A Figura~\ref{fig:experimento_game_net_out} exibe os mesmos comportamentos da entrada de rede.
 %
 A partir da Figura~\ref{fig:experimento_game_net_out}, pode-se deduzir os seguintes comportamentos para as arquiteturas de microsserviços:
-
+\vspace{-0.3cm}
 $$
      Saida_{rweb} < Saida_{rgame} < Saida_{rauth} < Saida_{rcrud}
 $$
@@ -1835,9 +1864,9 @@ $$
 $$
      Saida_{wweb} < Saida_{wgame} < Saida_{wauth}
 $$
-
+\vspace{-0.3cm}
 Na qual entende-se:
-
+\vspace{-0.3cm}
 \begin{itemize}
  \item $Saida_{rweb}$: Curva de saída do microsserviço web na arquitetura Rudy;
  \item $Saida_{rgame}$: Curva de saída do microsserviço game na arquitetura Rudy;
@@ -1855,19 +1884,21 @@ Na qual entende-se:
 A partir da dedução da Figura~\ref{fig:experimento_game_net_out}, pode-se dizer que o comportamento de entrada e saída dos microsserviços seguem a mesma tendência.
 %
 Nesse sentido, pode-se apresentar a seguinte dedução:
-
+\vspace{-0.3cm}
 $$
      Rede_{rweb} < Rede_{rgame} < Rede_{rauth} < Rede_{rcrud}
 $$
+\vspace{-0.3cm}
 $$
      Rede_{sweb} < Rede_{sgame} < Rede_{schat} < Rede_{sauth}
 $$
+\vspace{-0.3cm}
 $$
      Rede_{wweb} < Rede_{wgame} < Rede_{wauth}
 $$
-
+\vspace{-0.3cm}
 Na qual entende-se:
-
+\vspace{-0.3cm}
 \begin{itemize}
  \item $Rede_{rweb}$: Consumo da rede do microsserviço web na arquitetura Rudy;
  \item $Rede_{rgame}$: Consumo da rede do microsserviço game na arquitetura Rudy;
@@ -1944,7 +1975,7 @@ Deste modo, entende-se:
 \section{Análise unificada dos resultados}
 \label{sec:experimentos_conc}
 
-Este capítulo descreve os resultados obtidos a partir dos experimentos executados sobre as arquiteturas Rudy, Salz e Willson.
+Esta seção descreve os resultados obtidos a partir dos experimentos executados sobre as arquiteturas Rudy, Salz e Willson.
 %
 Tais experimentos foram baseados em um protocolo de execução, a qual garante a limpeza do ambiente evitando interferência de demais execuções.
 
@@ -1953,7 +1984,7 @@ Foram obtidas comparações ao realizar uma análise individual dos critérios o
 É possível realizar um aglomerado de todos os resultados em uma única tabela.
 %
 A Tabela~\ref{tab:resultados_experimentos} exibe as comparações obtidas a partir dos dados capturados.
-
+\pagebreak
 \begin{table}[htb!]
 \centering
 \scriptsize
@@ -1985,13 +2016,13 @@ A Tabela~\ref{tab:resultados_experimentos} exibe as comparações obtidas a part
 Fonte: O próprio autor.
 \end{table}
 
-A partir da Tabela~\ref{tab:resultados_experimentos}, podemos observar comportamentos aproximados, na qual respeitam as relações obtidas.
+A partir da Tabela~\ref{tab:resultados_experimentos}, pode-se observar comportamentos aproximados, respeitando as relações obtidas.
 %
-Tal tabela também exibe qual o valor mais otimizado, a partir do critério de tempo de resposta e consumo de recursos, ambos sendo minimizados.
+A Tabela~\ref{tab:resultados_experimentos} também exibe qual o valor mais otimizado, a partir do critério de tempo de resposta e consumo de recursos, ambos sendo minimizados.
 %
 Faz sentido simplificar os resultados obtidos, exibidos na Tabela~\ref{tab:resultados_experimentos}, justificando pelo funcionamento das arquiteturas.
 %
-A seguir, listamos as deduções obtidas:
+Considerações deduzidas:
 
 \begin{itemize}
  \item \textbf{Criar Conta} e \textbf{Criar Personagem} são operações que utilizam o mesmo fluxo e protocolo para persistência de dados no mesmo banco de dados. Ambos possuem o mesmo comportamento;
@@ -2003,7 +2034,7 @@ A seguir, listamos as deduções obtidas:
 A partir destas deduções, é possível simplificar a Tabela~\ref{tab:resultados_experimentos}.
 %
 A Tabela~\ref{tab:resultados_experimentos_simplificados} exibe os comportamentos obtidos de forma simplificada.
-
+\pagebreak
 
 \begin{table}[htb!]
 \centering
@@ -2031,9 +2062,8 @@ A Tabela~\ref{tab:resultados_experimentos_simplificados} exibe os comportamentos
 Fonte: O próprio autor.
 \end{table}
 
-A Tabela~\ref{tab:resultados_experimentos_simplificados} exibe a tabela simplificada.
 %
-A partir destes dados, conclui-se que:
+A partir da abela~\ref{tab:resultados_experimentos_simplificados} dados, podes-se concluir:
 
 \begin{itemize}
  \item \textbf{Operação de Sessão} é uma categoria de requisições que não compartilha características com outras operações;

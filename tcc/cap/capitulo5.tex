@@ -52,7 +52,7 @@ Neste sentido, foi levantado um conjunto de linguagens de programação, o qual 
 
 
 
-A partir destes critérios, a linguagem selecionada foi a linguagem Golang, por se tratar de uma linguagem a qual o autor possui domínio e satisfaz os critérios aqui listados.
+A partir destes critérios, a linguagem selecionada foi a linguagem GoLang, por se tratar de uma linguagem a qual o autor possui domínio e satisfaz os critérios aqui listados.
 %
 Outro critério, o qual é implícito para o desenvolvimento, é a homogeneidade da linguagem de programação em todos os microsserviços.
 %
@@ -393,6 +393,7 @@ A interconexão da arquitetura Willson pode ser visualizada na Figura~\ref{fig:i
   \includegraphics[width=0.8\textwidth]{figuras/interconexoes/willson.png}
   \centering
 
+  \vspace{-0.3cm}  
   Fonte: O próprio autor.
 \end{figure}
 
@@ -422,7 +423,7 @@ Em uma visão superficial, estas regiões provém do paradigma Cliente-Servidor,
 \begin{figure}[htb!]
   \caption{Cenário Cliente Servidor Genérico.}
   \label{fig:cenario_cliente_servidor}
-  \includegraphics[width=0.8\textwidth]{figuras/ambiente/cs.png}
+  \includegraphics[width=0.6\textwidth]{figuras/ambiente/cs.png}
   \centering
 
   Fonte: O próprio autor.
@@ -434,27 +435,24 @@ A Figura~\ref{fig:cenario_cliente_servidor} exibe um usuário que utiliza um cli
 %
 Este servidor pode ser uma ou mais máquinas físicas ou virtuais, utilizando múltiplos processos.
 %
-Em específico, para jogos \ac{mmorpg}, o cliente estará em uma rede diferente do servidor, visto que o objetivo do jogo é prover um mundo compartilhado.
-
-
+Em específico, para jogos \ac{mmorpg}, o cliente está em uma rede diferente do servidor, visto que o objetivo do jogo é prover um mundo compartilhado.
 
 A rede utilizada pelo cliente usualmente é uma rede \ac{lan}, a qual conecta-se pela Internet na rede do servidor.
 %
 Para os testes, tal rede possui características específicas para gerenciar a implantação dos clientes de forma automatizada, a qual será abordado na Subseção~\ref{sec:net_cliente}.
-
-
-
-
+%
 Neste contexto, há duas redes que separam os ambientes de microsserviços e serviços satélites destas aplicações.
 %
 Esta separação física é necessária nos testes para adicionar um limitador de transporte de dados e latência, tal qual ocorre em aplicações que executam em produção para a categoria de jogos \ac{mmorpg}.
 %
 Esta separação é visível na Figura~\ref{fig:net_completa}.
 
+  \vspace{-0.3cm}
 \begin{figure}[htb!]
-  \caption{Cenário Cliente Servidor Genérico.}
+  \caption{Ambiente de experimentação.}
+    \vspace{-0.3cm}
   \label{fig:net_completa}
-  \includegraphics[width=\textwidth]{figuras/ambiente/full.png}
+  \includegraphics[width=.9\textwidth]{figuras/ambiente/full.png}
   \centering
 
   Fonte: O próprio autor.
@@ -463,9 +461,7 @@ Esta separação é visível na Figura~\ref{fig:net_completa}.
 As redes do cliente e servidor, visíveis na Figura~\ref{fig:net_completa}, são implantadas em plataformas diferentes.
 %
 Os dados técnicos de cada rede são descritos nas Subseções~\ref{sec:net_server} e~\ref{sec:net_cliente}.
-
-
-
+%
 Nota-se que existe uma rede intermediária desempenhando o papel da separação física entre servidor e cliente.
 %
 No atual trabalho esta rede pertence ao \ac{dcc}.
@@ -489,9 +485,9 @@ Esta divisão pode ser visualizada na Figura~\ref{fig:network_server}
 
 
 \begin{figure}[htb!]
-  \caption{Sub-redes do servidor}
+  \caption{Sub-redes do servidor.}
   \label{fig:network_server}
-  \includegraphics[width=0.8\textwidth]{figuras/network/circles_only_networks.png}
+  \includegraphics[width=0.4\textwidth]{figuras/network/circles_only_networks.png}
   \centering
 
   Fonte: O próprio autor.
@@ -520,9 +516,10 @@ O escopo geral do OpenStack é visualizado na Figura~\ref{fig:arch_open_stack}.
 
 
 \begin{figure}[htb!]
-  \caption{Arquitetura abstraída do OpenStack}
+  \caption{Arquitetura abstraída do OpenStack.}
+    \vspace{-0.3cm}
   \label{fig:arch_open_stack}
-  \includegraphics[width=0.8\textwidth]{figuras/ambiente/openstack.png}
+  \includegraphics[width=0.6\textwidth]{figuras/ambiente/openstack.png}
   \centering
 
   Fonte: ~\cite{open_stack_bib}.
@@ -598,7 +595,7 @@ O esquema das máquinas virtuais está visível na Figura~\ref{fig:virtual_machi
 Conforme visível na Figura~\ref{fig:virtual_machines}, cada sub-rede possui uma única máquina virtual, sendo que esta executará um gerenciador de contêineres com os serviços necessários para a execução do servidor.
 %
 As máquinas virtuais por sua vez possuem configurações distintas e essas configurações são exibidas na Tabela~\ref{tab:configuracao_das_maquinas}.
-
+\pagebreak
 
 
 \begin{table}[htb!]
@@ -634,7 +631,7 @@ Este formato é específico para notação de dados legíveis a humanos.
 
 
 
-Entretanto, a rede do cliente interfere diretamente na execução dos experimentos, visto que possui características próprias.
+Contudo, a rede do cliente interfere diretamente na execução dos experimentos, visto que possui características próprias.
 %
 Nesse sentido, torna-se necessário a descrição da rede do cliente.
 
@@ -651,7 +648,7 @@ Os computadores utilizados possuem características próprias, as quais devem se
 O aglomerado computacional é composto por nove computadores.
 %
 Todos os computadores possuem 8 \textit{cores}, 16 GB de memória e 1TB de armazenamento.
-
+%
 Em especial, percebe-se que este aglomerado é composto por características homogenias.
 %
 Este ambiente foi montado com tais características para remover complexidade, evitando possíveis problemas de diferença de sistema operacional ou hardware.
@@ -681,7 +678,7 @@ Nesse sentido, a análise não exibirá tais gráficos, já que a única conclus
 Para realizar o teste com um número crescente de jogadores simultâneos foi utilizado um \textit{script} na linguagem Ruby na qual escala automaticamente um novo contêiner do cliente a cada 30 segundos, na rede de clientes.
 %
 Este comportamento produz uma progressão de carga linear, que é visível na Figura~\ref{fig:cliente_linear}.
-
+\pagebreak
 \begin{figure}[htb!]
   \caption{Quantidade de jogadores simultâneos cresce linearmente.}
   \label{fig:cliente_linear}
@@ -713,8 +710,8 @@ Este capítulo descreve a implementação e implantação das arquiteturas, leva
 %
 Para realizar tal descrição, é necessário citar tecnologias utilizadas e como são conectados.
 
-Durante o desenvolvimento da implantação, é utilizado a linguagem Golang, a qual permitiu o desenvolvimento de forma rápida e eficiente nas aplicações para este trabalho.
-
+Durante o desenvolvimento da implantação, é utilizado a linguagem GoLang, a qual permitiu o desenvolvimento de forma rápida e eficiente nas aplicações para este trabalho.
+%
 Esta escolha implica diretamente nas tecnologias utilizadas.
 %
 Dessa forma, faz sentido escolher tecnologias que combinem com os objetivos das arquiteturas.
@@ -745,4 +742,4 @@ para armazenamento das imagens, as quais são utilizadas para implantar sobre a 
 
 Para a execução dos testes, foi utilizado um \textit{script} para escalar contêineres de forma automática.
 %
-Dessa forma temos um comportamento linear, podendo utilizar tal comportamento como gráfico, auxiliando na análise.
+Dessa forma tem-se um comportamento linear, podendo utilizar tal comportamento como gráfico, auxiliando na análise.

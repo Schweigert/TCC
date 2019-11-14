@@ -89,7 +89,9 @@ Um conjunto exemplo destes problemas estão listados na Tabela~\ref{tab:problema
 \begin{table}[htb!]
   \centering
   \caption{Possíveis conjuntos para a análise.}
+  \vspace{-0.3cm}
   \label{tab:problemas}
+  \scriptsize
   \begin{tabular}{l|l|l|l|l|l||l}
   \hline \hline
   \multicolumn{6}{c|}{Recursos}                                                                      & \multirow{2}{*}{Descrição} \\ \cline{1-6}
@@ -112,13 +114,13 @@ Um conjunto exemplo destes problemas estão listados na Tabela~\ref{tab:problema
   Fonte: O próprio autor.
 \end{table}
 
+\vspace{-0.5cm}
 Não foram encontrados trabalhos para guiar a caracterização dos dados, sendo assim a caracterização foi definida genericamente.
 %
 Dessa forma, a linha de base para a caracterização é encontrada ao decorrer da análise, utilizando dos valores de testes com poucas conexões (nenhum cliente e um cliente), esperando que o serviço escale linearmente conforme o inicio do processo.
 %
 A linha de base definida é uma das contribuições para trabalhos futuros.
-
-
+%
 A Tabela~\ref{tab:problemas} relaciona os recursos conforme dois padrões:
 
 \begin{itemize}
@@ -155,14 +157,15 @@ A Figura~\ref{Ambiente de testes} descreve a infraestrutura utilizada para execu
 
 \begin{figure}[htb!]
   \caption{Ambiente de testes definido para a coleta de dados.}
+  \vspace{-0.3cm}
   \label{Ambiente de testes}
-  \includegraphics[width=0.8\textwidth]{img/cap3/infraestrutura.png}
+  \includegraphics[width=0.7\textwidth]{img/cap3/infraestrutura.png}
   \centering
 
   Fonte: O próprio autor.
 \end{figure}
 
-
+\pagebreak
 
 Como visível na Figura~\ref{Ambiente de testes}, o ambiente de testes planejado está organizado em quatro regiões.
 %
@@ -228,10 +231,12 @@ Esta divisão física em redes facilita a orquestração dos serviços na rede, 
 %
 Além disso, garante que a interface do serviço público para o cliente segue o padrão de um serviço \ac{mmorpg} real.
 
+  \vspace{-0.3cm}
 \begin{figure}[htb!]
   \caption{Rede de execução dos testes.}
+    \vspace{-0.3cm}
   \label{fig:cenario}
-  \includegraphics[width=\textwidth]{img/cap3/cenario.png}
+  \includegraphics[width=.8\textwidth]{img/cap3/cenario.png}
   \centering
 
   Fonte: O próprio autor.
@@ -427,7 +432,7 @@ Todas as ações do \textit{bot} no mapa são baseadas em um autômato.
 Sendo assim, obtêm-se um padrão de movimentação a fim de evitar ciclos que um jogador comum dificilmente realizará (\textit{e.g.,} Andar para frente e para trás, ficar equipando itens em ciclo, ficar consumindo itens até acabar, \textit{etc.}).
 %
 A movimentação do personagem segue o autômato descrito na Figura~\ref{fig:movimentacao}.
-
+\pagebreak
 
 \begin{figure}[htb!]
   \caption{Autômato de movimentação dos personagens automatizados.}

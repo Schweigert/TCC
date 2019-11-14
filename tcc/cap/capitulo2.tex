@@ -40,7 +40,7 @@ O jogo eletrônico, ou entretenimento interativo, é uma atividade intelectual q
 %
 Os jogos eletrônicos são aplicações convencionais, que executam sobre algum sistema operacional ou hardware apropriado a este fim.
 %
-O sistema operacional, hardware ou base de execução da aplicação gráfica define a sua plataforma (\textit{e.g.,} GNU/Linux, MS-Windows, Sony PS4, MS-XBox, web, etc.)~\cite{adams_1208533}.
+O sistema operacional, hardware ou base de execução da aplicação gráfica define a sua plataforma (\textit{e.g.,} GNU/Linux, MS-Windows, Sony PS4, MS-XBox, web, \textit{etc}.)~\cite{adams_1208533}.
 
 
 
@@ -137,7 +137,7 @@ Dentre vários gêneros, alguns utilizam popularmente algumas tecnologias de red
 A Tabela~\ref{tab:comunicacao_genero} indica a correlação de tecnologias de rede comuns nos gêneros, além de trazer a correlação de número de jogadores por gênero de jogo em seus serviços.
 %
 Essa correlação é importante para identificar as características referentes a jogabilidade com multijogadores~\cite{video_game_technologies}.
-
+\pagebreak
 
 \begin{table}[htb!]
 \centering
@@ -194,8 +194,8 @@ A principal característica desse estilo de jogo é a comunicação e representa
 
 Um jogo \ac{mmorpg} é arquitetado em três partes~\cite{mmo_analytic}:
 \begin{itemize}
-  \item \textbf{Cliente}: Aplicação que realiza as requisições com a interface do serviço, exibindo o estado de jogo de forma imersiva ao jogador. Este tema é melhor abordado na Subseção \ref{sec:cliente}.
-  \item \textbf{Servidor}: O computador, ou o conjunto de computadores, que recebe as requisições do cliente a fim de serem processadas pelo Serviço.
+  \item \textbf{Cliente}: Aplicação que realiza as requisições com a interface do serviço, exibindo o estado de jogo de forma imersiva ao jogador. Este tema é melhor abordado na Subseção~\ref{sec:cliente};
+  \item \textbf{Servidor}: O computador, ou o conjunto de computadores, que recebe as requisições do cliente a fim de serem processadas pelo Serviço; e
   \item \textbf{Serviço}: Implementa as regras de negócio e requisitos do jogo. O serviço disponibiliza uma interface com ações possíveis ao cliente sobre algum protocolo de rede. Este tema é abordado na Subseção~\ref{sec:microsservicos}.
 \end{itemize}
 
@@ -241,7 +241,7 @@ Fonte: Adaptado de ~\cite{LeckyThompson2008Nov}
 
 O sistema de autenticação visualizado na Figura~\ref{fig:autenticacao} é popularmente conhecido, porém não o único.
 %
-O jogo Realm of the Mad God\footnote{Realm of the Mad God: \url{https://www.realmofthemadgod.com/}} é um exemplo na qual não exige autenticação do usuário, entretanto ele não armazena em seu banco de dados o progresso do jogador ou permite açõe sociais caso o jogador não efetue a autenticação.
+O jogo Realm of the Mad God\footnote{Realm of the Mad God: \url{https://www.realmofthemadgod.com/}} é um exemplo na qual não exige autenticação do usuário, entretanto ele não armazena em seu banco de dados o progresso do jogador ou permite ações sociais caso o jogador não efetue a autenticação.
 
 
 Um método de autenticação popular é definido pela RFC7519~\cite{rfc7519}, com a tecnologia \ac{jwt}.
@@ -253,7 +253,7 @@ Após a autenticação, é comum existir um sistema para seleção de personagem
 %
 Efetuada a seleção ou criação de um personagem, o jogador será imerso no mundo compartilhado do jogo com os demais jogadores, na qual poderá controlar somente o seu personagem~\cite{matthiasrudy2011}.
 %
-Nos jogos \ac{mmorpg} é comum a restrição da visão do personagem (Figura~\ref{fig:proximidade}), ora pelas características de jogabilidade do gênero \ac{mmorpg} ora por motivos de desempenho e otimização.
+Nos jogos \ac{mmorpg} é comum a restrição da visão do personagem (Figura~\ref{fig:proximidade}), em certos momentos  pelas características de jogabilidade do gênero \ac{mmorpg} em outros por motivos de desempenho e otimização.
 %
 Como o jogador não precisa obter dados de regiões que não estão em sua área de interesse, visto que o mesmo só poderá controlar o personagem selecionado, dessa forma não há necessidade da transmissão de informações dos objetos que estão fora do contexto do personagem selecionado~\cite{albion_online_unite}.
 
@@ -523,12 +523,12 @@ Um microsserviço é definido pelas seguintes características~\cite{8169955}:
 
 
 \begin{itemize}
-  \item Deve possibilitar a implementação como uma peça individual do serviço.
-  \item Deve funcionar individualmente.
-  \item Cada microsserviço deve ter uma interface. Essa interface deve ser o suficiente para utilizar o microsserviço.
-  \item A interface deve estar disponível na rede para chamada de processamento remoto ou consulta de dados.
-  \item O microsserviço pode ser utilizado por qualquer linguagem de programação e/ou plataforma.
-  \item O microsserviço deve executar com as dependências mínimas.
+  \item Deve possibilitar a implementação como uma peça individual do serviço;
+  \item Deve funcionar individualmente;
+  \item Cada microsserviço deve ter uma interface. Essa interface deve ser o suficiente para utilizar o microsserviço;
+  \item A interface deve estar disponível na rede para chamada de processamento remoto ou consulta de dados;
+  \item O microsserviço pode ser utilizado por qualquer linguagem de programação e/ou plataforma;
+  \item O microsserviço deve executar com as dependências mínimas; e
   \item Ao agregar vários microsserviços, o serviço resultante poderá prover funcionalidades complexas.
 \end{itemize}
 
@@ -605,7 +605,7 @@ A separação de um serviço \ac{mmorpg} pode ser dada seguindo este padrão de 
 
 \begin{enumerate}
   \item \textit{Model}: Representa qualquer dado presente no jogo (\textit{e.g.,} itens, personagens, \acp{npc}, objetivos, etc.).
-  \item \textit{View}: Representa o modo a qual estes dados são exibidos, do ponto de vista de redes (\textit{e.g.,} O mapa será exibido somente na área de interesse do jogador, no formato \ac{json}).
+  \item \textit{View}: Representa o modo a qual estes dados são exibidos, do ponto de vista de redes (\textit{e.g.,} o mapa será exibido somente na área de interesse do jogador, no formato \ac{json}).
   \item \textit{Controller}: Representa as operações sobre modelos que são requiridos pelos jogadores (\textit{e.g.,} andar, pegar item, interagir com \acp{npc}, etc.).
 \end{enumerate}
 
@@ -664,7 +664,7 @@ Já para operações \ac{crud}, pode-se utilizar tanto requisições sobre o pro
 
 Dado um serviço que não é implementado sobre uma arquitetura de microsserviços, a utilização de dois protocolos irá complicar o gerenciamento de \textit{threads} para responder de duas formas diferentes, entretanto o seu esquema de estados ficará simplificado.
 %
-Esta simplificação pode ser visualizada na figura~\ref{fig:network_crud_rpc}.
+Esta simplificação pode ser visualizada na Figura~\ref{fig:network_crud_rpc}.
 
 
 \begin{figure}[htb!]
@@ -678,7 +678,7 @@ Fonte: Adaptado de~\cite{LeckyThompson2008Nov}
 
 Entretanto, diferente da Figura~\ref{fig:network_crud_rpc}, a fim de simplificar a complexidade da implementação e gerenciamento de concorrência no serviço, pode-se implementar utilizando o paradigma de microsserviços.
 %
-Como relatado na Seção~\ref{sec:microsservicos}, uma arquitetura de microsserviços permite múltiplas tecnologias, pois a comunicação entre todos os elementos de um microsserviço será pela rede.
+Como relatado na Subseção~\ref{sec:microsservicos}, uma arquitetura de microsserviços permite múltiplas tecnologias, pois a comunicação entre todos os elementos de um microsserviço será pela rede.
 %
 Por esse motivo, é possível utilizar um serviço web para realizar operações \ac{crud} e um serviço dedicado para realizar operações \ac{rpc}.
 %
@@ -915,7 +915,7 @@ As entradas e saídas de mensagens(\textit{e.g.,} rede, Banco de dados, \textit{
 %
 Todos os demais microsserviços operam sobre múltiplos processos, a partir do processo de conexão \ac{tcp} ao serviço~\cite{salz_albion}.
 %
-Diferente da arquitetura Rudy(Seção ~\ref{rudy}) a qual prioriza a resolução de requisições, evitando a executar métodos consecutivos da mesma conexão, na arquitetura Salz (Figura~\ref{full_salz}) as chamadas de processo remoto são executadas em ordem \ac{fifo}~\cite{salz_albion}.
+Diferente da arquitetura Rudy(Subseção~\ref{rudy}) a qual prioriza a resolução de requisições, evitando a executar métodos consecutivos da mesma conexão, na arquitetura Salz (Figura~\ref{full_salz}) as chamadas de processo remoto são executadas em ordem \ac{fifo}~\cite{salz_albion}.
 %
 Desta forma, quanto melhor a conexão com o serviço, mais requisições um cliente poderá executar.
 %
@@ -956,7 +956,7 @@ Essa arquitetura pode ser visualizada na Figura~\ref{full_willson}.
 \end{figure}
 
 
-A arquitetura Willson, exibido na Figura~\ref{full_willson}, mostra um gradual entre a arquitetura Rudy (Figura~\ref{full_rudy}) e a arquitetura Salz (Figura~\ref{full_salz}), propondo uma arquitetura híbrida, na qual divide funcionalidades em outros microsserviços, porém ainda mantem diversas funcionalidade junto ao serviço de jogo evitando consumo de rede~\cite{albion_online_unite, willson}.
+A arquitetura Willson, exibido na Figura~\ref{full_willson}, mostra um gradual entre a arquitetura Rudy (Figura~\ref{full_rudy}) e a arquitetura Salz (Figura~\ref{full_salz}), propondo uma arquitetura híbrida, na qual divide funcionalidades em outros microsserviços, porém ainda mantém diversas funcionalidade junto ao serviço de jogo evitando consumo de rede~\cite{albion_online_unite, willson}.
 %
 Essa abordagem garante menor latência de resposta, porém terá maior consumo de recursos da mesma máquina hospedeira do serviço~\cite{willson}.
 %
@@ -987,7 +987,7 @@ O número padrão de processos paralelos para processamento de requisições é 
 %
 Essa troca de contexto trás variação na latência da resposta do serviço, a qual não tem controle pelo próprio serviço.
 %
-Nesse sentido, a melhor escolha é o número de núcleos menos um, escolhido após um teste de \textit{stress}, definido no Subcapítulo~\ref{willson}.
+Nesse sentido, a melhor escolha é o número de núcleos menos um, escolhido após um teste de \textit{stress}, definido na Subseção~\ref{willson}.
 
 
 

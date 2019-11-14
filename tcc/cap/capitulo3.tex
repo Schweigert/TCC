@@ -13,9 +13,7 @@ Para encontrar os trabalhos relacionados, foi efetuada uma busca pelos termos \a
 Entretanto, os dois termos dificilmente se correlacionam nos meios de busca disponíveis para a elaboração deste TCC.
 %
 Nesse sentido, os trabalhos relacionados abordam arquiteturas de jogos \ac{mmorpg} ou arquiteturas de microsserviços, em buscas separadas.
-
-
-
+%
 Como critério de análise, foi observado em questão qual a classificação em que o trabalho encontra-se, entre previsão de carga ou análise de arquitetura, e quais métricas são utilizadas na análise.
 
 \section{Huang et al. (2004)}
@@ -32,9 +30,10 @@ O foco de análise é o \textit{Proxy Server}, um serviço especificado em receb
 
 
 \begin{figure}[htb!]
-\caption{Arquitetura distribuída utilizando proxy.}
+\caption{Arquitetura distribuída utilizando \textit{proxy}.}
+\vspace{-0.3cm}
 \label{fig:game_with_proxy}
-\includegraphics[width=\textwidth]{img/cap2/game_with_proxy.png}
+\includegraphics[width=.7\textwidth]{img/cap2/game_with_proxy.png}
 \centering
 
 Adaptado de:~\cite{1417630}.
@@ -53,9 +52,10 @@ A sua arquitetura pode ser observada na Figura \ref{fig:game_with_proxy}, na qua
 A Figura \ref{fig:players_peer_time} demonstra uma amostra do número de conexões pelo tempo no serviço obtido.
 
 
-
+\vspace{-0.2cm}
 \begin{figure}[htb!]
 \caption{Número de conexões no serviço pelo tempo decorrido.}
+\vspace{-0.4cm}
 \label{fig:players_peer_time}
 \includegraphics[width=\textwidth]{img/cap2/players_peer_time.png}
 \centering
@@ -64,7 +64,7 @@ Fonte:~\cite{1417630}.
 \end{figure}
 
 
-
+\vspace{-0.3cm}
 Como análise, o autor correlacionou o número de conexões com número de pacotes e banda, consumidos, utilizando uma função estatística linear.
 %
 Esta função pode ser utilizada com regressão linear para prever consumo de recursos futuros e por fim realocar mais recursos ao serviço, contribuindo com escalabilidade vertical autônoma.
@@ -72,11 +72,12 @@ Esta função pode ser utilizada com regressão linear para prever consumo de re
 Um exemplo de aplicação dessa regressão linear pode ser visualizada na Figura~\ref{fig:regressao_bytes}, no qual o autor compara o consumo de banda real comparado a regressão linear.
 
 
-
+\vspace{-0.2cm}
 \begin{figure}[htb!]
 \caption{Regressão linear comparado ao consumo de banda real do servidor.}
+\vspace{-0.4cm}
 \label{fig:regressao_bytes}
-\includegraphics[width=\textwidth]{img/cap2/regressao.png}
+\includegraphics[width=.6\textwidth]{img/cap2/regressao.png}
 \centering
 
 Fonte:~\cite{1417630}
@@ -102,14 +103,6 @@ Para isso, o autor preparou três instâncias de testes com suas configurações
 
 
 
-\begin{figure}[htb!]
-\caption{Arquitetura monolítica web implementada na \ac{aws}.}
-\label{fig:aws_monolitico}
-\includegraphics[width=\textwidth]{img/cap2/aws_monolitico.png}
-\centering
-
-Fonte:~\cite{7515686}
-\end{figure}
 
 
 \textbf{Instância I.} Utilizando quatro instâncias \ac{aws} \textit{c4.large}, uma instância \ac{aws} \textit{c4.xlarge} e uma instância \ac{aws} \textit{db.m3.medium}.
@@ -119,7 +112,22 @@ A Figura~\ref{fig:aws_monolitico} exibe a implantação de uma aplicação web m
 Essa arquitetura foi implementada utilizando \textit{Jax-RS} e \textit{Play Framework}.
 
 
+\begin{figure}[htb!]
+\caption{Arquitetura monolítica web implementada na \ac{aws}.}
+\vspace{-0.5cm}
+\label{fig:aws_monolitico}
+\includegraphics[width=.8\textwidth]{img/cap2/aws_monolitico.png}
+\centering
 
+Fonte:~\cite{7515686}
+\end{figure}
+
+
+
+
+\textbf{Instância II.} Utilizando três instâncias \ac{aws} \textit{c4.xlarge}, uma instância \ac{aws} \textit{t2.small} e uma instância \ac{aws} \textit{db.m3.medium}.
+%
+A Figura~\ref{fig:aws_microsservicos} exibe a implantação de uma aplicação de microsserviços web. Essa arquitetura foi implementada utilizando \textit{Play Framework}, framework para desenvolvimento web para a linguagem Java e Scala~\footnote{Play Framework: \url{https://www.playframework.com/}}.
 
 \begin{figure}[htb!]
 \caption{Arquitetura de microsserviços web implementada na \ac{aws}.}
@@ -130,11 +138,14 @@ Essa arquitetura foi implementada utilizando \textit{Jax-RS} e \textit{Play Fram
 Fonte:~\cite{7515686}
 \end{figure}
 
-\textbf{Instância II.} Utilizando três instâncias \ac{aws} \textit{c4.xlarge}, uma instância \ac{aws} \textit{t2.small} e uma instância \ac{aws} \textit{db.m3.medium}.
+
+
+
+
+\textbf{Instância III.} Utilizando duas instâncias \ac{aws} \textit{lambda S1}, duas instâncias \ac{aws} \textit{lambda S2}, uma instância \ac{aws} \textit{S3 Bucket} e uma instância \ac{aws} \textit{db.m3.medium}.
 %
-A Figura~\ref{fig:aws_microsservicos} exibe a implantação de uma aplicação de microsserviços web. Essa arquitetura foi implementada utilizando \textit{Play Framework}, framework para desenvolvimento web para a linguagem Java e Scala~\footnote{Play Framework: \url{https://www.playframework.com/}}.
-
-
+A Figura~\ref{fig:aws_lambda} exibe a implantação de uma aplicação de microsserviços web utilizando a tecnologia \ac{aws} \textit{lambda}. Essa arquitetura foi implementada utilizando o \textit{framework} \textit{Node.js}\footnote{Node.js: \url{https://nodejs.org/en/}}, nas quais as funções de \textit{gateway} são implementadas em quatro funções independentes do tipo \textit{microservice-http-endpoint}.
+\pagebreak
 
 \begin{figure}[htb!]
 \caption{Arquitetura de microsserviços web implementada na \ac{aws} utilizando a tecnologia \textit{lambda}.}
@@ -145,28 +156,21 @@ A Figura~\ref{fig:aws_microsservicos} exibe a implantação de uma aplicação d
 Fonte:~\cite{7515686}
 \end{figure}
 
-\textbf{Instância III.} Utilizando duas instâncias \ac{aws} \textit{lambda S1}, duas instâncias \ac{aws} \textit{lambda S2}, uma instância \ac{aws} \textit{S3 Bucket} e uma instância \ac{aws} \textit{db.m3.medium}.
-%
-A Figura~\ref{fig:aws_lambda} exibe a implantação de uma aplicação de microsserviços web utilizando a tecnologia \ac{aws} \textit{lambda}. Essa arquitetura foi implementada utilizando o \textit{framework} \textit{Node.js}\footnote{Node.js: \url{https://nodejs.org/en/}}, nas quais as funções de \textit{gateway} são implementadas em quatro funções independentes do tipo \textit{microservice-http-endpoint}.
-
-
-
-\begin{figure}[htb!]
-\caption{Custo por um milhão de requisições em dólares utilizando diferentes arquiteturas sobre a \ac{aws}.}
-\label{fig:custo_aws}
-\includegraphics[width=\textwidth]{img/cap2/custo_aws.png}
-\centering
-
-Fonte:~\cite{7515686}
-\end{figure}
-
-
 
 Foi concluído que a arquitetura de microsserviços, nas condições desta aplicação, podem reduzir até 13.42\% em gastos com a infraestrutura.
 %
 Essa redução pode ser observada na Figura~\ref{fig:custo_aws}.
 %
 O autor alerta sobre tolerância a falhas, transações distribuídas, distribuição de dados e controle de versões de serviço.
+
+\begin{figure}[htb!]
+\caption{Custo por um milhão de requisições em dólares utilizando diferentes arquiteturas sobre a \ac{aws}.}
+\label{fig:custo_aws}
+\includegraphics[width=.8\textwidth]{img/cap2/custo_aws.png}
+\centering
+
+Fonte:~\cite{7515686}
+\end{figure}
 
 
 \section{Suznjevic e Matijasevic (2012)}
@@ -211,6 +215,9 @@ Os contextos analisados nessa tabela são:
   \item \textit{Raiding}: Representa um contexto específico de exploração, na qual múltiplos jogadores unem forças a fim de combater outro grupo de jogadores ou \acp{npc}.
 \end{itemize}
 
+A abordagem utilizou as complexidades das ações, o número de conexões e o contexto de cada personagem no ambiente para predizer a banda utilizada.
+%
+Pode-se visualizar uma regressão na Figura~\ref{fig:regressao_complexidade}.
 
 \begin{figure}[htb!]
 \caption{Regressão levando em conta a complexidade das ações e contexto dos personagens.}
@@ -222,9 +229,7 @@ Fonte:~\cite{6374456}
 \end{figure}
 
 
-A abordagem utilizou as complexidades das ações, o número de conexões e o contexto de cada personagem no ambiente para predizer a banda utilizada.
-%
-Pode-se visualizar uma regressão na Figura~\ref{fig:regressao_complexidade}.
+
 
 
 
@@ -336,6 +341,6 @@ Nesse sentido, tais trabalhos relacionados não realizam uma intercessão entre 
 %
 Também foi identificado as métricas a qual estes trabalhos analisaram.
 %
-Nesse sentido, o atual trabalho análisa sobre as mesmas métricas, entretanto completando com métricas que são de interesse para analisar pontos de falha em tais arquiteturas.
+Nesse sentido, o atual trabalho analisa sobre as mesmas métricas, entretanto completando com métricas que são de interesse para analisar pontos de falha em tais arquiteturas.
 
 Por fim, foi apresentado trabalhos relacionados a qual guiaram os moldes do plano de testes e este trabalho, porém utiliza ambos os temas de arquiteturas de microsserviços e jogos \ac{mmorpg}, realizando uma análise com mais características sobre o serviço do jogo.
