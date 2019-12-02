@@ -259,11 +259,11 @@ A operação de iniciar sessão é efetuada sobre o protocolo \ac{tcp}/\ac{rpc}.
 %
 Nesta operação, o cliente envia um formulário em formato \ac{gob} com informações básicas comuns em jogos \ac{mmorpg} para uma instância de personagem e dados de autenticação da conta.
 %
-Os dados são validados e o serviço retorna um dado assinado e armazenado, esse dados garante a singularidade da sessão da conta.
+Os dados são validados e o serviço retorna um dado assinado e armazenado, esse dados garantem a singularidade da sessão da conta.
 
 Tal qual as análises realizadas sobre as operações Criar Conta (Subseção~\ref{sec:op_create_account}) e Criar Personagem (Subseção~\ref{sec:op_create_char}), a Figura~\ref{fig:start_session_request_time} exibe o tempo de requisições que foram realizadas somente uma vez por cliente.
 %
-Os dados capturados mostram que o tempo de resposta segue uma tenência linear conforme o crescimento dos jogadores, diferente das outras operações.
+Os dados capturados mostram que o tempo de resposta segue uma tendência linear conforme o crescimento dos jogadores, diferente das outras operações.
 
 \begin{figure}[htb!]
   \caption{Tempo de resposta para iniciar sessões.}
@@ -1037,7 +1037,7 @@ Torna-se notório que tal sequência respeita a ordem de interconexões dos micr
 %
 Nesse sentido, a arquitetura Salz possui mais conexões que a arquitetura Rudy, que possui mais conexões que a arquitetura Willson.
 
-Nota-se que possuir um consumo de \ac{cpu} maior que outra arquitetura não implica em ser uma arquitetura melhor.
+Nota-se que possuir um consumo de \ac{cpu} menor que outra arquitetura não implica em ser uma arquitetura melhor.
 %
 Pode-se encontrar dois casos para um consumo de \ac{cpu} menor ao comparar duas arquiteturas:
 
@@ -2100,7 +2100,6 @@ Os comportamentos observados são:
 \begin{itemize}
  \item Operações Web: A arquitetura Willson mostrou o menor tempo de resposta justificado por uma melhor ocupação de \ac{cpu} e conexão direta ao banco de dados;
  \item Operação de Sessão: A arquitetura Salz mostrou o menor tempo de resposta justificado por fornecer o microsserviço de autenticação de forma pública para conexão pelo cliente, diminuindo a cadeia de conexões necessárias para realizar a autenticação no serviço;
- \item Operações de Mundo: A arquitetura Willson mostrou o menor tempo de resposta justificado por um melhor aproveitamento de \ac{cpu};
  \item Operações do Mundo: A arquitetura Willson mostrou o menor tempo de resposta justificado por um melhor aproveitamento de \ac{cpu}; e
  \item Operações de Chat: A arquitetura Willson mostrou o menor tempo de resposta justificado por um melhor aproveitamento de \ac{cpu};
 \end{itemize}

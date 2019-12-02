@@ -311,7 +311,7 @@ Clientes                          & 10.101.*.* / 255.255.0.0 & 20          & 1TB
 Fonte: O próprio autor.
 \end{table}
 
-A partir da Tabela~\ref{tab:limite_recursos}, defini-se um limite de recursos máximos utilizados pelo Serviço de Jogo.
+A partir da Tabela~\ref{tab:limite_recursos}, limita-se os recursos máximos utilizados pelo Serviço de Jogo.
 %
 A única rede que pode variar suas características conforme o teste é a rede Clientes, visto que a demanda para estressar o serviço pode mudar conforme as características do teste e arquitetura utilizada.
 
@@ -326,7 +326,7 @@ Nesse sentido, uma definição das características mínimas de regra de negóci
 
 
 
-Utilizando a automatização de clientes para estressar as arquiteturas utilizando um ataque com \textit{bots}.
+Utiliza-se a automatização de clientes para estressar as arquiteturas utilizando um ataque com \textit{bots}.
 %
 Neste cenário, para padronizar a coleta de dados, todos os \textit{bots} têm a mesma rotina evitando assim um comportamento aleatório, a qual pode descaracterizar os dados obtidos para análise.
 
@@ -508,7 +508,7 @@ Para alcançar tais objetivos, se fez necessário definir quais métricas são o
 %
 Por fim, definiu-se qual o ambiente, cenário e testes que são executados para obter tais dados.
 
-Dessa forma, foi definido que é obtido os valores de uso de \ac{cpu}, memória, vazão de rede (tanto para entrada quanto saída), número de conexões simultâneas e tempo de resposta das requisições.
+Dessa forma, foi definido que são obtidos os valores de uso de \ac{cpu}, memória, vazão de rede (tanto para entrada quanto saída), número de conexões simultâneas e tempo de resposta das requisições.
 %
 Estes valores são analisados conforme possíveis problemas conhecidos, definidos na seção de critérios (Seção~\ref{sec:criterios}).
 
@@ -516,7 +516,7 @@ A fim de obter tais valores para análise, o plano de testes definiu um ambiente
 %
 Foram projetadas cinco sub-redes no cenário de testes baseado nas regiões definidas no ambiente de testes.
 %
-A partir destas sub-redes, foi estipulado valores de recursos computacionais limites e números de instâncias máximas.
+A partir destas sub-redes, foram estipulados valores de recursos computacionais limites e números de instâncias máximas.
 %
 Entretanto, não foi possível definir o limite de instâncias para a sub-rede de estresse, visto que não foi encontrado estudos anteriores para ter uma linha base de consumo de recursos.
 %
